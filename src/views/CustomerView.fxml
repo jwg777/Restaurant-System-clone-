@@ -1,8 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="HOME">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="MENU">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="1.0" layoutY="-3.0" prefHeight="244.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="SPECIALS">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="144.0" prefWidth="414.0">
+                                       <children>
+                                          <Text layoutX="271.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DISHES">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="STARTERS">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                              <Tab text="MAINS">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                              </Tab>
+                              <Tab text="SIDES">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                              </Tab>
+                              <Tab text="DESERTS">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                              </Tab>
+                              <Tab text="DRINKS">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="175.0" prefWidth="600.0" />
+                                </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                        <Line endX="368.0" layoutX="233.0" layoutY="241.0" startX="-232.0" />
+                        <ScrollPane layoutY="242.0" prefHeight="100.0" prefWidth="360.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="289.0" prefWidth="348.0">
+                                 <children>
+                                    <Text layoutX="100.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDER SUMMARY">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <Button layoutX="386.0" layoutY="253.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="88.0" text="Place Order" />
+                        <Button layoutX="489.0" layoutY="253.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="88.0" text="Cancel" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="INFO">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane prefHeight="219.0" prefWidth="600.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <Text layoutX="271.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="57.087890625">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Line endX="28.087890625" endY="-0.486328125" layoutX="296.0" layoutY="250.0" startX="-29.0" startY="-0.486328125" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="FEEDBACK">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="98.0" layoutY="126.0" mnemonicParsing="false" text="Submit review" />
+                        <Line endX="-100.0" endY="-137.0" layoutX="400.0" layoutY="138.0" startX="-100.0" startY="29.0" />
+                        <Line endX="299.0" layoutX="300.0" layoutY="167.0" startX="-301.0" />
+                        <ScrollPane layoutX="5.0" layoutY="230.0" prefHeight="127.0" prefWidth="588.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
+                        <Accordion />
+                        <Text layoutX="21.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="256.6874694824219">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <TextArea layoutX="14.0" layoutY="62.0" prefHeight="59.0" prefWidth="256.0" />
+                        <Text layoutX="198.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View a few of our great reviews!" wrappingWidth="201.09371948242188">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="399.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box" />
+                        <Button layoutX="404.0" layoutY="126.0" mnemonicParsing="false" text="Contact Us" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
 </AnchorPane>
-
