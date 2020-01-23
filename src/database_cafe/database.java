@@ -2,6 +2,10 @@ package database_cafe;
 
 import java.sql.*;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class database {
 
@@ -31,6 +35,30 @@ public class database {
             + " foreign key (dish) references Menu(dish) on delete cascade)");
     createTable(connection, "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
     createTable(connection, "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
+    File menuFile = new File("Menu");
+    String line = "";
+    BufferedReader br;
+    try {
+    	  br = new BufferedReader(new FileReader(menuFile));
+    	  line = br.readLine();
+    	  while(line != null) {
+    		String[] splitRead = line.split(">");
+    		line = "'";
+    		for(int i = 0; i < splitRead.length; i++) {
+    	      if(i == 0) {
+    		    line += splitRead[i];
+    	      } else {
+    	        line += "', '" + splitRead[i];
+    	      }
+    		}
+    		line += "'";
+    		insertIntoTable(connection, "Menu", "", line);
+    	    line = br.readLine();
+    	  }
+    	} catch (Exception e) {
+    	  e.printStackTrace();
+    	}
+    ViewMenu(connection);
   }
 
   public static Connection connectToDatabase(String user, String password, String database) {
@@ -62,6 +90,53 @@ public class database {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+  
+  public static void insertIntoTable(Connection connection, String tableName, String attributes, String values) {
+    Statement st = null;
+    try {
+      st = connection.createStatement();
+      if(attributes == "") {
+        st.execute("INSERT INTO " + tableName + " VALUES (" + values + ");");
+      } else {
+        st.execute("INSERT INTO " + tableName + "(" + attributes + ") VALUES (" + values + ");");
+      }
+      st.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  public static ResultSet Select(Connection connection, String query) {
+    Statement st = null;
+    ResultSet rs = null;
+    try {
+      st = connection.createStatement();
+      rs = st.executeQuery(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return rs;
+  }
+  
+  public static void ViewMenu(Connection connection) {
+    System.out.println("~~~~~~~~~~~~~~~~~Menu~~~~~~~~~~~~~~~~");
+    String query = "SELECT * " +
+                   "FROM Menu ";
+    ResultSet rs = Select(connection, query);
+    try {
+		while(rs.next()) {
+		  for(int i = 1; i < 4; i++) {
+			if(i == 2) {
+			  System.out.print("£");
+			}
+		    System.out.print(rs.getString(i) + " ");
+		  }
+		  System.out.println("");
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
   }
 
 }
