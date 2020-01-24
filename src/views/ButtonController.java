@@ -1,52 +1,50 @@
 package views;
 
+import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public final class ButtonController {
-	
+
 	private static ButtonController instance = null;
-	Stage stage;
-	
+
+	private Stage stage;
+
 	public static ButtonController getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new ButtonController();
 		}
 		return instance;
 	}
-	
+
 	private ButtonController() {
 	}
-	
+
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-	
 
-	public void startCustomer() throws Exception{
-		Parent customerViewParent = FXMLLoader.load(getClass().getResource("CustomerView.fxml"));
-		Scene customerScene = new Scene(customerViewParent);
-		stage.setTitle("Oaxaca Customer View");
-		stage.setScene(customerScene);
+	private void sceneChange(String fxmlFile, String title) throws IOException {
+		Parent parent = FXMLLoader.load(getClass().getResource(fxmlFile));
+		Scene scene = new Scene(parent);
+		stage.setTitle(title);
+		stage.setScene(scene);
 		stage.show();
 	}
-	
-	public void startMain() throws Exception {
-	    Parent root = FXMLLoader.load(getClass().getResource("MainView.fxml"));
-	    Scene mainScene = new Scene(root, 362, 213);
-	    stage.setTitle("Oaxaca Management System");
-	    stage.setScene(mainScene);
-	    stage.show();
+
+	public void startCustomer() throws IOException {
+		sceneChange("CustomerView.fxml", "Oaxaca Customer View");
 	}
-	
-    public void startLogin() throws Exception {
-      Parent loginParent = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
-      Scene loginScene = new Scene(loginParent, 290, 235);
-      stage.setTitle("Oaxaca Staff Login");
-      stage.setScene(loginScene);
-      stage.show();
-    }
-    
+
+	public void startMain() throws IOException {
+		sceneChange("MainView.fxml", "Oaxaca Management System");
+	}
+
+	public void startLogin() throws IOException {
+		sceneChange("LoginView.fxml", "Oaxaca Staff Login");
+	}
+
 }

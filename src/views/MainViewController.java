@@ -2,20 +2,18 @@ package views;
 
 import javafx.fxml.FXML;
 
-public class MainViewController{
-	
+public class MainViewController {
+
 	ButtonController butController = ButtonController.getInstance();
-	
+
 	@FXML
-	private void customerPush() throws Exception{
-		System.out.println("Customer Pushed");
+	private void customerPush() throws Exception {
 		butController.startCustomer();
 	}
-	
+
 	@FXML
 	private void loginPush() throws Exception {
-	    System.out.println("Login Pushed");
-	    butController.startLogin();
+		butController.startLogin();
 	}
 
 }
