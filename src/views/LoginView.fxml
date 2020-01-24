@@ -20,5 +20,6 @@
       <PasswordField fx:id="passwordField" layoutX="101.0" layoutY="111.0" />
       <Button layoutX="68.0" layoutY="169.0" mnemonicParsing="false" onAction="#loginSelected" prefHeight="43.0" prefWidth="79.0" text="Log In" />
       <Button layoutX="159.0" layoutY="169.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="43.0" prefWidth="62.0" text="Return to Menu" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" />
+      <Text fx:id="errorMessage" fill="RED" layoutX="17.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username/Password is incorrect. Please try again." textAlignment="CENTER" visible="false" />
    </children>
 </AnchorPane>

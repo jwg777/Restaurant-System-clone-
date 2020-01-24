@@ -46,5 +46,9 @@ public final class ButtonController {
 	public void startLogin() throws IOException {
 		sceneChange("LoginView.fxml", "Oaxaca Staff Login");
 	}
+	
+	public void startWaiter() throws IOException {
+	    sceneChange("WaiterView.fxml", "Oaxaca Waiter View");
+	}
 
 }
