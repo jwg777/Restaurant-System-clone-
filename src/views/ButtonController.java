@@ -41,5 +41,12 @@ public final class ButtonController {
 	    stage.show();
 	}
 	
-
+    public void startLogin() throws Exception {
+      Parent loginParent = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+      Scene loginScene = new Scene(loginParent, 290, 235);
+      stage.setTitle("Oaxaca Staff Login");
+      stage.setScene(loginScene);
+      stage.show();
+    }
+    
 }

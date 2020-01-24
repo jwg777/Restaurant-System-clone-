@@ -11,5 +11,11 @@ public class MainViewController{
 		System.out.println("Customer Pushed");
 		butController.startCustomer();
 	}
+	
+	@FXML
+	private void loginPush() throws Exception {
+	    System.out.println("Login Pushed");
+	    butController.startLogin();
+	}
 
 }
