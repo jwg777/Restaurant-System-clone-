@@ -4,15 +4,15 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * The Class Main.
+ * Main class to startup the application.
  */
 public class Main extends Application {
 	
-  /** The controller. */
+  /** The button controller. */
   static ButtonController controller = ButtonController.getInstance();
 
   /**
-   * Start.
+   * Prepares the main menu view for startup.
    *
    * @param stage the stage
    * @throws Exception the exception
@@ -25,7 +25,7 @@ public class Main extends Application {
   }
 
   /**
-   * The main method.
+   * Launches the application.
    *
    * @param args the arguments
    */
