@@ -11,18 +11,34 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CustomerViewController.
+ */
 public class CustomerViewController {
 
+	/** The but controller. */
 	ButtonController butController = ButtonController.getInstance();
 	
+	/** The vbox starter. */
 	@FXML
 	VBox vboxStarter = new VBox();
 
+	/**
+	 * Return push.
+	 *
+	 * @throws Exception the exception
+	 */
 	@FXML
 	private void returnPush() throws Exception {
 		butController.startMain();
 	}
 	
+/**
+ * Reload push.
+ *
+ * @throws Exception the exception
+ */
 /*
  * Test reload button to refresh starter menu
  */
@@ -52,8 +68,9 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * 
-	 * @param consumables
+	 * Adds the V box elements.
+	 *
+	 * @param consumables the consumables
 	 */
 	public void addVBoxElements(ArrayList<Consumable> consumables) {
 		for (Consumable consumable : consumables) {
@@ -72,9 +89,10 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * 
-	 * @param name
-	 * @return
+	 * Initialise button.
+	 *
+	 * @param name the name
+	 * @return the stack pane
 	 */
 	private StackPane initialiseButton(String name) {
 		StackPane sPane = new StackPane(); // Stack pane to centre button
@@ -86,8 +104,9 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Initialise gap.
+	 *
+	 * @return the pane
 	 */
 	private Pane initialiseGap() {
 		Pane gap = new Pane();
@@ -96,11 +115,12 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * 
-	 * @param name
-	 * @param width
-	 * @param height
-	 * @return
+	 * Initialise label.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 * @return the label
 	 */
 	private Label initialiseLabel(String name, double width, double height) {
 		Label label = new Label(name);
