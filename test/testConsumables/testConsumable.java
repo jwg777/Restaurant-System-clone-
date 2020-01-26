@@ -33,7 +33,7 @@ public class testConsumable {
 	}
 
 	@Test
-	public void testConstructor() {
+	public void testConstructor1() {
 		Consumable consumable = new Consumable("ChakDesert", 20.20f, unsortedIngredients);
 		assertEquals("Failed to get name", "ChakDesert", consumable.getName());
 		assertEquals("Failed to get price", 20.20f, consumable.getPrice(), 0.001);
@@ -41,7 +41,7 @@ public class testConsumable {
 	}
 
 	@Test
-	public void testNewConstructor() {
+	public void testConstructor2() {
 		Consumable consumable = new Consumable("ASDF");
 		assertEquals("Failed to get get name", "ASDF", consumable.getName());
 		assertEquals("Failed to get correct price", 0, consumable.getPrice(), 0.001);
@@ -54,7 +54,7 @@ public class testConsumable {
 		assertTrue("Failed to get default availability", temp.isAvailable());
 		assertFalse("Failed to get default isSpecial", temp.isSpecial());
 	}
-	
+
 	@Test
 	public void testSetters() {
 		Consumable temp = new Consumable("test1");
@@ -64,6 +64,14 @@ public class testConsumable {
 		assertFalse("Failed to get default isSpecial", temp.isSpecial());
 		temp.setSpecial(true);
 		assertTrue("Failed to get default isSpecial", temp.isSpecial());
+	}
+
+	@Test
+	public void testConstructor3() {
+		Consumable consumable = new Consumable("Apple", 100);
+		assertEquals("Failed to get get name", "Apple", consumable.getName());
+		assertEquals("Failed to get correct price", 100, consumable.getPrice(), 0.001);
+		assertTrue("Failed to create empty ingredients list", consumable.getIngredients().isEmpty());
 	}
 
 }

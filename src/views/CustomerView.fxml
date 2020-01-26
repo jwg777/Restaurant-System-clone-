@@ -41,19 +41,19 @@
                             </Tab>
                             <Tab text="STARTERS">
                                  <content>
-                                    <ScrollPane fx:id="startersScroll" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                                        <content>
-                                          <AnchorPane prefWidth="600.0">
+                                          <AnchorPane>
                                              <children>
-                                                <VBox prefWidth="600.0">
+                                                <VBox fx:id="vboxStarter" prefWidth="580.0">
                                                    <children>
                                                       <HBox prefHeight="50.0">
                                                          <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
+                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
                                                             <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
+                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
                                                             <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
+                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
                                                             <StackPane prefHeight="50.0" prefWidth="50.0">
                                                                <children>
                                                                   <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
@@ -327,6 +327,7 @@
                               <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
                            </children>
                         </AnchorPane>
+                        <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#reloadPush" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>
             </content>
