@@ -11,21 +11,20 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class CustomerViewController.
+ * Controller for the customer view.
  */
 public class CustomerViewController {
 
 	/** The but controller. */
 	ButtonController butController = ButtonController.getInstance();
 	
-	/** The vbox starter. */
+	/** A VBox containing the starters in the menu. */
 	@FXML
 	VBox vboxStarter = new VBox();
 
 	/**
-	 * Return push.
+	 * When the 'Back to main menu' button is pressed, return to the main menu.
 	 *
 	 * @throws Exception the exception
 	 */
@@ -35,7 +34,7 @@ public class CustomerViewController {
 	}
 	
 /**
- * Reload push.
+ * When the reload button is pressed, refresh the starters menu with any new changes applied.
  *
  * @throws Exception the exception
  */
@@ -68,7 +67,7 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * Adds the V box elements.
+	 * Adds items to the VBox, as well as buttons to add/remove the item from an order.
 	 *
 	 * @param consumables the consumables
 	 */
@@ -89,9 +88,9 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * Initialise button.
+	 * Creates a new button.
 	 *
-	 * @param name the name
+	 * @param name the text in the button
 	 * @return the stack pane
 	 */
 	private StackPane initialiseButton(String name) {
@@ -104,7 +103,7 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * Initialise gap.
+	 * Initialises a gap.
 	 *
 	 * @return the pane
 	 */
@@ -115,11 +114,11 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * Initialise label.
+	 * Initialises a text label.
 	 *
-	 * @param name the name
-	 * @param width the width
-	 * @param height the height
+	 * @param name the text in the label
+	 * @param width the width of the label
+	 * @param height the height of the label
 	 * @return the label
 	 */
 	private Label initialiseLabel(String name, double width, double height) {

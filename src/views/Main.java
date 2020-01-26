@@ -3,7 +3,6 @@ package views;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Main.
  */

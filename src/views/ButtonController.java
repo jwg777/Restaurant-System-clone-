@@ -7,13 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ButtonController.
+ * The Button Controller decides and handles the action taken when a button is pressed in the application.
  */
 public final class ButtonController {
 
-	/** The instance. */
+	/** The Singleton instance. */
 	private static ButtonController instance = null;
 
 	/** The stage. */
@@ -22,7 +21,7 @@ public final class ButtonController {
 	/**
 	 * Gets the single instance of ButtonController.
 	 *
-	 * @return single instance of ButtonController
+	 * @return the instance
 	 */
 	public static ButtonController getInstance() {
 		if (instance == null) {
@@ -38,7 +37,7 @@ public final class ButtonController {
 	}
 
 	/**
-	 * Sets the stage.
+	 * Changes the stage.
 	 *
 	 * @param stage the new stage
 	 */
@@ -47,10 +46,10 @@ public final class ButtonController {
 	}
 
 	/**
-	 * Scene change.
+	 * Changes the view currently being displayed in the application.
 	 *
-	 * @param fxmlFile the fxml file
-	 * @param title the title
+	 * @param fxmlFile the fxml file containing the view's design
+	 * @param title the title of the view, displayed at the top of the window
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void sceneChange(String fxmlFile, String title) throws IOException {
@@ -62,7 +61,7 @@ public final class ButtonController {
 	}
 
 	/**
-	 * Start customer.
+	 * Opens the customer view.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -71,7 +70,7 @@ public final class ButtonController {
 	}
 
 	/**
-	 * Start main.
+	 * Opens the main menu view.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -80,7 +79,7 @@ public final class ButtonController {
 	}
 
 	/**
-	 * Start login.
+	 * Opens the staff login view.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -89,7 +88,7 @@ public final class ButtonController {
 	}
 	
 	/**
-	 * Start waiter.
+	 * Opens the waiter view.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */

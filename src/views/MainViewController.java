@@ -2,17 +2,16 @@ package views;
 
 import javafx.fxml.FXML;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class MainViewController.
+ * Controller for the main menu view.
  */
 public class MainViewController {
 
-	/** The but controller. */
+	/** The button controller. */
 	ButtonController butController = ButtonController.getInstance();
 
 	/**
-	 * Customer push.
+	 * When the 'View Menu' button is pressed, go to the customer view.
 	 *
 	 * @throws Exception the exception
 	 */
@@ -22,7 +21,7 @@ public class MainViewController {
 	}
 
 	/**
-	 * Login push.
+	 * When the staff login button is pushed, go to the staff login view.
 	 *
 	 * @throws Exception the exception
 	 */

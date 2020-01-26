@@ -5,33 +5,32 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Consumable.
+ * Each dish that the restaurant offers will be represented by an object from this class.
  */
 public class Consumable implements Comparator {
 
-	/** The name. */
+	/** The name of the dish. */
 	private String name;
 	
-	/** The price. */
+	/** The price of the dish. */
 	private float price;
 	
-	/** The is available. */
+	/** Specifies whether or not the dish is currently available. */
 	private boolean isAvailable = true;
 	
-	/** The is special. */
+	/** Specifies whether or not the dish is a special. */
 	private boolean isSpecial = false;
 	
-	/** The ingredients. */
+	/** A list of ingredients required to make the dish. */
 	private List<String> ingredients;
 
 	/**
-	 * Instantiates a new consumable.
+	 * Instantiates a new consumable dish by specifying its name, price and ingredients.
 	 *
-	 * @param name the name
-	 * @param price the price
-	 * @param ingredients the ingredients
+	 * @param name the name of the dish
+	 * @param price the price of the dish
+	 * @param ingredients the ingredients needed to make the dish
 	 */
 	public Consumable(String name, float price, List<String> ingredients) {
 		this.name = name;
@@ -44,7 +43,7 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Instantiates a new consumable.
+	 * Instantiates a new consumable dish by specifying its name and price, but not its ingredients.
 	 *
 	 * @param name the name
 	 * @param price the price
@@ -54,7 +53,7 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Instantiates a new consumable.
+	 * Instantiates a new consumable dish by specifying its name, but not its price or ingredients.
 	 *
 	 * @param name the name
 	 */
@@ -63,7 +62,7 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Gets the name.
+	 * Returns the name of the dish.
 	 *
 	 * @return the name
 	 */
@@ -72,7 +71,7 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Sets the price.
+	 * Changes the price of the dish.
 	 *
 	 * @param price the new price
 	 */
@@ -81,7 +80,7 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Gets the price.
+	 * Returns the price of the dish.
 	 *
 	 * @return the price
 	 */
@@ -90,18 +89,18 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Sets the available.
+	 * Sets a dish's availability.
 	 *
-	 * @param isAvailable the new available
+	 * @param isAvailable true, if the dish is available
 	 */
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 
 	/**
-	 * Checks if is available.
+	 * Checks if the dish is available or not.
 	 *
-	 * @return true, if is available
+	 * @return true, if the dish is available
 	 */
 	public boolean isAvailable() {
 		return this.isAvailable;
@@ -126,7 +125,7 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Gets the ingredients.
+	 * Returns the list of the dish's ingredients.
 	 *
 	 * @return the ingredients
 	 */
@@ -135,7 +134,7 @@ public class Consumable implements Comparator {
 	}
 
 	/**
-	 * Compare.
+	 * Compare two dishes.
 	 *
 	 * @param o1 the o 1
 	 * @param o2 the o 2

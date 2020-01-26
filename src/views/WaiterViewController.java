@@ -2,18 +2,17 @@ package views;
 
 import javafx.fxml.FXML;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class WaiterViewController.
+ * Controller for the waiter view..
  */
 public class WaiterViewController {
   
-  /** The but controller. */
+  /** The button controller. */
   ButtonController butController = ButtonController.getInstance();
   
   
   /**
-   * Return push.
+   * When the 'Return to Main Menu button is pressed, return to the main menu.
    *
    * @throws Exception the exception
    */

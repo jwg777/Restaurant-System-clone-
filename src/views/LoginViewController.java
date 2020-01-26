@@ -5,29 +5,28 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class LoginViewController.
+ * Controller for the staff login view.
  */
 public class LoginViewController {
 
-	/** The user field. */
+	/** The field where the user enters a username. */
 	@FXML
 	private TextField userField;
 
-	/** The password field. */
+	/** The field where the user enters a password. */
 	@FXML
 	private PasswordField passwordField;
 	
-	/** The error message. */
+	/** The label used to display an error message on failed authentication. */
 	@FXML
 	private Text errorMessage;
 
-	/** The but controller. */
+	/** The button controller. */
 	ButtonController butController = ButtonController.getInstance();
 
 	/**
-	 * Return push.
+	 * When the 'Return to Menu' button is pushed, return to the main menu.
 	 *
 	 * @throws Exception the exception
 	 */
@@ -37,7 +36,10 @@ public class LoginViewController {
 	}
 
 	/**
-	 * Login selected.
+	 * When the 'Login' button is pushed, attempt to authenticate the user with the
+	 * specified username and password. If successful, go to either the waiter or kitchen view
+	 * depending on which one the credentials are assigned to. If unsuccessful, display an error
+	 * message.
 	 *
 	 * @throws Exception the exception
 	 */

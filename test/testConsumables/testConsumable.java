@@ -12,21 +12,12 @@ import org.junit.Test;
 
 import consumable.Consumable;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class testConsumable.
- */
 public class testConsumable {
 
-	/** The ingredients. */
 	private List<String> ingredients;
 	
-	/** The unsorted ingredients. */
 	private List<String> unsortedIngredients;
 
-	/**
-	 * Prepare tests.
-	 */
 	@Before
 	public void prepareTests() {
 		ingredients = new ArrayList<>();
@@ -41,10 +32,7 @@ public class testConsumable {
 		unsortedIngredients.add("cabbage");
 
 	}
-
-	/**
-	 * Test constructor 1.
-	 */
+	
 	@Test
 	public void testConstructor1() {
 		Consumable consumable = new Consumable("ChakDesert", 20.20f, unsortedIngredients);
@@ -53,9 +41,6 @@ public class testConsumable {
 		assertEquals("Failed to sort ingredients", ingredients, consumable.getIngredients());
 	}
 
-	/**
-	 * Test constructor 2.
-	 */
 	@Test
 	public void testConstructor2() {
 		Consumable consumable = new Consumable("ASDF");
@@ -64,9 +49,6 @@ public class testConsumable {
 		assertTrue("Failed to create empty ingredients list", consumable.getIngredients().isEmpty());
 	}
 
-	/**
-	 * Test values.
-	 */
 	@Test
 	public void testValues() {
 		Consumable temp = new Consumable("test1");
@@ -74,9 +56,6 @@ public class testConsumable {
 		assertFalse("Failed to get default isSpecial", temp.isSpecial());
 	}
 
-	/**
-	 * Test setters.
-	 */
 	@Test
 	public void testSetters() {
 		Consumable temp = new Consumable("test1");
@@ -88,9 +67,6 @@ public class testConsumable {
 		assertTrue("Failed to get default isSpecial", temp.isSpecial());
 	}
 
-	/**
-	 * Test constructor 3.
-	 */
 	@Test
 	public void testConstructor3() {
 		Consumable consumable = new Consumable("Apple", 100);
