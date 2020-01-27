@@ -11,33 +11,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-/**
- * Controller for the customer view.
- */
 public class CustomerViewController {
 
-	/** The but controller. */
 	ButtonController butController = ButtonController.getInstance();
 	
-	/** A VBox containing the starters in the menu. */
 	@FXML
 	VBox vboxStarter = new VBox();
 
-	/**
-	 * When the 'Back to main menu' button is pressed, return to the main menu.
-	 *
-	 * @throws Exception the exception
-	 */
 	@FXML
 	private void returnPush() throws Exception {
 		butController.startMain();
 	}
 	
-/**
- * When the reload button is pressed, refresh the starters menu with any new changes applied.
- *
- * @throws Exception the exception
- */
 /*
  * Test reload button to refresh starter menu
  */
@@ -62,14 +47,16 @@ public class CustomerViewController {
 		list.add(new Consumable("Honey", 76.00f));
 		list.add(new Consumable("Donut", 2.00f));
 		list.add(new Consumable("Sushi", 43.00f));
+		list.add(new Consumable("Dipo",50.00f));
+		list.add(new Consumable("hello",50.00f));
+
 		vboxStarter.getChildren().clear();
 		addVBoxElements(list);
 	}
 
 	/**
-	 * Adds items to the VBox, as well as buttons to add/remove the item from an order.
-	 *
-	 * @param consumables the consumables
+	 * 
+	 * @param consumables
 	 */
 	public void addVBoxElements(ArrayList<Consumable> consumables) {
 		for (Consumable consumable : consumables) {
@@ -88,10 +75,9 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * Creates a new button.
-	 *
-	 * @param name the text in the button
-	 * @return the stack pane
+	 * 
+	 * @param name
+	 * @return
 	 */
 	private StackPane initialiseButton(String name) {
 		StackPane sPane = new StackPane(); // Stack pane to centre button
@@ -103,9 +89,8 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * Initialises a gap.
-	 *
-	 * @return the pane
+	 * 
+	 * @return
 	 */
 	private Pane initialiseGap() {
 		Pane gap = new Pane();
@@ -114,12 +99,11 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * Initialises a text label.
-	 *
-	 * @param name the text in the label
-	 * @param width the width of the label
-	 * @param height the height of the label
-	 * @return the label
+	 * 
+	 * @param name
+	 * @param width
+	 * @param height
+	 * @return
 	 */
 	private Label initialiseLabel(String name, double width, double height) {
 		Label label = new Label(name);

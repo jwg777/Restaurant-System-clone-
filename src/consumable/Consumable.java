@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
  */
-public class Consumable implements Comparator {
+public class Consumable implements Comparable<Consumable> {
 
 	/** The name of the dish. */
 	private String name;
@@ -141,7 +141,8 @@ public class Consumable implements Comparator {
 	 * @return the int
 	 */
 	@Override
-	public int compare(Object o1, Object o2) {
+	public int compareTo(Consumable o) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
