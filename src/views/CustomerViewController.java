@@ -11,18 +11,31 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ *  Controller for the customer view.
+ */
 public class CustomerViewController {
-
+    
+    /** The button controller */
 	ButtonController butController = ButtonController.getInstance();
 	
+	/** A VBox containing the starters in the menu **/
 	@FXML
 	VBox vboxStarter = new VBox();
-
+	
+	/** 
+	 * When the 'Back to main menu' button is pressed, return to the main menu. 
+	 * @throws Exception the exception
+	 */
 	@FXML
 	private void returnPush() throws Exception {
 		butController.startMain();
 	}
-	
+	/**
+	 * When the reload button is pressed, refresh the menu with any new changes applied.
+	 * 
+	 * @throws Exception the exception
+	 */
 /*
  * Test reload button to refresh starter menu
  */
@@ -55,8 +68,9 @@ public class CustomerViewController {
 	}
 
 	/**
+	 * Adds items to the VBox, as well as buttons to add/remove the item from an order.
 	 * 
-	 * @param consumables
+	 * @param consumables the consumables
 	 */
 	public void addVBoxElements(ArrayList<Consumable> consumables) {
 		for (Consumable consumable : consumables) {
@@ -75,9 +89,10 @@ public class CustomerViewController {
 	}
 
 	/**
+	 * Creates a new button.
 	 * 
-	 * @param name
-	 * @return
+	 * @param name the text in the button
+	 * @return the stack pane
 	 */
 	private StackPane initialiseButton(String name) {
 		StackPane sPane = new StackPane(); // Stack pane to centre button
@@ -89,8 +104,9 @@ public class CustomerViewController {
 	}
 
 	/**
+	 * Initialises a gap
 	 * 
-	 * @return
+	 * @return the pane
 	 */
 	private Pane initialiseGap() {
 		Pane gap = new Pane();
@@ -99,11 +115,12 @@ public class CustomerViewController {
 	}
 
 	/**
+	 * Initialises a text label
 	 * 
-	 * @param name
-	 * @param width
-	 * @param height
-	 * @return
+	 * @param name the text in the label
+	 * @param width the width of the label
+	 * @param height the height of the label
+	 * @return the label
 	 */
 	private Label initialiseLabel(String name, double width, double height) {
 		Label label = new Label(name);
