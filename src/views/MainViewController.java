@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 public class MainViewController {
 
 	/** The button controller. */
-	ButtonController butController = ButtonController.getInstance();
+	SceneController butController = SceneController.getInstance();
 
 	/**
 	 * When the 'View Menu' button is pressed, go to the customer view.

@@ -1,11 +1,13 @@
 package views;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import consumable.Consumable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -15,13 +17,17 @@ import javafx.scene.layout.VBox;
  *  Controller for the customer view.
  */
 public class CustomerViewController {
+	
     
     /** The button controller */
-	ButtonController butController = ButtonController.getInstance();
+	SceneController butController = SceneController.getInstance();
 	
 	/** A VBox containing the starters in the menu **/
 	@FXML
 	VBox vboxStarter = new VBox();
+	
+	@FXML
+	TabPane menuTabPane = new TabPane();
 	
 	/** 
 	 * When the 'Back to main menu' button is pressed, return to the main menu. 
@@ -42,27 +48,9 @@ public class CustomerViewController {
 	@FXML
 	private void reloadPush() throws Exception {
 		ArrayList<Consumable> list = new ArrayList<>();
-		list.add(new Consumable("Apple", 110.00f));
-		list.add(new Consumable("Bacon", 1032.00f));
-		list.add(new Consumable("Pizza", 5.00f));
-		list.add(new Consumable("Garlic Bread", 13.00f));
-		list.add(new Consumable("Ham", 65.00f));
-		list.add(new Consumable("Chocoalte", 12.00f));
-		list.add(new Consumable("Honey", 76.00f));
-		list.add(new Consumable("Donut", 2.00f));
-		list.add(new Consumable("Sushi", 43.00f));
-		list.add(new Consumable("Apple", 10.00f));
-		list.add(new Consumable("Bacon", 32.00f));
-		list.add(new Consumable("Pizza", 54.00f));
-		list.add(new Consumable("Garlic Bread", 13.00f));
-		list.add(new Consumable("Ham", 65.00f));
-		list.add(new Consumable("Chocoalte", 12.00f));
-		list.add(new Consumable("Honey", 76.00f));
-		list.add(new Consumable("Donut", 2.00f));
-		list.add(new Consumable("Sushi", 43.00f));
-		list.add(new Consumable("Dipo",50.00f));
-		list.add(new Consumable("hello",50.00f));
-
+		list.add(new Consumable("Garlic Bread",10.00f));
+		list.add(new Consumable("Shrimp",5f));
+		
 		vboxStarter.getChildren().clear();
 		addVBoxElements(list);
 	}
@@ -127,5 +115,10 @@ public class CustomerViewController {
 		label.setPrefSize(width, height);
 		return label;
 	}
+	
+	public TabPane createMenu(HashMap<String,Consumable> menu) {
+		return null;
+	}
+	
 
 }

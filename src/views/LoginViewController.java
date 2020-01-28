@@ -23,7 +23,7 @@ public class LoginViewController {
 	private Text errorMessage;
 
 	/** The button controller. */
-	ButtonController butController = ButtonController.getInstance();
+	SceneController butController = SceneController.getInstance();
 
 	/**
 	 * When the 'Return to Menu' button is pushed, return to the main menu.
