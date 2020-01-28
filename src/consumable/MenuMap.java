@@ -41,6 +41,18 @@ public final class MenuMap {
 		menu.put(tab, tempList);
 	}
 	
+	public ArrayList<String> keyArray() {
+		ArrayList<String> tempList = new ArrayList<>();
+		for(String string: menu.keySet()) {
+			tempList.add(string);
+		}
+		return tempList;
+	}
+	
+	public ArrayList<Consumable> get(String key){
+		return menu.get(key);
+	}
+	
 	
 	
 }

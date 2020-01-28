@@ -1,66 +1,83 @@
 package views;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import consumable.Consumable;
+import consumable.MenuMap;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- *  Controller for the customer view.
+ * Controller for the customer view.
  */
 public class CustomerViewController {
-	
-    
-    /** The button controller */
+
+	/** The button controller */
 	SceneController butController = SceneController.getInstance();
-	
+
 	/** A VBox containing the starters in the menu **/
 	@FXML
 	VBox vboxStarter = new VBox();
-	
+
 	@FXML
 	TabPane menuTabPane = new TabPane();
 	
-	/** 
-	 * When the 'Back to main menu' button is pressed, return to the main menu. 
+	@FXML
+	ListView<String> orderedList = new ListView<>();
+	
+
+	/**
+	 * When the 'Back to main menu' button is pressed, return to the main menu.
+	 * 
 	 * @throws Exception the exception
 	 */
 	@FXML
 	private void returnPush() throws Exception {
 		butController.startMain();
 	}
+
 	/**
-	 * When the reload button is pressed, refresh the menu with any new changes applied.
+	 * When the reload button is pressed, refresh the menu with any new changes
+	 * applied.
 	 * 
 	 * @throws Exception the exception
 	 */
-/*
- * Test reload button to refresh starter menu
- */
+	/*
+	 * Test reload button to refresh starter menu
+	 */
 	@FXML
 	private void reloadPush() throws Exception {
-		ArrayList<Consumable> list = new ArrayList<>();
-		list.add(new Consumable("Garlic Bread",10.00f));
-		list.add(new Consumable("Shrimp",5f));
-		
-		vboxStarter.getChildren().clear();
-		addVBoxElements(list);
+		MenuMap tempMap = MenuMap.getInstace();
+		tempMap.put("Special", new Consumable("Special test 1", 10f));
+		tempMap.put("Starter", new Consumable("Starter test 1", 10f));
+		tempMap.put("Main", new Consumable("Main test 1", 10f));
+		tempMap.put("Side", new Consumable("Side test 1", 10f));
+		tempMap.put("Desert", new Consumable("Desert test 1", 10f));
+		menuTabPane.getTabs().clear();
+		createMenu(tempMap);
 	}
 
 	/**
-	 * Adds items to the VBox, as well as buttons to add/remove the item from an order.
+	 * Adds items to the VBox, as well as buttons to add/remove the item from an
+	 * order.
 	 * 
 	 * @param consumables the consumables
 	 */
-	public void addVBoxElements(ArrayList<Consumable> consumables) {
+	private VBox createVBox(ArrayList<Consumable> consumables) {
+		VBox vbox = new VBox();
 		for (Consumable consumable : consumables) {
 			HBox tempHBox = new HBox(); // Layout for one consumable of the list
 			tempHBox.setPrefHeight(50);
@@ -68,12 +85,20 @@ public class CustomerViewController {
 			tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-			tempHBox.getChildren().add(initialiseLabel("£ "+price, 70, 50));
+			tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			tempHBox.getChildren().add(initialiseButton("-")); // Remove food Button
-			tempHBox.getChildren().add(initialiseButton("+")); // Add food Button
-			vboxStarter.getChildren().add(tempHBox); // Add consumable to the list
+			StackPane plusStackPane = initialiseButton("+");
+			((Button)plusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent event) {
+	            	System.out.println("Add "+ consumable.getName());
+	            }
+	        });
+			tempHBox.getChildren().add(plusStackPane); // Add food Button
+			vbox.getChildren().add(tempHBox); // Add consumable to the list
 		}
+		return vbox;
 	}
 
 	/**
@@ -105,8 +130,8 @@ public class CustomerViewController {
 	/**
 	 * Initialises a text label
 	 * 
-	 * @param name the text in the label
-	 * @param width the width of the label
+	 * @param name   the text in the label
+	 * @param width  the width of the label
 	 * @param height the height of the label
 	 * @return the label
 	 */
@@ -115,10 +140,21 @@ public class CustomerViewController {
 		label.setPrefSize(width, height);
 		return label;
 	}
-	
-	public TabPane createMenu(HashMap<String,Consumable> menu) {
-		return null;
+
+	public void createMenu(MenuMap menu) {
+		for (String string : menu.keyArray()) {
+			menuTabPane.getTabs().add(createTab(string, menu.get(string)));
+		}
 	}
-	
+
+	private Tab createTab(String name, ArrayList<Consumable> list) {
+		AnchorPane anchorPane = new AnchorPane();
+		anchorPane.setPrefWidth(580);
+		anchorPane.getChildren().add(createVBox(list));
+		ScrollPane scrollPane = new ScrollPane(anchorPane);
+		scrollPane.setPrefWidth(600);
+		Tab tab = new Tab(name.toUpperCase(), scrollPane);
+		return tab;
+	}
 
 }
