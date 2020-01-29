@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import consumable.Consumable;
 import consumable.MenuMap;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -87,12 +86,19 @@ public class CustomerViewController {
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
 			tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
 			tempHBox.getChildren().add(initialiseGap());
-			tempHBox.getChildren().add(initialiseButton("-")); // Remove food Button
+			StackPane minusStackPane = initialiseButton("-");
+			((Button)minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent event) {
+	            	orderedList.getItems().remove(consumable.getName());
+	            }
+	        });
+			tempHBox.getChildren().add(minusStackPane); // Remove food Button
 			StackPane plusStackPane = initialiseButton("+");
 			((Button)plusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
-	            	System.out.println("Add "+ consumable.getName());
+	            	orderedList.getItems().add(consumable.getName());
 	            }
 	        });
 			tempHBox.getChildren().add(plusStackPane); // Add food Button
