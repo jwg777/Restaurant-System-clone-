@@ -15,7 +15,6 @@ import consumable.Consumable;
 public class testConsumable {
 
 	private List<String> ingredients;
-	
 	private List<String> unsortedIngredients;
 
 	@Before
@@ -32,7 +31,7 @@ public class testConsumable {
 		unsortedIngredients.add("cabbage");
 
 	}
-	
+
 	@Test
 	public void testConstructor1() {
 		Consumable consumable = new Consumable("ChakDesert", 20.20f, unsortedIngredients);
