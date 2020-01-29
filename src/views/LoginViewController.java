@@ -56,6 +56,7 @@ public class LoginViewController {
 	      butController.startWaiter();
 	    } else if (enteredUname.equals("kitchen") && enteredPword.equals("cooking")) {
 	      System.out.println("Kitchen successfully authenticated");
+	      butController.startKitchen();
 	    } else {
 	      errorMessage.setVisible(true);
 	      System.out.println("Authentication failed");

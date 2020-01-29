@@ -96,4 +96,13 @@ public final class SceneController {
 	    sceneChange("WaiterView.fxml", "Oaxaca Waiter View");
 	}
 
+	/**
+	 * Opens the kitchen view.
+	 * 
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+    public void startKitchen() throws IOException {
+        sceneChange("KitchenView.fxml", "Oaxaca Kitchen View");
+    }
+
 }
