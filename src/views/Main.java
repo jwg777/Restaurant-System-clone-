@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
   /** The button controller. */
-  static ButtonController controller = ButtonController.getInstance();
+  static SceneController controller = SceneController.getInstance();
 
   /**
    * Prepares the main menu view for startup.

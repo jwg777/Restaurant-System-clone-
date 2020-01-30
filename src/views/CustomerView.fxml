@@ -32,11 +32,37 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0">
                      <children>
-                        <TabPane prefHeight="569.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="menuTabPane" prefHeight="569.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                             <Tab text="SPECIALS">
                                  <content>
-                                    <ScrollPane fx:id="specialsScroll" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" />
+                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="600.0">
+                                       <content>
+                                          <AnchorPane>
+                                             <children>
+                                                <VBox fx:id="vboxSpecial" prefWidth="580.0" />
+                                                <HBox prefHeight="50.0" prefWidth="580.0">
+                                                   <children>
+                                                      <Pane prefHeight="50.0" prefWidth="25.0" />
+                                                      <Label prefHeight="50.0" prefWidth="200.0" text="Specials 1" />
+                                                      <Pane prefHeight="50.0" prefWidth="25.0" />
+                                                      <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
+                                                      <Pane prefHeight="50.0" prefWidth="25.0" />
+                                                      <StackPane prefHeight="50.0" prefWidth="50.0">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
+                                                         </children>
+                                                      </StackPane>
+                                                      <StackPane prefHeight="50.0" prefWidth="50.0">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </content></ScrollPane>
                                  </content>
                             </Tab>
                             <Tab text="STARTERS">
@@ -47,222 +73,13 @@
                                              <children>
                                                 <VBox fx:id="vboxStarter" prefWidth="580.0">
                                                    <children>
-                                                      <HBox prefHeight="50.0">
+                                                      <HBox prefHeight="50.0" prefWidth="580.0">
                                                          <children>
                                                             <Pane prefHeight="50.0" prefWidth="25.0" />
                                                             <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
                                                             <Pane prefHeight="50.0" prefWidth="25.0" />
                                                             <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
                                                             <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 2 asdasdasdasds" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$10.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 3 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                                                               </children>
-                                                            </StackPane>
-                                                            <StackPane prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
-                                                               </children>
-                                                            </StackPane>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox prefHeight="50.0">
-                                                         <children>
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="60.0" text="\$100.00" />
-                                                            <Pane prefHeight="200.0" prefWidth="25.0" />
                                                             <StackPane prefHeight="50.0" prefWidth="50.0">
                                                                <children>
                                                                   <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
@@ -286,7 +103,10 @@
                                  <content>
                                     <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                                             <children>
+                                                <VBox fx:id="vboxMains" prefWidth="580.0" />
+                                             </children></AnchorPane>
                                       </content>
                                     </ScrollPane>
                                  </content>
@@ -295,7 +115,10 @@
                                  <content>
                                     <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                                             <children>
+                                                <VBox fx:id="vboxSide" prefWidth="580.0" />
+                                             </children></AnchorPane>
                                       </content>
                                     </ScrollPane>
                                  </content>
@@ -304,7 +127,10 @@
                                  <content>
                                     <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                                             <children>
+                                                <VBox fx:id="vboxDesert" prefWidth="580.0" />
+                                             </children></AnchorPane>
                                       </content>
                                     </ScrollPane>
                                  </content>
@@ -313,7 +139,10 @@
                                  <content>
                                     <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                                             <children>
+                                                <VBox fx:id="vboxDrink" prefWidth="580.0" />
+                                             </children></AnchorPane>
                                       </content>
                                     </ScrollPane>
                                  </content>

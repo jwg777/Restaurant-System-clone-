@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 public class WaiterViewController {
   
   /** The button controller. */
-  ButtonController butController = ButtonController.getInstance();
+  SceneController butController = SceneController.getInstance();
   
   
   /**

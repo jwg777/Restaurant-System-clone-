@@ -1,4 +1,4 @@
-package testConsumables;
+package testconsumables;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,10 +12,9 @@ import org.junit.Test;
 
 import consumable.Consumable;
 
-public class testConsumable {
+public class TestConsumable {
 
 	private List<String> ingredients;
-	
 	private List<String> unsortedIngredients;
 
 	@Before
@@ -32,7 +31,7 @@ public class testConsumable {
 		unsortedIngredients.add("cabbage");
 
 	}
-	
+
 	@Test
 	public void testConstructor1() {
 		Consumable consumable = new Consumable("ChakDesert", 20.20f, unsortedIngredients);

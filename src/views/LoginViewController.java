@@ -23,7 +23,7 @@ public class LoginViewController {
 	private Text errorMessage;
 
 	/** The button controller. */
-	ButtonController butController = ButtonController.getInstance();
+	SceneController butController = SceneController.getInstance();
 
 	/**
 	 * When the 'Return to Menu' button is pushed, return to the main menu.
@@ -56,6 +56,7 @@ public class LoginViewController {
 	      butController.startWaiter();
 	    } else if (enteredUname.equals("kitchen") && enteredPword.equals("cooking")) {
 	      System.out.println("Kitchen successfully authenticated");
+	      butController.startKitchen();
 	    } else {
 	      errorMessage.setVisible(true);
 	      System.out.println("Authentication failed");
