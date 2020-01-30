@@ -16,6 +16,10 @@ public class Order implements Comparable<Order> {
 	/** The unique identifier of the customer who made the order. */
 	private int custID;
 	
+	/** The total price of the order, calculated by the total of the prices of each item
+	 * in the order */
+	private float totalPrice;
+	
 	//TODO find a way to represent the order time
 	
 	/** A list of the items ordered. */
@@ -42,9 +46,9 @@ public class Order implements Comparable<Order> {
 		this.custID = custID;
 		this.items = new ArrayList<Consumable>();
 		for (Consumable item : items) {
+		    this.totalPrice += item.getPrice();
 			this.items.add(item);
 		}
-		Collections.sort(this.items);
 	}
 	
 	/**
@@ -62,6 +66,10 @@ public class Order implements Comparable<Order> {
 	 */
 	public int getCustID() {
 	    return this.custID;
+	}
+	
+	public float getTotalPrice() {
+	    return this.totalPrice;
 	}
 
 	/**
@@ -91,10 +99,11 @@ public class Order implements Comparable<Order> {
 	
 	/**
 	 * Sets order to new
-	 * @param isNew true if new
 	 */
-	public void setNew(boolean isNew) {
-	    this.isNew = isNew;
+	public void setNew() {
+	    this.isNew = true;
+	    this.isInProgress = false;
+	    this.isCompleted = false;
 	}
 	
 	/**
@@ -107,10 +116,11 @@ public class Order implements Comparable<Order> {
 	
 	/**
 	 * Sets order to in progress
-	 * @param isInProgress true if in progress
 	 */
-	public void setInProgress(boolean isInProgress) {
-	    this.isInProgress = isInProgress;
+	public void setInProgress() {
+	    this.isInProgress = true;
+	    this.isNew = false;
+	    this.isCompleted = false;
 	}
 	
 	/**
@@ -123,10 +133,11 @@ public class Order implements Comparable<Order> {
 	
 	/**
 	 * Sets order to completed
-	 * @param isCompleted true if completed
 	 */
-	public void setCompleted(boolean isCompleted) {
-	    this.isCompleted = isCompleted;
+	public void setCompleted() {
+	    this.isCompleted = true;
+	    this.isNew = false;
+	    this.isInProgress = false;
 	}
 	
 	/**

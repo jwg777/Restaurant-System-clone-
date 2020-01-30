@@ -1,4 +1,4 @@
-package testConsumables;
+package testconsumables;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import consumable.Consumable;
 
-public class testConsumable {
+public class TestConsumable {
 
 	private List<String> ingredients;
 	private List<String> unsortedIngredients;
