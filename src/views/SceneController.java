@@ -10,10 +10,10 @@ import javafx.stage.Stage;
 /**
  * The Button Controller decides and handles the action taken when a button is pressed in the application.
  */
-public final class ButtonController {
+public final class SceneController {
 
 	/** The Singleton instance. */
-	private static ButtonController instance = null;
+	private static SceneController instance = null;
 
 	/** The stage. */
 	private Stage stage;
@@ -23,9 +23,9 @@ public final class ButtonController {
 	 *
 	 * @return the instance
 	 */
-	public static ButtonController getInstance() {
+	public static SceneController getInstance() {
 		if (instance == null) {
-			instance = new ButtonController();
+			instance = new SceneController();
 		}
 		return instance;
 	}
@@ -33,7 +33,7 @@ public final class ButtonController {
 	/**
 	 * Instantiates a new button controller.
 	 */
-	private ButtonController() {
+	private SceneController() {
 	}
 
 	/**
@@ -95,5 +95,14 @@ public final class ButtonController {
 	public void startWaiter() throws IOException {
 	    sceneChange("WaiterView.fxml", "Oaxaca Waiter View");
 	}
+
+	/**
+	 * Opens the kitchen view.
+	 * 
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+    public void startKitchen() throws IOException {
+        sceneChange("KitchenView.fxml", "Oaxaca Kitchen View");
+    }
 
 }

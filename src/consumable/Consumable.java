@@ -2,7 +2,6 @@ package consumable;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -134,16 +133,15 @@ public class Consumable implements Comparable<Consumable> {
 	}
 
 	/**
-	 * Compare two dishes.
+	 * Comparable method for sorting.
 	 *
-	 * @param o1 the o 1
-	 * @param o2 the o 2
-	 * @return the int
+	 * @param o the o.
+	 * @return the int.
 	 */
 	@Override
 	public int compareTo(Consumable o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 }

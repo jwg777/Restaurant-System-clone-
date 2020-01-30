@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import consumable.Consumable;
 import javafx.fxml.FXML;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,8 +18,12 @@ import javafx.scene.layout.VBox;
 public class WaiterViewController {
   
   /** The button controller. */
-  ButtonController butController = ButtonController.getInstance();
+
+  
  
+
+  SceneController butController = SceneController.getInstance();
+
   /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
    *
