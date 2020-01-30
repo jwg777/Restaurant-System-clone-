@@ -89,7 +89,7 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="144.0" prefWidth="414.0">
                                        <children>
-                                          <ScrollPane layoutX="14.0" layoutY="16.0" prefHeight="511.0" prefWidth="578.0">
+                                          <ScrollPane fx:id="vboxStarter" layoutX="14.0" layoutY="16.0" prefHeight="511.0" prefWidth="578.0">
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="558.0">
                                                    <children>
