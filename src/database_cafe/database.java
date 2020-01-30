@@ -19,7 +19,8 @@ public class database {
     password = scan.nextLine();
     scan.close();
  
-    String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
+    String database = "//localhost/CS2855/";
+    //String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
    
     Connection connection = connectToDatabase(user, password, database);
    
