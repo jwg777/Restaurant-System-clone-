@@ -19,8 +19,8 @@ public class database {
     password = scan.nextLine();
     scan.close();
  
-    String database = "//localhost/CS2855/";
-    //String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
+    //String database = "//localhost/CS2855/";
+    String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
    
     Connection connection = connectToDatabase(user, password, database);
    
@@ -36,6 +36,7 @@ public class database {
             + " foreign key (dish) references Menu(dish) on delete cascade)");
     createTable(connection, "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
     createTable(connection, "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
+    
     File menuFile = new File("Menu");
     String line = "";
     BufferedReader br;
@@ -59,7 +60,7 @@ public class database {
     	} catch (Exception e) {
     	  e.printStackTrace();
     	}
-    ViewMenu(connection);
+    //ViewMenu(connection);
   }
 
   public static Connection connectToDatabase(String user, String password, String database) {
