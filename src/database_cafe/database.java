@@ -10,7 +10,7 @@ import java.io.FileReader;
 public class database {
 
   public static void main(String[] args) throws SQLException {
-    //test
+    //test 
     String user = "", password = "";
     System.out.println("Please enter your username");
     Scanner scan = new Scanner(System.in);
