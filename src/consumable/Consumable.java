@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
  */
@@ -19,18 +20,38 @@ public class Consumable implements Comparable<Consumable> {
 	/** Specifies whether or not the dish is currently available. */
 	private boolean isAvailable = true;
 	
-	/** Specifies whether or not the dish is a special. */
-	private boolean isSpecial = false;
+	/** Specifies the menu type of the dish. */
+	private String menuType = null;
 	
 	/** A list of ingredients required to make the dish. */
 	private List<String> ingredients;
 
 	/**
-	 * Instantiates a new consumable dish by specifying its name, price and ingredients.
+	 * Instantiates a new consumable dish by specifying its name, price, menu type and ingredients.
 	 *
 	 * @param name the name of the dish
 	 * @param price the price of the dish
+	 * @param menuType the menu type
 	 * @param ingredients the ingredients needed to make the dish
+	 */
+	public Consumable(String name, float price, String menuType, List<String> ingredients) {
+		this.name = name;
+		this.price = price;
+		this.menuType = menuType;
+		this.ingredients = new ArrayList<String>();
+		for (String ingredient : ingredients) {
+			this.ingredients.add(ingredient);
+		}
+		Collections.sort(this.ingredients);
+	}
+
+	
+	/**
+	 * by specifying its name, price, menu type and ingredients but NOT it's menu type
+	 *
+	 * @param name the name
+	 * @param price the price
+	 * @param ingredients the ingredients
 	 */
 	public Consumable(String name, float price, List<String> ingredients) {
 		this.name = name;
@@ -41,7 +62,20 @@ public class Consumable implements Comparable<Consumable> {
 		}
 		Collections.sort(this.ingredients);
 	}
-
+	
+	/**
+	 * Instantiates a new consumable dish by specifying its name, menu type and price, but not its ingredients.
+	 *
+	 * @param name the name
+	 * @param price the price
+	 * @param menuType the menu type
+	 */
+	public Consumable(String name, float price, String menuType) {
+		this.name = name;
+		this.price = price;
+		this.menuType = menuType;
+	}
+	
 	/**
 	 * Instantiates a new consumable dish by specifying its name and price, but not its ingredients.
 	 *
@@ -109,19 +143,19 @@ public class Consumable implements Comparable<Consumable> {
 	/**
 	 * Sets the special.
 	 *
-	 * @param isSpecial the new special
+	 * @param menuType the new special
 	 */
-	public void setSpecial(boolean isSpecial) {
-		this.isSpecial = isSpecial;
+	public void setMenuType(String menuType) {
+		this.menuType = menuType;
 	}
 
 	/**
-	 * Checks if is special.
+	 * returns menu type.
 	 *
 	 * @return true, if is special
 	 */
-	public boolean isSpecial() {
-		return this.isSpecial;
+	public String getType() {
+		return this.menuType;
 	}
 
 	/**
@@ -136,8 +170,7 @@ public class Consumable implements Comparable<Consumable> {
 	/**
 	 * Compare two dishes.
 	 *
-	 * @param o1 the o 1
-	 * @param o2 the o 2
+	 * @param o the o
 	 * @return the int
 	 */
 	@Override
