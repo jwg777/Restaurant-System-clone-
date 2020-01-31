@@ -1,8 +1,11 @@
 package views;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import consumable.Consumable;
+import database_cafe.Database;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -41,28 +44,25 @@ public class CustomerViewController {
  */
 	@FXML
 	private void reloadPush() throws Exception {
+		
+		Database db0 = new Database();
+		
+		String[] myConnInfo = db0.connInfoSetup();
+		Connection connection = db0.connectToDatabase(myConnInfo[0], myConnInfo[1], myConnInfo[2]);
+		db0.buildTables(connection);
+		db0.importFile(connection, "Menu");
+		
+		//requests all menu items from the database and stores them 
+		String query = "SELECT * FROM Menu";
+		ResultSet rs = db0.Select(connection, query);
+		
 		ArrayList<Consumable> list = new ArrayList<>();
-		list.add(new Consumable("Apple", 110.00f));
-		list.add(new Consumable("Bacon", 1032.00f));
-		list.add(new Consumable("Pizza", 5.00f));
-		list.add(new Consumable("Garlic Bread", 13.00f));
-		list.add(new Consumable("Ham", 65.00f));
-		list.add(new Consumable("Chocoalte", 12.00f));
-		list.add(new Consumable("Honey", 76.00f));
-		list.add(new Consumable("Donut", 2.00f));
-		list.add(new Consumable("Sushi", 43.00f));
-		list.add(new Consumable("Apple", 10.00f));
-		list.add(new Consumable("Bacon", 32.00f));
-		list.add(new Consumable("Pizza", 54.00f));
-		list.add(new Consumable("Garlic Bread", 13.00f));
-		list.add(new Consumable("Ham", 65.00f));
-		list.add(new Consumable("Chocoalte", 12.00f));
-		list.add(new Consumable("Honey", 76.00f));
-		list.add(new Consumable("Donut", 2.00f));
-		list.add(new Consumable("Sushi", 43.00f));
-		list.add(new Consumable("Dipo",50.00f));
-		list.add(new Consumable("hello",50.00f));
-
+		while(rs.next()) {
+			String itemName = rs.getString("dish");
+			float itemPrice = rs.getFloat("price");
+			list.add(new Consumable(itemName, itemPrice));
+		}
+		
 		vboxStarter.getChildren().clear();
 		addVBoxElements(list);
 	}
@@ -80,7 +80,7 @@ public class CustomerViewController {
 			tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-			tempHBox.getChildren().add(initialiseLabel("£ "+price, 70, 50));
+			tempHBox.getChildren().add(initialiseLabel("ÃÂ£ "+price, 70, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			tempHBox.getChildren().add(initialiseButton("-")); // Remove food Button
 			tempHBox.getChildren().add(initialiseButton("+")); // Add food Button

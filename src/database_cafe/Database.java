@@ -7,22 +7,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class database {
+public class Database {
+	
+	public String[] connInfo() {
+		String user = "", password = "";
+	    System.out.println("Please enter your username");
+	    Scanner scan = new Scanner(System.in);
+	    user = scan.nextLine();
+	    System.out.println("Please enter your password");
+	    password = scan.nextLine();
+	    scan.close();
+	 
+	    //String database = "//localhost/CS2855/";
+	    String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
+	}
 
   public static void main(String[] args) throws SQLException {
     //test 
-    String user = "", password = "";
-    System.out.println("Please enter your username");
-    Scanner scan = new Scanner(System.in);
-    user = scan.nextLine();
-    System.out.println("Please enter your password");
-    password = scan.nextLine();
-    scan.close();
- 
-    //String database = "//localhost/CS2855/";
-    String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
+    
    
-    Connection connection = connectToDatabase(user, password, database);
+    Connection connection = connectToDatabase(user, password, Database);
    
     if(connection != null) {
       System.out.println("Database is activated!");
