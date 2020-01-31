@@ -29,15 +29,13 @@ public class Database {
           System.out.println("Failed to make connection!");
           return;
         }
-        
+
         createTable(connection, "Customers(cust_id int primary key, password varchar(20), tableNumber int)");
         createTable(connection, "Menu(dish varChar(100) primary key, price numeric(4, 2), info varchar(300), type varchar(100))");
         createTable(connection, "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade,"
                 + " foreign key (dish) references Menu(dish) on delete cascade)");
         createTable(connection, "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
         createTable(connection, "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
-        
-        
         
 	}	
 	
@@ -124,25 +122,4 @@ public class Database {
     }
     return rs;
   }
-  
-//  public static void ViewMenu(Connection connection) {
-//    System.out.println("~~~~~~~~~~~~~~~~~Menu~~~~~~~~~~~~~~~~");
-//    String query = "SELECT * " +
-//                   "FROM Menu ";
-//    ResultSet rs = Select(connection, query);
-//    try {
-//		while(rs.next()) {
-//		  for(int i = 1; i < 4; i++) {
-//			if(i == 2) {
-//			  System.out.print("£");
-//			}
-//		    System.out.print(rs.getString(i) + " ");
-//		  }
-//		  System.out.println("");
-//		}
-//	} catch (SQLException e) {
-//		e.printStackTrace();
-//	}
-//  }
-
 }
