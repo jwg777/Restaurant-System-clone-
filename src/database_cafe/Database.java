@@ -21,7 +21,7 @@ public class Database {
 	    scan.close();
 	 
 	    //String database = "//localhost/CS2855/";
-	    String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
+	    String database = "//localhost/CS2855/";
 	    
 	    String[] connInfo = new String[3];
 	    
@@ -35,7 +35,7 @@ public class Database {
 	
 	public void buildTables(Connection connection) {
 		createTable(connection, "Customers(cust_id int primary key, password varchar(20), tableNumber int)");
-	    createTable(connection, "Menu(dish varChar(100) primary key, price float, info varchar(300), type varchar(100))");
+	    createTable(connection, "Menu(dish varChar(100) primary key, price numeric(4, 2), info varchar(300), type varchar(100))");
 	    createTable(connection, "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade,"
 	            + " foreign key (dish) references Menu(dish) on delete cascade)");
 	    createTable(connection, "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
