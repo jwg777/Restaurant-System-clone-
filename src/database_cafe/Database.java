@@ -17,22 +17,29 @@ public class Database {
         System.out.println("Please enter your password");
         password = scan.nextLine();
         scan.close();
-     
+        
+        
         //String database = "//localhost/CS2855/";
-        String database = "//localhost/CS2855/";
-	}
-	
-	
-	
-	public void buildTables(Connection connection) {
-		createTable(connection, "Customers(cust_id int primary key, password varchar(20), tableNumber int)");
-	    createTable(connection, "Menu(dish varChar(100) primary key, price numeric(4, 2), info varchar(300), type varchar(100))");
-	    createTable(connection, "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade,"
-	            + " foreign key (dish) references Menu(dish) on delete cascade)");
-	    createTable(connection, "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
-	    createTable(connection, "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
-	    
-	}
+        String database = "//";
+        
+        Connection connection = connectToDatabase(user, password, database);
+        if(connection != null) {
+          System.out.println("Database is activated!");
+        } else {
+          System.out.println("Failed to make connection!");
+          return;
+        }
+        
+        createTable(connection, "Customers(cust_id int primary key, password varchar(20), tableNumber int)");
+        createTable(connection, "Menu(dish varChar(100) primary key, price numeric(4, 2), info varchar(300), type varchar(100))");
+        createTable(connection, "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade,"
+                + " foreign key (dish) references Menu(dish) on delete cascade)");
+        createTable(connection, "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
+        createTable(connection, "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
+        
+        
+        
+	}	
 	
 	public void importFile(Connection connection, String file0) {
 		File inputFile = new File(file0);
@@ -59,24 +66,6 @@ public class Database {
 	    	  e.printStackTrace();
 	    	}
 	}
-
-//  public static void main(String[] args) throws SQLException {
-//    //test 
-//    
-//   //connection test
-//    Connection connection = connectToDatabase(user, password, database);
-//    if(connection != null) {
-//      System.out.println("Database is activated!");
-//    } else {
-//      System.out.println("Failed to make connection!");
-//      return;
-//    }
-//    
-//    buildTables();
-//    
-//    
-//    //ViewMenu(connection);
-//  }
 
   public Connection connectToDatabase(String user, String password, String database) {
     System.out.println("~~~~~~~~~~~~~~~ PostgreSQL___JDBC Connection Testing ~~~~~~~~~~~~~~~");
