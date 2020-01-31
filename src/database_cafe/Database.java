@@ -9,29 +9,20 @@ import java.io.FileReader;
 
 public class Database {
 	
-	
-	
-	public String[] connInfoSetup() {
-		String user = "", password = "";
-	    System.out.println("Please enter your username");
-	    Scanner scan = new Scanner(System.in);
-	    user = scan.nextLine();
-	    System.out.println("Please enter your password");
-	    password = scan.nextLine();
-	    scan.close();
-	 
-	    //String database = "//localhost/CS2855/";
-	    String database = "//localhost/CS2855/";
-	    
-	    String[] connInfo = new String[3];
-	    
-	    connInfo[0] = user;
-	    connInfo[1] = password;
-	    connInfo[2] = database;
-	    
-	    return connInfo;
-	    
+	public Database() {
+	    String user = "", password = "";
+        System.out.println("Please enter your username");
+        Scanner scan = new Scanner(System.in);
+        user = scan.nextLine();
+        System.out.println("Please enter your password");
+        password = scan.nextLine();
+        scan.close();
+     
+        //String database = "//localhost/CS2855/";
+        String database = "//localhost/CS2855/";
 	}
+	
+	
 	
 	public void buildTables(Connection connection) {
 		createTable(connection, "Customers(cust_id int primary key, password varchar(20), tableNumber int)");
