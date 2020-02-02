@@ -20,7 +20,6 @@ public class Database {
         password = scan.nextLine();
         scan.close();
         
-        
         //String database = "//localhost/CS2855/";
         String database = "//";
         
@@ -107,7 +106,7 @@ public class Database {
     }
   }
   
-  public ResultSet Select(String query) {
+  public ResultSet select(String query) {
     Statement st = null;
     ResultSet rs = null;
     try {

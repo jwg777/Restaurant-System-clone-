@@ -47,12 +47,9 @@ public class CustomerViewController {
 		
 		Database database = new Database();
 		
-		//temporary file import
-		database.importFile("Menu");
-		
 		//requests all menu items from the database and stores them 
 		String query = "SELECT * FROM Menu";
-		ResultSet rs = database.Select(query);
+		ResultSet rs = database.select(query);
 		
 		ArrayList<Consumable> list = new ArrayList<>();
 		while(rs.next()) {
