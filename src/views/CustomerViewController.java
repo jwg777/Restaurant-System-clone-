@@ -3,7 +3,7 @@ package views;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+import backend.CustomerAccess;
 import consumable.Consumable;
 import database_cafe.Database;
 import javafx.fxml.FXML;
@@ -45,6 +45,16 @@ public class CustomerViewController {
 	@FXML
 	private void reloadPush() throws Exception {
 		
+	  CustomerAccess customerDB = new CustomerAccess();
+	  
+	  ArrayList<Consumable> list = customerDB.getMenu();
+	  
+	  vboxStarter.getChildren().clear();
+      addVBoxElements(list);
+	  
+	  
+      //delete once tested
+	    /**
 		Database database = new Database();
 		
 		//requests all menu items from the database and stores them 
@@ -57,6 +67,10 @@ public class CustomerViewController {
 			float itemPrice = rs.getFloat("price");
 			list.add(new Consumable(itemName, itemPrice));
 		}
+		**/
+		
+		
+		
 		
 		vboxStarter.getChildren().clear();
 		addVBoxElements(list);
@@ -72,9 +86,13 @@ public class CustomerViewController {
 			HBox tempHBox = new HBox(); // Layout for one consumable of the list
 			tempHBox.setPrefHeight(50);
 			tempHBox.getChildren().add(initialiseGap());
+			
 			tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
+			
 			tempHBox.getChildren().add(initialiseGap());
+			
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
+			
 			tempHBox.getChildren().add(initialiseLabel("� "+price, 70, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			tempHBox.getChildren().add(initialiseButton("-")); // Remove food Button

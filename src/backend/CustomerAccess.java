@@ -1,6 +1,9 @@
 package backend;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import consumable.Consumable;
 import database_cafe.DataInteract;
 
 public class CustomerAccess {
@@ -11,8 +14,17 @@ public class CustomerAccess {
     customerData = new DataInteract();
   }
   
-  public ResultSet getMenu() {
-    return customerData.select("SELECT * FROM Menu");
+  public ArrayList<Consumable> getMenu() throws SQLException {
+    ResultSet rs = customerData.select("SELECT * FROM Menu");
+    ArrayList<Consumable> list = new ArrayList<>();
+    
+    while (rs.next()) {
+      String itemName = rs.getString("dish");
+      float itemPrice = rs.getFloat("price");
+      list.add(new Consumable(itemName, itemPrice));
+    }
+    
+    return list;
   }
   
   public void placeOrder(String orders) {
