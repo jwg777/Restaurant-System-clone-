@@ -47,6 +47,7 @@ public class CustomerViewController {
 		
 		Database database = new Database();
 		
+		//temporary file import
 		database.importFile("Menu");
 		
 		//requests all menu items from the database and stores them 

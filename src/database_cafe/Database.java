@@ -25,22 +25,10 @@ public class Database {
         String database = "//";
         
         connection = connectToDatabase(user, password, database);
-        if(connection != null) {
-          System.out.println("Database is activated!");
-        } else {
-          System.out.println("Failed to make connection!");
-          return;
-        }
-
-        createTable(connection, "Customers(cust_id int primary key, password varchar(20), tableNumber int)");
-        createTable(connection, "Menu(dish varChar(100) primary key, price numeric(4, 2), info varchar(300), type varchar(100))");
-        createTable(connection, "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade,"
-                + " foreign key (dish) references Menu(dish) on delete cascade)");
-        createTable(connection, "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
-        createTable(connection, "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
-        
+       
 	}	
 	
+	//temporary method
 	public void importFile(String file0) {
 		File inputFile = new File(file0);
 	    String line = "";
@@ -76,10 +64,16 @@ public class Database {
       System.out.println("Connection failed! Check output console");
       e.printStackTrace();
     }
+    if(connection != null) {
+      System.out.println("Database is activated!");
+    } else {
+      System.out.println("Failed to make connection!");
+      return null;
+    }
     return connection;
   }
  
-  public void createTable(Connection connection, String tableName) {
+  public void createTable(String tableName) {
     Statement st = null;
     String table = "";
     for (int i = 0; i < tableName.length(); i++) {
