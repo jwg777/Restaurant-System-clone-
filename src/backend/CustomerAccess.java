@@ -12,7 +12,7 @@ public class CustomerAccess {
   }
   
   public ResultSet getMenu() {
-    return null;
+    return customerData.select("SELECT * FROM Menu");
   }
   
   public void placeOrder(String orders) {
