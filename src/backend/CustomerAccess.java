@@ -16,11 +16,11 @@ public class CustomerAccess {
   }
   
   public void placeOrder(String orders) {
-    
+    //customerData.insertIntoTable("insert order data");
   }
   
   public void giveFeedback (String feedback) {
-    
+    //customerData.insertIntoTable("insert feedback data");
   }
 }
 

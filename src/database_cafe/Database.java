@@ -46,7 +46,7 @@ public class Database {
 	    	      }
 	    		}
 	    		line += "'";
-	    		insertIntoTable(connection, "Menu", "", line);
+	    		insertIntoTable("Menu", "", line);
 	    	    line = br.readLine();
 	    	  }
 	    	} catch (Exception e) {
@@ -91,7 +91,7 @@ public class Database {
     }
   }
   
-  public void insertIntoTable(Connection connection, String tableName, String attributes, String values) {
+  public void insertIntoTable(String tableName, String attributes, String values) {
     Statement st = null;
     try {
       st = connection.createStatement();

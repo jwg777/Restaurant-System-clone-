@@ -11,7 +11,7 @@ public class WaiterAccess {
   }
   
   public void markDelivered(String tableupdate) {
-    //will update tables as delivered
+    //waiterData.insertIntoTable("insert delivered data");
   }
   
   public ResultSet viewOrders() {
