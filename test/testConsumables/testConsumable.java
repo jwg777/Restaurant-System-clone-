@@ -49,23 +49,7 @@ public class testConsumable {
 		assertTrue("Failed to create empty ingredients list", consumable.getIngredients().isEmpty());
 	}
 
-	@Test
-	public void testValues() {
-		Consumable temp = new Consumable("test1");
-		assertTrue("Failed to get default availability", temp.isAvailable());
-		assertFalse("Failed to get default isSpecial", temp.isSpecial());
-	}
 
-	@Test
-	public void testSetters() {
-		Consumable temp = new Consumable("test1");
-		assertTrue("Failed to get default availability", temp.isAvailable());
-		temp.setAvailable(false);
-		assertFalse("Failed to change availability", temp.isAvailable());
-		assertFalse("Failed to get default isSpecial", temp.isSpecial());
-		temp.setSpecial(true);
-		assertTrue("Failed to get default isSpecial", temp.isSpecial());
-	}
 
 	@Test
 	public void testConstructor3() {

@@ -45,16 +45,13 @@ public class CustomerViewController {
 	@FXML
 	private void reloadPush() throws Exception {
 		
-		Database db0 = new Database();
+		Database database = new Database();
 		
-		String[] myConnInfo = db0.connInfoSetup();
-		Connection connection = db0.connectToDatabase(myConnInfo[0], myConnInfo[1], myConnInfo[2]);
-		db0.buildTables(connection);
-		db0.importFile(connection, "Menu");
+		database.importFile("Menu");
 		
 		//requests all menu items from the database and stores them 
 		String query = "SELECT * FROM Menu";
-		ResultSet rs = db0.Select(connection, query);
+		ResultSet rs = database.Select(query);
 		
 		ArrayList<Consumable> list = new ArrayList<>();
 		while(rs.next()) {
@@ -65,7 +62,6 @@ public class CustomerViewController {
 		
 		vboxStarter.getChildren().clear();
 		addVBoxElements(list);
-		connection.close();
 	}
 
 	/**
@@ -81,7 +77,7 @@ public class CustomerViewController {
 			tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-			tempHBox.getChildren().add(initialiseLabel("£ "+price, 70, 50));
+			tempHBox.getChildren().add(initialiseLabel("ï¿½ "+price, 70, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			tempHBox.getChildren().add(initialiseButton("-")); // Remove food Button
 			tempHBox.getChildren().add(initialiseButton("+")); // Add food Button

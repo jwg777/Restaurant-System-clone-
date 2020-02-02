@@ -9,6 +9,8 @@ import java.io.FileReader;
 
 public class Database {
 	
+    Connection connection;
+    
 	public Database() {
 	    String user = "", password = "";
         System.out.println("Please enter your username");
@@ -22,7 +24,7 @@ public class Database {
         //String database = "//localhost/CS2855/";
         String database = "//";
         
-        Connection connection = connectToDatabase(user, password, database);
+        connection = connectToDatabase(user, password, database);
         if(connection != null) {
           System.out.println("Database is activated!");
         } else {
@@ -39,7 +41,7 @@ public class Database {
         
 	}	
 	
-	public void importFile(Connection connection, String file0) {
+	public void importFile(String file0) {
 		File inputFile = new File(file0);
 	    String line = "";
 	    BufferedReader br;
@@ -111,7 +113,7 @@ public class Database {
     }
   }
   
-  public ResultSet Select(Connection connection, String query) {
+  public ResultSet Select(String query) {
     Statement st = null;
     ResultSet rs = null;
     try {
