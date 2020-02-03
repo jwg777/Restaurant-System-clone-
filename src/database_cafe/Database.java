@@ -9,19 +9,27 @@ import java.io.FileReader;
 
 public class Database {
 	
-    Connection connection;
+    static Connection connection;
     
 	public Database() {
-	    String user = "", password = "";
+	  
+	    //for testing with set login credentials
+	    String user = "";
+	    String password = "";
+	    
+	    /*String user = "", password = "";
         System.out.println("Please enter your username");
         Scanner scan = new Scanner(System.in);
         user = scan.nextLine();
         System.out.println("Please enter your password");
         password = scan.nextLine();
-        scan.close();
+        scan.close();*/
         
-        //String database = "//localhost/CS2855/";
-        String database = "//";
+	    //tunneling
+        String database = "//localhost/CS2855/";
+        
+        //noMachine
+        //String database = "////teachdb.cs.rhul.ac.uk/CS2855/";
         
         connection = connectToDatabase(user, password, database);
        

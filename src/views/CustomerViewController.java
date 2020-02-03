@@ -68,12 +68,10 @@ public class CustomerViewController {
 			list.add(new Consumable(itemName, itemPrice));
 		}
 		**/
-		
-		
-		
-		
-		vboxStarter.getChildren().clear();
-		addVBoxElements(list);
+      //test to print list of dishes
+		/*for (Consumable consumables : list) {
+		  System.out.println(consumables.getName());
+		}*/
 	}
 
 	/**
