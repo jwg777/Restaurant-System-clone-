@@ -7,7 +7,7 @@ public class loginAccess {
   DataInteract loginData;
   
   public loginAccess() {
-    loginData = DataInteract.getInstance();
+    loginData = new DataInteract();
   }
   
   public boolean checkUser(String username, String password) {

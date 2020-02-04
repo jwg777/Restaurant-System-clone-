@@ -11,7 +11,7 @@ public class CustomerAccess {
   DataInteract customerData;
   
   public CustomerAccess() {
-    customerData = DataInteract.getInstance();
+    customerData = new DataInteract();
   }
   
   public ArrayList<Consumable> getMenu() throws SQLException {

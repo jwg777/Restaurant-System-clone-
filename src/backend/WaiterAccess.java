@@ -7,7 +7,7 @@ public class WaiterAccess {
   DataInteract waiterData;
   
   public WaiterAccess() {
-    waiterData = DataInteract.getInstance();
+    waiterData = new DataInteract();
   }
   
   public void markDelivered(String tableupdate) {
