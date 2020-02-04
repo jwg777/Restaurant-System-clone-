@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -29,8 +31,17 @@ public class WaiterViewController {
   private void returnPush() throws Exception{
       butController.startMain();
   }
+  
+  /** A VBox containing the starters in the menu **/
+	
   @FXML
-	VBox vboxStarter = new VBox();
+  VBox vboxStarter = new VBox();
+  
+  @FXML
+  TabPane menuTabPane = new TabPane();
+	
+  @FXML
+  ListView<String> orderedList = new ListView<>();
   
   public void addVBoxElements(ArrayList<Consumable> consumables) {
 		for (Consumable consumable : consumables) {
@@ -42,7 +53,6 @@ public class WaiterViewController {
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
 			tempHBox.getChildren().add(initialiseLabel("£ "+price, 70, 50));
 			tempHBox.getChildren().add(initialiseGap());
-			tempHBox.getChildren().add(initialiseButton("-")); // Remove food Button
 			tempHBox.getChildren().add(initialiseButton("+")); // Add food Button
 			vboxStarter.getChildren().add(tempHBox); // Add consumable to the list
 		}
