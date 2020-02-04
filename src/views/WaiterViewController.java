@@ -69,14 +69,14 @@ public class WaiterViewController {
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
 			tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
 			tempHBox.getChildren().add(initialiseGap());
-			StackPane minusStackPane = initialiseButton("-");
-			((Button)minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+			StackPane confirmStackPane = initialiseButton("confirm");
+			((Button)confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
 	            	//orderedList.getItems().remove(consumable.getName());
 	            }
 	        });
-			tempHBox.getChildren().add(minusStackPane); // Remove food Button
+			tempHBox.getChildren().add(confirmStackPane); // Remove food Button
 			
 			vbox.getChildren().add(tempHBox); // Add consumable to the list
 		}
@@ -119,8 +119,5 @@ public class WaiterViewController {
 		Tab tab = new Tab(name.toUpperCase(), scrollPane);
 		return tab;
 	}
-
-  
-  
  
 }
