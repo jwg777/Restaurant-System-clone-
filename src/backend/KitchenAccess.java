@@ -8,7 +8,7 @@ public class KitchenAccess {
   DataInteract kitchenData;
   
   public KitchenAccess() {
-    kitchenData = new DataInteract();
+    kitchenData = DataInteract.getInstance();
   }
   
   public void changeMenu() {

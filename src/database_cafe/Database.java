@@ -9,31 +9,30 @@ import java.io.FileReader;
 
 public class Database {
 	
-    static Connection connection;
+    Connection connection;
     
-	public Database() {
-	  
-	    //for testing with set login credentials
-	    String user = "";
-	    String password = "";
-	    
-	    /*String user = "", password = "";
-        System.out.println("Please enter your username");
-        Scanner scan = new Scanner(System.in);
-        user = scan.nextLine();
-        System.out.println("Please enter your password");
-        password = scan.nextLine();
-        scan.close();*/
-        
-	    //tunneling
-        String database = "//localhost/CS2855/";
-        
-        //noMachine
-        //String database = "////teachdb.cs.rhul.ac.uk/CS2855/";
-        
-        connection = connectToDatabase(user, password, database);
-       
-	}	
+    public Database() {
+    //for testing with set login credentials
+      String user = "";
+      String password = "";
+      
+      /*String user = "", password = "";
+      System.out.println("Please enter your username");
+      Scanner scan = new Scanner(System.in);
+      user = scan.nextLine();
+      System.out.println("Please enter your password");
+      password = scan.nextLine();
+      scan.close();*/
+      
+      //tunneling
+      String database = "//localhost/CS2855/";
+      
+      //noMachine
+      //String database = "////teachdb.cs.rhul.ac.uk/CS2855/";
+      
+      connection = connectToDatabase(user, password, database);
+    }
+
 	
 	//temporary method
 	public void importFile(String file0) {
@@ -62,7 +61,7 @@ public class Database {
 	    	}
 	}
 
-  public Connection connectToDatabase(String user, String password, String database) {
+  public static Connection connectToDatabase(String user, String password, String database) {
     System.out.println("~~~~~~~~~~~~~~~ PostgreSQL___JDBC Connection Testing ~~~~~~~~~~~~~~~");
     Connection connection = null;
     try {
