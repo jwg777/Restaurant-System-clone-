@@ -5,10 +5,11 @@
 	<projects>
 	</projects>
 	<buildSpec>
-<<<<<<< HEAD
-	</buildSpec>
-	<natures>
-=======
+		<buildCommand>
+			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -17,6 +18,6 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
->>>>>>> refs/heads/waiter_view
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
 </projectDescription>

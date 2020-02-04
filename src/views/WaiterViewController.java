@@ -18,10 +18,6 @@ import javafx.scene.layout.VBox;
 public class WaiterViewController {
   
   /** The button controller. */
-
-  
- 
-
   SceneController butController = SceneController.getInstance();
 
   /**
@@ -35,33 +31,7 @@ public class WaiterViewController {
   }
   @FXML
 	VBox vboxStarter = new VBox();
-  @FXML
-	private void reloadPush() throws Exception {
-		ArrayList<Consumable> list = new ArrayList<>();
-		list.add(new Consumable("Apple", 110.00f));
-		list.add(new Consumable("Bacon", 1032.00f));
-		list.add(new Consumable("Pizza", 5.00f));
-		list.add(new Consumable("Garlic Bread", 13.00f));
-		list.add(new Consumable("Ham", 65.00f));
-		list.add(new Consumable("Chocoalte", 12.00f));
-		list.add(new Consumable("Honey", 76.00f));
-		list.add(new Consumable("Donut", 2.00f));
-		list.add(new Consumable("Sushi", 43.00f));
-		list.add(new Consumable("Apple", 10.00f));
-		list.add(new Consumable("Bacon", 32.00f));
-		list.add(new Consumable("Pizza", 54.00f));
-		list.add(new Consumable("Garlic Bread", 13.00f));
-		list.add(new Consumable("Ham", 65.00f));
-		list.add(new Consumable("Chocoalte", 12.00f));
-		list.add(new Consumable("Honey", 76.00f));
-		list.add(new Consumable("Donut", 2.00f));
-		list.add(new Consumable("Sushi", 43.00f));
-		list.add(new Consumable("Dipo",50.00f));
-		list.add(new Consumable("hello",50.00f));
-
-		vboxStarter.getChildren().clear();
-		addVBoxElements(list);
-	}
+  
   public void addVBoxElements(ArrayList<Consumable> consumables) {
 		for (Consumable consumable : consumables) {
 			HBox tempHBox = new HBox(); // Layout for one consumable of the list
@@ -77,6 +47,7 @@ public class WaiterViewController {
 			vboxStarter.getChildren().add(tempHBox); // Add consumable to the list
 		}
 	}
+  
   private StackPane initialiseButton(String name) {
 		StackPane sPane = new StackPane(); // Stack pane to centre button
 		sPane.setPrefSize(80, 50);
