@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 public class CustomerViewController {
     
     /** Object containing methods that interact with database **/
-    //CustomerAccess customerData = new CustomerAccess();
+    CustomerAccess customerData = new CustomerAccess();
     
 	/** The button controller */
 	SceneController butController = SceneController.getInstance();
@@ -58,14 +58,14 @@ public class CustomerViewController {
 	 */
 	@FXML
 	private void reloadPush() throws Exception {
-	  //MenuMap tempMap = customerData.getMenu();
-      //menuTabPane.getTabs().clear();
-      //createMenu(tempMap);
+	  MenuMap tempMap = customerData.getMenu();
+      menuTabPane.getTabs().clear();
+      createMenu(tempMap);
 	}
 	
 	@FXML
 	private void sendOrder() throws Exception {
-	  
+	  //method for sending order
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package views;
 
+import backend.LoginAccess;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -10,6 +11,9 @@ import javafx.scene.text.Text;
  */
 public class LoginViewController {
 
+    /** Object containing methods for the login view to interact with the database **/
+    private LoginAccess loginData = new LoginAccess();
+    
 	/** The field where the user enters a username. */
 	@FXML
 	private TextField userField;
@@ -45,12 +49,27 @@ public class LoginViewController {
 	 */
 	@FXML
 	private void loginSelected() throws Exception {
-	    String enteredUname = userField.getText();
-	    String enteredPword = passwordField.getText();
+	    String username = userField.getText();
+	    String password = passwordField.getText();
 	    
-	    System.out.println("Username is " + enteredUname);
-	    System.out.println("Password is " + enteredPword);
+	    System.out.println("Username is " + username);
+	    System.out.println("Password is " + password);
 	    
+	    if (loginData.checkUser(username, password)) {
+	      if (loginData.isKitchen(username)) {
+	        System.out.println("Kitchen successfully authenticated");
+	        butController.startKitchen();
+	      }
+	      else {
+	        System.out.println("Waiter successfully authenticated");
+	        butController.startWaiter();
+	      }
+	    } else {
+	      errorMessage.setVisible(true);
+          System.out.println("Authentication failed");
+	    }
+	    
+	    /**
 	    if (enteredUname.equals("waiter") && enteredPword.equals("service")) {
 	      System.out.println("Waiter successfully authenticated");
 	      butController.startWaiter();
@@ -61,6 +80,7 @@ public class LoginViewController {
 	      errorMessage.setVisible(true);
 	      System.out.println("Authentication failed");
 	    }
+	    */
 	}
 
 }

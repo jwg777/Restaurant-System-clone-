@@ -19,7 +19,8 @@ public final class DataInteract {
     database.createTable("Staff(staff_id int primary key, password varchar(100), role varchar(20))");
     database.createTable("Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
     
-    database.importFile("Menu");
+    database.importFile("Menu", "Menu");
+    database.importFile("Authentication", "Staff");
   }
   
   public static DataInteract getInstance() {

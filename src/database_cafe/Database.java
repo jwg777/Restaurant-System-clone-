@@ -35,7 +35,7 @@ public class Database {
 
     
     //temporary method
-    public void importFile(String file0) {
+    public void importFile(String file0, String table) {
         File inputFile = new File(file0);
         String line = "";
         BufferedReader br;
@@ -53,7 +53,7 @@ public class Database {
                   }
                 }
                 line += "'";
-                insertIntoTable("Menu", "", line);
+                insertIntoTable(table, "", line);
                 line = br.readLine();
               }
             } catch (Exception e) {
