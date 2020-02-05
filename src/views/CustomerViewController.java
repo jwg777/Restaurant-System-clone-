@@ -1,8 +1,7 @@
 package views;
 
 import java.util.ArrayList;
-
-
+import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
@@ -24,7 +23,9 @@ import javafx.scene.layout.VBox;
  * Controller for the customer view.
  */
 public class CustomerViewController {
-
+    
+    CustomerAccess customerData = new CustomerAccess();
+    
 	/** The button controller */
 	SceneController butController = SceneController.getInstance();
 
@@ -60,14 +61,11 @@ public class CustomerViewController {
 	 */
 	@FXML
 	private void reloadPush() throws Exception {
-		MenuMap tempMap = MenuMap.getInstace();
-		tempMap.put("Special", new Consumable("Special test 1", 10f));
-		tempMap.put("Starter", new Consumable("Starter test 1", 10f));
-		tempMap.put("Main", new Consumable("Main test 1", 10f));
-		tempMap.put("Side", new Consumable("Side test 1", 10f));
-		tempMap.put("Desert", new Consumable("Desert test 1", 10f));
-		menuTabPane.getTabs().clear();
-		createMenu(tempMap);
+	  
+	  MenuMap tempMap = customerData.getMenu();
+      menuTabPane.getTabs().clear();
+      createMenu(tempMap);
+	    
 	}
 
 	/**

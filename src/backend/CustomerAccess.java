@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import consumable.Consumable;
+import consumable.MenuMap;
 import database_cafe.DataInteract;
 
 public class CustomerAccess {
@@ -14,17 +15,18 @@ public class CustomerAccess {
     customerData = DataInteract.getInstance();
   }
   
-  public ArrayList<Consumable> getMenu() throws SQLException {
+  public MenuMap getMenu() throws SQLException {
     ResultSet rs = customerData.select("SELECT * FROM Menu");
-    ArrayList<Consumable> list = new ArrayList<>();
+    MenuMap tempMap = MenuMap.getInstace();
     
     while (rs.next()) {
       String itemName = rs.getString("dish");
+      String type = rs.getString("type");
       float itemPrice = rs.getFloat("price");
-      list.add(new Consumable(itemName, itemPrice));
+      tempMap.put(type, new Consumable(itemName, itemPrice));
     }
+    return tempMap;
     
-    return list;
   }
   
   public void placeOrder(String orders) {
