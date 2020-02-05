@@ -7,6 +7,9 @@ import consumable.MenuMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -18,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for the customer view.
@@ -29,6 +33,8 @@ public class CustomerViewController {
     
 	/** The button controller */
 	SceneController butController = SceneController.getInstance();
+	
+	MenuMap menu = MenuMap.getInstace();
 
 	/** A VBox containing the starters in the menu **/
 	@FXML
@@ -58,9 +64,10 @@ public class CustomerViewController {
 	 */
 	@FXML
 	private void reloadPush() throws Exception {
-	  MenuMap tempMap = customerData.getMenu();
+	  menu.clear();
+	  customerData.getMenu();
       menuTabPane.getTabs().clear();
-      createMenu(tempMap);
+      createMenu(menu);
 	}
 	
 	@FXML
@@ -70,7 +77,15 @@ public class CustomerViewController {
 	
 	@FXML
 	private void submitReview() throws Exception {
-	  //method to submitReview
+	  System.out.println("Thanks");
+      //method to submitReview
+      
+      Parent parent = FXMLLoader.load(getClass().getResource("ThanksReviwView.fxml"));
+      Scene scene = new Scene(parent);
+      Stage stage = new Stage();
+      stage.setTitle("Thanks");
+      stage.setScene(scene);
+      stage.show();
 	}
 	
 	/**
@@ -166,5 +181,31 @@ public class CustomerViewController {
 		Tab tab = new Tab(name.toUpperCase(), scrollPane);
 		return tab;
 	}
+	
+	/*@FXML
+    private void submitReview() throws Exception {
+      
+      System.out.println("Thanks");
+      //method to submitReview
+      
+      /*Parent parent = FXMLLoader.load(getClass().getResource("ThanksReviwView.fxml"));
+      Scene scene = new Scene(parent);
+      Stage stage = new Stage();
+      stage.setTitle("Thanks");
+      stage.setScene(scene);
+      stage.show();
+    }
+    
+
+public void displayThanksReview() throws IOException {
+      Parent root;
+     
+          root = FXMLLoader.load(getClass().getClassLoader().getResource("ThanksReviwView.fxml"));
+          Stage stage = new Stage();
+          stage.setTitle("My New Stage Title");
+          stage.setScene(new Scene(root, 450, 450));
+          stage.show();
+     // FXMLLoader load1 = new FXMLLoader("src/ThanksReviewView.fxml");
+    }*/
 
 }

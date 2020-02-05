@@ -13,8 +13,8 @@ public class Database {
     
     public Database() {
     //for testing with set login credentials
-      String user = "";
-      String password = "";
+      String user = "zfac032";
+      String password = "66092";
       
       /*String user = "", password = "";
       System.out.println("Please enter your username");
