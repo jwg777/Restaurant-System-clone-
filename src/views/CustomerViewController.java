@@ -68,6 +68,11 @@ public class CustomerViewController {
 	  
 	}
 	
+	@FXML
+	private void submitReview() throws Exception {
+	  //method to submitReview
+	}
+	
 	/**
 	 * Adds items to the VBox, as well as buttons to add/remove the item from an
 	 * order.
