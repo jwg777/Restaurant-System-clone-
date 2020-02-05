@@ -24,7 +24,8 @@ import javafx.scene.layout.VBox;
  */
 public class CustomerViewController {
     
-    CustomerAccess customerData = new CustomerAccess();
+    /** Object containing methods that interact with database **/
+    //CustomerAccess customerData = new CustomerAccess();
     
 	/** The button controller */
 	SceneController butController = SceneController.getInstance();
@@ -51,23 +52,22 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * When the reload button is pressed, refresh the menu with any new changes
-	 * applied.
+	 * When the reload button is pressed, refreshes the menu with any changes in the database.
 	 * 
 	 * @throws Exception the exception
 	 */
-	/*
-	 * Test reload button to refresh starter menu
-	 */
 	@FXML
 	private void reloadPush() throws Exception {
-	  
-	  MenuMap tempMap = customerData.getMenu();
-      menuTabPane.getTabs().clear();
-      createMenu(tempMap);
-	    
+	  //MenuMap tempMap = customerData.getMenu();
+      //menuTabPane.getTabs().clear();
+      //createMenu(tempMap);
 	}
-
+	
+	@FXML
+	private void sendOrder() throws Exception {
+	  
+	}
+	
 	/**
 	 * Adds items to the VBox, as well as buttons to add/remove the item from an
 	 * order.
