@@ -47,19 +47,19 @@ public class LoginViewController {
 	private void loginSelected() throws Exception {
 	    String enteredUname = userField.getText();
 	    String enteredPword = passwordField.getText();
+	    /*
+	     * How password will be stored in Database
+	     * For example, hash value for the word "Password123"
+	     */
+	    int password = -1223368297;
 	    
-	    System.out.println("Username is " + enteredUname);
-	    System.out.println("Password is " + enteredPword);
-	    
-	    if (enteredUname.equals("waiter") && enteredPword.equals("service")) {
-	      System.out.println("Waiter successfully authenticated");
+	    if (enteredUname.equals("waiter") && enteredPword.hashCode() == password) {
 	      butController.startWaiter();
-	    } else if (enteredUname.equals("kitchen") && enteredPword.equals("cooking")) {
-	      System.out.println("Kitchen successfully authenticated");
+	    } else if (enteredUname.equals("kitchen") && enteredPword.hashCode() == password) {
 	      butController.startKitchen();
 	    } else {
 	      errorMessage.setVisible(true);
-	      System.out.println("Authentication failed");
+	      passwordField.setText("");
 	    }
 	}
 
