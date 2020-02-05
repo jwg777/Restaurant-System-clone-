@@ -1,8 +1,7 @@
 package views;
 
 import java.util.ArrayList;
-
-
+import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
@@ -24,7 +23,10 @@ import javafx.scene.layout.VBox;
  * Controller for the customer view.
  */
 public class CustomerViewController {
-
+    
+    /** Object containing methods that interact with database **/
+    //CustomerAccess customerData = new CustomerAccess();
+    
 	/** The button controller */
 	SceneController butController = SceneController.getInstance();
 
@@ -50,26 +52,27 @@ public class CustomerViewController {
 	}
 
 	/**
-	 * When the reload button is pressed, refresh the menu with any new changes
-	 * applied.
+	 * When the reload button is pressed, refreshes the menu with any changes in the database.
 	 * 
 	 * @throws Exception the exception
 	 */
-	/*
-	 * Test reload button to refresh starter menu
-	 */
 	@FXML
 	private void reloadPush() throws Exception {
-		MenuMap tempMap = MenuMap.getInstace();
-		tempMap.put("Special", new Consumable("Special test 1", 10f));
-		tempMap.put("Starter", new Consumable("Starter test 1", 10f));
-		tempMap.put("Main", new Consumable("Main test 1", 10f));
-		tempMap.put("Side", new Consumable("Side test 1", 10f));
-		tempMap.put("Desert", new Consumable("Desert test 1", 10f));
-		menuTabPane.getTabs().clear();
-		createMenu(tempMap);
+	  //MenuMap tempMap = customerData.getMenu();
+      //menuTabPane.getTabs().clear();
+      //createMenu(tempMap);
 	}
-
+	
+	@FXML
+	private void sendOrder() throws Exception {
+	  
+	}
+	
+	@FXML
+	private void submitReview() throws Exception {
+	  //method to submitReview
+	}
+	
 	/**
 	 * Adds items to the VBox, as well as buttons to add/remove the item from an
 	 * order.
