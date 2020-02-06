@@ -41,22 +41,24 @@ public class WaiterViewController {
   /** A VBox containing the starters in the menu **/
 	
   @FXML
-  VBox vboxStarter = new VBox();
+  TabPane orderTabPane = new TabPane();
+  
+  @FXML 
+  HBox orderConfirm = new HBox();
+  
+  MenuMap tempMap = MenuMap.getInstace();
+  
   
   @FXML
-  TabPane menuTabPane = new TabPane();
-  
-  @FXML
-	private void reloadPush() throws Exception {
-		MenuMap tempMap = MenuMap.getInstace();
-		tempMap.put("Special", new Consumable("Special test 1", 10f));
-		tempMap.put("Starter", new Consumable("Starter test 1", 10f));
-		tempMap.put("Main", new Consumable("Main test 1", 10f));
-		tempMap.put("Side", new Consumable("Side test 1", 10f));
-		tempMap.put("Desert", new Consumable("Desert test 1", 10f));
-		menuTabPane.getTabs().clear();
-		createMenu(tempMap);
-	}
+  private void reloadPush() throws Exception {
+	System.out.println("check for the reload button");
+	tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
+	tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));
+	tempMap.put("READY ORDERS", new Consumable("Main test 1", 10f));
+	System.out.println("test reload button!");
+	orderTabPane.getTabs().clear();
+	createMenu(tempMap);
+  }
 	
   private VBox createVBox(ArrayList<Consumable> consumables) {
 		VBox vbox = new VBox();
@@ -69,11 +71,12 @@ public class WaiterViewController {
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
 			tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
 			tempHBox.getChildren().add(initialiseGap());
-			StackPane confirmStackPane = initialiseButton("confirm");
+			StackPane confirmStackPane = initialiseButton("Confirm");
 			((Button)confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
-	            	//orderedList.getItems().remove(consumable.getName());
+	            	vbox.getChildren().remove(tempHBox);
+	            	//tempHBox.getChildren().remove();
 	            }
 	        });
 			tempHBox.getChildren().add(confirmStackPane); // Remove food Button
@@ -106,7 +109,7 @@ public class WaiterViewController {
   
   public void createMenu(MenuMap menu) {
 		for (String string : menu.keyArray()) {
-			menuTabPane.getTabs().add(createTab(string, menu.get(string)));
+			orderTabPane.getTabs().add(createTab(string, menu.get(string)));
 		}
 	}
 
