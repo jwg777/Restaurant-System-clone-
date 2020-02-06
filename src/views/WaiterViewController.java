@@ -148,8 +148,9 @@ public class WaiterViewController {
       orderTabPane.getTabs().add(createTab(string, menu.get(string)));
     }
   }
+  
   /**
-   * Tab to initialise it's size 
+   * Create the tab for the tab specify the constructor.
    * @param name name of Tab.
    * @param list list of consumable.
    * @return the corresponding tab.
