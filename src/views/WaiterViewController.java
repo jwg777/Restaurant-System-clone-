@@ -47,7 +47,10 @@ public class WaiterViewController {
   TabPane orderTabPane = new TabPane();
   
   @FXML
-  VBox processingOrders = new VBox();
+  VBox processingOrders;
+  
+  @FXML
+  HBox firstOrder;
   
   @FXML 
   HBox orderConfirm = new HBox();
@@ -102,7 +105,8 @@ public class WaiterViewController {
     Optional<ButtonType> result = alert.showAndWait();
     
     if (result.get() == ButtonType.OK) {
-      //TODO remove order from VBox and from database
+      //TODO remove order from database
+      processingOrders.getChildren().remove(firstOrder);
       Alert cancelled = new Alert(AlertType.INFORMATION);
       cancelled.setTitle("Cancel Order");
       cancelled.setHeaderText(null);
