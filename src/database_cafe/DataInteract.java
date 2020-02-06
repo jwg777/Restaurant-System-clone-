@@ -7,7 +7,7 @@ public final class DataInteract {
   private static DataInteract instance;
   Database database;
   
-  private DataInteract() {
+  public DataInteract() {
     
     System.out.println("Database connection flag...");
     
@@ -35,5 +35,9 @@ public final class DataInteract {
   
   public void insertIntoTable(String tableName, String attributes, String values) {
     database.insertIntoTable(tableName, attributes, values);
+  }
+  
+  public void executeDelete(String query) {
+    database.execute(query);
   }
 }

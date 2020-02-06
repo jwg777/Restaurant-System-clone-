@@ -13,8 +13,8 @@ public class Database {
     
     public Database() {
     //for testing with set login credentials
-      String user = "";
-      String password = "";
+      String user = "zfac112";
+      String password = "56138";
       
       /*String user = "", password = "";
       System.out.println("Please enter your username");
@@ -25,10 +25,10 @@ public class Database {
       scan.close();*/
       
       //tunneling
-      String database = "//localhost/CS2855/";
+      //String database = "//localhost/CS2855/";
       
       //noMachine
-      //String database = "////teachdb.cs.rhul.ac.uk/CS2855/";
+      String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
       
       connection = connectToDatabase(user, password, database);
     }
@@ -123,5 +123,15 @@ public class Database {
       e.printStackTrace();
     }
     return rs;
+  }
+  
+  public void execute(String query) {
+    Statement st = null;
+    try {
+      st = connection.createStatement();
+      st.execute(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }
