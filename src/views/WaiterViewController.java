@@ -1,7 +1,7 @@
 package views;
 
 import java.util.ArrayList;
-
+import java.util.Optional;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
@@ -9,7 +9,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -42,6 +45,9 @@ public class WaiterViewController {
 	
   @FXML
   TabPane orderTabPane = new TabPane();
+  
+  @FXML
+  VBox processingOrders = new VBox();
   
   @FXML 
   HBox orderConfirm = new HBox();
@@ -85,6 +91,25 @@ public class WaiterViewController {
 		}
 		return vbox;
 	}
+  
+   @FXML
+  public void cancelOrder() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Cancel Order");
+    alert.setHeaderText("Cancelling this order will remove it from the database.");
+    alert.setContentText("Are you sure you want to cancel this order?");
+    
+    Optional<ButtonType> result = alert.showAndWait();
+    
+    if (result.get() == ButtonType.OK) {
+      //TODO remove order from VBox and from database
+      Alert cancelled = new Alert(AlertType.INFORMATION);
+      cancelled.setTitle("Cancel Order");
+      cancelled.setHeaderText(null);
+      cancelled.setContentText("The order has been successfully cancelled.");
+      cancelled.showAndWait();
+    }
+  }
   
   private StackPane initialiseButton(String name) {
 		StackPane sPane = new StackPane(); // Stack pane to centre button
