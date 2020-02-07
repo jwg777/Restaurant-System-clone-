@@ -76,16 +76,19 @@ public class CustomerViewController {
 	}
 	
 	@FXML
-	private void submitReview() throws Exception {
-	  System.out.println("Thanks");
+	void submitReview(ActionEvent event) {
+	  //System.out.println("Thanks");
       //method to submitReview
-      
-      Parent parent = FXMLLoader.load(getClass().getResource("ThanksReviwView.fxml"));
-      Scene scene = new Scene(parent);
-      Stage stage = new Stage();
-      stage.setTitle("Thanks");
-      stage.setScene(scene);
-      stage.show();
+      try {
+        FXMLLoader fLoad = new FXMLLoader(getClass().getClassLoader().getResource("ThanksReviewView.fxml"));
+        Parent root = (Parent) fLoad.load();
+        Stage stage = new Stage();
+        stage.setTitle("Thanks!");
+        stage.setScene(new Scene(root));
+        stage.show();
+      } catch (Exception e){
+        e.printStackTrace();
+      }
 	}
 	
 	/**
@@ -181,31 +184,4 @@ public class CustomerViewController {
 		Tab tab = new Tab(name.toUpperCase(), scrollPane);
 		return tab;
 	}
-	
-	/*@FXML
-    private void submitReview() throws Exception {
-      
-      System.out.println("Thanks");
-      //method to submitReview
-      
-      /*Parent parent = FXMLLoader.load(getClass().getResource("ThanksReviwView.fxml"));
-      Scene scene = new Scene(parent);
-      Stage stage = new Stage();
-      stage.setTitle("Thanks");
-      stage.setScene(scene);
-      stage.show();
-    }
-    
-
-public void displayThanksReview() throws IOException {
-      Parent root;
-     
-          root = FXMLLoader.load(getClass().getClassLoader().getResource("ThanksReviwView.fxml"));
-          Stage stage = new Stage();
-          stage.setTitle("My New Stage Title");
-          stage.setScene(new Scene(root, 450, 450));
-          stage.show();
-     // FXMLLoader load1 = new FXMLLoader("src/ThanksReviewView.fxml");
-    }*/
-
 }
