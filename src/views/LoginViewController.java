@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
  */
 public class LoginViewController {
 
-  /** The field where the user enters a username. */
+  /** The field where the user enters a user name. */
   @FXML
   private TextField userField;
 

@@ -33,7 +33,9 @@ public final class SceneController {
   /**
    * Instantiates a new button controller.
    */
-  private SceneController() {}
+  private SceneController() {
+
+  }
 
   /**
    * Changes the stage.
