@@ -80,7 +80,7 @@ public class CustomerViewController {
 	  //System.out.println("Thanks");
       //method to submitReview
       try {
-        FXMLLoader fLoad = new FXMLLoader(getClass().getClassLoader().getResource("ThanksReviewView.fxml"));
+        FXMLLoader fLoad = new FXMLLoader(getClass().getResource("ThanksReviewView.fxml"));
         Parent root = (Parent) fLoad.load();
         Stage stage = new Stage();
         stage.setTitle("Thanks!");
