@@ -14,8 +14,8 @@ public class Database {
     public Database() {
     	
     //for testing with set login credentials
-      String user = "";
-      String password = "";
+      String user = "zfac032";
+      String password = "66092";
       
       //String user = "", password = "";
       System.out.println("Please enter your username");
@@ -37,7 +37,7 @@ public class Database {
 
     
     //temporary method
-    public void importFile(String file0) {
+    public void importFile(String file0, String table) {
         File inputFile = new File(file0);
         String line = "";
         BufferedReader br;
@@ -55,7 +55,7 @@ public class Database {
                   }
                 }
                 line += "'";
-                insertIntoTable("Menu", "", line);
+                insertIntoTable(table, "", line);
                 line = br.readLine();
               }
             } catch (Exception e) {
