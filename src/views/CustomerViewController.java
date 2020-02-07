@@ -124,6 +124,14 @@ public class CustomerViewController {
 	            }
 	        });
 			tempHBox.getChildren().add(plusStackPane); // Add food Button
+			StackPane infoStackPane = initialiseButton("i");
+			((Button)infoStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                  //method to bring up allergies and calories info
+              }
+          });
+          tempHBox.getChildren().add(infoStackPane); //Add info button
 			vbox.getChildren().add(tempHBox); // Add consumable to the list
 		}
 		return vbox;
@@ -139,7 +147,7 @@ public class CustomerViewController {
 		StackPane sPane = new StackPane(); // Stack pane to centre button
 		sPane.setPrefSize(50, 50);
 		Button button = new Button(name); // Button to remove and add food to order list
-		button.setPrefSize(30, 30);
+		button.setPrefSize(40, 40);
 		sPane.getChildren().add(button);
 		return sPane;
 	}
