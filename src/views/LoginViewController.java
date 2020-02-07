@@ -18,26 +18,26 @@ public class LoginViewController {
 	@FXML
 	private TextField userField;
 
-	/** The field where the user enters a password. */
-	@FXML
-	private PasswordField passwordField;
+  /** The field where the user enters a password. */
+  @FXML
+  private PasswordField passwordField;
 	
-	/** The label used to display an error message on failed authentication. */
-	@FXML
-	private Text errorMessage;
+  /** The label used to display an error message on failed authentication. */
+  @FXML
+  private Text errorMessage;
 
-	/** The button controller. */
-	SceneController butController = SceneController.getInstance();
+  /** The button controller. */
+  SceneController butController = SceneController.getInstance();
 
-	/**
-	 * When the 'Return to Menu' button is pushed, return to the main menu.
-	 *
-	 * @throws Exception the exception
-	 */
-	@FXML
-	private void returnPush() throws Exception {
-		butController.startMain();
-	}
+  /**
+   * When the 'Return to Menu' button is pushed, return to the main menu.
+   *
+   * @throws Exception the exception
+   */
+  @FXML
+  private void returnPush() throws Exception {
+    butController.startMain();
+  }
 
 	/**
 	 * When the 'Login' button is pushed, attempt to authenticate the user with the
@@ -82,5 +82,4 @@ public class LoginViewController {
 	    }
 	    */
 	}
-
 }

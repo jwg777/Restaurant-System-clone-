@@ -36,26 +36,27 @@ public class CustomerViewController {
 	
 	MenuMap menu = MenuMap.getInstace();
 
-	/** A VBox containing the starters in the menu **/
-	@FXML
-	VBox vboxStarter = new VBox();
+  /** A VBox containing the starters in the menu.
+   */
+  @FXML
+  VBox vboxStarter = new VBox();
 
-	@FXML
-	TabPane menuTabPane = new TabPane();
+  @FXML
+  TabPane menuTabPane = new TabPane();
 	
-	@FXML
-	ListView<String> orderedList = new ListView<>();
+  @FXML
+  ListView<String> orderedList = new ListView<>();
 	
 
-	/**
-	 * When the 'Back to main menu' button is pressed, return to the main menu.
-	 * 
-	 * @throws Exception the exception
-	 */
-	@FXML
-	private void returnPush() throws Exception {
-		butController.startMain();
-	}
+  /**
+   * When the 'Back to main menu' button is pressed, return to the main menu.
+   * 
+   * @throws Exception the exception
+   */
+  @FXML
+  private void returnPush() throws Exception {
+    butController.startMain();
+  }
 
 	/**
 	 * When the reload button is pressed, refreshes the menu with any changes in the database.
@@ -152,36 +153,42 @@ public class CustomerViewController {
 		return sPane;
 	}
 
-	/**
-	 * Initialises a gap
-	 * 
-	 * @return the pane
-	 */
-	private Pane initialiseGap() {
-		Pane gap = new Pane();
-		gap.setPrefSize(25, 50);
-		return gap;
-	}
+  /**
+    * Initialises a gap between the other interface.
+    * 
+    * @return the pane
+    */
 
-	/**
-	 * Initialises a text label
-	 * 
-	 * @param name   the text in the label
-	 * @param width  the width of the label
-	 * @param height the height of the label
-	 * @return the label
-	 */
-	private Label initialiseLabel(String name, double width, double height) {
-		Label label = new Label(name);
-		label.setPrefSize(width, height);
-		return label;
-	}
+  private Pane initialiseGap() {
+    Pane gap = new Pane();
+    gap.setPrefSize(25, 50);
+    return gap;
+  }
 
-	public void createMenu(MenuMap menu) {
-		for (String string : menu.keyArray()) {
-			menuTabPane.getTabs().add(createTab(string, menu.get(string)));
-		}
-	}
+  /**
+   * Initialises a text label.
+   * 
+   * @param name   the text in the label
+   * @param width  the width of the label
+   * @param height the height of the label
+   * @return the label
+   */
+  
+  private Label initialiseLabel(String name, double width, double height) {
+    Label label = new Label(name);
+    label.setPrefSize(width, height);
+    return label;
+  }
+  /**
+   * createMenu method to set menu depend of input value.
+   * @param menu list of String
+   */
+  
+  public void createMenu(MenuMap menu) {
+    for (String string : menu.keyArray()) {
+      menuTabPane.getTabs().add(createTab(string, menu.get(string)));
+    }
+  }
 
 	private Tab createTab(String name, ArrayList<Consumable> list) {
 		AnchorPane anchorPane = new AnchorPane();
