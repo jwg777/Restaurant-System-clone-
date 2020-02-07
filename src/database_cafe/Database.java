@@ -25,10 +25,10 @@ public class Database {
       scan.close();*/
       
       //tunneling
-      //String database = "//localhost/CS2855/";
+      String database = "//localhost/CS2855/";
       
       //noMachine
-      String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
+      //String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
       
       connection = connectToDatabase(user, password, database);
     }

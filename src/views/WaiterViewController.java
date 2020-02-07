@@ -38,6 +38,10 @@ public class WaiterViewController {
       butController.startMain();
   }
   
+  @FXML
+  private void addDeletePush() throws Exception {
+    
+  }
   /** A VBox containing the starters in the menu **/
 	
   @FXML
