@@ -154,7 +154,7 @@
                     <Button layoutX="55.0" layoutY="444.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Place Order" />
                     <Button layoutX="55.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Cancel" />
                     <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
-                              <Button fx:id="AddDel" layoutX="-151.0" layoutY="3.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" style="-fx-border-color: red;" text="Add/Delete" />
+                              <Button fx:id="AddDel" layoutX="-151.0" layoutY="3.0" mnemonicParsing="false" onAction="#addDeletePush" prefHeight="31.0" prefWidth="98.0" style="-fx-border-color: red;" text="Add/Delete" />
                   </children>
                 </AnchorPane>
                 <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#reloadPush" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
