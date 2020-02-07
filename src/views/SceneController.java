@@ -1,15 +1,14 @@
 package views;
 
 import java.io.IOException;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * The Button Controller decides and handles the action taken when a button is
- * pressed in the application.
+ * The Button Controller decides and handles the action taken when a button is pressed in the
+ * application.
  */
 public final class SceneController {
 
@@ -34,8 +33,7 @@ public final class SceneController {
   /**
    * Instantiates a new button controller.
    */
-  private SceneController() {
-  }
+  private SceneController() {}
 
   /**
    * Changes the stage.
@@ -50,7 +48,7 @@ public final class SceneController {
    * Changes the view currently being displayed in the application.
    *
    * @param fxmlFile the fxml file containing the view's design
-   * @param title    the title of the view, displayed at the top of the window
+   * @param title the title of the view, displayed at the top of the window
    * @throws IOException Signals that an I/O exception has occurred.
    */
   private void sceneChange(String fxmlFile, String title) throws IOException {

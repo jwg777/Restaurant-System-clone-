@@ -17,7 +17,7 @@ public class LoginViewController {
   /** The field where the user enters a password. */
   @FXML
   private PasswordField passwordField;
-	
+
   /** The label used to display an error message on failed authentication. */
   @FXML
   private Text errorMessage;
@@ -36,10 +36,9 @@ public class LoginViewController {
   }
 
   /**
-   * When the 'Login' button is pushed, attempt to authenticate the user with the
-   * specified user name and password. If successful, go to either the waiter or kitchen view
-   * depending on which one the credentials are assigned to. If unsuccessful, display an error
-   * message.
+   * When the 'Login' button is pushed, attempt to authenticate the user with the specified user
+   * name and password. If successful, go to either the waiter or kitchen view depending on which
+   * one the credentials are assigned to. If unsuccessful, display an error message.
    *
    * @throws Exception the exception
    */
@@ -50,7 +49,7 @@ public class LoginViewController {
 
     System.out.println("Username is " + enteredUname);
     System.out.println("Password is " + enteredPword);
-	
+
     if (enteredUname.equals("waiter") && enteredPword.equals("service")) {
       System.out.println("Waiter successfully authenticated");
       butController.startWaiter();

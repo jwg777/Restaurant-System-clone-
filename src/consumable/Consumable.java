@@ -9,139 +9,139 @@ import java.util.List;
  */
 public class Consumable implements Comparable<Consumable> {
 
-	/** The name of the dish. */
-	private String name;
-	
-	/** The price of the dish. */
-	private float price;
-	
-	/** Specifies whether or not the dish is currently available. */
-	private boolean isAvailable = true;
-	
-	/** Specifies whether or not the dish is a special. */
-	private boolean isSpecial = false;
-	
-	/** A list of ingredients required to make the dish. */
-	private List<String> ingredients;
+  /** The name of the dish. */
+  private String name;
 
-	/**
-	 * Instantiates a new consumable dish by specifying its name, price and ingredients.
-	 *
-	 * @param name the name of the dish
-	 * @param price the price of the dish
-	 * @param ingredients the ingredients needed to make the dish
-	 */
-	public Consumable(String name, float price, List<String> ingredients) {
-		this.name = name;
-		this.price = price;
-		this.ingredients = new ArrayList<String>();
-		for (String ingredient : ingredients) {
-			this.ingredients.add(ingredient);
-		}
-		Collections.sort(this.ingredients);
-	}
+  /** The price of the dish. */
+  private float price;
 
-	/**
-	 * Instantiates a new consumable dish by specifying its name and price, but not its ingredients.
-	 *
-	 * @param name the name
-	 * @param price the price
-	 */
-	public Consumable(String name, float price) {
-		this(name, price, new ArrayList<String>());
-	}
+  /** Specifies whether or not the dish is currently available. */
+  private boolean isAvailable = true;
 
-	/**
-	 * Instantiates a new consumable dish by specifying its name, but not its price or ingredients.
-	 *
-	 * @param name the name
-	 */
-	public Consumable(String name) {
-		this(name, 0, new ArrayList<String>());
-	}
+  /** Specifies whether or not the dish is a special. */
+  private boolean isSpecial = false;
 
-	/**
-	 * Returns the name of the dish.
-	 *
-	 * @return the name
-	 */
-	public String getName() {
-		return this.name;
-	}
+  /** A list of ingredients required to make the dish. */
+  private List<String> ingredients;
 
-	/**
-	 * Changes the price of the dish.
-	 *
-	 * @param price the new price
-	 */
-	public void setPrice(float price) {
-		this.price = price;
-	}
+  /**
+   * Instantiates a new consumable dish by specifying its name, price and ingredients.
+   *
+   * @param name the name of the dish
+   * @param price the price of the dish
+   * @param ingredients the ingredients needed to make the dish
+   */
+  public Consumable(String name, float price, List<String> ingredients) {
+    this.name = name;
+    this.price = price;
+    this.ingredients = new ArrayList<String>();
+    for (String ingredient : ingredients) {
+      this.ingredients.add(ingredient);
+    }
+    Collections.sort(this.ingredients);
+  }
 
-	/**
-	 * Returns the price of the dish.
-	 *
-	 * @return the price
-	 */
-	public float getPrice() {
-		return this.price;
-	}
+  /**
+   * Instantiates a new consumable dish by specifying its name and price, but not its ingredients.
+   *
+   * @param name the name
+   * @param price the price
+   */
+  public Consumable(String name, float price) {
+    this(name, price, new ArrayList<String>());
+  }
 
-	/**
-	 * Sets a dish's availability.
-	 *
-	 * @param isAvailable true, if the dish is available
-	 */
-	public void setAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
-	}
+  /**
+   * Instantiates a new consumable dish by specifying its name, but not its price or ingredients.
+   *
+   * @param name the name
+   */
+  public Consumable(String name) {
+    this(name, 0, new ArrayList<String>());
+  }
 
-	/**
-	 * Checks if the dish is available or not.
-	 *
-	 * @return true, if the dish is available
-	 */
-	public boolean isAvailable() {
-		return this.isAvailable;
-	}
+  /**
+   * Returns the name of the dish.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return this.name;
+  }
 
-	/**
-	 * Sets the special.
-	 *
-	 * @param isSpecial the new special
-	 */
-	public void setSpecial(boolean isSpecial) {
-		this.isSpecial = isSpecial;
-	}
+  /**
+   * Changes the price of the dish.
+   *
+   * @param price the new price
+   */
+  public void setPrice(float price) {
+    this.price = price;
+  }
 
-	/**
-	 * Checks if is special.
-	 *
-	 * @return true, if is special
-	 */
-	public boolean isSpecial() {
-		return this.isSpecial;
-	}
+  /**
+   * Returns the price of the dish.
+   *
+   * @return the price
+   */
+  public float getPrice() {
+    return this.price;
+  }
 
-	/**
-	 * Returns the list of the dish's ingredients.
-	 *
-	 * @return the ingredients
-	 */
-	public List<String> getIngredients() {
-		return this.ingredients;
-	}
+  /**
+   * Sets a dish's availability.
+   *
+   * @param isAvailable true, if the dish is available
+   */
+  public void setAvailable(boolean isAvailable) {
+    this.isAvailable = isAvailable;
+  }
 
-	/**
-	 * Comparable method for sorting.
-	 *
-	 * @param o the o.
-	 * @return the int.
-	 */
-	@Override
-	public int compareTo(Consumable o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+  /**
+   * Checks if the dish is available or not.
+   *
+   * @return true, if the dish is available
+   */
+  public boolean isAvailable() {
+    return this.isAvailable;
+  }
+
+  /**
+   * Sets the special.
+   *
+   * @param isSpecial the new special
+   */
+  public void setSpecial(boolean isSpecial) {
+    this.isSpecial = isSpecial;
+  }
+
+  /**
+   * Checks if is special.
+   *
+   * @return true, if is special
+   */
+  public boolean isSpecial() {
+    return this.isSpecial;
+  }
+
+  /**
+   * Returns the list of the dish's ingredients.
+   *
+   * @return the ingredients
+   */
+  public List<String> getIngredients() {
+    return this.ingredients;
+  }
+
+  /**
+   * Comparable method for sorting.
+   *
+   * @param o the o.
+   * @return the int.
+   */
+  @Override
+  public int compareTo(Consumable o) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
 }

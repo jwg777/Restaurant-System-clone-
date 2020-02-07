@@ -1,7 +1,6 @@
 package views;
 
 import java.util.ArrayList;
-
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
@@ -29,7 +28,7 @@ public class WaiterViewController {
 
   /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
-   *
+   * 
    * @throws Exception the exception
    */
   @FXML
@@ -54,8 +53,8 @@ public class WaiterViewController {
   MenuMap tempMap = MenuMap.getInstace();
 
   /**
-   * reloadPush() methods to input the value when the reload button is pressed.
-   * this will create the menu to test the functions.
+   * reloadPush() methods to input the value when the reload button is pressed. this will create the
+   * menu to test the functions.
    * 
    * @throws Exception if the error occurs.
    */
@@ -69,8 +68,7 @@ public class WaiterViewController {
   }
 
   /**
-   * Set the VBox and its children to be initialise and set the function to
-   * confirm order.
+   * Set the VBox and its children to be initialise and set the function to confirm order.
    * 
    * @param consumables of consumable.
    * @return VBox of what has been set.
@@ -90,8 +88,8 @@ public class WaiterViewController {
       StackPane confirmStackPane = initialiseButton("Confirm");
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
-          public void handle(ActionEvent event) {
-            vbox.getChildren().remove(tempHBox);
+        public void handle(ActionEvent event) {
+          vbox.getChildren().remove(tempHBox);
         }
       });
       tempHBox.getChildren().add(confirmStackPane); // Remove food Button
@@ -106,7 +104,7 @@ public class WaiterViewController {
    * @param name of StackPane name.
    * @return stackPane initialise value.
    */
-  
+
   private StackPane initialiseButton(String name) {
     StackPane stPane = new StackPane(); // Stack pane to centre button
     stPane.setPrefSize(100, 50);
@@ -131,8 +129,8 @@ public class WaiterViewController {
   /**
    * to initialise the label's value.
    * 
-   * @param name   to be label name
-   * @param width  set the width of label
+   * @param name to be label name
+   * @param width set the width of label
    * @param height set the height of label.
    * @return return the initialiseLabel of specific value.
    */

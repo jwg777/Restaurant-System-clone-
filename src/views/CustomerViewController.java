@@ -1,7 +1,6 @@
 package views;
 
 import java.util.ArrayList;
-import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
@@ -23,27 +22,30 @@ import javafx.scene.layout.VBox;
  * Controller for the customer view.
  */
 public class CustomerViewController {
-    
-  /** Object containing methods that interact with database.
+
+  /**
+   * Object containing methods that interact with database.
    */
-  
-  //CustomerAccess customerData = new CustomerAccess();
-    
-  /** The button controller.
+
+  // CustomerAccess customerData = new CustomerAccess();
+
+  /**
+   * The button controller.
    */
   SceneController butController = SceneController.getInstance();
 
-  /** A VBox containing the starters in the menu.
+  /**
+   * A VBox containing the starters in the menu.
    */
   @FXML
   VBox vboxStarter = new VBox();
 
   @FXML
   TabPane menuTabPane = new TabPane();
-	
+
   @FXML
   ListView<String> orderedList = new ListView<>();
-	
+
 
   /**
    * When the 'Back to main menu' button is pressed, return to the main menu.
@@ -62,24 +64,23 @@ public class CustomerViewController {
    */
   @FXML
   private void reloadPush() throws Exception {
-    //MenuMap tempMap = customerData.getMenu();
-      //menuTabPane.getTabs().clear();
-      //createMenu(tempMap);
+    // MenuMap tempMap = customerData.getMenu();
+    // menuTabPane.getTabs().clear();
+    // createMenu(tempMap);
   }
-	
+
   @FXML
   private void sendOrder() throws Exception {
-    
+
   }
-	
+
   @FXML
   private void submitReview() throws Exception {
-  //method to submitReview
+    // method to submitReview
   }
-	
+
   /**
-   * Adds items to the VBox, as well as buttons to add/remove the item from an
-   * order.
+   * Adds items to the VBox, as well as buttons to add/remove the item from an order.
    * 
    * @param consumables the consumables
    */
@@ -95,20 +96,20 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
-      ((Button)minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+      ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
           orderedList.getItems().remove(consumable.getName());
-          }
-        });
+        }
+      });
       tempHBox.getChildren().add(minusStackPane); // Remove food Button
       StackPane plusStackPane = initialiseButton("+");
-      ((Button)plusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+      ((Button) plusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
           orderedList.getItems().add(consumable.getName());
-          }
-        });
+        }
+      });
       tempHBox.getChildren().add(plusStackPane); // Add food Button
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
@@ -121,7 +122,7 @@ public class CustomerViewController {
    * @param name the text in the button
    * @return the stack pane
    */
-	
+
   private StackPane initialiseButton(String name) {
     StackPane sPane = new StackPane(); // Stack pane to centre button
     sPane.setPrefSize(50, 50);
@@ -132,10 +133,10 @@ public class CustomerViewController {
   }
 
   /**
-    * Initialises a gap between the other interface.
-    * 
-    * @return the pane
-    */
+   * Initialises a gap between the other interface.
+   * 
+   * @return the pane
+   */
 
   private Pane initialiseGap() {
     Pane gap = new Pane();
@@ -146,22 +147,24 @@ public class CustomerViewController {
   /**
    * Initialises a text label.
    * 
-   * @param name   the text in the label
-   * @param width  the width of the label
+   * @param name the text in the label
+   * @param width the width of the label
    * @param height the height of the label
    * @return the label
    */
-  
+
   private Label initialiseLabel(String name, double width, double height) {
     Label label = new Label(name);
     label.setPrefSize(width, height);
     return label;
   }
+
   /**
    * createMenu method to set menu depend of input value.
+   * 
    * @param menu list of String
    */
-  
+
   public void createMenu(MenuMap menu) {
     for (String string : menu.keyArray()) {
       menuTabPane.getTabs().add(createTab(string, menu.get(string)));

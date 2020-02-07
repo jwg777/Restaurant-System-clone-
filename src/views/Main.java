@@ -1,14 +1,13 @@
 package views;
 
 import javafx.application.Application;
-
 import javafx.stage.Stage;
 
 /**
  * Main class to startup the application.
  */
 public class Main extends Application {
-	
+
   /** The button controller. */
   static SceneController controller = SceneController.getInstance();
 
