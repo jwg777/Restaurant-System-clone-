@@ -70,7 +70,8 @@ public class WaiterViewController {
   }
 
   /**
-   * Set the VBox and its children to be initialise and set the function to confirm order.
+   * Set the VBox and its children to be initialise and set the function to confirm order. the
+   * function is to give a confrim notification to the waiter.
    * 
    * @param consumables of consumable.
    * @return VBox of what has been set.
@@ -92,10 +93,10 @@ public class WaiterViewController {
         @Override
         public void handle(ActionEvent event) {
           Stage stage = new Stage();
-          stage.setTitle("orderConfirm");
-          Label label = new Label("order confirm been placed");
-
-          Scene scene = new Scene(label, 200, 100);
+          stage.setTitle("Notification");
+          Label label = new Label("Order from customer been confirmed!");
+          label.setStyle("-fx-background-color: white");
+          Scene scene = new Scene(label, 250, 150);
           stage.setScene(scene);
           stage.show();
           vbox.getChildren().remove(tempHBox);
