@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="590.0" prefWidth="791.0" style="-fx-border-style: double;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<AnchorPane prefHeight="590.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="470.0" layoutY="427.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="130.0" text="Delete item" />
       <Button layoutX="259.0" layoutY="427.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="130.0" text="Add item" />
