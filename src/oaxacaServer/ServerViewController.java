@@ -1,7 +1,11 @@
 package oaxacaServer;
 
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
+import java.util.Queue;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -50,12 +54,27 @@ public class ServerViewController {
 		circle.setFill(Color.RED);
 	}
 
-	public String getIPv4() throws UnknownHostException {
-		InetAddress ip = InetAddress.getLocalHost();
-		return ip.toString().split("/")[1];
+	public String getIPv4() throws UnknownHostException, SocketException {
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		if (!ip.split("\\.")[0].equals("192")) {
+			Enumeration<NetworkInterface> allNet = NetworkInterface.getNetworkInterfaces();
+			while (allNet.hasMoreElements()) {
+				NetworkInterface e = allNet.nextElement();
+				Enumeration<InetAddress> a = e.getInetAddresses();
+				while (a.hasMoreElements()) {
+					InetAddress addr = a.nextElement();
+					if (addr.getHostAddress().split("\\.")[0].equals("192")) {
+						ip = addr.getHostAddress();
+						break;
+					}
+				}
+
+			}
+		}
+		return ip;
 	}
 
-	public void updateIPv4() throws UnknownHostException {
+	public void updateIPv4() throws UnknownHostException, SocketException {
 		ipv4Label.setText(getIPv4() + " : ");
 	}
 
@@ -72,13 +91,15 @@ public class ServerViewController {
 		}
 		server.setPort(Integer.parseInt(port));
 		server.addListener(new Listener() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onListChange() {
-				updateListView(server.getLine());
+				updateListView(server.getQueue());
 			}
 		});
 		Thread t = new Thread(server);
 		t.start();
+		System.out.println(server.running);
 		circle.setFill(server.running ? Color.GREEN : Color.RED);
 	}
 
@@ -97,11 +118,13 @@ public class ServerViewController {
 		return true;
 	}
 
-	public void updateListView(String line) {
+	public void updateListView(Queue<String> q) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				logListView.getItems().add(line);
+				while (!q.isEmpty()) {
+					logListView.getItems().add(q.poll());
+				}
 			}
 		});
 

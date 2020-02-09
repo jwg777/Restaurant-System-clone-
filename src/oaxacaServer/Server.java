@@ -5,7 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 public final class Server implements Runnable {
@@ -15,7 +17,7 @@ public final class Server implements Runnable {
 	private Set<String> username = new HashSet<>();
 	private Set<UserThread> userThreads = new HashSet<>();
 	private final List<Listener> listeners = new ArrayList<>();
-	private String line = "Error";
+	private Queue<String> queue = new LinkedList<>();;
 	boolean running = false;
 
 	private Server() {
@@ -48,15 +50,17 @@ public final class Server implements Runnable {
 				userThreads.add(newUser);
 				newUser.start();
 			}
+			serverSocket.close();
 		} catch (IOException e) {
 			write("Port " + port + " is already used");
 			listeners.remove(listeners.size() - 1);
+		}finally {
 			running = false;
 		}
 	}
 
 	public void write(String string) {
-		line = ("[" + java.time.LocalTime.now() + "] " + string);
+		queue.add("[" + java.time.LocalTime.now() + "] " + string);
 		for (Listener listener : listeners) {
 			listener.onListChange();
 		}
@@ -75,8 +79,8 @@ public final class Server implements Runnable {
 		listeners.add(listener);
 	}
 
-	public String getLine() {
-		return line;
+	public Queue getQueue() {
+		return queue;
 	}
 
 	public void close() {
