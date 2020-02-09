@@ -5,6 +5,8 @@ package views;
  * 
  */
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,5 +28,15 @@ public class AddDeleteViewController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+  
+  @FXML
+  private void deletePush(ActionEvent event) throws Exception {
+    System.out.println("delete");
+  }
+  
+  @FXML
+  private void addPush(ActionEvent event) throws Exception {
+    System.out.println("add");
   }
 }

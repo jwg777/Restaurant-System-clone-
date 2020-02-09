@@ -28,7 +28,7 @@ class TestDatabase {
    */
   @BeforeAll
   static void setUpBeforeClass() throws Exception {
-    database = new DataInteract();
+    database = DataInteract.getInstance();
   }
 
   /** Test will check if tables have been created.

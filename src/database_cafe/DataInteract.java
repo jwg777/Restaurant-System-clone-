@@ -7,7 +7,7 @@ public final class DataInteract {
   private static DataInteract instance;
   Database database;
   
-  public DataInteract() {
+  private DataInteract() {
     
     System.out.println("Database connection flag...");
     

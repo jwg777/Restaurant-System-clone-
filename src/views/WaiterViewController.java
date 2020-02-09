@@ -57,7 +57,16 @@ public class WaiterViewController {
 
   MenuMap tempMap = MenuMap.getInstace();
 
-
+  @FXML
+  private void deletePush(ActionEvent event) throws Exception {
+    System.out.println("delete");
+  }
+  
+  @FXML
+  private void addPush(ActionEvent event) throws Exception {
+    System.out.println("add");
+  }
+  
   @FXML
   private void reloadPush() throws Exception {
     System.out.println("check for the reload button");
