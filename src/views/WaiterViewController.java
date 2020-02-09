@@ -6,6 +6,7 @@ import consumable.MenuMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for the waiter view..
@@ -89,6 +91,13 @@ public class WaiterViewController {
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
+          Stage stage = new Stage();
+          stage.setTitle("orderConfirm");
+          Label label = new Label("order confirm been placed");
+
+          Scene scene = new Scene(label, 200, 100);
+          stage.setScene(scene);
+          stage.show();
           vbox.getChildren().remove(tempHBox);
         }
       });
@@ -97,6 +106,12 @@ public class WaiterViewController {
     }
     return vbox;
   }
+
+  /**
+   * private Popup notice(String s) { Button button = new Button(s); Popup popup = new Popup();
+   * Label label = new Label("order confrimed!"); label.setStyle(" -fx-background-color: white;");
+   * popup.getContent().add(label); label.setMinHeight(80); label.setMinHeight(50); return popup; }
+   */
 
   /**
    * set the StackPane and its internal button.
