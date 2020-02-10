@@ -14,11 +14,13 @@ public final class Server implements Runnable {
 
 	private static Server instance = null;
 	private int port;
-	private Set<String> username = new HashSet<>();
+	private Set<String> usernames = new HashSet<>();
 	private Set<UserThread> userThreads = new HashSet<>();
-	private final List<Listener> listeners = new ArrayList<>();
-	private Queue<String> queue = new LinkedList<>();;
+	private final List<ListListener> listListeners = new ArrayList<>();
+	private Queue<String> queue = new LinkedList<>();
 	boolean running = false;
+	private int i = 0;
+	
 
 	private Server() {
 	}
@@ -36,8 +38,8 @@ public final class Server implements Runnable {
 
 	@Override
 	public void run() {
-		if(running) {
-			listeners.remove(listeners.size()-1);
+		if (running) {
+			listListeners.remove(listListeners.size() - 1);
 			write("Server already started");
 			return;
 		}
@@ -46,6 +48,7 @@ public final class Server implements Runnable {
 			write("Server started on port " + port);
 			while (running) {
 				Socket socket = serverSocket.accept();
+				// Creates a new user thread
 				UserThread newUser = new UserThread(socket);
 				userThreads.add(newUser);
 				newUser.start();
@@ -53,40 +56,48 @@ public final class Server implements Runnable {
 			serverSocket.close();
 		} catch (IOException e) {
 			write("Port " + port + " is already used");
-			listeners.remove(listeners.size() - 1);
-		}finally {
+			listListeners.remove(listListeners.size() - 1);
+		} finally {
 			running = false;
 		}
 	}
 
 	public void write(String string) {
-		queue.add("[" + java.time.LocalTime.now() + "] " + string);
-		for (Listener listener : listeners) {
+		String time = java.time.LocalTime.now().toString().split("\\.")[0];
+		queue.add("[" + time + "] " + string);
+		for (ListListener listener : listListeners) {
 			listener.onListChange();
 		}
 	}
 
 	public void addUserName(String string) {
-		username.add(string);
+		usernames.add(string);
 	}
 
 	public void removeUser(String string, UserThread user) {
-		username.remove(string);
+		usernames.remove(string);
 		userThreads.remove(user);
 	}
 
-	public void addListener(Listener listener) {
-		listeners.add(listener);
+	public void addListener(ListListener listener) {
+		listListeners.add(listener);
 	}
 
-	public Queue getQueue() {
+	public Queue<String> getQueue() {
 		return queue;
 	}
 
 	public void close() {
 		write("Server on port " + port + " closed.");
 		running = false;
-		listeners.clear();
+		listListeners.clear();
 	}
 
+	public int numberOfClients() {
+		return usernames.size();
+	}
+
+	public String addNumebr() {
+		return String.format("%04d", ++i);
+	}
 }
