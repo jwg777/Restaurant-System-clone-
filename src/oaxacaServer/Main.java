@@ -1,13 +1,12 @@
 package oaxacaServer;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.Node;
+import javafx.stage.WindowEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 
 public class Main extends Application {
 
@@ -22,6 +21,12 @@ public class Main extends Application {
 			Scene scene = new Scene(parent);
 			stage.setTitle("Oaxaca Server");
 			stage.setScene(scene);
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					System.exit(0);
+				}
+			});
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

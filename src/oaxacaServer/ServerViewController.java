@@ -90,8 +90,7 @@ public class ServerViewController {
 			return;
 		}
 		server.setPort(Integer.parseInt(port));
-		server.addListener(new Listener() {
-			@SuppressWarnings("unchecked")
+		server.addListener(new ListListener() {
 			@Override
 			public void onListChange() {
 				updateListView(server.getQueue());
@@ -99,7 +98,6 @@ public class ServerViewController {
 		});
 		Thread t = new Thread(server);
 		t.start();
-		System.out.println(server.running);
 		circle.setFill(server.running ? Color.GREEN : Color.RED);
 	}
 

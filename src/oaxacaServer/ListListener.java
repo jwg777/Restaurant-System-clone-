@@ -1,5 +1,5 @@
 package oaxacaServer;
 
-public interface Listener {
+public interface ListListener {
 	public void onListChange();
 }
