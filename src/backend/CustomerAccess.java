@@ -15,7 +15,7 @@ public class CustomerAccess {
     customerData = DataInteract.getInstance();
   }
   
-  public MenuMap getMenu() throws SQLException {
+  public void getMenu() throws SQLException {
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstace();
     
@@ -25,8 +25,6 @@ public class CustomerAccess {
       float itemPrice = rs.getFloat("price");
       tempMap.put(type, new Consumable(itemName, itemPrice));
     }
-    return tempMap;
-    
   }
   
   public void placeOrder(String orders) {
