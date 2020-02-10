@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.fail;
+import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 import backend.CustomerAccess;
 
@@ -10,19 +11,18 @@ class testCustomerAccess {
 
 
 
-  @BeforeEach
   CustomerAccess customerData = new CustomerAccess();
   String[] exampleList = {"Allergen1", "Allergen2", "Allergen3"};
 
-  void setUp() throws Exception {
-
-  }
-
   @Test
   void testGetAllergens() {
-    String[] myAllergenList = customerData.getAllergens("Apple");
-    assertEquals(myAllergenList, exampleList,
-        "the allergens from the database don't match the expected values");
+    try {
+      String[] myAllergenList = customerData.getAllergens("Apple");
+      assertEquals(myAllergenList, exampleList,
+          "the allergens from the database don't match the expected values");
+    } catch (SQLException e) {
+      fail("an SQL Exception occurred");
+    }
   }
 
 }
