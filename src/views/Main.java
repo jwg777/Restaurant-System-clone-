@@ -20,9 +20,9 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage stage) throws Exception {
-	stage.setResizable(false);
-	controller.setStage(stage);
-	controller.startMain();
+    stage.setResizable(false);
+    controller.setStage(stage);
+    controller.startMain();
   }
 
   /**

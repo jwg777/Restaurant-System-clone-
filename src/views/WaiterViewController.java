@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 /**
  * Controller for the waiter view..
  */
+  
 public class WaiterViewController {
   
   /** The button controller. */
@@ -37,12 +38,14 @@ public class WaiterViewController {
    * @throws Exception the exception
    */
   @FXML
-  private void returnPush() throws Exception{
-      butController.startMain();
+  private void returnPush() throws Exception {
+    butController.startMain();
   }
   
-  /** A VBox containing the starters in the menu **/
-	
+  /**
+   *Declare the main tab for the orders to orderTabPane.
+   */
+
   @FXML
   TabPane orderTabPane = new TabPane();
   
@@ -52,23 +55,38 @@ public class WaiterViewController {
   @FXML
   HBox firstOrder;
   
+  /**
+   * Declare the HBox inside the VBox to be order Confirm.
+   */
+
   @FXML 
   HBox orderConfirm = new HBox();
-  
+  /**
+   * object MenuMap declared.
+   */
   MenuMap tempMap = MenuMap.getInstace();
   
-  
+  /**
+   * reloadPush() methods to input the value when the reload button is pressed. 
+   * this will create the menu to test the functions.
+   * @throws Exception if the error occurs.
+   */
   @FXML
   private void reloadPush() throws Exception {
-	System.out.println("check for the reload button");
-	tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
-	tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));
-	tempMap.put("READY ORDERS", new Consumable("Main test 1", 10f));
-	System.out.println("test reload button!");
-	orderTabPane.getTabs().clear();
-	createMenu(tempMap);
+    System.out.println("check for the reload button");
+    tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
+    tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));
+    tempMap.put("READY ORDERS", new Consumable("Main test 1", 10f));
+    System.out.println("test reload button!");
+    orderTabPane.getTabs().clear();
+    createMenu(tempMap);
   }
-	
+  /**
+   * Set the VBox and its children to be initialise and set the function to confirm order.
+   * @param consumables of consumable.
+   * @return VBox of what has been set.
+   */
+
   private VBox createVBox(ArrayList<Consumable> consumables) {
 		VBox vbox = new VBox();
 		for (Consumable consumable : consumables) {
@@ -115,41 +133,69 @@ public class WaiterViewController {
     }
   }
   
+  /**
+   * set the StackPane and its internal button.
+   * @param name of StackPane name.
+   * @return stackPane initialise value.
+   */
+ 
   private StackPane initialiseButton(String name) {
-		StackPane sPane = new StackPane(); // Stack pane to centre button
-		sPane.setPrefSize(100, 50);
-		Button button = new Button(name); // Button to remove and add food to order list
-		button.setPrefSize(50, 50);
-		sPane.getChildren().add(button);
-		return sPane;
-	}
+    StackPane stPane = new StackPane(); // Stack pane to centre button
+    stPane.setPrefSize(100, 50);
+    Button button = new Button(name); // Button to remove and add food to order list
+    button.setPrefSize(50, 50);
+    stPane.getChildren().add(button);
+    return stPane;
+  }
+  /**
+   * to set the Gap between label in HBox.
+   * @return the pane initialised size.
+   */
   
   private Pane initialiseGap() {
-		Pane gap = new Pane();
-		gap.setPrefSize(25, 50);
-		return gap;
-	}
+    Pane gap = new Pane();
+    gap.setPrefSize(25, 50);
+    return gap;
+  }
+  /**
+   * to initialise the label's value.
+   * @param name to be label name
+   * @param width set the width of label
+   * @param height set the height of label.
+   * @return return the initialiseLabel of specific value.
+   */
   
   private Label initialiseLabel(String name, double width, double height) {
-		Label label = new Label(name);
-		label.setPrefSize(width, height);
-		return label;
-	}
+    Label label = new Label(name);
+    label.setPrefSize(width, height);
+    return label;
+  }
+  /**
+   * method to createMenu using for loop and it's string value.
+   * @param menu param of menu created.
+   */
   
   public void createMenu(MenuMap menu) {
-		for (String string : menu.keyArray()) {
-			orderTabPane.getTabs().add(createTab(string, menu.get(string)));
-		}
-	}
-
+    for (String string : menu.keyArray()) {
+      orderTabPane.getTabs().add(createTab(string, menu.get(string)));
+    }
+  }
+  
+  /**
+   * Create the tab for the tab specify the constructor.
+   * @param name name of Tab.
+   * @param list list of consumable.
+   * @return the corresponding tab.
+   */
+  
   private Tab createTab(String name, ArrayList<Consumable> list) {
-		AnchorPane anchorPane = new AnchorPane();
-		anchorPane.setPrefWidth(580);
-		anchorPane.getChildren().add(createVBox(list));
-		ScrollPane scrollPane = new ScrollPane(anchorPane);
-		scrollPane.setPrefWidth(600);
-		Tab tab = new Tab(name.toUpperCase(), scrollPane);
-		return tab;
-	}
+    AnchorPane anchorPane = new AnchorPane();
+    anchorPane.setPrefWidth(580);
+    anchorPane.getChildren().add(createVBox(list));
+    ScrollPane scrollPane = new ScrollPane(anchorPane);
+    scrollPane.setPrefWidth(600);
+    Tab tab = new Tab(name.toUpperCase(), scrollPane);
+    return tab;
+  }
  
 }

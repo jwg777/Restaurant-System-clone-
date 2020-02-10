@@ -7,27 +7,27 @@ import javafx.fxml.FXML;
  */
 public class MainViewController {
 
-	/** The button controller. */
-	SceneController butController = SceneController.getInstance();
+  /** The button controller. */
+  SceneController butController = SceneController.getInstance();
 
-	/**
-	 * When the 'View Menu' button is pressed, go to the customer view.
-	 *
-	 * @throws Exception the exception
-	 */
-	@FXML
-	private void customerPush() throws Exception {
-		butController.startCustomer();
-	}
+  /**
+   * When the 'View Menu' button is pressed, go to the customer view.
+   *
+   * @throws Exception the exception
+   */
+  @FXML
+  private void customerPush() throws Exception {
+    butController.startCustomer();
+  }
 
-	/**
-	 * When the staff login button is pushed, go to the staff login view.
-	 *
-	 * @throws Exception the exception
-	 */
-	@FXML
-	private void loginPush() throws Exception {
-		butController.startLogin();
-	}
+  /**
+   * When the staff login button is pushed, go to the staff login view.
+   *
+   * @throws Exception the exception
+   */
+  @FXML
+  private void loginPush() throws Exception {
+    butController.startLogin();
+  }
 
 }
