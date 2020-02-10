@@ -16,7 +16,8 @@ public class UserThread extends Thread {
 	public void run() {
 		try {
 			DataInputStream dis = new DataInputStream(socket.getInputStream());
-			String name = (String) dis.readUTF();
+			ClientType type = ClientType.valueOf((String) dis.readUTF());
+			String name = type.name()+"_"+server.addNumebr();
 			server.addUserName(name);
 			server.write("New client connected: " + name);
 			String response;
