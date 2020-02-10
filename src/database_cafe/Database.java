@@ -11,12 +11,14 @@ import java.sql.Statement;
 
 public class Database {
 
+
   Connection connection;
 
   public Database() {
+
     // for testing with set login credentials
-    String user = "";
-    String password = "";
+    String user = "zfac032";
+    String password = "66092";
 
     /*
      * String user = "", password = ""; System.out.println("Please enter your username"); Scanner
@@ -31,11 +33,12 @@ public class Database {
     // String database = "////teachdb.cs.rhul.ac.uk/CS2855/";
 
     connection = connectToDatabase(user, password, database);
+
   }
 
 
   // temporary method
-  public void importFile(String file0) {
+  public void importFile(String file0, String table) {
     File inputFile = new File(file0);
     String line = "";
     BufferedReader br;
@@ -53,13 +56,15 @@ public class Database {
           }
         }
         line += "'";
-        insertIntoTable("Menu", "", line);
+        insertIntoTable(table, "", line);
         line = br.readLine();
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
+
   }
+
 
   public static Connection connectToDatabase(String user, String password, String database) {
     System.out.println("~~~~~~~~~~~~~~~ PostgreSQL___JDBC Connection Testing ~~~~~~~~~~~~~~~");

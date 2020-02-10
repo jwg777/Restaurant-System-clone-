@@ -1,11 +1,16 @@
+
 package views;
 
 import java.util.ArrayList;
+import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -17,22 +22,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for the customer view.
  */
 public class CustomerViewController {
 
-  /**
-   * Object containing methods that interact with database.
-   */
+  /** Object containing methods that interact with database **/
+  CustomerAccess customerData = new CustomerAccess();
 
-  // CustomerAccess customerData = new CustomerAccess();
-
-  /**
-   * The button controller.
-   */
+  /** The button controller */
   SceneController butController = SceneController.getInstance();
+
+  MenuMap menu = MenuMap.getInstace();
 
   /**
    * A VBox containing the starters in the menu.
@@ -64,19 +67,31 @@ public class CustomerViewController {
    */
   @FXML
   private void reloadPush() throws Exception {
-    // MenuMap tempMap = customerData.getMenu();
-    // menuTabPane.getTabs().clear();
-    // createMenu(tempMap);
+    menu.clear();
+    customerData.getMenu();
+    menuTabPane.getTabs().clear();
+    createMenu(menu);
   }
 
   @FXML
   private void sendOrder() throws Exception {
-
+    // method for sending order
   }
 
   @FXML
-  private void submitReview() throws Exception {
+  void submitReview(ActionEvent event) {
+    // System.out.println("Thanks");
     // method to submitReview
+    try {
+      FXMLLoader fLoad = new FXMLLoader(getClass().getResource("ThanksReviewView.fxml"));
+      Parent root = (Parent) fLoad.load();
+      Stage stage = new Stage();
+      stage.setTitle("Thanks!");
+      stage.setScene(new Scene(root));
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -111,6 +126,14 @@ public class CustomerViewController {
         }
       });
       tempHBox.getChildren().add(plusStackPane); // Add food Button
+      StackPane infoStackPane = initialiseButton("i");
+      ((Button) infoStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          // method to bring up allergies and calories info
+        }
+      });
+      tempHBox.getChildren().add(infoStackPane); // Add info button
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
@@ -122,12 +145,11 @@ public class CustomerViewController {
    * @param name the text in the button
    * @return the stack pane
    */
-
   private StackPane initialiseButton(String name) {
     StackPane sPane = new StackPane(); // Stack pane to centre button
     sPane.setPrefSize(50, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(30, 30);
+    button.setPrefSize(40, 40);
     sPane.getChildren().add(button);
     return sPane;
   }
@@ -180,5 +202,5 @@ public class CustomerViewController {
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
   }
-
 }
+

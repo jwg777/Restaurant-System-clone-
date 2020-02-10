@@ -1,6 +1,8 @@
+
 package views;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
@@ -19,7 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+
 
 /**
  * Controller for the waiter view..
@@ -32,7 +34,7 @@ public class WaiterViewController {
 
   /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
-   * 
+   *
    * @throws Exception the exception
    */
   @FXML
@@ -56,9 +58,17 @@ public class WaiterViewController {
 
   @FXML
   TabPane orderTabPane = new TabPane();
+
+  @FXML
+  VBox processingOrders;
+
+  @FXML
+  HBox firstOrder;
+
   /**
    * Declare the HBox inside the VBox to be order Confirm.
    */
+
   @FXML
   HBox orderConfirm = new HBox();
   /**
@@ -74,16 +84,16 @@ public class WaiterViewController {
    */
   @FXML
   private void reloadPush() throws Exception {
-    tempMap.put("WAITING ORDERS", new Consumable("ReadyOrderTest", 10f));
-    tempMap.put("PROCESSING ORDERS", new Consumable("Order_CancelTest", 10f));
-    tempMap.put("READY ORDERS", new Consumable("Order_Confrim", 10f));
+
+    tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
+    tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));
+    tempMap.put("READY ORDERS", new Consumable("Main test 1", 10f));
     orderTabPane.getTabs().clear();
     createMenu(tempMap);
   }
 
   /**
-   * Set the VBox and its children to be initialise and set the function to confirm order. the
-   * function is to give a confrim notification to the waiter.
+   * Set the VBox and its children to be initialise and set the function to confirm order.
    * 
    * @param consumables of consumable.
    * @return VBox of what has been set.
@@ -118,6 +128,26 @@ public class WaiterViewController {
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
+  }
+
+  @FXML
+  public void cancelOrder() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Cancel Order");
+    alert.setHeaderText("Cancelling this order will remove it from the database.");
+    alert.setContentText("Are you sure you want to cancel this order?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      // TODO remove order from database
+      processingOrders.getChildren().remove(firstOrder);
+      Alert cancelled = new Alert(AlertType.INFORMATION);
+      cancelled.setTitle("Cancel Order");
+      cancelled.setHeaderText(null);
+      cancelled.setContentText("The order has been successfully cancelled.");
+      cancelled.showAndWait();
+    }
   }
 
   /**
