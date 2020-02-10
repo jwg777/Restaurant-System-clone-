@@ -17,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -50,6 +51,36 @@ public class WaiterViewController {
   /** A VBox containing the starters in the menu **/
 
   @FXML
+  private TextField dishName;
+  
+  @FXML
+  private TextField type;
+  
+  @FXML
+  private TextField price1;
+  
+  @FXML 
+  private TextField price2;
+  
+  @FXML
+  private TextField allergies1;
+  
+  @FXML
+  private TextField allergies2;
+  
+  @FXML
+  private TextField allergies3;
+  
+  @FXML
+  private TextField allergies4;
+  
+  @FXML
+  private TextField allergies5;
+  
+  @FXML 
+  private TextField calories;
+  
+  @FXML
   TabPane orderTabPane = new TabPane();
 
   @FXML
@@ -59,12 +90,17 @@ public class WaiterViewController {
 
   @FXML
   private void deletePush(ActionEvent event) throws Exception {
-    System.out.println("delete");
+    System.out.println("Deleting dish : " + dishName.getText());
   }
   
   @FXML
   private void addPush(ActionEvent event) throws Exception {
-    System.out.println("add");
+    System.out.println("Dish : " + dishName.getText());
+    System.out.println("Type : " + type.getText());
+    System.out.println("Price : £ " + price1.getText() + "." + price2.getText());
+    String alls = allergies1.getText() + " , " + allergies2.getText() + " , " + allergies3.getText() + " , " + allergies4.getText() + " , " + allergies5.getText();
+    System.out.println("Allergies : " + alls);
+    System.out.println("Calories : " + calories.getText() +" cals" );
   }
   
   @FXML
@@ -140,5 +176,7 @@ public class WaiterViewController {
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
   }
+  
+  
 
 }
