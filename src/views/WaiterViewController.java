@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 /**
  * Controller for the waiter view..
@@ -99,7 +100,7 @@ public class WaiterViewController {
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
       tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      StackPane confirmStackPane = initialiseButton("Confirm");
+      StackPane confirmStackPane = initialiseButton("Confirm", 12);
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -126,12 +127,14 @@ public class WaiterViewController {
    * @return stackPane initialise value.
    */
 
-  private StackPane initialiseButton(String name) {
+  private StackPane initialiseButton(String name, int font) {
     StackPane stPane = new StackPane(); // Stack pane to centre button
     stPane.setPrefSize(100, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(50, 50);
+    button.setPrefSize(70, 50);
+    button.setFont(new Font(font));
     stPane.getChildren().add(button);
+
     return stPane;
   }
 
