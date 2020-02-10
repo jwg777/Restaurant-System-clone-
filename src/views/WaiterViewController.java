@@ -6,8 +6,10 @@ import consumable.MenuMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -17,7 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Controller for the waiter view..
@@ -36,6 +37,16 @@ public class WaiterViewController {
   @FXML
   private void returnPush() throws Exception {
     butController.startMain();
+  }
+
+  /**
+   * Initialise the reload push button.
+   * 
+   * @throws Exception when it's not recognise the reload push button.
+   */
+  @FXML
+  public void initialize() throws Exception {
+    reloadPush();
   }
 
   /**
@@ -92,13 +103,13 @@ public class WaiterViewController {
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-          Stage stage = new Stage();
-          stage.setTitle("Notification");
-          Label label = new Label("Order from customer been confirmed!");
-          label.setStyle("-fx-background-color: white");
-          Scene scene = new Scene(label, 250, 150);
-          stage.setScene(scene);
-          stage.show();
+          Alert alert =
+              new Alert(AlertType.CONFIRMATION, "order has been confirmed", ButtonType.OK);
+          alert.setTitle("Notification");
+          alert.show();
+          if (alert.getResult() == ButtonType.OK) {
+            alert.close();
+          }
           vbox.getChildren().remove(tempHBox);
         }
       });
@@ -107,12 +118,6 @@ public class WaiterViewController {
     }
     return vbox;
   }
-
-  /**
-   * private Popup notice(String s) { Button button = new Button(s); Popup popup = new Popup();
-   * Label label = new Label("order confrimed!"); label.setStyle(" -fx-background-color: white;");
-   * popup.getContent().add(label); label.setMinHeight(80); label.setMinHeight(50); return popup; }
-   */
 
   /**
    * set the StackPane and its internal button.
