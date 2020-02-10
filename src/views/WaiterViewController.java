@@ -1,7 +1,7 @@
 package views;
 
 import java.util.ArrayList;
-
+import java.util.Optional;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.event.ActionEvent;
@@ -9,7 +9,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -45,9 +48,17 @@ public class WaiterViewController {
 
   @FXML
   TabPane orderTabPane = new TabPane();
+  
+  @FXML
+  VBox processingOrders;
+  
+  @FXML
+  HBox firstOrder;
+  
   /**
    * Declare the HBox inside the VBox to be order Confirm.
    */
+
   @FXML 
   HBox orderConfirm = new HBox();
   /**
@@ -77,30 +88,51 @@ public class WaiterViewController {
    */
 
   private VBox createVBox(ArrayList<Consumable> consumables) {
-    VBox vbox = new VBox();
-    for (Consumable consumable : consumables) {
-      HBox tempHBox = new HBox(); // Layout for one consumable of the list
-      tempHBox.setPrefHeight(50);
-      tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
-      String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
-      StackPane confirmStackPane = initialiseButton("Confirm");
-      ((Button)confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-          vbox.getChildren().remove(tempHBox);
-          //tempHBox.getChildren().remove();
-          }
-        });
-      tempHBox.getChildren().add(confirmStackPane); // Remove food Button
-      
-      vbox.getChildren().add(tempHBox); // Add consumable to the list
+		VBox vbox = new VBox();
+		for (Consumable consumable : consumables) {
+			HBox tempHBox = new HBox(); // Layout for one consumable of the list
+			tempHBox.setPrefHeight(50);
+			tempHBox.getChildren().add(initialiseGap());
+			tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
+			tempHBox.getChildren().add(initialiseGap());
+			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
+			tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
+			tempHBox.getChildren().add(initialiseGap());
+			StackPane confirmStackPane = initialiseButton("Confirm");
+			((Button)confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent event) {
+	            	vbox.getChildren().remove(tempHBox);
+	            	//tempHBox.getChildren().remove();
+	            }
+	        });
+			tempHBox.getChildren().add(confirmStackPane); // Remove food Button
+			
+			vbox.getChildren().add(tempHBox); // Add consumable to the list
+		}
+		return vbox;
+	}
+  
+   @FXML
+  public void cancelOrder() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Cancel Order");
+    alert.setHeaderText("Cancelling this order will remove it from the database.");
+    alert.setContentText("Are you sure you want to cancel this order?");
+    
+    Optional<ButtonType> result = alert.showAndWait();
+    
+    if (result.get() == ButtonType.OK) {
+      //TODO remove order from database
+      processingOrders.getChildren().remove(firstOrder);
+      Alert cancelled = new Alert(AlertType.INFORMATION);
+      cancelled.setTitle("Cancel Order");
+      cancelled.setHeaderText(null);
+      cancelled.setContentText("The order has been successfully cancelled.");
+      cancelled.showAndWait();
     }
-    return vbox;
   }
+  
   /**
    * set the StackPane and its internal button.
    * @param name of StackPane name.
