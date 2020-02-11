@@ -88,7 +88,7 @@ public class CustomerViewController {
 			tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-			tempHBox.getChildren().add(initialiseLabel("Â£ " + price, 70, 50));
+			tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
 			tempHBox.getChildren().add(initialiseGap());
 			StackPane minusStackPane = initialiseButton("-");
 			((Button)minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {

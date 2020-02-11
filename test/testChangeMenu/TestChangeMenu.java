@@ -8,8 +8,15 @@ package testChangeMenu;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import database_cafe.DataInteract;
+import views.AddDeleteViewController;
+import views.WaiterViewController;
 
 class TestChangeMenu {
+  
+  static DataInteract database;
+  static AddDeleteViewController advCont;
+  static WaiterViewController wvCont;
   
   /** Set up the database and controllers beforehand.
    * 
@@ -18,7 +25,9 @@ class TestChangeMenu {
    */
   @BeforeAll
   static void setUpBeforeClass() throws Exception {
-    //TO-DO
+    database = DataInteract.getInstance();
+    advCont = new AddDeleteViewController();
+    wvCont = new WaiterViewController();
   }
 
   /** Test that items can be added to the menu.
@@ -26,7 +35,7 @@ class TestChangeMenu {
    */
   @Test
   void testAddItem() {
-    fail("Not yet implemented");
+    
   }
   
   /** Test that items can be deleted from the menu.

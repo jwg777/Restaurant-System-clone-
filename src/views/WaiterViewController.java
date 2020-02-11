@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import consumable.Consumable;
 import consumable.MenuMap;
+import database_cafe.DataInteract;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -85,12 +88,31 @@ public class WaiterViewController {
 
   @FXML
   HBox orderConfirm = new HBox();
+  
+  @FXML
+  Alert deleteAlert = new Alert(AlertType.NONE);
+  
+  @FXML
+  Alert addAlert = new Alert(AlertType.NONE);
 
   MenuMap tempMap = MenuMap.getInstace();
+  
+  DataInteract database;
 
   @FXML
   private void deletePush(ActionEvent event) throws Exception {
+    deleteAlert.setContentText("Are you sure you want to delete this dish?");
+    deleteAlert.setAlertType(AlertType.CONFIRMATION);
+    deleteAlert.show();
     System.out.println("Deleting dish : " + dishName.getText());
+    try {
+      database.executeDelete("DELETE FROM Menu " +
+                            "WHERE dish = " + dishName.getText());
+    } catch (Exception e) {
+      deleteAlert.setContentText("Dish does not exist");
+      deleteAlert.setAlertType(AlertType.CONFIRMATION);
+      deleteAlert.show();
+    }
   }
   
   @FXML
@@ -98,9 +120,18 @@ public class WaiterViewController {
     System.out.println("Dish : " + dishName.getText());
     System.out.println("Type : " + type.getText());
     System.out.println("Price : £ " + price1.getText() + "." + price2.getText());
-    String alls = allergies1.getText() + " , " + allergies2.getText() + " , " + allergies3.getText() + " , " + allergies4.getText() + " , " + allergies5.getText();
+    String strPrice = price1.getText() + "." + price2.getText();
+    float floatPrice = Float.parseFloat(strPrice);
+    String alls = allergies1.getText() + " / " + allergies2.getText() + " / " + allergies3.getText() + " / " + allergies4.getText() + " / " + allergies5.getText();
     System.out.println("Allergies : " + alls);
     System.out.println("Calories : " + calories.getText() +" cals" );
+    try {
+      database.insertIntoTable("MENU", "", dishName.getText() + ", " + floatPrice + ", " + alls + ", " + Integer.parseInt(calories.getText()) + ", " + type.getText());
+    } catch (Exception e) {
+      addAlert.setContentText("Dish already exists");
+      addAlert.setAlertType(AlertType.CONFIRMATION);
+      addAlert.show();
+    }
   }
   
   @FXML
@@ -123,7 +154,7 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("Â£ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane confirmStackPane = initialiseButton("Confirm");
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
