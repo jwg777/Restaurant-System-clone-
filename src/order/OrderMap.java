@@ -10,7 +10,7 @@ public final class OrderMap {
 
   private OrderMap() {}
 
-  public static OrderMap getInstace() {
+  public static OrderMap getInstance() {
     if (instance == null) {
       instance = new OrderMap();
     }

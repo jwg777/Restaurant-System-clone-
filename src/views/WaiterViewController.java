@@ -1,10 +1,11 @@
 
 package views;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import backend.WaiterAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
+import java.util.ArrayList;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,9 +30,13 @@ import javafx.scene.text.Font;
  */
 
 public class WaiterViewController {
+  
+  WaiterAccess waiterData = new WaiterAccess();
 
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
+  
+  MenuMap menu = MenuMap.getInstance();
 
   /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
@@ -42,20 +47,9 @@ public class WaiterViewController {
   private void returnPush() throws Exception {
     butController.startMain();
   }
-
-  /**
-   * Initialise the reload push button.
-   * 
-   * @throws Exception when it's not recognise the reload push button.
-   */
+  
   @FXML
-  public void initialize() throws Exception {
-    reloadPush();
-  }
-
-  /**
-   * Declare the main tab for the orders to orderTabPane.
-   */
+  TabPane menuTabPane = new TabPane();
 
   @FXML
   TabPane orderTabPane = new TabPane();
@@ -72,10 +66,7 @@ public class WaiterViewController {
 
   @FXML
   HBox orderConfirm = new HBox();
-  /**
-   * object MenuMap declared.
-   */
-  MenuMap tempMap = MenuMap.getInstace();
+
 
   /**
    * reloadPush() methods to input the value when the reload button is pressed. this will create the
@@ -84,13 +75,16 @@ public class WaiterViewController {
    * @throws Exception if the error occurs.
    */
   @FXML
-  private void reloadPush() throws Exception {
-
-    tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
-    tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));
-    tempMap.put("READY ORDERS", new Consumable("Main test 1", 10f));
-    orderTabPane.getTabs().clear();
-    createMenu(tempMap);
+  private void menuReload() throws Exception {
+    menu.clear();
+    waiterData.getMenu();
+    menuTabPane.getTabs().clear();
+    createMenu(menu);
+  }
+  
+  @FXML
+  private void orderReload() throws Exception {
+    //TODO create orders file to get order data from
   }
 
   /**
@@ -131,6 +125,10 @@ public class WaiterViewController {
     return vbox;
   }
 
+  /**
+   * Cancels an order
+   * @throws Exception
+   */
   @FXML
   public void cancelOrder() throws Exception {
     Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -204,7 +202,7 @@ public class WaiterViewController {
 
   public void createMenu(MenuMap menu) {
     for (String string : menu.keyArray()) {
-      orderTabPane.getTabs().add(createTab(string, menu.get(string)));
+      menuTabPane.getTabs().add(createTab(string, menu.get(string)));
     }
   }
 

@@ -10,7 +10,7 @@ public final class MenuMap {
 
   private MenuMap() {}
 
-  public static MenuMap getInstace() {
+  public static MenuMap getInstance() {
     if (instance == null) {
       instance = new MenuMap();
     }
