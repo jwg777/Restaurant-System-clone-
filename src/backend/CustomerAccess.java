@@ -16,7 +16,8 @@ public class CustomerAccess {
 
 
   public void getMenu() throws SQLException {
-
+    
+    customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstace();
 
