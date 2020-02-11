@@ -41,6 +41,16 @@ public class CustomerAccess {
     return allergenList;
   }
 
+  public String getCalories(String item) throws SQLException {
+    String myQuery = "SELECT calories FROM Menu WHERE Menu.dish = '" + item + "'";
+    ResultSet rs = customerData.select(myQuery);
+    rs.next();
+
+    String caloriesInfo = rs.getString(1);
+
+    return caloriesInfo;
+  }
+
 
   public void placeOrder(String orders) {
     // customerData.insertIntoTable("insert order data");
