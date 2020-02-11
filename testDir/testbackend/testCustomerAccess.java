@@ -17,7 +17,8 @@ class testCustomerAccess {
   String[] exampleList = {"Allergen1", "Allergen2", "Allergen3"};
 
   @Test
-  void testGetAllergens() {
+  void testGetAllergens() { // test1 - can i retrieve the allergens info of an item from the
+                            // database
     try {
       String[] myAllergenList = customerData.getAllergens("Apple");
       for (int i = 0; i < exampleList.length; i++) {
@@ -25,6 +26,18 @@ class testCustomerAccess {
             "the allergens from the database don't match the expected values");
       }
 
+    } catch (SQLException e) {
+      e.printStackTrace();
+      fail("an SQL Exception occurred");
+    }
+  }
+
+  @Test
+  void testGetCalories() { // test2 - can I retrieve the calories of an item from the database
+    try {
+      String itemCalories = customerData.getCalories("Apple");
+      assertEquals(itemCalories, "2000",
+          "the calorie count from the database don't match the expected value");
     } catch (SQLException e) {
       e.printStackTrace();
       fail("an SQL Exception occurred");
