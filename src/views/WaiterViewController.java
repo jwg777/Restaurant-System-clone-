@@ -59,13 +59,19 @@ public class WaiterViewController {
 
   @FXML
   TabPane orderTabPane = new TabPane();
-
+  /**
+   * Declare the Processing order VBox from Processing order tab.
+   */
   @FXML
   VBox processingOrders;
-
+  /**
+   * Declare the HBox in the processingOrder VBox.
+   */
   @FXML
   HBox firstOrder;
-
+  /**
+   * Declare the VBox in waitingOrder tab.
+   */
   @FXML
   VBox waitingOrders;
 
@@ -127,6 +133,12 @@ public class WaiterViewController {
     return vbox;
   }
 
+  /**
+   * confirm the order when the button is pressed. this will show the alert message to ensure the
+   * order been confirmed.
+   * 
+   * @throws Exception
+   */
   @FXML
   public void confirmOrder() throws Exception {
 
@@ -134,14 +146,13 @@ public class WaiterViewController {
     alert.setTitle("Confirm Order");
     alert.setHeaderText("Confirming this order will send order to the kitchen");
     alert.setContentText("order is confirming");
-
+    alert.show();
     Optional<ButtonType> result = alert.showAndWait();
 
     if (result.get() == ButtonType.OK) {
       waitingOrders.getChildren().remove(orderConfirm);
-      alert.close();
     }
-
+    alert.close();
   }
 
   @FXML
