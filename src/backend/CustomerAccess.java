@@ -22,9 +22,12 @@ public class CustomerAccess {
 
     while (rs.next()) {
       String itemName = rs.getString("dish");
-      String type = rs.getString("type");
       float itemPrice = rs.getFloat("price");
-      tempMap.put(type, new Consumable(itemName, itemPrice));
+      String allergens = rs.getString("allergens");
+      float calories = rs.getFloat("calories");
+      String type = rs.getString("type");
+      
+      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
     }
 
 
