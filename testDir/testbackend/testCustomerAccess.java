@@ -20,9 +20,13 @@ class testCustomerAccess {
   void testGetAllergens() {
     try {
       String[] myAllergenList = customerData.getAllergens("Apple");
-      assertEquals(myAllergenList, exampleList,
-          "the allergens from the database don't match the expected values");
+      for (int i = 0; i < exampleList.length; i++) {
+        assertEquals(myAllergenList[i], exampleList[i],
+            "the allergens from the database don't match the expected values");
+      }
+
     } catch (SQLException e) {
+      e.printStackTrace();
       fail("an SQL Exception occurred");
     }
   }

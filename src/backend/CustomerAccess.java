@@ -33,6 +33,18 @@ public class CustomerAccess {
 
   }
 
+  public String[] getAllergens(String item) throws SQLException {
+    String myQuery = "SELECT allergens FROM Menu WHERE Menu.dish = '" + item + "'";
+    ResultSet rs = customerData.select(myQuery);
+    rs.next();
+    String allergensTxtList = rs.getString(1);
+
+    String[] allergenList = allergensTxtList.split(",");
+
+    return allergenList;
+  }
+
+
   public void placeOrder(String orders) {
     // customerData.insertIntoTable("insert order data");
   }
