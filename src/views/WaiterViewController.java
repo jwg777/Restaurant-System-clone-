@@ -66,12 +66,15 @@ public class WaiterViewController {
   @FXML
   HBox firstOrder;
 
+  @FXML
+  VBox waitingOrders;
+
   /**
    * Declare the HBox inside the VBox to be order Confirm.
    */
 
   @FXML
-  HBox orderConfirm = new HBox();
+  HBox orderConfirm;
   /**
    * object MenuMap declared.
    */
@@ -115,13 +118,6 @@ public class WaiterViewController {
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-          Alert alert =
-              new Alert(AlertType.CONFIRMATION, "order has been confirmed", ButtonType.OK);
-          alert.setTitle("Notification");
-          alert.show();
-          if (alert.getResult() == ButtonType.OK) {
-            alert.close();
-          }
           vbox.getChildren().remove(tempHBox);
         }
       });
@@ -129,6 +125,23 @@ public class WaiterViewController {
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
+  }
+
+  @FXML
+  public void confirmOrder() throws Exception {
+
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Confirm Order");
+    alert.setHeaderText("Confirming this order will send order to the kitchen");
+    alert.setContentText("order is confirming");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      waitingOrders.getChildren().remove(orderConfirm);
+      alert.close();
+    }
+
   }
 
   @FXML
