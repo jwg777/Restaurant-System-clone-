@@ -1,7 +1,9 @@
 package order;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import consumable.Consumable;
 
 /**
@@ -41,11 +43,14 @@ public class Order implements Comparable<Order> {
    * @param cust_ID the unique ID of the customer who made the order
    * @param items The items ordered
    */
-  public Order(int orderID, int custID, List<Consumable> items) {
+  public Order(int orderID, int custID, String items) {
     this.orderID = orderID;
     this.custID = custID;
     this.items = new ArrayList<Consumable>();
-    for (Consumable item : items) {
+    String[] ingredients = items.split(",");
+    for (String ingredient : ingredients) {
+      DecimalFormat df = new DecimalFormat("0.00");
+      Consumable item = new Consumable(ingredient, Float.parseFloat(df.format(Math.random() * 16)));
       this.totalPrice += item.getPrice();
       this.items.add(item);
     }
