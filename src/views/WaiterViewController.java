@@ -128,8 +128,10 @@ public class WaiterViewController {
             confirmOrder();
           } catch (Exception e) {
             // TODO Auto-generated catch block
+
+
             e.printStackTrace();
-          } //
+          }
           vbox.getChildren().remove(tempHBox);
         }
       });
