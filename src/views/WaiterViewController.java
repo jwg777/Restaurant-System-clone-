@@ -81,6 +81,9 @@ public class WaiterViewController {
 
   @FXML
   HBox orderConfirm;
+
+  @FXML
+  Button confirmButton;
   /**
    * object MenuMap declared.
    */
@@ -109,7 +112,7 @@ public class WaiterViewController {
    * @return VBox of what has been set.
    */
 
-  private VBox createVBox(ArrayList<Consumable> consumables) {
+  public VBox createVBox(ArrayList<Consumable> consumables) {
     VBox vbox = new VBox();
     for (Consumable consumable : consumables) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
@@ -120,7 +123,7 @@ public class WaiterViewController {
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
       tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      StackPane confirmStackPane = initialiseButton("Confirm", 12);
+      StackPane confirmStackPane = initialiseButton("confirm", 12);
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -130,7 +133,7 @@ public class WaiterViewController {
             // TODO Auto-generated catch blocks
             e.printStackTrace();
           }
-          vbox.getChildren().remove(tempHBox);
+
         }
       });
       tempHBox.getChildren().add(confirmStackPane); // Remove food Button
@@ -148,6 +151,7 @@ public class WaiterViewController {
   @FXML
   public void confirmOrder() throws Exception {
 
+    confirmButton.setText("confirm");
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("Confirm Order");
     alert.setHeaderText("Confirming this order will send order to the kitchen");

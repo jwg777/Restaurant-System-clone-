@@ -186,7 +186,7 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <StackPane prefHeight="50.0" prefWidth="100.0">
                                                                      <children>
-                                                                        <Button mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="Confirm">
+                                                                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="">
                                                                            <font>
                                                                               <Font size="8.0" />
                                                                            </font>
