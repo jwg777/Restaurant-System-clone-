@@ -7,7 +7,6 @@ public final class MenuMap {
 
   private static MenuMap instance = null;
   private HashMap<String, ArrayList<Consumable>> menu = new HashMap<>();
-
   private MenuMap() {}
 
   public static MenuMap getInstace() {

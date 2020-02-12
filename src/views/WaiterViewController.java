@@ -86,9 +86,9 @@ public class WaiterViewController {
   @FXML
   private void reloadPush() throws Exception {
 
-    tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
-    tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));
-    tempMap.put("READY ORDERS", new Consumable("Main test 1", 10f));
+    tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f, 100, "test"));
+    tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f, 120, "test1"));
+    tempMap.put("READY ORDERS", new Consumable("Main test 1", 10f, 234, "5000"));
     orderTabPane.getTabs().clear();
     createMenu(tempMap);
   }

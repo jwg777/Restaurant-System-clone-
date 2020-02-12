@@ -16,15 +16,19 @@ public class CustomerAccess {
 
 
   public void getMenu() throws SQLException {
-
+    
+    //customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstace();
 
     while (rs.next()) {
       String itemName = rs.getString("dish");
-      String type = rs.getString("type");
       float itemPrice = rs.getFloat("price");
-      tempMap.put(type, new Consumable(itemName, itemPrice));
+      String allergens = rs.getString("allergens");
+      int calories = rs.getInt("calories");
+      String type = rs.getString("type");
+      
+      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
     }
 
 
