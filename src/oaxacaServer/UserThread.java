@@ -4,15 +4,30 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserThread.
+ */
 public class UserThread extends Thread {
 
+  /** The socket. */
   private Socket socket;
+
+  /** The server. */
   private Server server = Server.getInstance();
 
+  /**
+   * Instantiates a new user thread.
+   *
+   * @param socket the socket
+   */
   public UserThread(Socket socket) {
     this.socket = socket;
   }
 
+  /**
+   * Run.
+   */
   public void run() {
     try {
       DataInputStream dis = new DataInputStream(socket.getInputStream());

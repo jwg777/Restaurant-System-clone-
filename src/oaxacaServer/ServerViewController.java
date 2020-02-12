@@ -18,41 +18,71 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ServerViewController.
+ */
 public class ServerViewController {
 
+  /** The server. */
   Server server = Server.getInstance();
 
+  /** The log scroll pane. */
   @FXML
   ScrollPane logScrollPane = new ScrollPane();
 
+  /** The log list view. */
   @FXML
   ListView<String> logListView = new ListView<>();
 
+  /** The ipv 4 label. */
   @FXML
   Label ipv4Label = new Label();
 
+  /** The port text field. */
   @FXML
   TextField portTextField = new TextField();
 
+  /** The circle. */
   @FXML
   Circle circle = new Circle();
 
+  /**
+   * Initialize.
+   *
+   * @throws Exception the exception
+   */
   @FXML
   public void initialize() throws Exception {
     reloadPush();
   }
 
+  /**
+   * Reload push.
+   *
+   * @throws Exception the exception
+   */
   @FXML
   public void reloadPush() throws Exception {
     updateIPv4();
   }
 
+  /**
+   * Stop push.
+   */
   @FXML
   public void stopPush() {
     server.close();
     circle.setFill(Color.RED);
   }
 
+  /**
+   * Gets the i pv 4.
+   *
+   * @return the i pv 4
+   * @throws UnknownHostException the unknown host exception
+   * @throws SocketException the socket exception
+   */
   public String getIPv4() throws UnknownHostException, SocketException {
     String ip = InetAddress.getLocalHost().getHostAddress();
     if (!ip.split("\\.")[0].equals("192")) {
@@ -73,10 +103,19 @@ public class ServerViewController {
     return ip;
   }
 
+  /**
+   * Update I pv 4.
+   *
+   * @throws UnknownHostException the unknown host exception
+   * @throws SocketException the socket exception
+   */
   public void updateIPv4() throws UnknownHostException, SocketException {
     ipv4Label.setText(getIPv4() + " : ");
   }
 
+  /**
+   * Start server.
+   */
   @FXML
   public void startServer() {
     String port = portTextField.getText();
@@ -100,6 +139,12 @@ public class ServerViewController {
     circle.setFill(server.running ? Color.GREEN : Color.RED);
   }
 
+  /**
+   * Checks if is port.
+   *
+   * @param string the string
+   * @return true, if is port
+   */
   private boolean isPort(String string) {
     if (string.isEmpty()) {
       return false;
@@ -115,6 +160,11 @@ public class ServerViewController {
     return true;
   }
 
+  /**
+   * Update list view.
+   *
+   * @param q the q
+   */
   public void updateListView(Queue<String> q) {
     Platform.runLater(new Runnable() {
       @Override

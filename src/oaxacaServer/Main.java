@@ -8,10 +8,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Main.
+ */
 public class Main extends Application {
 
+  /** The server. */
   Server server = Server.getInstance();
 
+  /**
+   * Start.
+   *
+   * @param stage the stage
+   */
   @Override
   public void start(Stage stage) {
     try {
@@ -33,6 +43,11 @@ public class Main extends Application {
     }
   }
 
+  /**
+   * The main method.
+   *
+   * @param args the arguments
+   */
   public static void main(String[] args) {
     launch(args);
   }

@@ -1,7 +1,16 @@
 package oaxacaServer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ClientType.
+ */
 public enum ClientType {
 
-  CUSTOMER, WAITER, KITCHEN;
+  /** The customer. */
+  CUSTOMER,
+  /** The waiter. */
+  WAITER,
+  /** The kitchen. */
+  KITCHEN;
 
 }
