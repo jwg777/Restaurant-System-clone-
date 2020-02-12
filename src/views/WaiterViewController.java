@@ -127,9 +127,7 @@ public class WaiterViewController {
           try {
             confirmOrder();
           } catch (Exception e) {
-            // TODO Auto-generated catch block
-
-
+            // TODO Auto-generated catch blocks
             e.printStackTrace();
           }
           vbox.getChildren().remove(tempHBox);
