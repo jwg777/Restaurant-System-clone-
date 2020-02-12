@@ -23,4 +23,13 @@ public class WaiterAccess {
     return null;
     //return waiterData.select("query for ready dishes ready to collect");
   }
+  
+  public void deleteMenuItem(String dishName) {
+    waiterData.executeDelete("DELETE FROM Menu " +
+        "WHERE dish = '" + dishName + "';");
+  }
+  
+  public void addMenuItem(String tableName, String attributes, String values) {
+    waiterData.insertIntoTable(tableName, attributes, values);
+  }
 }

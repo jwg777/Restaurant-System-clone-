@@ -1,7 +1,7 @@
 package views;
 
 import java.util.ArrayList;
-
+import backend.WaiterAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -97,7 +97,7 @@ public class WaiterViewController {
 
   MenuMap tempMap = MenuMap.getInstace();
   
-  DataInteract database;
+  WaiterAccess waiterData;
 
   @FXML
   private void deletePush(ActionEvent event) throws Exception {
@@ -106,15 +106,15 @@ public class WaiterViewController {
     deleteAlert.show();
     System.out.println("Deleting dish : " + dishName.getText());
     try {
-      database.executeDelete("DELETE FROM Menu " +
-                            "WHERE dish = " + dishName.getText());
+      
     } catch (Exception e) {
       deleteAlert.setContentText("Dish does not exist");
-      deleteAlert.setAlertType(AlertType.CONFIRMATION);
+      deleteAlert.setAlertType(AlertType.ERROR);
+      e.printStackTrace();
       deleteAlert.show();
     }
   }
-  
+    
   @FXML
   private void addPush(ActionEvent event) throws Exception {
     System.out.println("Dish : " + dishName.getText());
@@ -126,10 +126,11 @@ public class WaiterViewController {
     System.out.println("Allergies : " + alls);
     System.out.println("Calories : " + calories.getText() +" cals" );
     try {
-      database.insertIntoTable("MENU", "", dishName.getText() + ", " + floatPrice + ", " + alls + ", " + Integer.parseInt(calories.getText()) + ", " + type.getText());
+      waiterData.addMenuItem("MENU", "", dishName.getText() + ", " + floatPrice + ", " + alls + ", " + Integer.parseInt(calories.getText()) + ", " + type.getText());
     } catch (Exception e) {
+      e.printStackTrace();
       addAlert.setContentText("Dish already exists");
-      addAlert.setAlertType(AlertType.CONFIRMATION);
+      addAlert.setAlertType(AlertType.ERROR);
       addAlert.show();
     }
   }
