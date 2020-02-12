@@ -101,6 +101,7 @@ public class WaiterViewController {
 
   @FXML
   private void deletePush(ActionEvent event) throws Exception {
+    dishName.setText(limitChars(dishName.getText(), 100));
     deleteAlert.setContentText("Are you sure you want to delete this dish?");
     deleteAlert.setAlertType(AlertType.CONFIRMATION);
     deleteAlert.show();
@@ -120,6 +121,16 @@ public class WaiterViewController {
     
   @FXML
   private void addPush(ActionEvent event) throws Exception {
+    dishName.setText(limitChars(dishName.getText(), 100));
+    type.setText(limitChars(type.getText(), 50));
+    price1.setText(limitChars(price1.getText(), 4));
+    price2.setText(limitChars(price2.getText(), 2));
+    allergies1.setText(limitChars(allergies1.getText(), 100));
+    allergies2.setText(limitChars(allergies2.getText(), 100));
+    allergies3.setText(limitChars(allergies3.getText(), 100));
+    allergies4.setText(limitChars(allergies4.getText(), 100));
+    allergies5.setText(limitChars(allergies5.getText(), 100));
+    System.out.println("Dish : " + dishName.getText());
     System.out.println("Type : " + type.getText());
     System.out.println("Price : " + price1.getText() + "." + price2.getText());
     String strPrice = price1.getText() + "." + price2.getText();
@@ -214,6 +225,12 @@ public class WaiterViewController {
     return tab;
   }
   
+  private String limitChars(String input, int limit) {
+    if(input.length() > limit) {
+      return input.substring(0,limit);
+    }
+    return input;
+  }
   
 
 }
