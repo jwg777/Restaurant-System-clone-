@@ -44,6 +44,7 @@ public class WaiterAccess {
       float totalPrice = rs.getFloat("total_price");
       String dish = rs.getString("dish");
       String status = rs.getString("status");
+      System.out.println("orderid = " + orderID + " custID = " + custID + " totalPrice = " + totalPrice + " dishes = " + dish + " status = " + status);
       tempMap.put(status, new Order(orderID, custID, totalPrice, dish));
     }
   }

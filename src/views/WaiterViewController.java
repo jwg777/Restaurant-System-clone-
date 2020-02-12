@@ -84,7 +84,7 @@ public class WaiterViewController {
   
   @FXML
   private void orderReload() throws Exception {
-    //TODO create orders file to get order data from
+    waiterData.viewOrders();
   }
 
   /**
