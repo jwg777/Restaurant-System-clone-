@@ -124,6 +124,12 @@ public class WaiterViewController {
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
+          try {
+            confirmOrder();
+          } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          } //
           vbox.getChildren().remove(tempHBox);
         }
       });
