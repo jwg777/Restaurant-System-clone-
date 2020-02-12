@@ -24,10 +24,15 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -106,22 +111,26 @@ public class WaiterViewController {
   MenuMap tempMap = MenuMap.getInstace();
   
   WaiterAccess waiterData = new WaiterAccess();
+  
+  boolean emptyTextField;
 
   @FXML
   private void deletePush(ActionEvent event) throws Exception {
+    emptyTextField = false;
+    checkNotEmpty(dishName);
     dishName.setText(limitChars(dishName.getText(), 100));
     deleteAlert.setContentText("Are you sure you want to delete this dish?");
     deleteAlert.setAlertType(AlertType.CONFIRMATION);
     deleteAlert.getButtonTypes().setAll(yesButton, noButton);
     deleteAlert.showAndWait().ifPresent(buttonType -> {
-        if (buttonType == yesButton) {    
+        if (buttonType == yesButton && !emptyTextField) {    
           System.out.println("Deleting dish : " + dishName.getText());
           try {
             if(waiterData.checkKeyExists(dishName.getText())) {
               waiterData.deleteMenuItem(dishName.getText());
             } else {
               deleteAlert = new Alert(AlertType.NONE);
-              deleteAlert.setContentText("Dish does not exist");
+              deleteAlert.setContentText("Dish does not exist or is empty");
               deleteAlert.setAlertType(AlertType.ERROR);
               deleteAlert.show();
             }
@@ -134,6 +143,7 @@ public class WaiterViewController {
     
   @FXML
   private void addPush(ActionEvent event) throws Exception {
+    emptyTextField = false;
     dishName.setText(limitChars(dishName.getText(), 100));
     type.setText(limitChars(type.getText(), 50));
     price1.setText(limitChars(price1.getText(), 4));
@@ -143,6 +153,17 @@ public class WaiterViewController {
     allergies3.setText(limitChars(allergies3.getText(), 100));
     allergies4.setText(limitChars(allergies4.getText(), 100));
     allergies5.setText(limitChars(allergies5.getText(), 100));
+    checkNotEmpty(price1);
+    if(emptyTextField) {
+      price1.setText("0");
+    }
+    checkNotEmpty(price2);
+    if(emptyTextField) {
+      price2.setText("00");
+    }
+    checkNotEmpty(dishName);
+    checkNotEmpty(type);
+    checkNotEmpty(calories);
     System.out.println("Dish : " + dishName.getText());
     System.out.println("Type : " + type.getText());
     System.out.println("Price : " + price1.getText() + "." + price2.getText());
@@ -151,16 +172,22 @@ public class WaiterViewController {
     String alls = allergies1.getText() + " / " + allergies2.getText() + " / " + allergies3.getText() + " / " + allergies4.getText() + " / " + allergies5.getText();
     System.out.println("Allergies : " + alls);
     System.out.println("Calories : " + calories.getText() +" cals" );
-    try {
-      if(!waiterData.checkKeyExists(dishName.getText())) {
-        waiterData.addMenuItem("", "'" + dishName.getText() + "', '" + floatPrice + "', '" + alls + "', '" + Integer.parseInt(calories.getText()) + "', '" + type.getText() + "'");
-      } else {
-        addAlert.setContentText("Dish already exists");
-        addAlert.setAlertType(AlertType.ERROR);
-        addAlert.show();
+    if(!emptyTextField) {
+      try {
+        if(!waiterData.checkKeyExists(dishName.getText())) {
+          waiterData.addMenuItem("", "'" + dishName.getText() + "', '" + floatPrice + "', '" + alls + "', '" + Integer.parseInt(calories.getText()) + "', '" + type.getText() + "'");
+        } else {
+          addAlert.setContentText("Dish already exists");
+          addAlert.setAlertType(AlertType.ERROR);
+          addAlert.show();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-    } catch (Exception e) {
-      e.printStackTrace();
+    } else {
+      addAlert.setContentText("Empty field exists");
+      addAlert.setAlertType(AlertType.ERROR);
+      addAlert.show();
     }
   }
   
@@ -245,5 +272,11 @@ public class WaiterViewController {
     return input;
   }
   
+  private void checkNotEmpty(TextField tf) {
+    if(tf.getText() == null || tf.getText().trim().isEmpty()) {
+      tf.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
+      emptyTextField = true;
+    }
+  }
 
 }
