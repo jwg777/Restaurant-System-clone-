@@ -28,18 +28,22 @@ public class WaiterAccess {
   public void deleteMenuItem(String dishName) {
     waiterData.executeDelete("DELETE FROM Menu " +
         "WHERE dish = '" + dishName + "';");
-    ResultSet rs = waiterData.select("SELECT * FROM MENU");
-    try {
-      while (rs.next()) {
-        System.out.println(rs.getString("dish"));
-      }
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
   
   public void addMenuItem(String attributes, String values) {
     waiterData.insertIntoTable("Menu", attributes, values);
   }
+  
+  public boolean checkKeyExists(String dishName) {
+    try {
+      ResultSet rs = waiterData.select("SELECT * FROM MENU WHERE dish = '" + dishName + "';");
+      if (rs.next()) {
+        return true;
+      }
+    } catch (Exception e) {
+      return false;
+    }
+    return false;
+  }
+
 }

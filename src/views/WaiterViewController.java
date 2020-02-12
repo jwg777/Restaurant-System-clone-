@@ -106,12 +106,15 @@ public class WaiterViewController {
     deleteAlert.show();
     System.out.println("Deleting dish : " + dishName.getText());
     try {
-      waiterData.deleteMenuItem(dishName.getText());
+      if(waiterData.checkKeyExists(dishName.getText())) {
+        waiterData.deleteMenuItem(dishName.getText());
+      } else {
+        deleteAlert.setContentText("Dish does not exist");
+        deleteAlert.setAlertType(AlertType.ERROR);
+        deleteAlert.show();
+      }
     } catch (Exception e) {
-      deleteAlert.setContentText("Dish does not exist");
-      deleteAlert.setAlertType(AlertType.ERROR);
       e.printStackTrace();
-      deleteAlert.show();
     }
   }
     
@@ -125,13 +128,15 @@ public class WaiterViewController {
     System.out.println("Allergies : " + alls);
     System.out.println("Calories : " + calories.getText() +" cals" );
     try {
-      
-      waiterData.addMenuItem("", "'" + dishName.getText() + "', '" + floatPrice + "', '" + alls + "', '" + Integer.parseInt(calories.getText()) + "', '" + type.getText() + "'");
+      if(!waiterData.checkKeyExists(dishName.getText())) {
+        waiterData.addMenuItem("", "'" + dishName.getText() + "', '" + floatPrice + "', '" + alls + "', '" + Integer.parseInt(calories.getText()) + "', '" + type.getText() + "'");
+      } else {
+        addAlert.setContentText("Dish already exists");
+        addAlert.setAlertType(AlertType.ERROR);
+        addAlert.show();
+      }
     } catch (Exception e) {
       e.printStackTrace();
-      addAlert.setContentText("Dish already exists");
-      addAlert.setAlertType(AlertType.ERROR);
-      addAlert.show();
     }
   }
   
