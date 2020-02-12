@@ -1,22 +1,33 @@
 package backend;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WaiterAccess.
+ */
 public class WaiterAccess {
+
+  /** The waiter data. */
   DataInteract waiterData;
 
+  /**
+   * Instantiates a new waiter access.
+   */
   public WaiterAccess() {
     waiterData = DataInteract.getInstance();
   }
-  
+
   /**
    * Retrieves the current menu from the database.
+   *
+   * @return the menu
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
@@ -34,18 +45,24 @@ public class WaiterAccess {
 
   }
 
+  /**
+   * Mark delivered.
+   *
+   * @param tableupdate the tableupdate
+   */
   public void markDelivered(String tableupdate) {
     // waiterData.insertIntoTable("insert delivered data");
   }
 
   /**
    * Retrieves the table of orders from the database.
+   * 
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
     ResultSet rs = waiterData.select("SELECT * FROM ORDERS");
     OrderMap tempMap = OrderMap.getInstance();
-    
+
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
@@ -56,6 +73,11 @@ public class WaiterAccess {
     }
   }
 
+  /**
+   * View ready.
+   *
+   * @return the result set
+   */
   public ResultSet viewReady() {
     return null;
     // return waiterData.select("query for ready dishes ready to collect");
