@@ -9,11 +9,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Database.
+ */
 public class Database {
 
 
+  /** The connection. */
   Connection connection;
 
+  /**
+   * Instantiates a new database.
+   */
   public Database() {
 
     // for testing with set login credentials
@@ -37,6 +45,12 @@ public class Database {
   }
 
 
+  /**
+   * Import file.
+   *
+   * @param file0 the file 0
+   * @param table the table
+   */
   // temporary method
   public void importFile(String file0, String table) {
     File inputFile = new File(file0);
@@ -66,6 +80,14 @@ public class Database {
   }
 
 
+  /**
+   * Connect to database.
+   *
+   * @param user the user
+   * @param password the password
+   * @param database the database
+   * @return the connection
+   */
   public static Connection connectToDatabase(String user, String password, String database) {
     System.out.println("~~~~~~~~~~~~~~~ PostgreSQL___JDBC Connection Testing ~~~~~~~~~~~~~~~");
     Connection connection = null;
@@ -85,6 +107,11 @@ public class Database {
     return connection;
   }
 
+  /**
+   * Creates the table.
+   *
+   * @param tableName the table name
+   */
   public void createTable(String tableName) {
     Statement st = null;
     String table = "";
@@ -104,6 +131,13 @@ public class Database {
     }
   }
 
+  /**
+   * Insert into table.
+   *
+   * @param tableName the table name
+   * @param attributes the attributes
+   * @param values the values
+   */
   public void insertIntoTable(String tableName, String attributes, String values) {
     Statement st = null;
     try {
@@ -119,6 +153,12 @@ public class Database {
     }
   }
 
+  /**
+   * Select.
+   *
+   * @param query the query
+   * @return the result set
+   */
   public ResultSet select(String query) {
     Statement st = null;
     ResultSet rs = null;
