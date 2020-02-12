@@ -1,5 +1,6 @@
 package views;
-/** This class is used as a controller for the Adding and Deleting of menu items.
+/**
+ * This class is used as a controller for the Adding and Deleting of menu items.
  * 
  * @author : TeamProject 2020 group 22
  * 
@@ -14,7 +15,8 @@ import javafx.stage.Stage;
 
 public class AddDeleteViewController {
 
-  /** Constructor will set a new stage, allowing staff to fill in information.
+  /**
+   * Constructor will set a new stage, allowing staff to fill in information.
    * 
    */
   public AddDeleteViewController() {
@@ -29,15 +31,4 @@ public class AddDeleteViewController {
       e.printStackTrace();
     }
   }
-  
-  @FXML
-  public void deletePush(ActionEvent event) throws Exception {
-    System.out.println("delete");
-  }
-  
-  @FXML
-  public void addPush(ActionEvent event) throws Exception {
-    System.out.println("add");
-  }
-  
 }
