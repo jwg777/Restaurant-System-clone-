@@ -31,6 +31,8 @@ public class UserThread extends Thread {
       server.write(name + " has disconnected");
     } catch (IOException e) {
 
+    } catch (IllegalArgumentException e) {
+      server.removeThread(this);
     }
   }
 

@@ -72,10 +72,14 @@ public final class Server implements Runnable {
   public void addUserName(String string) {
     usernames.add(string);
   }
+  
+  public void removeThread(UserThread user) {
+    userThreads.remove(user);
+  }
 
   public void removeUser(String string, UserThread user) {
     usernames.remove(string);
-    userThreads.remove(user);
+    removeThread(user);
   }
 
   public void addListener(ListListener listener) {
