@@ -6,15 +6,29 @@ import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CustomerAccess.
+ */
 public class CustomerAccess {
 
+  /** The customer data. */
   DataInteract customerData;
 
+  /**
+   * Instantiates a new customer access.
+   */
   public CustomerAccess() {
     customerData = DataInteract.getInstance();
   }
 
 
+  /**
+   * Gets the menu.
+   *
+   * @return the menu
+   * @throws SQLException the SQL exception
+   */
   public void getMenu() throws SQLException {
 
     ResultSet rs = customerData.select("SELECT * FROM Menu");
@@ -30,10 +44,20 @@ public class CustomerAccess {
 
   }
 
+  /**
+   * Place order.
+   *
+   * @param orders the orders
+   */
   public void placeOrder(String orders) {
     // customerData.insertIntoTable("insert order data");
   }
 
+  /**
+   * Give feedback.
+   *
+   * @param feedback the feedback
+   */
   public void giveFeedback(String feedback) {
     // customerData.insertIntoTable("insert feedback data");
   }
