@@ -1,9 +1,7 @@
 package order;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import consumable.Consumable;
 
 /**
@@ -27,15 +25,6 @@ public class Order implements Comparable<Order> {
   /** A list of the items ordered. */
   private List<Consumable> items;
 
-  /** The order has not been started. */
-  private boolean isNew = true;
-
-  /** The order is being prepared. */
-  private boolean isInProgress = false;
-
-  /** The order is ready to be served. */
-  private boolean isCompleted = false;
-
   /**
    * Instantiates a new order by specifying its id, customer id, order time and contents.
    *
@@ -43,15 +32,14 @@ public class Order implements Comparable<Order> {
    * @param cust_ID the unique ID of the customer who made the order
    * @param items The items ordered
    */
-  public Order(int orderID, int custID, String items) {
+  public Order(int orderID, int custID, float totalPrice, String items) {
     this.orderID = orderID;
     this.custID = custID;
+    this.totalPrice = totalPrice;
     this.items = new ArrayList<Consumable>();
     String[] ingredients = items.split(",");
     for (String ingredient : ingredients) {
-      DecimalFormat df = new DecimalFormat("0.00");
-      Consumable item = new Consumable(ingredient, Float.parseFloat(df.format(Math.random() * 16)));
-      this.totalPrice += item.getPrice();
+      Consumable item = new Consumable(ingredient);
       this.items.add(item);
     }
   }
@@ -105,59 +93,7 @@ public class Order implements Comparable<Order> {
     this.items.remove(item);
   }
 
-  /**
-   * Sets order to new
-   */
-  public void setNew() {
-    this.isNew = true;
-    this.isInProgress = false;
-    this.isCompleted = false;
-  }
 
-  /**
-   * Checks if order is new
-   * 
-   * @return true if new
-   */
-  public boolean isNew() {
-    return this.isNew;
-  }
-
-  /**
-   * Sets order to in progress
-   */
-  public void setInProgress() {
-    this.isInProgress = true;
-    this.isNew = false;
-    this.isCompleted = false;
-  }
-
-  /**
-   * Checks if order is in progress
-   * 
-   * @return true if in progress
-   */
-  public boolean isInProgress() {
-    return this.isInProgress;
-  }
-
-  /**
-   * Sets order to completed
-   */
-  public void setCompleted() {
-    this.isCompleted = true;
-    this.isNew = false;
-    this.isInProgress = false;
-  }
-
-  /**
-   * Checks if order is completed
-   * 
-   * @return true if completed
-   */
-  public boolean isCompleted() {
-    return this.isCompleted;
-  }
 
   /**
    * Comparable method for sorting.

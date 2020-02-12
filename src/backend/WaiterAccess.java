@@ -3,6 +3,8 @@ package backend;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
+import order.Order;
+import order.OrderMap;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -32,9 +34,18 @@ public class WaiterAccess {
     // waiterData.insertIntoTable("insert delivered data");
   }
 
-  public ResultSet viewOrders() {
-    return null;
-    // return waiterData.select("query for orders");
+  public void viewOrders() throws SQLException {
+    ResultSet rs = waiterData.select("SELECT * FROM ORDERS");
+    OrderMap tempMap = OrderMap.getInstance();
+    
+    while (rs.next()) {
+      int orderID = rs.getInt("orderID");
+      int custID = rs.getInt("cust_ID");
+      float totalPrice = rs.getFloat("total_price");
+      String dish = rs.getString("dish");
+      String status = rs.getString("status");
+      tempMap.put(status, new Order(orderID, custID, totalPrice, dish));
+    }
   }
 
   public ResultSet viewReady() {

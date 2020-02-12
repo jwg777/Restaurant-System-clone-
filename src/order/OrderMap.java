@@ -6,7 +6,7 @@ import java.util.HashMap;
 public final class OrderMap {
 
   private static OrderMap instance = null;
-  private HashMap<String, ArrayList<Order>> menu = new HashMap<>();
+  private HashMap<String, ArrayList<Order>> orders = new HashMap<>();
 
   private OrderMap() {}
 
@@ -18,38 +18,38 @@ public final class OrderMap {
   }
 
   public boolean isEmpty() {
-    return menu.isEmpty();
+    return orders.isEmpty();
   }
 
-  public HashMap<String, ArrayList<Order>> getMenu() {
-    return this.menu;
+  public HashMap<String, ArrayList<Order>> getOrders() {
+    return this.orders;
   }
 
   public void clear() {
-    this.menu.clear();
+    this.orders.clear();
   }
 
   public void put(String tab, Order request) {
     ArrayList<Order> tempList = new ArrayList<>();
-    if (menu.containsKey(tab)) {
-      for (Order order : menu.get(tab)) {
+    if (orders.containsKey(tab)) {
+      for (Order order : orders.get(tab)) {
         tempList.add(order);
       }
     }
     tempList.add(request);
-    menu.put(tab, tempList);
+    orders.put(tab, tempList);
   }
 
   public ArrayList<String> keyArray() {
     ArrayList<String> tempList = new ArrayList<>();
-    for (String string : menu.keySet()) {
+    for (String string : orders.keySet()) {
       tempList.add(string);
     }
     return tempList;
   }
 
   public ArrayList<Order> get(String key) {
-    return menu.get(key);
+    return orders.get(key);
   }
 
 
