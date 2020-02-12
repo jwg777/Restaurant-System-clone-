@@ -15,6 +15,10 @@ public class WaiterAccess {
     waiterData = DataInteract.getInstance();
   }
   
+  /**
+   * Retrieves the current menu from the database.
+   * @throws SQLException Thrown if query fails.
+   */
   public void getMenu() throws SQLException {
 
     ResultSet rs = waiterData.select("SELECT * FROM Menu");
@@ -34,6 +38,10 @@ public class WaiterAccess {
     // waiterData.insertIntoTable("insert delivered data");
   }
 
+  /**
+   * Retrieves the table of orders from the database.
+   * @throws SQLException Thrown if query fails.
+   */
   public void viewOrders() throws SQLException {
     ResultSet rs = waiterData.select("SELECT * FROM ORDERS");
     OrderMap tempMap = OrderMap.getInstance();
@@ -44,8 +52,7 @@ public class WaiterAccess {
       float totalPrice = rs.getFloat("total_price");
       String dish = rs.getString("dish");
       String status = rs.getString("status");
-      System.out.println("orderid = " + orderID + " custID = " + custID + " totalPrice = " + totalPrice + " dishes = " + dish + " status = " + status);
-      tempMap.put(status, new Order(orderID, custID, totalPrice, dish));
+      tempMap.put(status, new Order(orderID, custID, totalPrice, status, dish));
     }
   }
 
