@@ -97,7 +97,7 @@ public class WaiterViewController {
 
   MenuMap tempMap = MenuMap.getInstace();
   
-  WaiterAccess waiterData;
+  WaiterAccess waiterData = new WaiterAccess();
 
   @FXML
   private void deletePush(ActionEvent event) throws Exception {
@@ -106,7 +106,7 @@ public class WaiterViewController {
     deleteAlert.show();
     System.out.println("Deleting dish : " + dishName.getText());
     try {
-      
+      waiterData.deleteMenuItem(dishName.getText());
     } catch (Exception e) {
       deleteAlert.setContentText("Dish does not exist");
       deleteAlert.setAlertType(AlertType.ERROR);
@@ -117,16 +117,16 @@ public class WaiterViewController {
     
   @FXML
   private void addPush(ActionEvent event) throws Exception {
-    System.out.println("Dish : " + dishName.getText());
     System.out.println("Type : " + type.getText());
-    System.out.println("Price : � " + price1.getText() + "." + price2.getText());
+    System.out.println("Price : " + price1.getText() + "." + price2.getText());
     String strPrice = price1.getText() + "." + price2.getText();
     float floatPrice = Float.parseFloat(strPrice);
     String alls = allergies1.getText() + " / " + allergies2.getText() + " / " + allergies3.getText() + " / " + allergies4.getText() + " / " + allergies5.getText();
     System.out.println("Allergies : " + alls);
     System.out.println("Calories : " + calories.getText() +" cals" );
     try {
-      waiterData.addMenuItem("", dishName.getText() + ", " + floatPrice + ", " + alls + ", " + Integer.parseInt(calories.getText()) + ", " + type.getText());
+      
+      waiterData.addMenuItem("", "'" + dishName.getText() + "', '" + floatPrice + "', '" + alls + "', '" + Integer.parseInt(calories.getText()) + "', '" + type.getText() + "'");
     } catch (Exception e) {
       e.printStackTrace();
       addAlert.setContentText("Dish already exists");

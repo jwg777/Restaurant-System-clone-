@@ -28,10 +28,6 @@ public class WaiterAccess {
   public void deleteMenuItem(String dishName) {
     waiterData.executeDelete("DELETE FROM Menu " +
         "WHERE dish = '" + dishName + "';");
-  }
-  
-  public void addMenuItem(String attributes, String values) {
-    waiterData.insertIntoTable("Menu", attributes, values);
     ResultSet rs = waiterData.select("SELECT * FROM MENU");
     try {
       while (rs.next()) {
@@ -41,5 +37,9 @@ public class WaiterAccess {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+  
+  public void addMenuItem(String attributes, String values) {
+    waiterData.insertIntoTable("Menu", attributes, values);
   }
 }

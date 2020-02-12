@@ -31,6 +31,7 @@ public final class DataInteract {
   
   public ResultSet select(String query) {
     return database.select(query);
+    
   }
   
   public void insertIntoTable(String tableName, String attributes, String values) {
