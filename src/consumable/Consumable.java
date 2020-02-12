@@ -16,7 +16,7 @@ public class Consumable implements Comparable<Consumable> {
   private float price;
   
   /** Calories of the dish.  */
-  private float calories;
+  private int calories;
   
   /** Allergens of the dish. */
   private String allergens;
@@ -37,7 +37,7 @@ public class Consumable implements Comparable<Consumable> {
    * @param price the price of the dish
    * @param ingredients the ingredients needed to make the dish
    */
-  public Consumable(String name, float price, float calories, String allergens, List<String> ingredients) {
+  public Consumable(String name, float price, int calories, String allergens, List<String> ingredients) {
     this.name = name;
     this.price = price;
     this.calories = calories;
@@ -55,7 +55,7 @@ public class Consumable implements Comparable<Consumable> {
    * @param name the name
    * @param price the price
    */
-  public Consumable(String name, float price, float calories, String allergens) {
+  public Consumable(String name, float price, int calories, String allergens) {
     this(name, price, calories, allergens, new ArrayList<String>());
   }
 
@@ -84,6 +84,14 @@ public class Consumable implements Comparable<Consumable> {
    */
   public float getPrice() {
     return this.price;
+  }
+  
+  public String getAllergen() {
+    return this.allergens; 
+  }
+  
+  public int getCalories() {
+    return this.calories;
   }
 
   /**

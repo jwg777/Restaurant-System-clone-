@@ -17,7 +17,7 @@ public class CustomerAccess {
 
   public void getMenu() throws SQLException {
     
-    customerData.loadFile();
+    //customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstace();
 
@@ -25,7 +25,7 @@ public class CustomerAccess {
       String itemName = rs.getString("dish");
       float itemPrice = rs.getFloat("price");
       String allergens = rs.getString("allergens");
-      float calories = rs.getFloat("calories");
+      int calories = rs.getInt("calories");
       String type = rs.getString("type");
       
       tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));

@@ -111,6 +111,9 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
+      String tAllergens = consumable.getAllergen();
+      int tCalories = consumable.getCalories();
+      
       ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -131,6 +134,7 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           // method to bring up allergies and calories info
+          System.out.println("Allergies: "+ tAllergens +", Calories: "+ tCalories);
           try {
             FXMLLoader fLoad = new FXMLLoader(getClass().getResource("Allergy&CalorieView.fxml"));
             Parent root = (Parent) fLoad.load();

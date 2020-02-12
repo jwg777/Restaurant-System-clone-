@@ -17,7 +17,7 @@ public class Database {
   public Database() {
 
     // for testing with set login credentials
-    String user = "zfacz";
+    String user = "zfac032";
     String password = "66092";
 
     /*
