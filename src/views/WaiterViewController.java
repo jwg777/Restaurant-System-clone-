@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -94,6 +96,12 @@ public class WaiterViewController {
   
   @FXML
   Alert addAlert = new Alert(AlertType.NONE);
+  
+  @FXML
+  ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+  
+  @FXML
+  ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
 
   MenuMap tempMap = MenuMap.getInstace();
   
@@ -104,19 +112,24 @@ public class WaiterViewController {
     dishName.setText(limitChars(dishName.getText(), 100));
     deleteAlert.setContentText("Are you sure you want to delete this dish?");
     deleteAlert.setAlertType(AlertType.CONFIRMATION);
-    deleteAlert.show();
-    System.out.println("Deleting dish : " + dishName.getText());
-    try {
-      if(waiterData.checkKeyExists(dishName.getText())) {
-        waiterData.deleteMenuItem(dishName.getText());
-      } else {
-        deleteAlert.setContentText("Dish does not exist");
-        deleteAlert.setAlertType(AlertType.ERROR);
-        deleteAlert.show();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    deleteAlert.getButtonTypes().setAll(yesButton, noButton);
+    deleteAlert.showAndWait().ifPresent(buttonType -> {
+        if (buttonType == yesButton) {    
+          System.out.println("Deleting dish : " + dishName.getText());
+          try {
+            if(waiterData.checkKeyExists(dishName.getText())) {
+              waiterData.deleteMenuItem(dishName.getText());
+            } else {
+              deleteAlert = new Alert(AlertType.NONE);
+              deleteAlert.setContentText("Dish does not exist");
+              deleteAlert.setAlertType(AlertType.ERROR);
+              deleteAlert.show();
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+    });;
   }
     
   @FXML
