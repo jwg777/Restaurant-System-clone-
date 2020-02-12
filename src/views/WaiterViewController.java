@@ -1,4 +1,9 @@
 package views;
+/** This is the controller for the waiter view.
+ * 
+ * @author : TeamProject2020 group 22
+ * 
+ */
 
 import java.util.ArrayList;
 import backend.WaiterAccess;
@@ -53,6 +58,12 @@ public class WaiterViewController {
     butController.startMain();
   }
 
+  /** Method to call the Controller to set up the stage.
+   * 
+   * @param event for when a button is clicked
+   * @throws Exception thrown if an error occurs with javafx
+   * 
+   */
   @FXML
   private void addDeletePush(ActionEvent event) throws Exception {
     AddDeleteViewController addDel = new AddDeleteViewController();
@@ -114,6 +125,12 @@ public class WaiterViewController {
 
   boolean emptyTextField;
 
+  /** Method for when the delete button is pushed.
+   * 
+   * @param event for when button is pressed
+   * @throws Exception thrown if javafx error occurs
+   * 
+   */
   @FXML
   private void deletePush(ActionEvent event) throws Exception {
     emptyTextField = false;
@@ -140,6 +157,12 @@ public class WaiterViewController {
     });;
   }
 
+  /** Method for when add button is pushed.
+   * 
+   * @param event for when button is pressed
+   * @throws Exception thrown if javafx error occurs
+   * 
+   */
   @FXML
   private void addPush(ActionEvent event) throws Exception {
     emptyTextField = false;
@@ -261,6 +284,13 @@ public class WaiterViewController {
     return tab;
   }
 
+  /** Method to limit characters for TextFields.
+   * 
+   * @param input the TextField text
+   * @param limit the maximum number of characters for the TextFields
+   * @return the substring if text is over the limit, if under return the input
+   * 
+   */
   private String limitChars(String input, int limit) {
     if (input.length() > limit) {
       return input.substring(0, limit);
@@ -268,6 +298,11 @@ public class WaiterViewController {
     return input;
   }
 
+  /** Method to check if TextField is empty.
+   * 
+   * @param tf the TextField to check if empty
+   * 
+   */
   private void checkNotEmpty(TextField tf) {
     if (tf.getText() == null || tf.getText().trim().isEmpty()) {
       tf.setBorder(new Border(
