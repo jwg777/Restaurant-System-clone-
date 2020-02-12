@@ -184,9 +184,18 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="price_range" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <StackPane prefHeight="50.0" prefWidth="100.0">
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
-                                                                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="">
+                                                                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="confirm">
+                                                                           <font>
+                                                                              <Font size="8.0" />
+                                                                           </font>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
+                                                                     <children>
+                                                                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="50.0" text="cancel">
                                                                            <font>
                                                                               <Font size="8.0" />
                                                                            </font>
@@ -221,12 +230,21 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="price_range1" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <StackPane prefHeight="50.0" prefWidth="100.0">
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
+                                                                     <children>
+                                                                        <Button mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="confirm">
+                                                                           <font>
+                                                                              <Font size="8.0" />
+                                                                           </font></Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
                                                                         <Button mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="50.0" text="Cancel">
                                                                            <font>
-                                                                              <Font size="10.0" />
-                                                                           </font></Button>
+                                                                              <Font size="8.0" />
+                                                                           </font>
+                                                                        </Button>
                                                                      </children>
                                                                   </StackPane>
                                                                </children>

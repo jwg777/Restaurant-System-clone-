@@ -133,11 +133,22 @@ public class WaiterViewController {
             // TODO Auto-generated catch blocks
             e.printStackTrace();
           }
-
         }
       });
       tempHBox.getChildren().add(confirmStackPane); // Remove food Button
-      vbox.getChildren().add(tempHBox); // Add consumable to the list
+      StackPane cancelStackPane = initialiseButton("cancel", 12);
+      ((Button) cancelStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          try {
+            cancelOrder();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+      });
+      tempHBox.getChildren().add(cancelStackPane);
+      vbox.getChildren().add(tempHBox);
     }
     return vbox;
   }
@@ -194,7 +205,7 @@ public class WaiterViewController {
 
   private StackPane initialiseButton(String name, int font) {
     StackPane stPane = new StackPane(); // Stack pane to centre button
-    stPane.setPrefSize(100, 50);
+    stPane.setPrefSize(80, 50);
     Button button = new Button(name); // Button to remove and add food to order list
     button.setPrefSize(70, 50);
     button.setFont(new Font(font));
