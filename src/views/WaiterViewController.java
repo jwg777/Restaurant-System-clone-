@@ -119,14 +119,14 @@ public class WaiterViewController {
   private void addPush(ActionEvent event) throws Exception {
     System.out.println("Dish : " + dishName.getText());
     System.out.println("Type : " + type.getText());
-    System.out.println("Price : £ " + price1.getText() + "." + price2.getText());
+    System.out.println("Price : ï¿½ " + price1.getText() + "." + price2.getText());
     String strPrice = price1.getText() + "." + price2.getText();
     float floatPrice = Float.parseFloat(strPrice);
     String alls = allergies1.getText() + " / " + allergies2.getText() + " / " + allergies3.getText() + " / " + allergies4.getText() + " / " + allergies5.getText();
     System.out.println("Allergies : " + alls);
     System.out.println("Calories : " + calories.getText() +" cals" );
     try {
-      waiterData.addMenuItem("MENU", "", dishName.getText() + ", " + floatPrice + ", " + alls + ", " + Integer.parseInt(calories.getText()) + ", " + type.getText());
+      waiterData.addMenuItem("", dishName.getText() + ", " + floatPrice + ", " + alls + ", " + Integer.parseInt(calories.getText()) + ", " + type.getText());
     } catch (Exception e) {
       e.printStackTrace();
       addAlert.setContentText("Dish already exists");
@@ -155,7 +155,7 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("ï¿½ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane confirmStackPane = initialiseButton("Confirm");
       ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {

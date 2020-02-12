@@ -1,6 +1,7 @@
 package backend;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import database_cafe.DataInteract;
 
 public class WaiterAccess {
@@ -29,7 +30,16 @@ public class WaiterAccess {
         "WHERE dish = '" + dishName + "';");
   }
   
-  public void addMenuItem(String tableName, String attributes, String values) {
-    waiterData.insertIntoTable(tableName, attributes, values);
+  public void addMenuItem(String attributes, String values) {
+    waiterData.insertIntoTable("Menu", attributes, values);
+    ResultSet rs = waiterData.select("SELECT * FROM MENU");
+    try {
+      while (rs.next()) {
+        System.out.println(rs.getString("dish"));
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 }
