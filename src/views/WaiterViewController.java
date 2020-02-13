@@ -105,7 +105,7 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("ï¿½ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
@@ -128,7 +128,7 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", order.getTotalPrice());
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("ï¿½ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
         StackPane confirmStackPane = initialiseButton("Confirm", 12);
@@ -171,7 +171,7 @@ public class WaiterViewController {
 
   /**
    * Cancel order constructor to give a alert when user press the cancel button.
-   * 
+   *
    * @throws Exception
    */
   @FXML
@@ -304,9 +304,9 @@ public class WaiterViewController {
   }
 
   /**
-   * Create the tab for the tab specific the constructor.
+   * Create the order tab and set the tab.
    * 
-   * @param name name of the Tab.
+   * @param name name of Tab
    * @param list list of consumable.
    * @return the corresponding tab.
    */
