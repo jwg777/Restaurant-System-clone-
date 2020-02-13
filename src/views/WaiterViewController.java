@@ -11,17 +11,25 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import order.Order;
 import order.OrderMap;
 
@@ -49,7 +57,7 @@ public class WaiterViewController {
   private void returnPush() throws Exception {
     butController.startMain();
   }
-  
+
   @FXML
   private TextField dishName;
 
@@ -79,7 +87,7 @@ public class WaiterViewController {
 
   @FXML
   private TextField calories;
-  
+
   @FXML
   private Button addItem;
 
@@ -94,7 +102,7 @@ public class WaiterViewController {
    */
   @FXML
   TabPane orderTabPane = new TabPane();
-  
+
   @FXML
   Alert deleteAlert = new Alert(AlertType.NONE);
 
@@ -106,12 +114,11 @@ public class WaiterViewController {
 
   @FXML
   ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-  
-  WaiterAccess waiterData = new WaiterAccess();
 
   boolean emptyTextField;
 
-  /** Method for when the delete button is pushed.
+  /**
+   * Method for when the delete button is pushed.
    * 
    * @param event for when button is pressed
    * @throws Exception thrown if javafx error occurs
@@ -145,7 +152,8 @@ public class WaiterViewController {
     });;
   }
 
-  /** Method for when add button is pushed.
+  /**
+   * Method for when add button is pushed.
    * 
    * @param event for when button is pressed
    * @throws Exception thrown if javafx error occurs
@@ -183,7 +191,7 @@ public class WaiterViewController {
         if (!waiterData.checkKeyExists(dishName.getText())) {
           waiterData.addMenuItem("", "'" + dishName.getText() + "', '" + floatPrice + "', '" + alls
               + "', '" + Integer.parseInt(calories.getText()) + "', '" + type.getText() + "'");
-          
+
           Stage stage = (Stage) addItem.getScene().getWindow();
           stage.close();
 
@@ -216,6 +224,10 @@ public class WaiterViewController {
     createMenu(menu);
   }
 
+  @FXML
+  private void addDeletePush() throws Exception {
+    AddDeleteViewController a = new AddDeleteViewController();
+  }
 
   /**
    * order Reload method() to input the value when the button is pressed.
@@ -461,8 +473,9 @@ public class WaiterViewController {
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
   }
-  
-   /** Method to limit characters for TextFields.
+
+  /**
+   * Method to limit characters for TextFields.
    * 
    * @param input the TextField text
    * @param limit the maximum number of characters for the TextFields
@@ -476,7 +489,8 @@ public class WaiterViewController {
     return input;
   }
 
-  /** Method to check if TextField is empty.
+  /**
+   * Method to check if TextField is empty.
    * 
    * @param tf the TextField to check if empty
    * 
