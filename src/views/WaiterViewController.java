@@ -100,6 +100,9 @@ public class WaiterViewController {
 
   @FXML
   private TextField calories;
+  
+  @FXML
+  private Button addItem;
 
   @FXML
   TabPane orderTabPane = new TabPane();
@@ -121,6 +124,9 @@ public class WaiterViewController {
 
   @FXML
   ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+  
+  @FXML
+  ListView<String> orderedList = new ListView<>();
 
   MenuMap tempMap = MenuMap.getInstace();
 
@@ -198,6 +204,10 @@ public class WaiterViewController {
         if (!waiterData.checkKeyExists(dishName.getText())) {
           waiterData.addMenuItem("", "'" + dishName.getText() + "', '" + floatPrice + "', '" + alls
               + "', '" + Integer.parseInt(calories.getText()) + "', '" + type.getText() + "'");
+          
+          Stage stage = (Stage) addItem.getScene().getWindow();
+          stage.close();
+
         } else {
           addAlert.setContentText("Dish already exists");
           addAlert.setAlertType(AlertType.ERROR);
@@ -237,28 +247,41 @@ public class WaiterViewController {
   private VBox createVBox(ArrayList<Consumable> consumables) {
     VBox vbox = new VBox();
     for (Consumable consumable : consumables) {
-      HBox tempHBox = new HBox(); // Layout for one consumable of the list
-      tempHBox.setPrefHeight(50);
-      tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
-      String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("ï¿½ " + price, 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
-      StackPane confirmStackPane = initialiseButton("Confirm");
-      ((Button) confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-          vbox.getChildren().remove(tempHBox);
-          // tempHBox.getChildren().remove();
-        }
-      });
-      tempHBox.getChildren().add(confirmStackPane); // Remove food Button
-
-      vbox.getChildren().add(tempHBox); // Add consumable to the list
+        HBox tempHBox = new HBox(); // Layout for one consumable of the list
+        tempHBox.setPrefHeight(50);
+        tempHBox.getChildren().add(initialiseGap());
+        tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
+        tempHBox.getChildren().add(initialiseGap());
+        String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
+        tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
+        tempHBox.getChildren().add(initialiseGap());
+        StackPane minusStackPane = initialiseButton("-");
+        ((Button)minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                orderedList.getItems().remove(consumable.getName());
+            }
+        });
+        tempHBox.getChildren().add(minusStackPane); // Remove food Button
+        StackPane plusStackPane = initialiseButton("+");
+        ((Button)plusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                orderedList.getItems().add(consumable.getName());
+            }
+        });
+        tempHBox.getChildren().add(plusStackPane); // Add food Button
+        vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
-  }
+}
+
+/**
+ * Creates a new button.
+ * 
+ * @param name the text in the button
+ * @return the stack pane
+ */
 
   private StackPane initialiseButton(String name) {
     StackPane sPane = new StackPane(); // Stack pane to centre button
@@ -323,5 +346,7 @@ public class WaiterViewController {
       emptyTextField = true;
     }
   }
+  
+  
 
 }
