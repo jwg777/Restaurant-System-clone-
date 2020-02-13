@@ -9,11 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Class that connects to the postgresql server database and contains various methods for interacting with this database.
+ */
 public class Database {
 
-
+  /** Field for storing the connection */
   Connection connection;
 
+  /**
+   * Constructor for class. Connects to the databse. 
+   */
   public Database() {
 
     // for testing with set login credentials
@@ -37,7 +43,11 @@ public class Database {
   }
 
 
-  // temporary method
+  /**
+   * This method is used as a temporary measure. It allows text files to load data into the database.
+   * @param file0 
+   * @param table
+   */
   public void importFile(String file0, String table) {
     File inputFile = new File(file0);
     String line = "";
@@ -65,7 +75,13 @@ public class Database {
 
   }
 
-
+/**
+ * This method connects to the database using username, password, and the address of the database
+ * @param user
+ * @param password
+ * @param database
+ * @return
+ */
   public static Connection connectToDatabase(String user, String password, String database) {
     System.out.println("~~~~~~~~~~~~~~~ PostgreSQL___JDBC Connection Testing ~~~~~~~~~~~~~~~");
     Connection connection = null;
@@ -85,6 +101,11 @@ public class Database {
     return connection;
   }
 
+  /**
+   * This method creates a table in the database. It will drop a table if it already exists.
+   * (This means currently every run of the program will restart the entire databse).
+   * @param tableName
+   */
   public void createTable(String tableName) {
     Statement st = null;
     String table = "";
@@ -104,6 +125,12 @@ public class Database {
     }
   }
 
+  /**
+   * This method inserts a row into a table. 
+   * @param tableName
+   * @param attributes This value can be empty and is only used in various circumstances.
+   * @param values
+   */
   public void insertIntoTable(String tableName, String attributes, String values) {
     Statement st = null;
     try {
@@ -119,6 +146,11 @@ public class Database {
     }
   }
 
+  /**
+   * This method is for quering the database and stores the result in a resultSet.
+   * @param query
+   * @return
+   */
   public ResultSet select(String query) {
     Statement st = null;
     ResultSet rs = null;
