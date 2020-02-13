@@ -22,11 +22,11 @@
    <children>
       <TabPane prefHeight="480.0" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-            <Tab text="Customer">
+            <Tab fx:id="customerTab" text="Customer">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="250.0">
                      <children>
-                        <VBox prefWidth="250.0">
+                        <VBox fx:id="customerVbox" prefWidth="250.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="30.0" prefHeight="30.0" prefWidth="200.0">
                                  <children>
@@ -74,11 +74,11 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Waiter">
+            <Tab fx:id="waiterTab" text="Waiter">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="250.0">
                      <children>
-                        <VBox prefWidth="250.0">
+                        <VBox fx:id="waiterVBox" prefWidth="250.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="30.0" prefHeight="30.0" prefWidth="200.0">
                                  <children>
@@ -116,11 +116,11 @@
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab text="Kitchen">
+          <Tab fx:id="kitchenTab" text="Kitchen">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="250.0">
                      <children>
-                        <VBox prefWidth="250.0">
+                        <VBox fx:id="kitchenVBox" prefWidth="250.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="30.0" prefHeight="30.0" prefWidth="200.0">
                                  <children>

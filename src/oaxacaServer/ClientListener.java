@@ -1,6 +1,13 @@
 package oaxacaServer;
 
+/**
+ * interface for client listener
+ * @author Chak
+ *
+ */
 public interface ClientListener {
-	
-	public void onClientChange();
+  /**
+   * method called when client joins or leave the server.
+   */
+  public void onClientChange();
 }

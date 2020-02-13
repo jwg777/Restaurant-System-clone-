@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
+ * @author Chak
  */
 public class Consumable implements Comparable<Consumable> {
 

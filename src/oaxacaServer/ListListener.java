@@ -1,5 +1,13 @@
 package oaxacaServer;
 
+/**
+ * interface for list listener
+ * @author chak
+ *
+ */
 public interface ListListener {
-	public void onListChange();
+  /**
+   * method when list is changed.
+   */
+  public void onListChange();
 }

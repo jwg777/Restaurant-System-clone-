@@ -14,7 +14,10 @@ import java.sql.Statement;
  */
 public class Database {
 
+
   /** Field for storing the connection */
+
+   
   Connection connection;
 
   /**
@@ -33,10 +36,10 @@ public class Database {
      */
 
     // tunneling
-    String database = "//localhost/CS2855/";
+    // String database = "//localhost/CS2855/";
 
     // noMachine
-    // String database = "////teachdb.cs.rhul.ac.uk/CS2855/";
+    String database = "//localhost/CS2855/";
 
     connection = connectToDatabase(user, password, database);
 
@@ -161,5 +164,24 @@ public class Database {
       e.printStackTrace();
     }
     return rs;
+  }
+  
+  public void execute(String query) {
+    Statement st = null;
+    try {
+      st = connection.createStatement();
+      st.execute(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+  public void delete(String update) {
+    Statement st = null;
+    try {
+      st = connection.createStatement();
+      st.executeUpdate(update);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }

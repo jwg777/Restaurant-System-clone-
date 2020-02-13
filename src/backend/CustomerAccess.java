@@ -27,7 +27,7 @@ public class CustomerAccess {
     
     //customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
-    MenuMap tempMap = MenuMap.getInstace();
+    MenuMap tempMap = MenuMap.getInstance();
 
     while (rs.next()) {
       String itemName = rs.getString("dish");
