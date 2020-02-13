@@ -18,15 +18,16 @@ public final class DataInteract {
     database.createTable(
         "Menu(dish varChar(100) primary key, price numeric(4, 2), allergens varchar(500), calories int, type varchar(100))");
     database.createTable(
-        "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade,"
-            + " foreign key (dish) references Menu(dish) on delete cascade)");
+        "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade)");
     database
         .createTable("Staff(staff_id int primary key, password varchar(100), role varchar(20))");
     database.createTable(
         "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
 
     database.importFile("Menu", "Menu");
+    database.importFile("Customers", "Customers");
     database.importFile("Authentication", "Staff");
+    database.importFile("Orders", "Orders");
 
   }
 

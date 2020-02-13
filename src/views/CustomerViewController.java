@@ -30,13 +30,13 @@ import javafx.stage.Stage;
  */
 public class CustomerViewController {
 
-  /** Object containing methods that interact with database **/
+  /** Object containing methods that interact with database. **/
   CustomerAccess customerData = new CustomerAccess();
 
-  /** The button controller */
+  /** The button controller. */
   SceneController butController = SceneController.getInstance();
 
-  MenuMap menu = MenuMap.getInstace();
+  MenuMap menu = MenuMap.getInstance();
 
   /**
    * A VBox containing the starters in the menu.

@@ -98,7 +98,4 @@ public final class MenuMap {
   public ArrayList<Consumable> get(String key) {
     return menu.get(key);
   }
-
-
-
 }
