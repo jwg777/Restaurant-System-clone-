@@ -94,9 +94,10 @@ public class CustomerViewController {
     menuTabPane.getTabs().clear();
     createMenu(menu);
   }
-  
+
   /**
    * sends order to server when order is pressed.
+   * 
    * @throws Exception the exception
    */
   @FXML
@@ -105,17 +106,30 @@ public class CustomerViewController {
      * needs to check if order is valid.
      */
     ObservableList<String> orders = orderedList.getItems();
+    /*
+     * Needs a new class and methods to run the following. This is only temporary.
+     */
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
         try (Socket s = new Socket("192.168.1.13", 6666);
             DataOutputStream dout = new DataOutputStream(s.getOutputStream())) {
-          dout.writeUTF("CUSTOMER");
+          dout.writeUTF("CUSTOMER"); //tells server that you're a customer
           dout.flush();
-          dout.writeUTF("ORDER " + orders.toString());
+          dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
           dout.flush();
-          dout.writeUTF("STOP");
-          dout.flush();
+          /*
+           * If order success message is received.
+           */
+          if (true) {
+            orderedList.getItems().clear();
+            Alert alert = new Alert(AlertType.NONE, "Order has been placed.", ButtonType.OK);
+            alert.show();
+            if (alert.getResult() == ButtonType.OK) {
+              dout.writeUTF("STOP"); // tells server that you have finished.
+              dout.flush();
+            }
+          }
         } catch (IOException e) {
           Alert alert = new Alert(AlertType.ERROR,
               "Failed to make order, would you like to notify a staff member?", ButtonType.NO,
