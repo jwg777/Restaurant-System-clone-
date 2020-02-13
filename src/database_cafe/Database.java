@@ -27,10 +27,10 @@ public class Database {
      */
 
     // tunneling
-   // String database = "//localhost/CS2855/";
+    // String database = "//localhost/CS2855/";
 
     // noMachine
-     String database = "//localhost/CS2855/";
+    String database = "//localhost/CS2855/";
 
     connection = connectToDatabase(user, password, database);
 
@@ -129,5 +129,15 @@ public class Database {
       e.printStackTrace();
     }
     return rs;
+  }
+
+  public void delete(String update) {
+    Statement st = null;
+    try {
+      st = connection.createStatement();
+      st.executeUpdate(update);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }
