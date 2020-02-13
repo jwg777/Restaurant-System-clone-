@@ -7,6 +7,8 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import consumable.Consumable;
+import consumable.MenuMap;
 import database_cafe.DataInteract;
 
 public class WaiterAccess {
@@ -67,4 +69,15 @@ public class WaiterAccess {
     return false;
   }
 
+  public void getMenu() throws SQLException {
+    ResultSet rs = waiterData.select("SELECT * FROM Menu");
+    MenuMap tempMap = MenuMap.getInstace();
+    
+    while (rs.next()) {
+      String itemName = rs.getString("dish");
+      String type = rs.getString("type");
+      float itemPrice = rs.getFloat("price");
+      tempMap.put(type, new Consumable(itemName, itemPrice));
+    }
+  }
 }

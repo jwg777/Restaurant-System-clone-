@@ -212,6 +212,7 @@ public class WaiterViewController {
 
   @FXML
   private void reloadPush() throws Exception {
+    waiterData.getMenu();
     System.out.println("check for the reload button");
     tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
     tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));
@@ -219,6 +220,8 @@ public class WaiterViewController {
     System.out.println("test reload button!");
     orderTabPane.getTabs().clear();
     createMenu(tempMap);
+
+    
   }
 
   private VBox createVBox(ArrayList<Consumable> consumables) {
