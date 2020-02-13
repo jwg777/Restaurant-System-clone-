@@ -52,12 +52,12 @@ public class WaiterViewController {
   }
 
   /**
-   * Declare the Tab for MenuTabPane.
+   * Declare the menuTabPane in the Tab.
    */
   @FXML
   TabPane menuTabPane = new TabPane();
   /**
-   * Declare the orderTabPane for the tab.
+   * Declare the orderTabPane in the Tab.
    */
   @FXML
   TabPane orderTabPane = new TabPane();
@@ -77,7 +77,7 @@ public class WaiterViewController {
   }
 
   /**
-   * orderReload() method to reload the order when the button is pressed.
+   * order Reload method() to input the value when the button is pressed.
    * 
    * @throws Exception
    */
@@ -155,6 +155,7 @@ public class WaiterViewController {
                 try {
                   cancelOrder();
                   vbox.getChildren().remove(tempHBox);
+                  waiterData.removeOrder(order);
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
@@ -169,9 +170,8 @@ public class WaiterViewController {
   }
 
   /**
-   * cancel order constructor to cancel the order and show the alert. when the order is decided to
-   * cancel.
-   * 
+   * Cancel order constructor to give a alert when user press the cancel button.
+   *
    * @throws Exception
    */
   @FXML
@@ -304,7 +304,7 @@ public class WaiterViewController {
   }
 
   /**
-   * Create the tab order tab and set the tab.
+   * Create the order tab and set the tab.
    * 
    * @param name name of Tab
    * @param list list of consumable.

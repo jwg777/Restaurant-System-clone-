@@ -42,6 +42,10 @@ public final class DataInteract {
     return database.select(query);
   }
 
+  public void delete(String update) {
+    database.delete(update);
+  }
+
   public void insertIntoTable(String tableName, String attributes, String values) {
     database.insertIntoTable(tableName, attributes, values);
   }

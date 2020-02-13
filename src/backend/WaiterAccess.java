@@ -1,12 +1,12 @@
 package backend;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class WaiterAccess {
   DataInteract waiterData;
@@ -14,9 +14,10 @@ public class WaiterAccess {
   public WaiterAccess() {
     waiterData = DataInteract.getInstance();
   }
-  
+
   /**
    * Retrieves the current menu from the database.
+   * 
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
@@ -40,12 +41,13 @@ public class WaiterAccess {
 
   /**
    * Retrieves the table of orders from the database.
+   * 
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
     ResultSet rs = waiterData.select("SELECT * FROM ORDERS");
     OrderMap tempMap = OrderMap.getInstance();
-    
+
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
@@ -54,6 +56,16 @@ public class WaiterAccess {
       String status = rs.getString("status");
       tempMap.put(status, new Order(orderID, custID, totalPrice, status, dish));
     }
+  }
+
+  /**
+   * Deletes an order from the database.
+   * 
+   * @param order the order to be deleted
+   * @throws SQLException Thrown if update fails.
+   */
+  public void removeOrder(Order order) throws SQLException {
+    waiterData.delete("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
 
   public ResultSet viewReady() {
