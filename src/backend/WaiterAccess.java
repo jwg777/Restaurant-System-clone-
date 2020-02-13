@@ -18,13 +18,27 @@ import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
 
+/**
+ * Class containing methods for accessing and interacting with the database for the Waiter view.
+ * @author joshuagargan
+ *
+ */
 public class WaiterAccess {
+  
+  /** Field for accessing methods within dataInteract class */
   DataInteract waiterData;
 
+  /**
+   * Constructor to get instance of DataInteract class.
+   */
   public WaiterAccess() {
     waiterData = DataInteract.getInstance();
   }
-  
+
+  /**
+   * This method will allow orders state in the database to be changed 
+   * @param tableupdate
+   */
   public void markDelivered(String tableupdate) {
     // waiterData.insertIntoTable("insert delivered data");
   }
@@ -35,6 +49,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
+
 
     ResultSet rs = waiterData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
@@ -76,9 +91,13 @@ public class WaiterAccess {
    * @throws SQLException Thrown if update fails.
    */
   public void removeOrder(Order order) throws SQLException {
-    waiterData.delete("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+    waiterData.delete("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'")
   }
 
+  /**
+   * This method will store orders from the database in a resultSet
+   * @return
+   */
   public ResultSet viewReady() {
     return null;
     // return waiterData.select("query for ready dishes ready to collect");

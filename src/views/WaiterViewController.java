@@ -216,6 +216,7 @@ public class WaiterViewController {
     createMenu(menu);
   }
 
+
   /**
    * order Reload method() to input the value when the button is pressed.
    * 
@@ -225,6 +226,7 @@ public class WaiterViewController {
   private void orderReload() throws Exception {
     orders.clear();
     waiterData.viewOrders();
+
     orderTabPane.getTabs().clear();
     createOrders(orders);
   }

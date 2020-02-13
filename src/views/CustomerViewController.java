@@ -10,12 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -48,6 +50,9 @@ public class CustomerViewController {
 
   @FXML
   ListView<String> orderedList = new ListView<>();
+  
+  @FXML
+  Alert addAlert = new Alert(AlertType.INFORMATION);
 
 
   /**
@@ -111,6 +116,9 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
+      String tAllergens = consumable.getAllergen();
+      int tCalories = consumable.getCalories();
+      
       ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -131,6 +139,10 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           // method to bring up allergies and calories info
+          addAlert.setContentText("Allergens: "+ tAllergens +"    Calories: "+ tCalories);
+          addAlert.show();
+          
+          
         }
       });
       tempHBox.getChildren().add(infoStackPane); // Add info button

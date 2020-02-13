@@ -30,6 +30,10 @@ public final class DataInteract {
     database.importFile("Orders", "Orders");
 
   }
+  public void loadFile() {
+    database.importFile("Menu", "Menu");
+    database.importFile("Authentication", "Staff");
+  }
 
   public static DataInteract getInstance() {
     if (instance == null) {

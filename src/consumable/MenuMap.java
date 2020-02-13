@@ -21,6 +21,7 @@ public final class MenuMap {
   /**
    * private constructor for singleton class
    */
+
   private MenuMap() {}
 
   /**
