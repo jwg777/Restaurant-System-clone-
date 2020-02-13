@@ -1,4 +1,3 @@
-
 package views;
 
 import java.util.ArrayList;
@@ -204,4 +203,3 @@ public class CustomerViewController {
     return tab;
   }
 }
-
