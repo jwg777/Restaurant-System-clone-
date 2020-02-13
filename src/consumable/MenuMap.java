@@ -28,7 +28,7 @@ public final class MenuMap {
    * 
    * @return instance
    */
-  public static MenuMap getInstace() {
+  public static MenuMap getInstance() {
     if (instance == null) {
       instance = new MenuMap();
     }
@@ -92,6 +92,7 @@ public final class MenuMap {
 
   /**
    * Returns the consumable list from the given key.
+   * 
    * @param key
    * @return the consumables in that category
    */
