@@ -105,6 +105,9 @@ public class WaiterViewController {
   TabPane orderTabPane = new TabPane();
 
   @FXML
+  TabPane menuTabPane = new TabPane();
+  
+  @FXML
   HBox orderConfirm = new HBox();
 
   @FXML
@@ -210,12 +213,16 @@ public class WaiterViewController {
     }
   }
 
-  
+  @FXML
+  private void reloadPush1() throws Exception { 
+    tempMap.clear();
+    waiterData.getMenu();
+    menuTabPane.getTabs().clear();
+    createMenu(tempMap);
+  }
   
   @FXML
   private void reloadPush() throws Exception {
-    tempMap.clear();
-    waiterData.getMenu();
     System.out.println("check for the reload button");
     tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
     tempMap.put("PROCESSING ORDERS", new Consumable("Starter test 1", 10f));

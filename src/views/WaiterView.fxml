@@ -157,7 +157,7 @@
                               <Button fx:id="AddDel" layoutX="-151.0" layoutY="3.0" mnemonicParsing="false" onAction="#addDeletePush" prefHeight="31.0" prefWidth="98.0" style="-fx-border-color: red;" text="Add/Delete" />
                   </children>
                 </AnchorPane>
-                <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#reloadPush" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
+                <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#reloadPush1" text="⟳" textAlignment="CENTER" />
               </children>
             </AnchorPane>
           </content>
