@@ -1,15 +1,11 @@
 package backend;
-/** This class will act as a buffer for the database and the waiter controller.
+/**
+ * This class will act as a buffer for the database and the waiter controller.
  * 
  * @author : TeamProject2020 group 22
  * 
  */
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import consumable.Consumable;
@@ -20,11 +16,12 @@ import order.OrderMap;
 
 /**
  * Class containing methods for accessing and interacting with the database for the Waiter view.
+ * 
  * @author joshuagargan
  *
  */
 public class WaiterAccess {
-  
+
   /** Field for accessing methods within dataInteract class */
   DataInteract waiterData;
 
@@ -36,13 +33,14 @@ public class WaiterAccess {
   }
 
   /**
-   * This method will allow orders state in the database to be changed 
+   * This method will allow orders state in the database to be changed
+   * 
    * @param tableupdate
    */
   public void markDelivered(String tableupdate) {
     // waiterData.insertIntoTable("insert delivered data");
   }
-  
+
   /**
    * Retrieves the current menu from the database.
    * 
@@ -50,15 +48,17 @@ public class WaiterAccess {
    */
   public void getMenu() throws SQLException {
 
-
     ResultSet rs = waiterData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
 
     while (rs.next()) {
       String itemName = rs.getString("dish");
-      String type = rs.getString("type");
       float itemPrice = rs.getFloat("price");
-      tempMap.put(type, new Consumable(itemName, itemPrice));
+      String allergens = rs.getString("allergens");
+      int calories = rs.getInt("calories");
+      String type = rs.getString("type");
+
+      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
     }
 
 
@@ -91,11 +91,12 @@ public class WaiterAccess {
    * @throws SQLException Thrown if update fails.
    */
   public void removeOrder(Order order) throws SQLException {
-    waiterData.delete("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'")
+    waiterData.delete("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
 
   /**
    * This method will store orders from the database in a resultSet
+   * 
    * @return
    */
   public ResultSet viewReady() {
@@ -103,8 +104,9 @@ public class WaiterAccess {
     // return waiterData.select("query for ready dishes ready to collect");
 
   }
-  
-  /** Method to delete a given dish from the Menu table in the database.
+
+  /**
+   * Method to delete a given dish from the Menu table in the database.
    * 
    * @param dishName the name of the dish to be deleted
    * 
@@ -113,7 +115,8 @@ public class WaiterAccess {
     waiterData.executeDelete("DELETE FROM Menu " + "WHERE dish = '" + dishName + "';");
   }
 
-  /** Method to add a given dish to the Menu table in the database.
+  /**
+   * Method to add a given dish to the Menu table in the database.
    * 
    * @param attributes if columns are specified, it is used in the Insert query
    * @param values the values to be inserted to the database.
@@ -123,7 +126,8 @@ public class WaiterAccess {
     waiterData.insertIntoTable("Menu", attributes, values);
   }
 
-  /** Method checks if the item already exists in the Menu table in the database.
+  /**
+   * Method checks if the item already exists in the Menu table in the database.
    * 
    * @param dishName the name of the dish to check
    * @return returns whether or not the dish exists in the table
@@ -140,15 +144,4 @@ public class WaiterAccess {
     }
     return false;
   }
-
-  public void getMenu() throws SQLException {
-    ResultSet rs = waiterData.select("SELECT * FROM Menu");
-    MenuMap tempMap = MenuMap.getInstace();
-    
-    while (rs.next()) {
-      String itemName = rs.getString("dish");
-      String type = rs.getString("type");
-      float itemPrice = rs.getFloat("price");
-      tempMap.put(type, new Consumable(itemName, itemPrice));
-    }
 }

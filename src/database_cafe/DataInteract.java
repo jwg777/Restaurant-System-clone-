@@ -30,10 +30,6 @@ public final class DataInteract {
     database.importFile("Orders", "Orders");
 
   }
-  public void loadFile() {
-    database.importFile("Menu", "Menu");
-    database.importFile("Authentication", "Staff");
-  }
 
   public static DataInteract getInstance() {
     if (instance == null) {
@@ -44,7 +40,7 @@ public final class DataInteract {
 
   public ResultSet select(String query) {
     return database.select(query);
-    
+
   }
 
   public void delete(String update) {
@@ -54,7 +50,7 @@ public final class DataInteract {
   public void insertIntoTable(String tableName, String attributes, String values) {
     database.insertIntoTable(tableName, attributes, values);
   }
-  
+
   public void executeDelete(String query) {
     database.execute(query);
   }

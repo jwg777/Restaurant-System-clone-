@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
+ * 
  * @author Chak
  */
 public class Consumable implements Comparable<Consumable> {
@@ -15,10 +16,10 @@ public class Consumable implements Comparable<Consumable> {
 
   /** The price of the dish. */
   private float price;
-  
-  /** Calories of the dish.  */
+
+  /** Calories of the dish. */
   private int calories;
-  
+
   /** Allergens of the dish. */
   private String allergens;
 
@@ -38,7 +39,8 @@ public class Consumable implements Comparable<Consumable> {
    * @param price the price of the dish
    * @param ingredients the ingredients needed to make the dish
    */
-  public Consumable(String name, float price, int calories, String allergens, List<String> ingredients) {
+  public Consumable(String name, float price, int calories, String allergens,
+      List<String> ingredients) {
     this.name = name;
     this.price = price;
     this.calories = calories;
@@ -58,6 +60,15 @@ public class Consumable implements Comparable<Consumable> {
    */
   public Consumable(String name, float price, int calories, String allergens) {
     this(name, price, calories, allergens, new ArrayList<String>());
+  }
+
+  /**
+   * Instantiates a new consumable dish by specifying its name, but not its price or ingredients.
+   *
+   * @param name the name
+   */
+  public Consumable(String name) {
+    this(name, 0, 0, "", new ArrayList<String>());
   }
 
   /**
@@ -86,11 +97,11 @@ public class Consumable implements Comparable<Consumable> {
   public float getPrice() {
     return this.price;
   }
-  
+
   public String getAllergen() {
-    return this.allergens; 
+    return this.allergens;
   }
-  
+
   public int getCalories() {
     return this.calories;
   }
