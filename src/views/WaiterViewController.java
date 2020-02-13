@@ -58,13 +58,27 @@ public class WaiterViewController {
   TabPane orderTabPane = new TabPane();
 
   /**
+   * Declare the Processing order VBox from Processing order tab.
+   */
+  @FXML
+  VBox processingOrders;
+  /**
+   * Declare the HBox in the processingOrder VBox.
+   */
+  @FXML
+  HBox firstOrder;
+  /**
+   * Declare the VBox in waitingOrder tab.
+   */
+  @FXML
+  VBox waitingOrders;
+  
+  /**
    * Declare the HBox inside the VBox to be order Confirm.
    */
-
   @FXML
   HBox orderConfirm = new HBox();
-
-
+  
   /**
    * reloadPush() methods to input the value when the reload button is pressed. this will create the
    * menu to test the functions.
@@ -94,7 +108,7 @@ public class WaiterViewController {
    * @return VBox of what has been set.
    */
 
-  private VBox createMenuVBox(ArrayList<Consumable> consumables) {
+private VBox createMenuVBox(ArrayList<Consumable> consumables) {
     VBox vbox = new VBox();
     for (Consumable consumable : consumables) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
@@ -103,13 +117,54 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("Â£ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
   }
-  
+   
+  /**
+   * confirm the order when the button is pressed. this will show the alert message to ensure the
+   * order been confirmed.
+   * 
+   * @throws Exception
+   */
+  @FXML
+  public void confirmOrder() throws Exception {
+
+    confirmButton.setText("confirm");
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Confirm Order");
+    alert.setHeaderText("Confirming this order will send order to the kitchen");
+    alert.setContentText("order is confirming");
+    alert.show();
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      waitingOrders.getChildren().remove(orderConfirm);
+    }
+    alert.close();
+  }
+
+  @FXML
+  public void cancelOrder() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Cancel Order");
+    alert.setHeaderText("Cancelling this order will remove it from the database.");
+    alert.setContentText("Are you sure you want to cancel this order?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      // TODO remove order from database
+      processingOrders.getChildren().remove(firstOrder);
+      Alert cancelled = new Alert(AlertType.INFORMATION);
+      cancelled.setTitle("Cancel Order");
+      cancelled.setHeaderText(null);
+      cancelled.setContentText("The order has been successfully cancelled.");
+      cancelled.showAndWait();   
+    }
+  }
   /**
    * Displays the orders currently on the database.
    * @param orders the orders on the database
@@ -124,22 +179,21 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", order.getTotalPrice());
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("Â£ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
         StackPane confirmStackPane = initialiseButton("Confirm", 12);
         ((Button)confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
           @Override
         public void handle(ActionEvent event) {
-            Alert alert =
-                new Alert(AlertType.CONFIRMATION, "order has been confirmed", ButtonType.OK);
-              alert.setTitle("Notification");
-              alert.show();
-              if (alert.getResult() == ButtonType.OK) {
-                alert.close();
-              }
-              vbox.getChildren().remove(tempHBox);
+            try {
+            confirmOrder();
+            vbox.getChildren().remove(tempHBox);
+          } catch (Exception e) {
+            // TODO Auto-generated catch blocks
+            e.printStackTrace();
           }
+        }
         });
         tempHBox.getChildren().add(confirmStackPane);
       } else if (order.getStatus().equals("processing")) {
@@ -147,27 +201,18 @@ public class WaiterViewController {
         ((Button) cancelStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
           @Override
           public void handle(ActionEvent event) {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Cancel Order");
-            alert.setHeaderText("Cancelling this order will remove it from the database.");
-            alert.setContentText("Are you sure you want to cancel this order?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == ButtonType.OK) {
-              // TODO remove order from database
-              vbox.getChildren().remove(tempHBox);
-              Alert cancelled = new Alert(AlertType.INFORMATION);
-              cancelled.setTitle("Cancel Order");
-              cancelled.setHeaderText(null);
-              cancelled.setContentText("The order has been successfully cancelled.");
-              cancelled.showAndWait();
-            }
+           try {
+            cancelOrder();
+             vbox.getChildren().remove(tempHBox);
+            } catch (Exception e) {
+            e.printStackTrace();
+           }  
           }
         });
         tempHBox.getChildren().add(cancelStackPane);
       }
       vbox.getChildren().add(tempHBox);
+
     }
     return vbox;
   }
@@ -181,7 +226,7 @@ public class WaiterViewController {
 
   private StackPane initialiseButton(String name, int font) {
     StackPane stPane = new StackPane(); // Stack pane to centre button
-    stPane.setPrefSize(100, 50);
+    stPane.setPrefSize(80, 50);
     Button button = new Button(name); // Button to remove and add food to order list
     button.setPrefSize(70, 50);
     button.setFont(new Font(font));

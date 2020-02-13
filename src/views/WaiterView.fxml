@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WaiterViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WaiterViewController">
    <children>
       <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -175,7 +175,10 @@
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0">
                                                    <children>
-                                                      <VBox prefWidth="580.0">
+
+                                                      <VBox fx:id="waitingOrders" prefWidth="580.0">
+
+
                                                          <children>
                                                             <HBox fx:id="orderConfirm" prefHeight="50.0" prefWidth="580.0">
                                                                <children>
@@ -184,9 +187,18 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="price_range" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <StackPane prefHeight="50.0" prefWidth="100.0">
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Confirm">
+                                                                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="confirm">
+                                                                           <font>
+                                                                              <Font size="8.0" />
+                                                                           </font>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
+                                                                     <children>
+                                                                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="50.0" text="cancel">
                                                                            <font>
                                                                               <Font size="8.0" />
                                                                            </font>
@@ -221,12 +233,23 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="price_range1" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <StackPane prefHeight="50.0" prefWidth="100.0">
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Cancel">
+
+                                                                        <Button mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="confirm">
+
                                                                            <font>
-                                                                              <Font size="10.0" />
+                                                                              <Font size="8.0" />
                                                                            </font></Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
+                                                                     <children>
+                                                                        <Button mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="50.0" text="Cancel">
+                                                                           <font>
+                                                                              <Font size="8.0" />
+                                                                           </font>
+                                                                        </Button>
                                                                      </children>
                                                                   </StackPane>
                                                                </children>
