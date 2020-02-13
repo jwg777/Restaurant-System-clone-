@@ -8,9 +8,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Main.
+ */
 public class Main extends Application {
 
+  /** The server. */
   Server server = Server.getInstance();
+
 
   /* (non-Javadoc)
    * @see javafx.application.Application#start(javafx.stage.Stage)

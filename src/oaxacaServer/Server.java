@@ -62,6 +62,7 @@ public final class Server implements Runnable {
   private Server() {}
 
   /**
+
    * Returns the set of user names.
    * 
    * @return user names
@@ -73,7 +74,7 @@ public final class Server implements Runnable {
   /**
    * returns the singleton instance of the class
    * 
-   * @return instance.
+   * @return single instance of Server
    */
   public static Server getInstance() {
     if (instance == null) {
@@ -178,7 +179,7 @@ public final class Server implements Runnable {
 
   /**
    * gets the queue of logs.
-   * @return
+   * @return the queue
    */
   public Queue<String> getQueue() {
     return queue;

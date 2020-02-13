@@ -1,5 +1,6 @@
 package oaxacaServer;
 
+
 /**
  * Enum type of clients joining the server.
  * 

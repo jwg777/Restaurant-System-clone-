@@ -3,6 +3,7 @@ package backend;
 import java.sql.ResultSet;
 import database_cafe.DataInteract;
 
+
 /**
  * 
  * Class containing methods for accessing and interacting with the database for the kitchen view.
@@ -39,6 +40,7 @@ public class KitchenAccess {
   }
 
   /**
+
    * This method will alter the state of an order. E.g change an order to complete.
    */
   public void setOrderStatus() {

@@ -4,9 +4,16 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserThread.
+ */
 public class UserThread extends Thread {
 
+  /** The socket. */
   private Socket socket;
+
+  /** The server. */
   private Server server = Server.getInstance();
 
   /**

@@ -6,22 +6,28 @@ import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
 
+
 /**
  * Class containing methods for accessing and interacting with the database for the customer view.
  *
  */
 public class CustomerAccess {
 
+  /** The customer data. */
   DataInteract customerData;
 
+  /**
+   * Instantiates a new customer access.
+   */
   public CustomerAccess() {
     customerData = DataInteract.getInstance();
   }
 
+
 /**
  * Method updates menu in the class menu map. (does not return anything as menu map is a singleton.
  * When this method is called, the menu table in the databse will be loaded into menu map.
- * @throws SQLException
+ * @throws SQLException the SQL exception
  */
   public void getMenu() throws SQLException {
     
@@ -41,11 +47,12 @@ public class CustomerAccess {
 
 
   }
+
   
   /**
    * This method will be for placing orders. It will send data into the database
    * to fill the order table.
-   * @param orders
+   * @param orders the orders
    */
   public void placeOrder(String orders) {
     // customerData.insertIntoTable("insert order data");
@@ -53,7 +60,7 @@ public class CustomerAccess {
 
   /**
    * This method will be to store feedback in the databse.
-   * @param feedback
+   * @param feedback the feedback
    */
   public void giveFeedback(String feedback) {
     // customerData.insertIntoTable("insert feedback data");

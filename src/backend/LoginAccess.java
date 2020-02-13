@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import database_cafe.DataInteract;
 
+
 /**
  * Class containing methods for accessing and interacting with the database for the Login view
  * @author joshuagargan
@@ -22,6 +23,7 @@ public class LoginAccess {
   }
 
   /**
+
    * This method interacts with the databse to check if the username and password combination
    * is stored and then returning true or false depending on this.
    * @param username

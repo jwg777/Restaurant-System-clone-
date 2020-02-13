@@ -32,6 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+// TODO: Auto-generated Javadoc
 /**
  * Controller for the customer view.
  *
@@ -44,6 +45,7 @@ public class CustomerViewController {
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
 
+  /** The menu. */
   MenuMap menu = MenuMap.getInstance();
 
   /**
@@ -52,9 +54,11 @@ public class CustomerViewController {
   @FXML
   VBox vboxStarter = new VBox();
 
+  /** The menu tab pane. */
   @FXML
   TabPane menuTabPane = new TabPane();
 
+  /** The ordered list. */
   @FXML
   ListView<String> orderedList = new ListView<>();
 
@@ -146,6 +150,11 @@ public class CustomerViewController {
     });
   }
 
+  /**
+   * Submit review.
+   *
+   * @param event the event
+   */
   @FXML
   void submitReview(ActionEvent event) {
     // System.out.println("Thanks");
@@ -164,8 +173,9 @@ public class CustomerViewController {
 
   /**
    * Adds items to the VBox, as well as buttons to add/remove the item from an order.
-   * 
+   *
    * @param consumables the consumables
+   * @return the v box
    */
   private VBox createVBox(ArrayList<Consumable> consumables) {
     VBox vbox = new VBox();
@@ -176,7 +186,7 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
+      tempHBox.getChildren().add(initialiseLabel("Â£ " + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
       String tAllergens = consumable.getAllergen();
@@ -268,6 +278,13 @@ public class CustomerViewController {
     }
   }
 
+  /**
+   * Creates the tab.
+   *
+   * @param name the name
+   * @param list the list
+   * @return the tab
+   */
   private Tab createTab(String name, ArrayList<Consumable> list) {
     AnchorPane anchorPane = new AnchorPane();
     anchorPane.setPrefWidth(580);

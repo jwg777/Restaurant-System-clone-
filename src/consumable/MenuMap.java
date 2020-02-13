@@ -3,6 +3,7 @@ package consumable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 /**
  * @author Chak
  *
@@ -27,7 +28,7 @@ public final class MenuMap {
   /**
    * returns the singleton instance of MenuMap.
    * 
-   * @return instance
+   * @return single instance of MenuMap
    */
   public static MenuMap getInstance() {
     if (instance == null) {
@@ -39,7 +40,7 @@ public final class MenuMap {
   /**
    * returns if the map is empty.
    * 
-   * @return if it's empty
+   * @return true, if it's empty
    */
   public boolean isEmpty() {
     return menu.isEmpty();

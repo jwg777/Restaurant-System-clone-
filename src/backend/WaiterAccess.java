@@ -14,6 +14,7 @@ import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
 
+
 /**
  * Class containing methods for accessing and interacting with the database for the Waiter view.
  * 
@@ -31,6 +32,7 @@ public class WaiterAccess {
   public WaiterAccess() {
     waiterData = DataInteract.getInstance();
   }
+
 
   /**
    * This method will allow orders state in the database to be changed
@@ -62,6 +64,15 @@ public class WaiterAccess {
     }
 
 
+  }
+
+  /**
+   * Mark delivered.
+   *
+   * @param tableupdate the tableupdate
+   */
+  public void markDelivered(String tableupdate) {
+    // waiterData.insertIntoTable("insert delivered data");
   }
 
 
@@ -97,7 +108,7 @@ public class WaiterAccess {
   /**
    * This method will store orders from the database in a resultSet
    * 
-   * @return
+   * @return 
    */
   public ResultSet viewReady() {
     return null;

@@ -34,18 +34,23 @@ import order.Order;
 import order.OrderMap;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Controller for the waiter view..
  */
 
 public class WaiterViewController {
 
+  /** The waiter data. */
   WaiterAccess waiterData = new WaiterAccess();
 
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
 
+  /** The menu. */
   MenuMap menu = MenuMap.getInstance();
+
+  /** The orders. */
   OrderMap orders = OrderMap.getInstance();
 
   /**
@@ -373,8 +378,9 @@ public class WaiterViewController {
 
   /**
    * set the StackPane and its internal button.
-   * 
+   *
    * @param name of StackPane name.
+   * @param font the font
    * @return stackPane initialise value.
    */
 

@@ -6,10 +6,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+// TODO: Auto-generated Javadoc
 /**
  * Controller for the staff login view.
  */
 public class LoginViewController {
+
 
 
   /** Object containing methods for the login view to interact with the database **/

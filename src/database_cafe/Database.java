@@ -87,7 +87,7 @@ public class Database {
    * @param user
    * @param password
    * @param database
-   * @return
+   * @return the connection
    */
   public static Connection connectToDatabase(String user, String password, String database) {
     System.out.println("~~~~~~~~~~~~~~~ PostgreSQL___JDBC Connection Testing ~~~~~~~~~~~~~~~");
@@ -159,7 +159,7 @@ public class Database {
    * This method is for quering the database and stores the result in a resultSet.
    * 
    * @param query
-   * @return
+   * @return the result set
    */
   public ResultSet select(String query) {
     Statement st = null;
