@@ -11,12 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -48,6 +50,9 @@ public class CustomerViewController {
 
   @FXML
   ListView<String> orderedList = new ListView<>();
+  
+  @FXML
+  Alert addAlert = new Alert(AlertType.INFORMATION);
 
 
   /**
@@ -135,16 +140,13 @@ public class CustomerViewController {
         public void handle(ActionEvent event) {
           // method to bring up allergies and calories info
           System.out.println("Allergies: "+ tAllergens +", Calories: "+ tCalories);
-          try {
-            FXMLLoader fLoad = new FXMLLoader(getClass().getResource("Allergy&CalorieView.fxml"));
-            Parent root = (Parent) fLoad.load();
-            Stage stage = new Stage();
-            stage.setTitle("Thanks!");
-            stage.setScene(new Scene(root));
-            stage.show();
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
+          /*AllergyCalorieViewController acView = new AllergyCalorieViewController();
+          acView.changeI();
+          acView.openACView();*/
+          addAlert.setContentText("Allergens: "+ tAllergens +"    Calories: "+ tCalories);
+          addAlert.show();
+          
+          
         }
       });
       tempHBox.getChildren().add(infoStackPane); // Add info button
