@@ -153,6 +153,8 @@ public class WaiterViewController {
         try {
           if (waiterData.checkKeyExists(dishName.getText())) {
             waiterData.deleteMenuItem(dishName.getText());
+            Stage stage = (Stage) addItem.getScene().getWindow();
+            stage.close();
           } else {
             deleteAlert = new Alert(AlertType.NONE);
             deleteAlert.setContentText("Dish does not exist or is empty");
