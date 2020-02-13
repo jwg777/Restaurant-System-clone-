@@ -56,28 +56,6 @@ public class WaiterViewController {
 
   @FXML
   TabPane orderTabPane = new TabPane();
-
-  /**
-   * Declare the Processing order VBox from Processing order tab.
-   */
-  @FXML
-  VBox processingOrders;
-  /**
-   * Declare the HBox in the processingOrder VBox.
-   */
-  @FXML
-  HBox firstOrder;
-  /**
-   * Declare the VBox in waitingOrder tab.
-   */
-  @FXML
-  VBox waitingOrders;
-  
-  /**
-   * Declare the HBox inside the VBox to be order Confirm.
-   */
-  @FXML
-  HBox orderConfirm = new HBox();
   
   /**
    * reloadPush() methods to input the value when the reload button is pressed. this will create the
@@ -132,16 +110,18 @@ private VBox createMenuVBox(ArrayList<Consumable> consumables) {
    */
   @FXML
   public void confirmOrder() throws Exception {
-
-    confirmButton.setText("confirm");
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("Confirm Order");
     alert.setHeaderText("Confirming this order will send order to the kitchen");
     alert.setContentText("order is confirming");
-    alert.show();
+
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      waitingOrders.getChildren().remove(orderConfirm);
+      Alert confirmed = new Alert(AlertType.INFORMATION);
+      confirmed.setTitle("Confirm Order");
+      confirmed.setHeaderText(null);
+      confirmed.setContentText("The order has been confirmed.");
+      confirmed.showAndWait();   
     }
     alert.close();
   }
@@ -157,7 +137,6 @@ private VBox createMenuVBox(ArrayList<Consumable> consumables) {
 
     if (result.get() == ButtonType.OK) {
       // TODO remove order from database
-      processingOrders.getChildren().remove(firstOrder);
       Alert cancelled = new Alert(AlertType.INFORMATION);
       cancelled.setTitle("Cancel Order");
       cancelled.setHeaderText(null);
