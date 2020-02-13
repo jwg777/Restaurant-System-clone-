@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 
 /**
  * Controller for the customer view.
+ *
  */
 public class CustomerViewController {
 
