@@ -1,6 +1,5 @@
 package oaxacaServer;
 
-// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving client events. The class that is interested in processing a
  * client event implements this interface, and the object created with that class is registered with
@@ -8,11 +7,13 @@ package oaxacaServer;
  * occurs, that object's appropriate method is invoked.
  *
  * @see ClientEvent
+ * 
+ * @author Chak
+ *
  */
 public interface ClientListener {
-
   /**
-   * On client change.
+   * method called when client joins or leave the server.
    */
   public void onClientChange();
 }

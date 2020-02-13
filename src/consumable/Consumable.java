@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
+ * 
+ * @author Chak
  */
 public class Consumable implements Comparable<Consumable> {
 
@@ -14,6 +16,12 @@ public class Consumable implements Comparable<Consumable> {
 
   /** The price of the dish. */
   private float price;
+
+  /** Calories of the dish. */
+  private int calories;
+
+  /** Allergens of the dish. */
+  private String allergens;
 
   /** Specifies whether or not the dish is currently available. */
   private boolean isAvailable = true;
@@ -31,9 +39,12 @@ public class Consumable implements Comparable<Consumable> {
    * @param price the price of the dish
    * @param ingredients the ingredients needed to make the dish
    */
-  public Consumable(String name, float price, List<String> ingredients) {
+  public Consumable(String name, float price, int calories, String allergens,
+      List<String> ingredients) {
     this.name = name;
     this.price = price;
+    this.calories = calories;
+    this.allergens = allergens;
     this.ingredients = new ArrayList<String>();
     for (String ingredient : ingredients) {
       this.ingredients.add(ingredient);
@@ -47,8 +58,8 @@ public class Consumable implements Comparable<Consumable> {
    * @param name the name
    * @param price the price
    */
-  public Consumable(String name, float price) {
-    this(name, price, new ArrayList<String>());
+  public Consumable(String name, float price, int calories, String allergens) {
+    this(name, price, calories, allergens, new ArrayList<String>());
   }
 
   /**
@@ -57,7 +68,7 @@ public class Consumable implements Comparable<Consumable> {
    * @param name the name
    */
   public Consumable(String name) {
-    this(name, 0, new ArrayList<String>());
+    this(name, 0, 0, "", new ArrayList<String>());
   }
 
   /**
@@ -85,6 +96,14 @@ public class Consumable implements Comparable<Consumable> {
    */
   public float getPrice() {
     return this.price;
+  }
+
+  public String getAllergen() {
+    return this.allergens;
+  }
+
+  public int getCalories() {
+    return this.calories;
   }
 
   /**

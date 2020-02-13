@@ -17,16 +17,15 @@ public class UserThread extends Thread {
   private Server server = Server.getInstance();
 
   /**
-   * Instantiates a new user thread.
-   *
-   * @param socket the socket
+   * Constructor to create a User thread
+   * @param socket
    */
   public UserThread(Socket socket) {
     this.socket = socket;
   }
 
-  /**
-   * Run.
+  /* (non-Javadoc)
+   * @see java.lang.Thread#run()
    */
   public void run() {
     try {
@@ -35,6 +34,9 @@ public class UserThread extends Thread {
       String name = type.name() + "_" + server.addNumebr();
       server.addUserName(name);
       server.write("New client connected: " + name);
+      for(ClientListener listener: server.clientListeners) {
+        listener.onClientChange();
+      }
       String response;
       do {
         dis = new DataInputStream(socket.getInputStream());
@@ -46,6 +48,8 @@ public class UserThread extends Thread {
       server.write(name + " has disconnected");
     } catch (IOException e) {
 
+    } catch (IllegalArgumentException e) {
+      server.removeThread(this);
     }
   }
 

@@ -1,22 +1,30 @@
-
 package views;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
+import javax.xml.ws.Response;
 import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -27,6 +35,7 @@ import javafx.stage.Stage;
 // TODO: Auto-generated Javadoc
 /**
  * Controller for the customer view.
+ *
  */
 public class CustomerViewController {
 
@@ -53,6 +62,19 @@ public class CustomerViewController {
   @FXML
   ListView<String> orderedList = new ListView<>();
 
+  @FXML
+  Alert addAlert = new Alert(AlertType.INFORMATION);
+
+  /**
+   * Runs this method during scene start up.
+   * 
+   * @throws Exception the exception
+   */
+  @FXML
+  private void initialize() throws Exception {
+    reloadPush();
+  }
+
 
   /**
    * When the 'Back to main menu' button is pressed, return to the main menu.
@@ -78,13 +100,54 @@ public class CustomerViewController {
   }
 
   /**
-   * Send order.
-   *
+   * sends order to server when order is pressed.
+   * 
    * @throws Exception the exception
    */
   @FXML
   private void sendOrder() throws Exception {
-    // method for sending order
+    /*
+     * needs to check if order is valid.
+     */
+    ObservableList<String> orders = orderedList.getItems();
+    /*
+     * Needs a new class and methods to run the following. This is only temporary.
+     */
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try (Socket s = new Socket("192.168.1.13", 6666);
+            DataOutputStream dout = new DataOutputStream(s.getOutputStream())) {
+          dout.writeUTF("CUSTOMER"); //tells server that you're a customer
+          dout.flush();
+          dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
+          dout.flush();
+          /*
+           * If order success message is received.
+           */
+          if (true) {
+            orderedList.getItems().clear();
+            Alert alert = new Alert(AlertType.NONE, "Order has been placed.", ButtonType.OK);
+            alert.show();
+            if (alert.getResult() == ButtonType.OK) {
+              dout.writeUTF("STOP"); // tells server that you have finished.
+              dout.flush();
+            }
+          }
+        } catch (IOException e) {
+          Alert alert = new Alert(AlertType.ERROR,
+              "Failed to make order, would you like to notify a staff member?", ButtonType.NO,
+              ButtonType.YES);
+          alert.show();
+          if (alert.getResult() == ButtonType.YES) {
+            /*
+             * Notify staff.
+             */
+          }
+          alert.close();
+        }
+      }
+    });
   }
 
   /**
@@ -126,6 +189,9 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
+      String tAllergens = consumable.getAllergen();
+      int tCalories = consumable.getCalories();
+
       ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -146,6 +212,10 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           // method to bring up allergies and calories info
+          addAlert.setContentText("Allergens: " + tAllergens + "    Calories: " + tCalories);
+          addAlert.show();
+
+
         }
       });
       tempHBox.getChildren().add(infoStackPane); // Add info button
@@ -164,7 +234,7 @@ public class CustomerViewController {
     StackPane sPane = new StackPane(); // Stack pane to centre button
     sPane.setPrefSize(50, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(40, 40);
+    button.setPrefSize(30, 30);
     sPane.getChildren().add(button);
     return sPane;
   }
@@ -224,5 +294,6 @@ public class CustomerViewController {
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
   }
-}
 
+
+}

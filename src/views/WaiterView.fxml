@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WaiterViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WaiterViewController">
    <children>
       <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -154,6 +154,7 @@
                               <Button layoutX="55.0" layoutY="444.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Place Order" />
                               <Button layoutX="55.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Cancel" />
                               <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
+                                  <Button fx:id="AddDel" layoutX="-151.0" layoutY="3.0" mnemonicParsing="false" onAction="#addDeletePush" prefHeight="31.0" prefWidth="98.0" style="-fx-border-color: red;" text="Add/Delete" />
                            </children>
                         </AnchorPane>
                         <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#menuReload" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
@@ -175,7 +176,10 @@
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0">
                                                    <children>
-                                                      <VBox prefWidth="580.0">
+
+                                                      <VBox fx:id="waitingOrders" prefWidth="580.0">
+
+
                                                          <children>
                                                             <HBox fx:id="orderConfirm" prefHeight="50.0" prefWidth="580.0">
                                                                <children>
@@ -184,9 +188,18 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="price_range" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <StackPane prefHeight="50.0" prefWidth="100.0">
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Confirm">
+                                                                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="confirm">
+                                                                           <font>
+                                                                              <Font size="8.0" />
+                                                                           </font>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
+                                                                     <children>
+                                                                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="50.0" text="cancel">
                                                                            <font>
                                                                               <Font size="8.0" />
                                                                            </font>
@@ -221,12 +234,23 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="price_range1" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <StackPane prefHeight="50.0" prefWidth="100.0">
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Cancel">
+
+                                                                        <Button mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="confirm">
+
                                                                            <font>
-                                                                              <Font size="10.0" />
+                                                                              <Font size="8.0" />
                                                                            </font></Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <StackPane prefHeight="50.0" prefWidth="80.0">
+                                                                     <children>
+                                                                        <Button mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="50.0" text="Cancel">
+                                                                           <font>
+                                                                              <Font size="8.0" />
+                                                                           </font>
+                                                                        </Button>
                                                                      </children>
                                                                   </StackPane>
                                                                </children>
@@ -259,30 +283,30 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="INFO">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TabPane layoutX="14.0" layoutY="6.0" prefHeight="540.0" prefWidth="635.0" tabClosingPolicy="UNAVAILABLE">
-                          <tabs>
-                            <Tab text="Confirmation">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                            </Tab>
-                            <Tab text="Order Time">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" text="Back To Main Menu" />
-   </children>
+        <Tab text="INFO">
+          <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TabPane layoutX="14.0" layoutY="6.0" prefHeight="540.0" prefWidth="635.0" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab text="Confirmation">
+                      <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      </content>
+                    </Tab>
+                    <Tab text="Order Time">
+                      <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" text="Back To Main Menu" />
+  </children>
 </AnchorPane>

@@ -61,6 +61,11 @@ public final class DataInteract {
    */
   public ResultSet select(String query) {
     return database.select(query);
+
+  }
+
+  public void delete(String update) {
+    database.delete(update);
   }
 
   /**
@@ -73,4 +78,10 @@ public final class DataInteract {
   public void insertIntoTable(String tableName, String attributes, String values) {
     database.insertIntoTable(tableName, attributes, values);
   }
+
+  public void executeDelete(String query) {
+    database.execute(query);
+  }
 }
+
+

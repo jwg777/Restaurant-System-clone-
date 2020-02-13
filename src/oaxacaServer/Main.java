@@ -17,10 +17,9 @@ public class Main extends Application {
   /** The server. */
   Server server = Server.getInstance();
 
-  /**
-   * Start.
-   *
-   * @param stage the stage
+
+  /* (non-Javadoc)
+   * @see javafx.application.Application#start(javafx.stage.Stage)
    */
   @Override
   public void start(Stage stage) {
@@ -44,9 +43,8 @@ public class Main extends Application {
   }
 
   /**
-   * The main method.
-   *
-   * @param args the arguments
+   * Main method to run the server.
+   * @param args
    */
   public static void main(String[] args) {
     launch(args);

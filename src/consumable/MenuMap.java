@@ -3,26 +3,31 @@ package consumable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class MenuMap.
+ * @author Chak
+ *
  */
 public final class MenuMap {
 
-  /** The instance. */
+  /**
+   * instance for singleton class
+   */
   private static MenuMap instance = null;
-
-  /** The menu. */
+  /**
+   * Hash map to keep track what is going to be displayed on the menu
+   */
   private HashMap<String, ArrayList<Consumable>> menu = new HashMap<>();
 
   /**
-   * Instantiates a new menu map.
+   * private constructor for singleton class
    */
+
   private MenuMap() {}
 
   /**
-   * Gets the single instance of MenuMap.
-   *
+   * returns the singleton instance of MenuMap.
+   * 
    * @return single instance of MenuMap
    */
   public static MenuMap getInstance() {
@@ -33,35 +38,35 @@ public final class MenuMap {
   }
 
   /**
-   * Checks if is empty.
-   *
-   * @return true, if is empty
+   * returns if the map is empty.
+   * 
+   * @return true, if it's empty
    */
   public boolean isEmpty() {
     return menu.isEmpty();
   }
 
   /**
-   * Gets the menu.
-   *
-   * @return the menu
+   * returns the menu.
+   * 
+   * @return the menu in Hash Map.
    */
   public HashMap<String, ArrayList<Consumable>> getMenu() {
     return this.menu;
   }
 
   /**
-   * Clear.
+   * clears the menu / map.
    */
   public void clear() {
     this.menu.clear();
   }
 
   /**
-   * Put.
-   *
-   * @param tab the tab
-   * @param consumable the consumable
+   * puts the consumables into the correct key(category).
+   * 
+   * @param category
+   * @param consumable
    */
   public void put(String tab, Consumable consumable) {
     ArrayList<Consumable> tempList = new ArrayList<>();
@@ -75,9 +80,9 @@ public final class MenuMap {
   }
 
   /**
-   * Key array.
-   *
-   * @return the array list
+   * returns the keys in array list.
+   * 
+   * @return keys
    */
   public ArrayList<String> keyArray() {
     ArrayList<String> tempList = new ArrayList<>();
@@ -88,15 +93,12 @@ public final class MenuMap {
   }
 
   /**
-   * Gets the.
-   *
-   * @param key the key
-   * @return the array list
+   * Returns the consumable list from the given key.
+   * 
+   * @param key
+   * @return the consumables in that category
    */
   public ArrayList<Consumable> get(String key) {
     return menu.get(key);
   }
-
-
-
 }

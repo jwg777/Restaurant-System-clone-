@@ -1,4 +1,10 @@
 package backend;
+/**
+ * This class will act as a buffer for the database and the waiter controller.
+ * 
+ * @author : TeamProject2020 group 22
+ * 
+ */
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,26 +14,38 @@ import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class WaiterAccess.
+ * Class containing methods for accessing and interacting with the database for the Waiter view.
+ * 
+ * @author joshuagargan
+ *
  */
 public class WaiterAccess {
 
-  /** The waiter data. */
+  /** Field for accessing methods within dataInteract class */
   DataInteract waiterData;
 
   /**
-   * Instantiates a new waiter access.
+   * Constructor to get instance of DataInteract class.
    */
   public WaiterAccess() {
     waiterData = DataInteract.getInstance();
   }
 
+
+  /**
+   * This method will allow orders state in the database to be changed
+   * 
+   * @param tableupdate
+   */
+  public void markDelivered(String tableupdate) {
+    // waiterData.insertIntoTable("insert delivered data");
+  }
+
   /**
    * Retrieves the current menu from the database.
-   *
-   * @return the menu
+   * 
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
@@ -37,9 +55,12 @@ public class WaiterAccess {
 
     while (rs.next()) {
       String itemName = rs.getString("dish");
-      String type = rs.getString("type");
       float itemPrice = rs.getFloat("price");
-      tempMap.put(type, new Consumable(itemName, itemPrice));
+      String allergens = rs.getString("allergens");
+      int calories = rs.getInt("calories");
+      String type = rs.getString("type");
+
+      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
     }
 
 
@@ -53,6 +74,7 @@ public class WaiterAccess {
   public void markDelivered(String tableupdate) {
     // waiterData.insertIntoTable("insert delivered data");
   }
+
 
   /**
    * Retrieves the table of orders from the database.
@@ -74,12 +96,63 @@ public class WaiterAccess {
   }
 
   /**
-   * View ready.
-   *
-   * @return the result set
+   * Deletes an order from the database.
+   * 
+   * @param order the order to be deleted
+   * @throws SQLException Thrown if update fails.
+   */
+  public void removeOrder(Order order) throws SQLException {
+    waiterData.delete("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+  }
+
+  /**
+   * This method will store orders from the database in a resultSet
+   * 
+   * @return 
    */
   public ResultSet viewReady() {
     return null;
     // return waiterData.select("query for ready dishes ready to collect");
+
+  }
+
+  /**
+   * Method to delete a given dish from the Menu table in the database.
+   * 
+   * @param dishName the name of the dish to be deleted
+   * 
+   */
+  public void deleteMenuItem(String dishName) {
+    waiterData.executeDelete("DELETE FROM Menu " + "WHERE dish = '" + dishName + "';");
+  }
+
+  /**
+   * Method to add a given dish to the Menu table in the database.
+   * 
+   * @param attributes if columns are specified, it is used in the Insert query
+   * @param values the values to be inserted to the database.
+   * 
+   */
+  public void addMenuItem(String attributes, String values) {
+    waiterData.insertIntoTable("Menu", attributes, values);
+  }
+
+  /**
+   * Method checks if the item already exists in the Menu table in the database.
+   * 
+   * @param dishName the name of the dish to check
+   * @return returns whether or not the dish exists in the table
+   * 
+   */
+  public boolean checkKeyExists(String dishName) {
+    try {
+      ResultSet rs = waiterData.select("SELECT * FROM MENU WHERE dish = '" + dishName + "';");
+      if (rs.next()) {
+        return true;
+      }
+    } catch (Exception e) {
+      return false;
+    }
+    return false;
   }
 }

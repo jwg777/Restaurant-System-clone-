@@ -3,33 +3,36 @@ package backend;
 import java.sql.ResultSet;
 import database_cafe.DataInteract;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class KitchenAccess.
+ * 
+ * Class containing methods for accessing and interacting with the database for the kitchen view.
+ * @author joshuagargan
+ *
  */
 public class KitchenAccess {
 
-  /** The kitchen data. */
+  
+  /** Field kitchenData- a singleton of the DataInteract class */
   DataInteract kitchenData;
 
   /**
-   * Instantiates a new kitchen access.
+   * Constructor which gets the instance of the singleton class DataInteract
    */
   public KitchenAccess() {
     kitchenData = DataInteract.getInstance();
   }
 
   /**
-   * Change menu.
+   * This method will change the menu with new data.
    */
   public void changeMenu() {
     // some query to alter menu
   }
 
   /**
-   * Gets the orders.
-   *
-   * @return the orders
+   * This method will return the currenly stored orders from the database and update OrderMap.
+   * @return
    */
   public ResultSet getOrders() {
     // return kitchenData.select("some query for orders");
@@ -37,7 +40,8 @@ public class KitchenAccess {
   }
 
   /**
-   * Sets the order status.
+
+   * This method will alter the state of an order. E.g change an order to complete.
    */
   public void setOrderStatus() {
     // kitchenData.insertIntoTable("some command for order status");

@@ -4,29 +4,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import database_cafe.DataInteract;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class LoginAccess.
+ * Class containing methods for accessing and interacting with the database for the Login view
+ * @author joshuagargan
+ *
  */
 public class LoginAccess {
 
-  /** The login data. */
+  /** Field for accessing methods from DataInteract class */
   DataInteract loginData;
 
   /**
-   * Instantiates a new login access.
+   * Constructor to get instance of DataInteract class.
    */
   public LoginAccess() {
     loginData = DataInteract.getInstance();
   }
 
   /**
-   * Check user.
-   *
-   * @param username the username
-   * @param password the password
-   * @return true, if successful
-   * @throws SQLException the SQL exception
+
+   * This method interacts with the databse to check if the username and password combination
+   * is stored and then returning true or false depending on this.
+   * @param username
+   * @param password
+   * @return boolean
+   * @throws SQLException
    */
   public boolean checkUser(String username, String password) throws SQLException {
     ResultSet rs = loginData.select("SELECT * FROM Staff");
@@ -40,11 +43,12 @@ public class LoginAccess {
   }
 
   /**
-   * Checks if is kitchen.
-   *
-   * @param username the username
-   * @return true, if is kitchen
-   * @throws SQLException the SQL exception
+   * This method is used for checking if a user that is already given access is either
+   * a kitchen staff or waiter staff. If they are a kitchen staff then the method will
+   * return true.
+   * @param username
+   * @return boolean
+   * @throws SQLException
    */
   public boolean isKitchen(String username) throws SQLException {
     ResultSet rs = loginData.select("SELECT * FROM Staff");

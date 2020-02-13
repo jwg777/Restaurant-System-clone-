@@ -10,45 +10,70 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Server.
+ * Server program to manage orders, confirmations, and notifications.
+ * 
+ * @author Chak
+ *
  */
 public final class Server implements Runnable {
 
-  /** The instance. */
+  /**
+   * an instance for the singleton class.
+   */
   private static Server instance = null;
-
-  /** The port. */
+  /**
+   * port of the server.
+   */
   private int port;
-
-  /** The usernames. */
+  /**
+   * Set of user names that are connected to the server.
+   */
   private Set<String> usernames = new HashSet<>();
-
-  /** The user threads. */
+  /**
+   * Set of threads that are connected to the server.
+   */
   private Set<UserThread> userThreads = new HashSet<>();
-
-  /** The list listeners. */
+  /**
+   * List of list view listener.
+   */
   private final List<ListListener> listListeners = new ArrayList<>();
-
-  /** The queue. */
+  /**
+   * List of client listener.
+   */
+  public final List<ClientListener> clientListeners = new ArrayList<>();
+  /**
+   * Queue for logs to be displayed
+   */
   private Queue<String> queue = new LinkedList<>();
-
-  /** The running. */
+  /**
+   * boolean to show if the server is running
+   */
   boolean running = false;
-
-  /** The i. */
+  /**
+   * increments every time a client connects.
+   */
   private int i = 0;
 
 
   /**
-   * Instantiates a new server.
+   * private constructor for singleton method.
    */
   private Server() {}
 
   /**
-   * Gets the single instance of Server.
-   *
+
+   * Returns the set of user names.
+   * 
+   * @return user names
+   */
+  public Set<String> getUsernames() {
+    return usernames;
+  }
+
+  /**
+   * returns the singleton instance of the class
+   * 
    * @return single instance of Server
    */
   public static Server getInstance() {
@@ -59,16 +84,18 @@ public final class Server implements Runnable {
   }
 
   /**
-   * Sets the port.
-   *
-   * @param port the new port
+   * set the port of the server.
+   * 
+   * @param port
    */
   public void setPort(int port) {
     this.port = port;
   }
 
-  /**
-   * Run.
+  /* 
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Runnable#run()
    */
   @Override
   public void run() {
@@ -97,9 +124,8 @@ public final class Server implements Runnable {
   }
 
   /**
-   * Write.
-   *
-   * @param string the string
+   * Tells the listeners to write on the list view.
+   * @param string
    */
   public void write(String string) {
     String time = java.time.LocalTime.now().toString().split("\\.")[0];
@@ -110,37 +136,49 @@ public final class Server implements Runnable {
   }
 
   /**
-   * Adds the user name.
-   *
-   * @param string the string
+   * Adds username to the set of usernames.
+   * @param string
    */
   public void addUserName(String string) {
     usernames.add(string);
   }
 
   /**
-   * Removes the user.
-   *
-   * @param string the string
-   * @param user the user
+   * Removes the thread of the user.
+   * @param user
    */
-  public void removeUser(String string, UserThread user) {
-    usernames.remove(string);
+  public void removeThread(UserThread user) {
     userThreads.remove(user);
   }
 
   /**
-   * Adds the listener.
-   *
-   * @param listener the listener
+   * remove the user completely from the server.
+   * @param username
+   * @param user
    */
-  public void addListener(ListListener listener) {
+  public void removeUser(String string, UserThread user) {
+    usernames.remove(string);
+    removeThread(user);
+  }
+
+  /**
+   * adds listener for list view.
+   * @param listener
+   */
+  public void addListListener(ListListener listener) {
     listListeners.add(listener);
   }
 
   /**
-   * Gets the queue.
-   *
+   * add listener for clients.
+   * @param listener
+   */
+  public void addClientListener(ClientListener listener) {
+    clientListeners.add(listener);
+  }
+
+  /**
+   * gets the queue of logs.
    * @return the queue
    */
   public Queue<String> getQueue() {
@@ -148,7 +186,7 @@ public final class Server implements Runnable {
   }
 
   /**
-   * Close.
+   * closes the server.
    */
   public void close() {
     write("Server on port " + port + " closed.");
@@ -157,20 +195,19 @@ public final class Server implements Runnable {
   }
 
   /**
-   * Number of clients.
-   *
-   * @return the int
+   * return the number of clients.
+   * @return number of clients
    */
   public int numberOfClients() {
     return usernames.size();
   }
 
   /**
-   * Adds the numebr.
-   *
-   * @return the string
+   * returns a unique number for each client.
+   * @return number
    */
   public String addNumebr() {
     return String.format("%04d", ++i);
   }
+
 }
