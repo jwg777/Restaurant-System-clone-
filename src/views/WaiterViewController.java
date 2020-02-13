@@ -1,11 +1,11 @@
 
 package views;
 
+import java.util.ArrayList;
+import java.util.Optional;
 import backend.WaiterAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
-import java.util.ArrayList;
-import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,12 +32,12 @@ import order.OrderMap;
  */
 
 public class WaiterViewController {
-  
+
   WaiterAccess waiterData = new WaiterAccess();
 
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
-  
+
   MenuMap menu = MenuMap.getInstance();
   OrderMap orders = OrderMap.getInstance();
 
@@ -50,13 +50,18 @@ public class WaiterViewController {
   private void returnPush() throws Exception {
     butController.startMain();
   }
-  
+
+  /**
+   * Declare the menuTabPane in the Tab.
+   */
   @FXML
   TabPane menuTabPane = new TabPane();
-
+  /**
+   * Declare the orderTabPane in the Tab.
+   */
   @FXML
   TabPane orderTabPane = new TabPane();
-  
+
   /**
    * reloadPush() methods to input the value when the reload button is pressed. this will create the
    * menu to test the functions.
@@ -70,7 +75,12 @@ public class WaiterViewController {
     menuTabPane.getTabs().clear();
     createMenu(menu);
   }
-  
+
+  /**
+   * order Reload method() to input the value when the button is pressed.
+   * 
+   * @throws Exception
+   */
   @FXML
   private void orderReload() throws Exception {
     orders.clear();
@@ -86,7 +96,7 @@ public class WaiterViewController {
    * @return VBox of what has been set.
    */
 
-private VBox createMenuVBox(ArrayList<Consumable> consumables) {
+  private VBox createMenuVBox(ArrayList<Consumable> consumables) {
     VBox vbox = new VBox();
     for (Consumable consumable : consumables) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
@@ -95,13 +105,93 @@ private VBox createMenuVBox(ArrayList<Consumable> consumables) {
       tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("ï¿½ " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
   }
-   
+
+
+  /**
+   * Displays the orders currently on the database.
+   * 
+   * @param orders the orders on the database
+   * @return VBox of what has been set
+   */
+  private VBox createOrderVBox(ArrayList<Order> orders) {
+    VBox vbox = new VBox();
+    for (Order order : orders) {
+      HBox tempHBox = new HBox();
+      tempHBox.setPrefHeight(50);
+      tempHBox.getChildren().add(initialiseGap());
+      tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 150, 50));
+      tempHBox.getChildren().add(initialiseGap());
+      String price = String.format("%.2f", order.getTotalPrice());
+      tempHBox.getChildren().add(initialiseLabel("ï¿½ " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseGap());
+      if (order.getStatus().equals("waiting")) {
+        StackPane confirmStackPane = initialiseButton("Confirm", 12);
+        ((Button) confirmStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  confirmOrder();
+                  vbox.getChildren().remove(tempHBox);
+                } catch (Exception e) {
+                  // TODO Auto-generated catch blocks
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(confirmStackPane);
+      } else if (order.getStatus().equals("processing")) {
+        StackPane cancelStackPane = initialiseButton("Cancel", 12);
+        ((Button) cancelStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  cancelOrder();
+                  vbox.getChildren().remove(tempHBox);
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(cancelStackPane);
+      }
+      vbox.getChildren().add(tempHBox);
+
+    }
+    return vbox;
+  }
+
+  /**
+   * Cancel order constructor to give a alert when user press the cancel button.
+   * 
+   * @throws Exception
+   */
+  @FXML
+  public void cancelOrder() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Cancel Order");
+    alert.setHeaderText("Cancelling this order will remove it from the database.");
+    alert.setContentText("Are you sure you want to cancel this order?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      // TODO remove order from database
+      Alert cancelled = new Alert(AlertType.INFORMATION);
+      cancelled.setTitle("Cancel Order");
+      cancelled.setHeaderText(null);
+      cancelled.setContentText("The order has been successfully cancelled.");
+      cancelled.showAndWait();
+    }
+  }
+
   /**
    * confirm the order when the button is pressed. this will show the alert message to ensure the
    * order been confirmed.
@@ -121,79 +211,9 @@ private VBox createMenuVBox(ArrayList<Consumable> consumables) {
       confirmed.setTitle("Confirm Order");
       confirmed.setHeaderText(null);
       confirmed.setContentText("The order has been confirmed.");
-      confirmed.showAndWait();   
+      confirmed.showAndWait();
     }
     alert.close();
-  }
-
-  @FXML
-  public void cancelOrder() throws Exception {
-    Alert alert = new Alert(AlertType.CONFIRMATION);
-    alert.setTitle("Cancel Order");
-    alert.setHeaderText("Cancelling this order will remove it from the database.");
-    alert.setContentText("Are you sure you want to cancel this order?");
-
-    Optional<ButtonType> result = alert.showAndWait();
-
-    if (result.get() == ButtonType.OK) {
-      // TODO remove order from database
-      Alert cancelled = new Alert(AlertType.INFORMATION);
-      cancelled.setTitle("Cancel Order");
-      cancelled.setHeaderText(null);
-      cancelled.setContentText("The order has been successfully cancelled.");
-      cancelled.showAndWait();   
-    }
-  }
-  /**
-   * Displays the orders currently on the database.
-   * @param orders the orders on the database
-   * @return VBox of what has been set
-   */
-  private VBox createOrderVBox(ArrayList<Order> orders) {
-    VBox vbox = new VBox();
-    for (Order order : orders) {
-      HBox tempHBox = new HBox();
-      tempHBox.setPrefHeight(50);
-      tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
-      String price = String.format("%.2f", order.getTotalPrice());
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
-      if (order.getStatus().equals("waiting")) {
-        StackPane confirmStackPane = initialiseButton("Confirm", 12);
-        ((Button)confirmStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-        public void handle(ActionEvent event) {
-            try {
-            confirmOrder();
-            vbox.getChildren().remove(tempHBox);
-          } catch (Exception e) {
-            // TODO Auto-generated catch blocks
-            e.printStackTrace();
-          }
-        }
-        });
-        tempHBox.getChildren().add(confirmStackPane);
-      } else if (order.getStatus().equals("processing")) {
-        StackPane cancelStackPane = initialiseButton("Cancel", 12);
-        ((Button) cancelStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-           try {
-            cancelOrder();
-             vbox.getChildren().remove(tempHBox);
-            } catch (Exception e) {
-            e.printStackTrace();
-           }  
-          }
-        });
-        tempHBox.getChildren().add(cancelStackPane);
-      }
-      vbox.getChildren().add(tempHBox);
-
-    }
-    return vbox;
   }
 
   /**
@@ -252,9 +272,10 @@ private VBox createMenuVBox(ArrayList<Consumable> consumables) {
       menuTabPane.getTabs().add(createMenuTab(string, menu.get(string)));
     }
   }
-  
+
   /**
    * method to create the list of orders using for loop and its status key.
+   * 
    * @param orders map of orders in database
    */
   public void createOrders(OrderMap orders) {
@@ -280,7 +301,14 @@ private VBox createMenuVBox(ArrayList<Consumable> consumables) {
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
   }
-  
+
+  /**
+   * Create the tab for the tab specific the constructor.
+   * 
+   * @param name name of the Tab.
+   * @param list list of consumable.
+   * @return the corresponding tab.
+   */
   private Tab createOrderTab(String name, ArrayList<Order> list) {
     AnchorPane anchorPane = new AnchorPane();
     anchorPane.setPrefWidth(580);
