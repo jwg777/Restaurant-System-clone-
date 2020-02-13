@@ -210,8 +210,11 @@ public class WaiterViewController {
     }
   }
 
+  
+  
   @FXML
   private void reloadPush() throws Exception {
+    tempMap.clear();
     waiterData.getMenu();
     System.out.println("check for the reload button");
     tempMap.put("WAITING ORDERS", new Consumable("Special test 1", 10f));
