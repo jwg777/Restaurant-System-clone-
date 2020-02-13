@@ -1,14 +1,13 @@
 package views;
 
 import javafx.application.Application;
-
 import javafx.stage.Stage;
 
 /**
  * Main class to startup the application.
  */
 public class Main extends Application {
-	
+
   /** The button controller. */
   static SceneController controller = SceneController.getInstance();
 
@@ -20,9 +19,9 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage stage) throws Exception {
-	stage.setResizable(false);
-	controller.setStage(stage);
-	controller.startMain();
+    stage.setResizable(false);
+    controller.setStage(stage);
+    controller.startMain();
   }
 
   /**
