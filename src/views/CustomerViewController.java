@@ -139,10 +139,6 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           // method to bring up allergies and calories info
-          System.out.println("Allergies: "+ tAllergens +", Calories: "+ tCalories);
-          /*AllergyCalorieViewController acView = new AllergyCalorieViewController();
-          acView.changeI();
-          acView.openACView();*/
           addAlert.setContentText("Allergens: "+ tAllergens +"    Calories: "+ tCalories);
           addAlert.show();
           
