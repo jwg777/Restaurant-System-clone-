@@ -67,16 +67,6 @@ public class WaiterAccess {
   }
 
   /**
-   * Mark delivered.
-   *
-   * @param tableupdate the tableupdate
-   */
-  public void markDelivered(String tableupdate) {
-    // waiterData.insertIntoTable("insert delivered data");
-  }
-
-
-  /**
    * Retrieves the table of orders from the database.
    * 
    * @throws SQLException Thrown if query fails.
@@ -108,7 +98,7 @@ public class WaiterAccess {
   /**
    * This method will store orders from the database in a resultSet
    * 
-   * @return 
+   * @return
    */
   public ResultSet viewReady() {
     return null;
