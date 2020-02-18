@@ -122,6 +122,12 @@ public class WaiterViewController {
 
   boolean emptyTextField;
 
+  @FXML
+  private void initialize() throws Exception {
+    menuReload();
+    orderReload();
+  }
+
   /**
    * Method for when the delete button is pushed.
    * 
