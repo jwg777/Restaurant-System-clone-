@@ -40,7 +40,7 @@ public class Database {
     // String database = "//localhost/CS2855/";
 
     // noMachine
-    String database = "//localhost/CS2855/";
+    String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
 
     connection = connectToDatabase(user, password, database);
 
