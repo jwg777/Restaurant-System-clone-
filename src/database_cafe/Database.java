@@ -27,8 +27,8 @@ public class Database {
   public Database() {
 
     // for testing with set login credentials
-    String user = "zfac032";
-    String password = "66092";
+    String user = "zfac209";
+    String password = "78021";
 
     /*
      * String user = "", password = ""; System.out.println("Please enter your username"); Scanner
