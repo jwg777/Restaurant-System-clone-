@@ -28,9 +28,9 @@
                                  <content>
                                     <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="600.0">
                                        <content>
-                                          <AnchorPane>
+                                          <AnchorPane prefHeight="0.0" prefWidth="580.0">
                                              <children>
-                                                <VBox fx:id="vboxNew" prefWidth="580.0" />
+                                                <VBox fx:id="vboxNew" prefHeight="499.0" prefWidth="580.0" />
                                              </children>
                                           </AnchorPane>
                                        </content></ScrollPane>
@@ -42,7 +42,7 @@
                                        <content>
                                           <AnchorPane>
                                              <children>
-                                                <VBox fx:id="vboxInProgress" prefWidth="580.0" />
+                                                <VBox fx:id="vboxInProgress" prefHeight="500.0" prefWidth="580.0" />
                                              </children>
                                           </AnchorPane>
                                        </content></ScrollPane>
@@ -54,7 +54,7 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0">
                                              <children>
-                                                <VBox fx:id="vboxCompleted" prefWidth="580.0" />
+                                                <VBox fx:id="vboxCompleted" prefHeight="500.0" prefWidth="580.0" />
                                              </children></AnchorPane>
                                       </content>
                                     </ScrollPane>

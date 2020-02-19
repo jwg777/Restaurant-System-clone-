@@ -1,9 +1,16 @@
 package views;
 
+import java.util.ArrayList;
+import consumable.Consumable;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -47,5 +54,44 @@ public class KitchenViewController {
   private void returnPush() throws Exception {
     butController.startMain();
   }
+
+  private VBox createVBox(ArrayList<Consumable> consumables) {
+    VBox vbox = new VBox();
+    for (Consumable consumable : consumables) {
+      HBox tempHBox = new HBox(); // Layout for one consumable of the list
+      tempHBox.setPrefHeight(50);
+      tempHBox.getChildren().add(initialiseGap());
+      tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
+      tempHBox.getChildren().add(initialiseGap());
+      String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
+      tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseGap());
+      vbox.getChildren().add(tempHBox); // Add consumable to the list
+    }
+    return vbox;
+  }
+
+  private Node initialiseLabel(String name, int i, int j) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  private Node initialiseGap() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @FXML
+  private Tab createTab(String name, ArrayList<Consumable> list) {
+    AnchorPane anchorpane = new AnchorPane();
+    anchorpane.setMaxWidth(580);
+    anchorpane.getChildren().add(createVBox(list));
+    ScrollPane scrollpane = new ScrollPane(anchorpane);
+    scrollpane.setMaxWidth(600);
+    Tab tab = new Tab(name.toUpperCase());
+    return tab;
+
+  }
+
 
 }
