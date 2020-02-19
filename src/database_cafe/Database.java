@@ -183,7 +183,7 @@ public class Database {
     }
   }
 
-  public void delete(String update) {
+  public void update(String update) {
     Statement st = null;
     try {
       st = connection.createStatement();
