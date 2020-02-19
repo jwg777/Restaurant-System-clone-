@@ -30,11 +30,11 @@ public class KitchenViewController {
 
   /** The vbox in progress. */
   @FXML
-  private VBox vboxInProgress;
+  private VBox vboxInProgress = new VBox();
 
   /** The vbox completed. */
   @FXML
-  private VBox vboxCompleted;
+  private VBox vboxCompleted = new VBox();
 
   /** The ordered list. */
   @FXML
@@ -57,6 +57,12 @@ public class KitchenViewController {
     butController.startMain();
   }
 
+  /**
+   * the createNewOrderVBox method to create the VBox for the New order tab.
+   * 
+   * @param consumables return consumable menu value.
+   * @return the corresponding VBox value.
+   */
   private VBox createNewOrderVBox(ArrayList<Consumable> consumables) {
     VBox vbox = new VBox();
     for (Consumable consumable : consumables) {
@@ -73,18 +79,38 @@ public class KitchenViewController {
     return vbox;
   }
 
+  /**
+   * to InitialiseLabel in the kitchenView.
+   * 
+   * @param name name for the label.
+   * @param width of the label.
+   * @param height of the label.
+   * @return the label that has been set.
+   */
   private Node initialiseLabel(String name, int width, int height) {
     Label label = new Label(name);
     label.setPrefSize(width, height);
     return label;
   }
 
+  /**
+   * To initialiseGap for the kitchenView.java.
+   * 
+   * @return the Gap of the kitchen view.
+   */
   private Node initialiseGap() {
     Pane gap = new Pane();
     gap.setPrefSize(25, 50);
     return gap;
   }
 
+  /**
+   * Constructor to create the new order tab.
+   * 
+   * @param name the name of the tab.
+   * @param list of the consumable.
+   * @return the corresponding tab been created.
+   */
   private Tab createNewOrderTab(String name, ArrayList<Consumable> list) {
     AnchorPane anchorpane = new AnchorPane();
     anchorpane.setPrefWidth(580);
