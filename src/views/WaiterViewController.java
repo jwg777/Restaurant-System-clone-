@@ -303,8 +303,8 @@ public class WaiterViewController {
               public void handle(ActionEvent event) {
                 try {
                   confirmOrder();
-                  vbox.getChildren().remove(tempHBox);
                   waiterData.confirmOrder(order);
+                  orderReload();
                 } catch (Exception e) {
                   // TODO Auto-generated catch blocks
                   e.printStackTrace();
@@ -320,8 +320,8 @@ public class WaiterViewController {
               public void handle(ActionEvent event) {
                 try {
                   cancelOrder();
-                  vbox.getChildren().remove(tempHBox);
                   waiterData.removeOrder(order);
+                  orderReload();
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
