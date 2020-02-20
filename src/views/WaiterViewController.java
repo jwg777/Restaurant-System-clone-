@@ -1,10 +1,15 @@
 package views;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Optional;
 import backend.WaiterAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,6 +45,13 @@ import order.OrderMap;
  */
 
 public class WaiterViewController {
+  
+  /*
+   * temp fields
+   */
+  String ip;
+  int port;
+  Socket socket;
 
   /** The waiter data. */
   WaiterAccess waiterData = new WaiterAccess();
@@ -126,6 +138,27 @@ public class WaiterViewController {
   private void initialize() throws Exception {
     menuReload();
     orderReload();
+    /*
+     * temporary server access (need to change after).
+     */
+    socket = new Socket(ip,port);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try(DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
+            DataInputStream dIn = new DataInputStream(socket.getInputStream())){
+          dOut.writeUTF("WAITER");
+          if(dIn.readUTF().equals("OK")) {
+            if(dIn.readUTF().equals("UPDATE")) {
+              menuReload();
+              orderReload();
+            }
+          }
+        }catch(Exception e) {
+          
+        }
+      }
+    });
   }
 
   /**
@@ -247,6 +280,15 @@ public class WaiterViewController {
    */
   @FXML
   private void orderReload() throws Exception {
+    /*
+     * tell other waiter clients to reload (temp).
+     */
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        
+      }
+    });
     orders.clear();
     waiterData.viewOrders();
 
@@ -306,7 +348,6 @@ public class WaiterViewController {
                   waiterData.confirmOrder(order);
                   orderReload();
                 } catch (Exception e) {
-                  // TODO Auto-generated catch blocks
                   e.printStackTrace();
                 }
               }

@@ -28,18 +28,20 @@ public class UserThread extends Thread {
     this.socket = socket;
   }
 
+  public ClientType getType() {
+    return type;
+  }
+
   /*
    * (non-Javadoc)
    * 
    * @see java.lang.Thread#run()
    */
   public void run() {
-    try (DataInputStream dIn = new DataInputStream(socket.getInputStream());
-        DataOutputStream dOut = new DataOutputStream(socket.getOutputStream())) {
+    try (DataInputStream dIn = new DataInputStream(socket.getInputStream())) {
       type = ClientType.getType((String) dIn.readUTF());
       if (type == ClientType.INVALID) {
-        dOut.writeUTF("INVALID");
-        dOut.flush();
+        writeToClient("INVALID");
         server.write("[Server] : DENIED ACCESS " + socket.getInetAddress().getHostAddress());
         socket.close();
         return;
@@ -47,9 +49,8 @@ public class UserThread extends Thread {
       String name = type.name() + "_" + server.addNumebr();
       server.addUserName(name);
       server.write("New client connected: " + name);
-      dOut.writeUTF("ACCEPTED");
-      dOut.flush();
-      server.write("[Server => "+name+"] : ACCEPTED");
+      writeToClient("ACCEPTED");
+      server.write("[Server => " + name + "] : ACCEPTED");
       for (ClientListener listener : server.clientListeners) {
         listener.onClientChange();
       }
@@ -57,9 +58,27 @@ public class UserThread extends Thread {
       do {
         response = (String) dIn.readUTF();
         server.write("[" + name + "] : " + response);
+        if (type == ClientType.WAITER) {
+          if (response == "UPDATE") {
+            for (UserThread user : server.getUserThreads()) {
+              if (user.getType() == ClientType.WAITER) {
+                user.writeToClient("UPDATE");
+              }
+            }
+          }
+        }
       } while (!response.equals("STOP"));
       server.removeUser(name, this);
       server.write(name + " has disconnected");
+    } catch (IOException e) {
+
+    }
+  }
+
+  public void writeToClient(String string) {
+    try (DataOutputStream dOut = new DataOutputStream(socket.getOutputStream())) {
+      dOut.writeUTF(string);
+      dOut.flush();
     } catch (IOException e) {
 
     }

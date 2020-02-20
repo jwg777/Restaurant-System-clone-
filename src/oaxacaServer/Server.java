@@ -62,7 +62,7 @@ public final class Server implements Runnable {
   private Server() {}
 
   /**
-
+   * 
    * Returns the set of user names.
    * 
    * @return user names
@@ -92,7 +92,7 @@ public final class Server implements Runnable {
     this.port = port;
   }
 
-  /* 
+  /*
    * (non-Javadoc)
    * 
    * @see java.lang.Runnable#run()
@@ -125,6 +125,7 @@ public final class Server implements Runnable {
 
   /**
    * Tells the listeners to write on the list view.
+   * 
    * @param string
    */
   public void write(String string) {
@@ -137,6 +138,7 @@ public final class Server implements Runnable {
 
   /**
    * Adds username to the set of usernames.
+   * 
    * @param string
    */
   public void addUserName(String string) {
@@ -145,6 +147,7 @@ public final class Server implements Runnable {
 
   /**
    * Removes the thread of the user.
+   * 
    * @param user
    */
   public void removeThread(UserThread user) {
@@ -153,6 +156,7 @@ public final class Server implements Runnable {
 
   /**
    * remove the user completely from the server.
+   * 
    * @param username
    * @param user
    */
@@ -163,6 +167,7 @@ public final class Server implements Runnable {
 
   /**
    * adds listener for list view.
+   * 
    * @param listener
    */
   public void addListListener(ListListener listener) {
@@ -171,6 +176,7 @@ public final class Server implements Runnable {
 
   /**
    * add listener for clients.
+   * 
    * @param listener
    */
   public void addClientListener(ClientListener listener) {
@@ -179,6 +185,7 @@ public final class Server implements Runnable {
 
   /**
    * gets the queue of logs.
+   * 
    * @return the queue
    */
   public Queue<String> getQueue() {
@@ -196,6 +203,7 @@ public final class Server implements Runnable {
 
   /**
    * return the number of clients.
+   * 
    * @return number of clients
    */
   public int numberOfClients() {
@@ -204,10 +212,15 @@ public final class Server implements Runnable {
 
   /**
    * returns a unique number for each client.
+   * 
    * @return number
    */
   public String addNumebr() {
     return String.format("%04d", ++i);
+  }
+
+  public Set<UserThread> getUserThreads() {
+    return userThreads;
   }
 
 }
