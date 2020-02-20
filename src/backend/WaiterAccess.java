@@ -72,7 +72,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
-    ResultSet rs = waiterData.select("SELECT * FROM ORDERS");
+    ResultSet rs = waiterData.select("SELECT * FROM ORDERS ORDER BY orderID");
     OrderMap tempMap = OrderMap.getInstance();
 
     while (rs.next()) {
@@ -92,7 +92,18 @@ public class WaiterAccess {
    * @throws SQLException Thrown if update fails.
    */
   public void removeOrder(Order order) throws SQLException {
-    waiterData.delete("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+    waiterData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+  }
+
+  /**
+   * When an order is confirmed, move it to the processing orders list.
+   * 
+   * @param order the confirmed order
+   * @throws SQLException Thrown if update fails.
+   */
+  public void confirmOrder(Order order) throws SQLException {
+    waiterData.update(
+        "UPDATE Orders SET status = 'processing' WHERE orderID = '" + order.getOrderID() + "'");
   }
 
   /**

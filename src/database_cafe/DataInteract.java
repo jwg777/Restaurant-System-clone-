@@ -64,8 +64,8 @@ public final class DataInteract {
 
   }
 
-  public void delete(String update) {
-    database.delete(update);
+  public void update(String update) {
+    database.update(update);
   }
 
   /**
