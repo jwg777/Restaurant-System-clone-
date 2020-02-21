@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 import order.Order;
 import order.OrderMap;
 
-
+//
 // TODO: Auto-generated Javadoc
 /**
  * Controller for the waiter view..
