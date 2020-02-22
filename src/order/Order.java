@@ -38,6 +38,7 @@ public class Order implements Comparable<Order> {
    * @param orderID the unique ID of the order
    * @param custID the unique ID of the customer who made the order
    * @param totalPrice the total price of the order
+   * @param timeStamp this is the time at which the order was last updated
    * @param status the status of the order
    * @param items The items ordered
    */
@@ -81,6 +82,10 @@ public class Order implements Comparable<Order> {
     return this.totalPrice;
   }
   
+  /**
+   * Returns the time at which the order was comfirmed
+   * @return returns the timeStamp
+   */
   public String getTimeStamp() {
     return this.timeStamp;
   }
