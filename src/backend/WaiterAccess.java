@@ -8,6 +8,7 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -79,9 +80,10 @@ public class WaiterAccess {
       int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
       float totalPrice = rs.getFloat("total_price");
+      String timeStamp = (rs.getTimestamp("orderTime")).toString();
       String dish = rs.getString("dish");
       String status = rs.getString("status");
-      tempMap.put(status, new Order(orderID, custID, totalPrice, status, dish));
+      tempMap.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
     }
   }
 

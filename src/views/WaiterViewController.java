@@ -295,7 +295,7 @@ public class WaiterViewController {
       String price = String.format("%.2f", order.getTotalPrice());
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel("time-stamp", 50, 50));
+      tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 50, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
         StackPane confirmStackPane = initialiseButton("Confirm", 12);

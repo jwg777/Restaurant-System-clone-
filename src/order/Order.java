@@ -20,6 +20,8 @@ public class Order implements Comparable<Order> {
    */
   private float totalPrice;
   
+  private String timeStamp;
+  
   /**
    * The status of the order. Can be waiting, processing or ready.
    */
@@ -39,10 +41,11 @@ public class Order implements Comparable<Order> {
    * @param status the status of the order
    * @param items The items ordered
    */
-  public Order(int orderID, int custID, float totalPrice, String status, String items) {
+  public Order(int orderID, int custID, float totalPrice, String timeStamp, String status, String items) {
     this.orderID = orderID;
     this.custID = custID;
     this.totalPrice = totalPrice;
+    this.timeStamp = timeStamp;
     this.status = status;
     this.items = new ArrayList<Consumable>();
     String[] ingredients = items.split(",");
@@ -76,6 +79,10 @@ public class Order implements Comparable<Order> {
    */
   public float getTotalPrice() {
     return this.totalPrice;
+  }
+  
+  public String getTimeStamp() {
+    return this.timeStamp;
   }
   
   /**
