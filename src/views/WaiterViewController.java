@@ -290,7 +290,7 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
-        StackPane confirmStackPane = initialiseButton("Confirm", 12);
+        StackPane confirmStackPane = initialiseButton("Confirm", 12, 70);
         ((Button) confirmStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -306,7 +306,7 @@ public class WaiterViewController {
             });
         tempHBox.getChildren().add(confirmStackPane);
       } else if (order.getStatus().equals("processing")) {
-        StackPane cancelStackPane = initialiseButton("Cancel", 12);
+        StackPane cancelStackPane = initialiseButton("Cancel", 12, 70);
         ((Button) cancelStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -322,7 +322,7 @@ public class WaiterViewController {
             });
         tempHBox.getChildren().add(cancelStackPane);
       } else if (order.getStatus().contentEquals("ready")) {
-        StackPane confirmDeliveredStackPane = initialiseButton("Confirm Delivered", 12);
+        StackPane confirmDeliveredStackPane = initialiseButton("Confirm", 12, 70);
         ((Button) confirmDeliveredStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -418,11 +418,11 @@ public class WaiterViewController {
    * @return stackPane initialise value.
    */
 
-  private StackPane initialiseButton(String name, int font) {
+  private StackPane initialiseButton(String name, int font, int buttonWidth) {
     StackPane stPane = new StackPane(); // Stack pane to centre button
     stPane.setPrefSize(80, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(70, 50);
+    button.setPrefSize(buttonWidth, 50);
     button.setFont(new Font(font));
     stPane.getChildren().add(button);
 
