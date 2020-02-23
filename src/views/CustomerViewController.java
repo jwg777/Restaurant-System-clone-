@@ -24,12 +24,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // TODO: Auto-generated Javadoc
@@ -53,6 +55,9 @@ public class CustomerViewController {
    */
   @FXML
   VBox vboxStarter = new VBox();
+  
+  @FXML
+  private TextArea reviewBox;
 
   /** The menu tab pane. */
   @FXML
@@ -74,7 +79,6 @@ public class CustomerViewController {
   private void initialize() throws Exception {
     reloadPush();
   }
-
 
   /**
    * When the 'Back to main menu' button is pressed, return to the main menu.
@@ -159,6 +163,10 @@ public class CustomerViewController {
   void submitReview(ActionEvent event) {
     // System.out.println("Thanks");
     // method to submitReview
+   String sR = reviewBox.getText();
+   System.out.println(sR);
+   reviewBox.clear();
+    
     try {
       FXMLLoader fLoad = new FXMLLoader(getClass().getResource("ThanksReviewView.fxml"));
       Parent root = (Parent) fLoad.load();

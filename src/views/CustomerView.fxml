@@ -77,7 +77,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <TextArea layoutX="14.0" layoutY="62.0" prefHeight="59.0" prefWidth="256.0" />
+                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="62.0" prefHeight="59.0" prefWidth="256.0" />
                         <Text layoutX="198.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View a few of our great reviews!" wrappingWidth="201.09371948242188">
                            <font>
                               <Font size="14.0" />
