@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Optional;
 import javax.xml.ws.Response;
 import backend.CustomerAccess;
 import consumable.Consumable;
@@ -25,6 +26,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -49,11 +52,15 @@ public class CustomerViewController {
   /** The menu. */
   MenuMap menu = MenuMap.getInstance();
 
+  
   /**
    * A VBox containing the starters in the menu.
    */
   @FXML
   VBox vboxStarter = new VBox();
+  
+  @FXML
+  TextArea textArea = new TextArea();
 
   /** The menu tab pane. */
   @FXML
@@ -295,6 +302,26 @@ public class CustomerViewController {
     scrollPane.setPrefWidth(600);
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
+  }
+  
+  @FXML
+  public void contactWaiter() {
+    String message = textArea.getText();
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Notify Waiter");
+    alert.setHeaderText("You are confirming that you want to send- " + message + "- to the order to the Waiter.");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      Alert sendMessage = new Alert(AlertType.INFORMATION);
+      sendMessage.setTitle("Notify Waiter");
+      sendMessage.setHeaderText(null);
+      sendMessage.setContentText("The message has been successfully sent.");
+      sendMessage.showAndWait();
+    }
+    textArea.clear();
+    
   }
 
 
