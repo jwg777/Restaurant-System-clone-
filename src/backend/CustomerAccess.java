@@ -62,8 +62,15 @@ public class CustomerAccess {
    * This method will be to store feedback in the databse.
    * @param feedback the feedback
    */
-  public void giveFeedback(String feedback) {
-    // customerData.insertIntoTable("insert feedback data");
+  public void notifyWaiter(String message) {
+    customerData.insertIntoTable("Messages", "", message);
+  }
+  
+  public void selectTest() throws SQLException {
+    ResultSet rs = customerData.select("SELECT * FROM messages");
+    while(rs.next()) {
+      System.out.println(rs.getString("message"));
+    }
   }
 }
 

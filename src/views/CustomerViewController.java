@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import javax.xml.ws.Response;
@@ -307,6 +308,7 @@ public class CustomerViewController {
   @FXML
   public void contactWaiter() {
     String message = textArea.getText();
+    message = "'" + message + "'";
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("Notify Waiter");
     alert.setHeaderText("You are confirming that you want to send- " + message + "- to the order to the Waiter.");
@@ -320,6 +322,7 @@ public class CustomerViewController {
       sendMessage.setContentText("The message has been successfully sent.");
       sendMessage.showAndWait();
     }
+    customerData.notifyWaiter(message);
     textArea.clear();
     
   }
