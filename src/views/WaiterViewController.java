@@ -290,12 +290,12 @@ public class WaiterViewController {
       HBox tempHBox = new HBox();
       tempHBox.setPrefHeight(50);
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 100, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", order.getTotalPrice());
-      tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("� " + price, 100, 50));
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 50, 50));
+      tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
         StackPane confirmStackPane = initialiseButton("Confirm", 12);
@@ -376,6 +376,7 @@ public class WaiterViewController {
 
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
+      
       Alert confirmed = new Alert(AlertType.INFORMATION);
       confirmed.setTitle("Confirm Order");
       confirmed.setHeaderText(null);

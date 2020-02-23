@@ -9,6 +9,8 @@ package backend;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -73,7 +75,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
-    ResultSet rs = waiterData.select("SELECT * FROM ORDERS ORDER BY orderID");
+    ResultSet rs = waiterData.select("SELECT * FROM ORDERS ORDER BY orderTime");
     OrderMap tempMap = OrderMap.getInstance();
 
     while (rs.next()) {
@@ -106,6 +108,10 @@ public class WaiterAccess {
   public void confirmOrder(Order order) throws SQLException {
     waiterData.update(
         "UPDATE Orders SET status = 'processing' WHERE orderID = '" + order.getOrderID() + "'");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+    waiterData.update("UPDATE Orders SET orderTime = '" + dtf.format(now) + "' WHERE orderID = '"
+        + order.getOrderID() + "'");
   }
 
   /**
