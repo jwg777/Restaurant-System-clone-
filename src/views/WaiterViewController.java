@@ -222,7 +222,7 @@ public class WaiterViewController {
    * @throws Exception if the error occurs.
    */
   @FXML
-  private void menuReload() throws Exception {
+  public void menuReload() throws Exception {
     menu.clear();
     waiterData.getMenu();
     menuTabPane.getTabs().clear();
@@ -321,6 +321,22 @@ public class WaiterViewController {
               }
             });
         tempHBox.getChildren().add(cancelStackPane);
+      } else if (order.getStatus().contentEquals("ready")) {
+        StackPane confirmDeliveredStackPane = initialiseButton("Confirm Delivered", 12);
+        ((Button) confirmDeliveredStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  confirmDelivered();
+                  vbox.getChildren().remove(tempHBox);
+                  waiterData.removeOrder(order);
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(confirmDeliveredStackPane);
       }
       vbox.getChildren().add(tempHBox);
 
@@ -349,6 +365,24 @@ public class WaiterViewController {
       cancelled.setHeaderText(null);
       cancelled.setContentText("The order has been successfully cancelled.");
       cancelled.showAndWait();
+    }
+  }
+  
+  @FXML
+  public void confirmDelivered() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Confirm Delivered");
+    alert.setHeaderText("You are confirming that you have delivered the order to the customer.");
+    alert.setContentText("Are you sure you want to confirm this order?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      Alert confirmed = new Alert(AlertType.INFORMATION);
+      confirmed.setTitle("Cancel Order");
+      confirmed.setHeaderText(null);
+      confirmed.setContentText("The order has been successfully confirmed as delivered.");
+      confirmed.showAndWait();
     }
   }
 

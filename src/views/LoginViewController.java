@@ -43,7 +43,6 @@ public class LoginViewController {
     butController.startMain();
   }
 
-
   /**
    * When the 'Login' button is pushed, attempt to authenticate the user with the specified username
    * and password. If successful, go to either the waiter or kitchen view depending on which one the
@@ -74,6 +73,7 @@ public class LoginViewController {
     */
     
     butController.startWaiter();
+
   
   }
 }
