@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -63,28 +64,28 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="98.0" layoutY="126.0" mnemonicParsing="false" onAction="#submitReview" text="Submit review" />
-                        <Line endX="-100.0" endY="-137.0" layoutX="400.0" layoutY="138.0" startX="-100.0" startY="29.0" />
-                        <Line endX="299.0" layoutX="300.0" layoutY="167.0" startX="-301.0" />
-                        <ScrollPane layoutX="5.0" layoutY="230.0" prefHeight="127.0" prefWidth="588.0">
+                        <Button layoutX="128.0" layoutY="258.0" mnemonicParsing="false" onAction="#submitReview" text="Submit review" />
+                        <Line endX="-100.0" endY="-152.0" layoutX="499.0" layoutY="152.0" startX="-99.5" startY="148.5" />
+                        <Line endX="500.0" layoutX="300.0" layoutY="301.0" startX="-301.0" />
+                        <ScrollPane layoutX="21.0" layoutY="347.0" prefHeight="191.0" prefWidth="753.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
                           </content>
                         </ScrollPane>
                         <Accordion />
-                        <Text layoutX="21.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="256.6874694824219">
+                        <Text layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219" />
+                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="158.0" prefHeight="87.0" prefWidth="364.0" />
+                        <Text layoutX="282.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View a few of our great reviews!" wrappingWidth="236.59371948242188">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="16.0" />
                            </font>
                         </Text>
-                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="62.0" prefHeight="59.0" prefWidth="256.0" />
-                        <Text layoutX="198.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View a few of our great reviews!" wrappingWidth="201.09371948242188">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="399.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box" />
-                        <Button layoutX="404.0" layoutY="126.0" mnemonicParsing="false" text="Contact Us" />
+                        <Text layoutX="531.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box" />
+                        <Button layoutX="536.0" layoutY="146.0" mnemonicParsing="false" text="Contact Us" />
+                        <TextField fx:id="nameBox" layoutX="69.0" layoutY="100.0" prefHeight="39.0" prefWidth="146.0" />
+                        <TextField fx:id="ratingBox" layoutX="296.0" layoutY="100.0" prefHeight="39.0" prefWidth="68.0" />
+                        <Text layoutX="14.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                        <Text layoutX="239.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" />
                      </children>
                   </AnchorPane>
               </content>

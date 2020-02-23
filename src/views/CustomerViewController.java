@@ -1,6 +1,9 @@
 package views;
 
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -55,9 +59,15 @@ public class CustomerViewController {
    */
   @FXML
   VBox vboxStarter = new VBox();
-  
+
   @FXML
   private TextArea reviewBox;
+  
+  @FXML
+  private TextField nameBox;
+  
+  @FXML
+  private TextField ratingBox;
 
   /** The menu tab pane. */
   @FXML
@@ -122,7 +132,7 @@ public class CustomerViewController {
       public void run() {
         try (Socket s = new Socket("192.168.1.13", 6666);
             DataOutputStream dout = new DataOutputStream(s.getOutputStream())) {
-          dout.writeUTF("CUSTOMER"); //tells server that you're a customer
+          dout.writeUTF("CUSTOMER"); // tells server that you're a customer
           dout.flush();
           dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
           dout.flush();
@@ -158,23 +168,34 @@ public class CustomerViewController {
    * Submit review.
    *
    * @param event the event
+   * @throws IOException 
    */
   @FXML
-  void submitReview(ActionEvent event) {
+  void submitReview(ActionEvent event) throws IOException {
     // System.out.println("Thanks");
     // method to submitReview
-   String sR = reviewBox.getText();
-   System.out.println(sR);
-   reviewBox.clear();
+    String rB = reviewBox.getText(), nB = nameBox.getText(), raB = ratingBox.getText();
+    System.out.println(nB +", "+ raB +", "+ rB);
+    reviewBox.clear();
+    nameBox.clear();
+    ratingBox.clear();
+    
+    File file = new File("C:\\Users\\imran\\git\\TeamProject2020_22\\Reviews");
+    FileWriter fr = new FileWriter(file, true);
+    fr.write("\n"+ nB +">"+ raB +">"+ rB);
+    fr.close();
     
     try {
+      //Loading the "Thanks!" scene
       FXMLLoader fLoad = new FXMLLoader(getClass().getResource("ThanksReviewView.fxml"));
       Parent root = (Parent) fLoad.load();
       Stage stage = new Stage();
       stage.setTitle("Thanks!");
       stage.setScene(new Scene(root));
       stage.show();
+
     } catch (Exception e) {
+      System.out.println("An error occurred.");
       e.printStackTrace();
     }
   }
