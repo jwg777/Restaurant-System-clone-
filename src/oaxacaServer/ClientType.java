@@ -19,5 +19,20 @@ public enum ClientType {
   /**
    * Kitchen type.
    */
-  KITCHEN;
+  KITCHEN,
+  /**
+   * Invalid type.
+   */
+  INVALID;
+  
+  
+  public static ClientType getType(String string) {
+    for (ClientType type : ClientType.values()) {
+      if (type.toString().equals(string)) {
+        return type;
+      }
+    }
+    return INVALID;
+  }
+
 }
