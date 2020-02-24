@@ -180,7 +180,7 @@ public class CustomerViewController {
     nameBox.clear();
     ratingBox.clear();
     
-    File file = new File("C:\\Users\\imran\\git\\TeamProject2020_22\\Reviews");
+    File file = new File("Reviews");
     FileWriter fr = new FileWriter(file, true);
     fr.write("\n"+ nB +">"+ raB +">"+ rB);
     fr.close();
@@ -263,7 +263,7 @@ public class CustomerViewController {
     StackPane sPane = new StackPane(); // Stack pane to centre button
     sPane.setPrefSize(50, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(30, 30);
+    button.setPrefSize(40, 30);
     sPane.getChildren().add(button);
     return sPane;
   }
