@@ -329,8 +329,5 @@ public class CustomerViewController {
     //will need to someohow contain order ID in the future so that the waiter can know which table has sent the message.
     customerData.notifyWaiter(message);
     textArea.clear();
-    
   }
-
-
 }
