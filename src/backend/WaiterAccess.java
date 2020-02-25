@@ -157,6 +157,10 @@ public class WaiterAccess {
     return false;
   }
   
+  /**
+   * This method returns the alerts currently stored in the database and puts them in a result set.
+   * @return resultset storing alerts.
+   */
   public ResultSet getAlerts() {
     ResultSet rs = waiterData.select("SELECT * FROM Messages");
     return rs;

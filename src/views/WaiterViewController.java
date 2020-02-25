@@ -556,6 +556,10 @@ public class WaiterViewController {
     }
   }
   
+  /**
+   * method is called when reload button is pressed. Refills listpane with messages stored in database.
+   * @throws SQLException
+   */
   @FXML
   public void reloadAlert() throws SQLException {
     System.out.println("test");
