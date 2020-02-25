@@ -25,6 +25,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -65,6 +66,18 @@ public class CustomerViewController {
 
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
+  
+  @FXML
+  private TextField orderID;
+  
+  @FXML
+  Label statusLabel = new Label();
+  
+  @FXML
+  Label timeLabel = new Label();
+  
+  @FXML
+  Button orderInfoButton = new Button();
 
   /**
    * Runs this method during scene start up.
@@ -295,6 +308,15 @@ public class CustomerViewController {
     scrollPane.setPrefWidth(600);
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
+  }
+  
+  /** Action when button order information is pressed.
+   * 
+   * @param event on being pressed action
+   * 
+   */
+  private void getOrderInfo(ActionEvent event) {
+    
   }
 
 
