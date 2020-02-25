@@ -48,7 +48,6 @@ public class CustomerAccess {
 
   }
 
-  
   /**
    * This method will be for placing orders. It will send data into the database
    * to fill the order table.
@@ -59,18 +58,12 @@ public class CustomerAccess {
   }
 
   /**
-   * This method will be to store feedback in the databse.
+   * This method will be to store feedback in the database.
    * @param feedback the feedback
    */
   public void notifyWaiter(String message) {
     customerData.insertIntoTable("Messages", "", message);
   }
   
-  public void selectTest() throws SQLException {
-    ResultSet rs = customerData.select("SELECT * FROM messages");
-    while(rs.next()) {
-      System.out.println(rs.getString("message"));
-    }
-  }
 }
 

@@ -305,6 +305,10 @@ public class CustomerViewController {
     return tab;
   }
   
+  /**
+   * Method sends whatver is contained in relevent textbox to the database. This will be accessed by the waiter.
+   * This method is to be called in the correct action button method when the button is pressed.
+   */
   @FXML
   public void contactWaiter() {
     String message = textArea.getText();
@@ -322,6 +326,7 @@ public class CustomerViewController {
       sendMessage.setContentText("The message has been successfully sent.");
       sendMessage.showAndWait();
     }
+    //will need to someohow contain order ID in the future so that the waiter can know which table has sent the message.
     customerData.notifyWaiter(message);
     textArea.clear();
     
