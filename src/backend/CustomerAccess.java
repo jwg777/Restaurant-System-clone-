@@ -24,14 +24,16 @@ public class CustomerAccess {
   }
 
 
-/**
- * Method updates menu in the class menu map. (does not return anything as menu map is a singleton.
- * When this method is called, the menu table in the databse will be loaded into menu map.
- * @throws SQLException the SQL exception
- */
+  /**
+   * Method updates menu in the class menu map. (does not return anything as menu map is a
+   * singleton. When this method is called, the menu table in the databse will be loaded into menu
+   * map.
+   * 
+   * @throws SQLException the SQL exception
+   */
   public void getMenu() throws SQLException {
-    
-    //customerData.loadFile();
+
+    // customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
 
@@ -41,17 +43,18 @@ public class CustomerAccess {
       String allergens = rs.getString("allergens");
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
-      
+
       tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
     }
 
 
   }
 
-  
+
   /**
-   * This method will be for placing orders. It will send data into the database
-   * to fill the order table.
+   * This method will be for placing orders. It will send data into the database to fill the order
+   * table.
+   * 
    * @param orders the orders
    */
   public void placeOrder(String orders) {
@@ -60,10 +63,28 @@ public class CustomerAccess {
 
   /**
    * This method will be to store feedback in the databse.
+   * 
    * @param feedback the feedback
    */
   public void giveFeedback(String feedback) {
     // customerData.insertIntoTable("insert feedback data");
+  }
+
+  /** This method will get the status and last update time for an order.
+   * 
+   * @param orderID Unqiue to each order to be used in select query
+   * @return returns the status and last update time
+   * @throws SQLException Thrown if error with SQL query occurs
+   * 
+   */
+  public String getStatusAndTime(String orderID) throws SQLException {
+    String statusAndTime = ">";
+    ResultSet rs = customerData.select("SELECT status, orderTime FROM Orders " 
+                                     + "WHERE OrderID = '" + orderID + "'");
+    while (rs.next()) {
+      statusAndTime = rs.getString("status") + ">" + rs.getString("orderTime");
+    }
+    return statusAndTime;
   }
 }
 

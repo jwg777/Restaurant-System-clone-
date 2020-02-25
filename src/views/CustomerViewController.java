@@ -310,13 +310,31 @@ public class CustomerViewController {
     return tab;
   }
   
-  /** Action when button order information is pressed.
+  /** When get information button is pressed, will fill in status and last update time.
    * 
    * @param event on being pressed action
    * 
    */
+  @FXML
   private void getOrderInfo(ActionEvent event) {
-    
+    String orderNumber = orderID.getText();
+    String statusAndTime = "";
+    try {
+      statusAndTime = customerData.getStatusAndTime(orderNumber);
+      String[] split = new String[2];
+      split = statusAndTime.split(">");
+      if (split[0] == "" || split[1] == "") {
+        Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+        alert.showAndWait();
+      } else {
+        statusLabel.setText(split[0]);
+        timeLabel.setText(split[1]);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+      alert.showAndWait();
+    }
   }
 
 
