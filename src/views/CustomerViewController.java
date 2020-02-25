@@ -70,6 +70,7 @@ public class CustomerViewController {
   /** The ordered list. */
   @FXML
   ListView<String> orderedList = new ListView<>();
+  
 
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);

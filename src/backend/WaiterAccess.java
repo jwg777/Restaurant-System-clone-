@@ -156,4 +156,9 @@ public class WaiterAccess {
     }
     return false;
   }
+  
+  public ResultSet getAlerts() {
+    ResultSet rs = waiterData.select("SELECT * FROM Messages");
+    return rs;
+  }
 }

@@ -1,5 +1,7 @@
 package views;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import backend.WaiterAccess;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -114,6 +117,9 @@ public class WaiterViewController {
   @FXML
   Alert addAlert = new Alert(AlertType.NONE);
 
+  @FXML
+  ListView<String> alerts = new ListView<>();
+  
   @FXML
   ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
 
@@ -548,6 +554,20 @@ public class WaiterViewController {
           new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
       emptyTextField = true;
     }
+  }
+  
+  @FXML
+  public void reloadAlert() throws SQLException {
+    System.out.println("test");
+    ResultSet rs = waiterData.getAlerts();
+    String alert = "";
+    alerts.getItems().clear();
+    while (rs.next()) {
+      alert = rs.getString("message");
+      alerts.getItems().add(alert);
+    }
+   
+    
   }
 
 }
