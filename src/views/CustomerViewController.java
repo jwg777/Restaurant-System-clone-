@@ -6,11 +6,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.xml.ws.Response;
 import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
+import database_cafe.Database;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,6 +71,9 @@ public class CustomerViewController {
   
   @FXML
   private TextField ratingBox;
+  
+  @FXML
+  private AnchorPane revScroll;
 
   /** The menu tab pane. */
   @FXML
@@ -250,6 +256,7 @@ public class CustomerViewController {
       tempHBox.getChildren().add(infoStackPane); // Add info button
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
+    scrollReviews();
     return vbox;
   }
 
@@ -322,6 +329,13 @@ public class CustomerViewController {
     scrollPane.setPrefWidth(600);
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
+  }
+  
+  public void scrollReviews() {
+    
+    Database db1 = new Database();
+       
+    this.revScroll.getChildren().add(initialiseLabel(db1.getReviews(), 400, 50));
   }
 
 

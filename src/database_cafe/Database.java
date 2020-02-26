@@ -192,4 +192,20 @@ public class Database {
       e.printStackTrace();
     }
   }
+  
+  public String getReviews() {
+    String query = null;
+    try {
+      Statement st1 = connection.createStatement();
+      ResultSet rs1 = st1.executeQuery("SELECT * FROM Reviews WHERE star_rating = 5");
+      while (rs1.next()) {
+          query = rs1.getString("name") +" "+ rs1.getString("star_rating") +" "+ rs1.getString("review");
+          System.out.println(query);
+      }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return query;
+  }
+  
 }

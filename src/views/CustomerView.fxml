@@ -69,13 +69,13 @@
                         <Line endX="500.0" layoutX="300.0" layoutY="301.0" startX="-301.0" />
                         <ScrollPane layoutX="21.0" layoutY="347.0" prefHeight="191.0" prefWidth="753.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                            <AnchorPane fx:id="revScroll" minHeight="0.0" minWidth="0.0" prefHeight="256.0" prefWidth="731.0" />
                           </content>
                         </ScrollPane>
                         <Accordion />
                         <Text layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219" />
                         <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="158.0" prefHeight="87.0" prefWidth="364.0" />
-                        <Text layoutX="282.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View a few of our great reviews!" wrappingWidth="236.59371948242188">
+                        <Text layoutX="282.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Read a few of our great reviews!" wrappingWidth="236.59371948242188">
                            <font>
                               <Font size="16.0" />
                            </font>
