@@ -26,12 +26,14 @@ final public class ReadThread extends Thread {
     while (true) {
       try {
         response = input.readUTF();
-        switch (response.split(" ")[0].toUpperCase()) {
-          case "UPDATE":
+        String[] responseArray = response.split(" ");
+        switch (responseArray[0]) {
+          case "UPDATEMENU":
             break;
         }
       } catch (IOException e) {
       }
     }
   }
+  
 }

@@ -22,8 +22,8 @@ final public class ServerAccess extends Thread {
     return instance;
   }
 
-  public void setConnection(Socket socket) throws IOException {
-    this.socket = socket;
+  public void setConnection(String ip, int port) throws IOException {
+    this.socket = new Socket(ip, port);
     read.setInput(new DataInputStream(socket.getInputStream()));
   }
 
