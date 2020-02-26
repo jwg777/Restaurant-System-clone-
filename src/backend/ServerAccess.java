@@ -8,9 +8,9 @@ import java.net.Socket;
 final public class ServerAccess extends Thread {
 
   private static ServerAccess instance = null;
-  
+
   private Socket socket;
-  private ReadThread read;
+  private static ReadThread read = ReadThread.getInstance();
   private WriteThread write;
 
   private ServerAccess() {}
@@ -21,16 +21,16 @@ final public class ServerAccess extends Thread {
     }
     return instance;
   }
-  
-  public void setConnection(Socket socket) {
+
+  public void setConnection(Socket socket) throws IOException {
     this.socket = socket;
-    
+    read.setInput(new DataInputStream(socket.getInputStream()));
   }
 
   public void run() {
-    
+
   }
-  
+
   public void close() {
     try {
       socket.close();
