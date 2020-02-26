@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -22,7 +23,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0">
                      <children>
-                        <TabPane fx:id="OrderTabPane" prefHeight="569.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="orderTabPane" prefHeight="600.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                             <Tab text="NEW ORDERS">
                                  <content>
@@ -30,7 +31,10 @@
                                        <content>
                                           <AnchorPane prefHeight="0.0" prefWidth="580.0">
                                              <children>
-                                                <VBox fx:id="vboxNew" prefHeight="499.0" prefWidth="580.0" />
+                                                <VBox fx:id="vboxNew" prefHeight="499.0" prefWidth="580.0">
+                                                   <children>
+                                                      <HBox prefHeight="498.0" prefWidth="580.0" />
+                                                   </children></VBox>
                                              </children>
                                           </AnchorPane>
                                        </content></ScrollPane>
@@ -42,7 +46,10 @@
                                        <content>
                                           <AnchorPane>
                                              <children>
-                                                <VBox fx:id="vboxInProgress" prefHeight="500.0" prefWidth="580.0" />
+                                                <VBox fx:id="vboxInProgress" prefHeight="500.0" prefWidth="580.0">
+                                                   <children>
+                                                      <HBox prefHeight="511.0" prefWidth="580.0" />
+                                                   </children></VBox>
                                              </children>
                                           </AnchorPane>
                                        </content></ScrollPane>
@@ -54,7 +61,10 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0">
                                              <children>
-                                                <VBox fx:id="vboxCompleted" prefHeight="500.0" prefWidth="580.0" />
+                                                <VBox fx:id="vboxCompleted" prefHeight="500.0" prefWidth="580.0">
+                                                   <children>
+                                                      <HBox prefHeight="513.0" prefWidth="580.0" />
+                                                   </children></VBox>
                                              </children></AnchorPane>
                                       </content>
                                     </ScrollPane>
