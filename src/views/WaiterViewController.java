@@ -1,10 +1,18 @@
 package views;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Optional;
 import backend.WaiterAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -40,6 +49,13 @@ import order.OrderMap;
  */
 
 public class WaiterViewController {
+  
+  /*
+   * temp fields
+   */
+  String ip;
+  int port;
+  Socket socket;
 
   /** The waiter data. */
   WaiterAccess waiterData = new WaiterAccess();
@@ -115,6 +131,9 @@ public class WaiterViewController {
   Alert addAlert = new Alert(AlertType.NONE);
 
   @FXML
+  ListView<String> alerts = new ListView<>();
+  
+  @FXML
   ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
 
   @FXML
@@ -126,6 +145,27 @@ public class WaiterViewController {
   private void initialize() throws Exception {
     menuReload();
     orderReload();
+    /*
+     * temporary server access (need to change after).
+     */
+    socket = new Socket(ip,port);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try(DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
+            DataInputStream dIn = new DataInputStream(socket.getInputStream())){
+          dOut.writeUTF("WAITER");
+          if(dIn.readUTF().equals("OK")) {
+            if(dIn.readUTF().equals("UPDATE")) {
+              menuReload();
+              orderReload();
+            }
+          }
+        }catch(Exception e) {
+          
+        }
+      }
+    });
   }
 
   /**
@@ -247,6 +287,15 @@ public class WaiterViewController {
    */
   @FXML
   private void orderReload() throws Exception {
+    /*
+     * tell other waiter clients to reload (temp).
+     */
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        
+      }
+    });
     orders.clear();
     waiterData.viewOrders();
 
@@ -306,7 +355,6 @@ public class WaiterViewController {
                   waiterData.confirmOrder(order);
                   orderReload();
                 } catch (Exception e) {
-                  // TODO Auto-generated catch blocks
                   e.printStackTrace();
                 }
               }
@@ -549,5 +597,31 @@ public class WaiterViewController {
       emptyTextField = true;
     }
   }
-
+  
+  /**
+   * method is called when reload button is pressed. Refills listpane with messages stored in database.
+   * @throws SQLException
+   */
+  @FXML
+  public void reloadAlert() throws SQLException {
+    System.out.println("test");
+    ResultSet rs = waiterData.getAlerts();
+    String alert = "";
+    alerts.getItems().clear();
+    while (rs.next()) {
+      alert = rs.getString("message");
+      alerts.getItems().add(alert);
+    } 
+  }
+  
+ 
+  @FXML
+  public void remove() {
+    int index = alerts.getSelectionModel().getSelectedIndex();
+    if (index >= 0) {
+      waiterData.removeAlert(alerts.getSelectionModel().getSelectedItem());
+      alerts.getItems().remove(index);
+    }
+    
+  }
 }

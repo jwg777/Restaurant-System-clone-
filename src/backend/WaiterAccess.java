@@ -14,7 +14,6 @@ import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
 
-
 /**
  * Class containing methods for accessing and interacting with the database for the Waiter view.
  * 
@@ -155,5 +154,18 @@ public class WaiterAccess {
       return false;
     }
     return false;
+  }
+  
+  /**
+   * This method returns the alerts currently stored in the database and puts them in a result set.
+   * @return resultset storing alerts.
+   */
+  public ResultSet getAlerts() {
+    ResultSet rs = waiterData.select("SELECT * FROM Messages");
+    return rs;
+  }
+  
+  public void removeAlert(String message) {
+    waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
   }
 }

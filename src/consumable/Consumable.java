@@ -31,7 +31,7 @@ public class Consumable implements Comparable<Consumable> {
 
   /** A list of ingredients required to make the dish. */
   private List<String> ingredients;
-
+  
   /**
    * Instantiates a new consumable dish by specifying its name, price and ingredients.
    *
