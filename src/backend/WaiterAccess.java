@@ -164,4 +164,8 @@ public class WaiterAccess {
     ResultSet rs = waiterData.select("SELECT * FROM Messages");
     return rs;
   }
+  
+  public void removeAlert(String message) {
+    waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
+  }
 }

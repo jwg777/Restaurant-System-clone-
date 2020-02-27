@@ -572,14 +572,14 @@ public class WaiterViewController {
     } 
   }
   
-  
-  
+ 
   @FXML
   public void remove() {
-    System.out.println("test");
     int index = alerts.getSelectionModel().getSelectedIndex();
     if (index >= 0) {
-        alerts.getItems().remove(index);
+      waiterData.removeAlert(alerts.getSelectionModel().getSelectedItem());
+      alerts.getItems().remove(index);
     }
+    
   }
 }
