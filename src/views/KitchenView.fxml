@@ -8,28 +8,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.KitchenViewController">
    <children>
       <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
           <Tab text="ORDERS">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0">
                      <children>
-                        <TabPane fx:id="menuTabPane" prefHeight="569.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="orderTabPane" prefHeight="600.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                             <Tab text="NEW ORDERS">
                                  <content>
                                     <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="600.0">
                                        <content>
-                                          <AnchorPane>
+                                          <AnchorPane prefHeight="0.0" prefWidth="580.0">
                                              <children>
-                                                <VBox fx:id="vboxNew" prefWidth="580.0" />
+                                                <VBox fx:id="vboxNew" prefHeight="499.0" prefWidth="580.0">
+                                                   <children>
+                                                      <HBox prefHeight="498.0" prefWidth="580.0" />
+                                                   </children></VBox>
                                              </children>
                                           </AnchorPane>
                                        </content></ScrollPane>
@@ -41,7 +43,10 @@
                                        <content>
                                           <AnchorPane>
                                              <children>
-                                                <VBox fx:id="vboxInProgress" prefWidth="580.0" />
+                                                <VBox fx:id="vboxInProgress" prefHeight="500.0" prefWidth="580.0">
+                                                   <children>
+                                                      <HBox prefHeight="511.0" prefWidth="580.0" />
+                                                   </children></VBox>
                                              </children>
                                           </AnchorPane>
                                        </content></ScrollPane>
@@ -53,7 +58,10 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0">
                                              <children>
-                                                <VBox fx:id="vboxCompleted" prefWidth="580.0" />
+                                                <VBox fx:id="vboxCompleted" prefHeight="500.0" prefWidth="580.0">
+                                                   <children>
+                                                      <HBox prefHeight="513.0" prefWidth="580.0" />
+                                                   </children></VBox>
                                              </children></AnchorPane>
                                       </content>
                                     </ScrollPane>
@@ -87,12 +95,6 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
-                        <Text layoutX="271.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="57.087890625">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                        <Line endX="28.087890625" endY="-0.486328125" layoutX="296.0" layoutY="250.0" startX="-29.0" startY="-0.486328125" />
                      </children>
                   </AnchorPane>
               </content>

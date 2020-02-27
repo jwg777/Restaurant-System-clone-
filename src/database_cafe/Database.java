@@ -42,10 +42,10 @@ public class Database {
      */
 
     // tunneling
-    // String database = "//localhost/CS2855/";
+    String database = "//localhost/CS2855/";
 
     // noMachine
-    String database = "//localhost/CS2855/";
+    // String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
 
     connection = connectToDatabase(user, password, database);
 
@@ -188,7 +188,7 @@ public class Database {
     }
   }
 
-  public void delete(String update) {
+  public void update(String update) {
     Statement st = null;
     try {
       st = connection.createStatement();
