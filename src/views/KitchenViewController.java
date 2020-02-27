@@ -1,6 +1,8 @@
 package views;
 
 import java.util.ArrayList;
+import backend.WaiterAccess;
+import consumable.MenuMap;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -49,6 +51,32 @@ public class KitchenViewController {
 
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
+
+  MenuMap menu = MenuMap.getInstance();
+
+  OrderMap order = OrderMap.getInstance();
+
+  TabPane newOrderTab = new TabPane();
+
+
+  WaiterAccess waiterData = new WaiterAccess();
+
+  @FXML
+  private void initialize() throws Exception {
+    menuReload();
+    newOrderReload();
+  }
+
+  private void newOrderReload() throws Exception {
+    order.clear();
+    waiterData.getMenu();
+    newOrderTab.getTabs().clear();
+    createOrders(order);
+  }
+
+  private void menuReload() {
+    // TODO
+  }
 
   /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
@@ -143,8 +171,9 @@ public class KitchenViewController {
   }
 
   /**
+   * Create the list of order for createNewOrderTab.
    * 
-   * @param orders
+   * @param orders from orderMap.
    */
   public void createOrders(OrderMap orders) {
     for (String string : orders.keyArray()) {
