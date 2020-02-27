@@ -4,13 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javafx.application.Platform;
 
 /**
  * Class to manage accessing server, include reading and writing.
  * 
  * @author Chak
  */
-final public class ServerAccess extends Thread {
+final public class ServerAccess {
 
   /**
    * Singleton instance of ServerAccess class.
@@ -58,31 +59,29 @@ final public class ServerAccess extends Thread {
     this.socket = new Socket(ip, port);
     read.setInput(new DataInputStream(socket.getInputStream()));
     write.setOutput(new DataOutputStream(socket.getOutputStream()));
+    read.start();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Thread#run()
-   */
-  public void run() {
-
+  public void write(String string) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          write.write(string);
+        } catch (IOException e) {
+        }
+      }
+    });
   }
 
-  public void write(String string) throws IOException {
-    write.write(string);
-  }
-
-  public boolean login(String type,String username, String password) throws IOException {
+  public boolean login(String type, String username, String password) throws IOException {
     write(username);
     write(password);
     String response = read.getResponse();
-    if(response.equals("ACCEPTED")) {
+    if (response.equals("ACCEPTED")) {
       return true;
-    }else if(response.equals("DENIED")){
-      close();
     }
-    return false;
+    throw new IOException();
   }
 
   /**
