@@ -55,12 +55,18 @@ final public class ReadThread extends Thread {
         switch (responseArray[0]) {
           case "UPDATEMENU":
             break;
+          case "ADD":
+            break;
+          case "DELETE":
+            break;
         }
       } catch (IOException e) {
       }
     }
   }
-
+  
+  
+  
   /**
    * @throws IOException
    */

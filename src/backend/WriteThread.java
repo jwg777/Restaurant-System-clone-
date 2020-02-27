@@ -8,7 +8,7 @@ import java.io.IOException;
  * 
  * @author Chak
  */
-final public class WriteThread extends Thread {
+final public class WriteThread {
 
   /**
    * Singleton instance of WriteThread Class.
@@ -45,20 +45,9 @@ final public class WriteThread extends Thread {
     this.output = output;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Thread#run()
-   */
-  public void run() {
-    String line = "";
-    do {
-      try {
-        output.writeUTF(line);
-      } catch (IOException e) {
-      }
-      line = "STOP";
-    } while (!line.equals("STOP"));
+  public void write(String string) throws IOException {
+    output.writeUTF(string);
+    output.flush();
   }
 
   /**

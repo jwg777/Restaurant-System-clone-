@@ -16,7 +16,6 @@ final public class ServerAccess extends Thread {
    * Singleton instance of ServerAccess class.
    */
   private static ServerAccess instance = null;
-
   /**
    * Socket to connect to the server.
    */
@@ -29,7 +28,6 @@ final public class ServerAccess extends Thread {
    * WriteThread to write to server.
    */
   private static WriteThread write = WriteThread.getInstance();
-
   /**
    * private constructor for singleton class.
    */
@@ -68,6 +66,10 @@ final public class ServerAccess extends Thread {
    */
   public void run() {
 
+  }
+  
+  public void write(String string) throws IOException {
+    write.write(string);
   }
 
   /**
