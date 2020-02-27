@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.xml.ws.Response;
@@ -332,10 +333,7 @@ public class CustomerViewController {
   }
   
   public void scrollReviews() {
-    
-    Database db1 = new Database();
-       
-    this.revScroll.getChildren().add(initialiseLabel(db1.getReviews(), 400, 50));
+    this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));
   }
 
 

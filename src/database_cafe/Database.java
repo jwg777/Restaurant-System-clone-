@@ -8,6 +8,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Class that connects to the postgresql server database and contains various methods for
@@ -17,7 +20,9 @@ public class Database {
 
 
   /** Field for storing the connection */
-
+  
+  @FXML
+  private AnchorPane revScroll;
 
   Connection connection;
 
@@ -193,13 +198,15 @@ public class Database {
     }
   }
   
-  public String getReviews() {
+  /*public String getReviews() {
+    
     String query = null;
     try {
       Statement st1 = connection.createStatement();
       ResultSet rs1 = st1.executeQuery("SELECT * FROM Reviews WHERE star_rating = 5");
       while (rs1.next()) {
           query = rs1.getString("name") +" "+ rs1.getString("star_rating") +" "+ rs1.getString("review");
+          //this.revScroll.getChildren().add(initialiseLabel(query, 400, 50));
           System.out.println(query);
       }
     } catch (Exception e) {
@@ -207,5 +214,11 @@ public class Database {
     }
     return query;
   }
+  
+  private Label initialiseLabel(String name, double width, double height) {
+    Label label = new Label(name);
+    label.setPrefSize(width, height);
+    return label;
+  }*/
   
 }
