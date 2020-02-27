@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -31,21 +30,6 @@ public class KitchenViewController {
   @FXML
   private TabPane orderTabPane = new TabPane();
 
-  /** The vbox new. */
-  @FXML
-  private VBox vboxNew = new VBox();
-
-  /** The vbox in progress. */
-  @FXML
-  private VBox vboxInProgress = new VBox();
-
-  /** The vbox completed. */
-  @FXML
-  private VBox vboxCompleted = new VBox();
-
-  /** The ordered list. */
-  @FXML
-  private ListView<?> orderedList;
 
   /** The reload. */
   @FXML
@@ -71,7 +55,6 @@ public class KitchenViewController {
    */
   @FXML
   private void initialize() throws Exception {
-
     newOrderReload();
   }
 
@@ -80,13 +63,13 @@ public class KitchenViewController {
    * 
    * @throws Exception
    */
+  @FXML
   private void newOrderReload() throws Exception {
     order.clear();
     waiterData.getMenu();
     OrderTabPane.getTabs().clear();
     createOrders(order);
   }
-
 
   /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
