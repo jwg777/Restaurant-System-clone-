@@ -24,14 +24,16 @@ public class CustomerAccess {
   }
 
 
-/**
- * Method updates menu in the class menu map. (does not return anything as menu map is a singleton.
- * When this method is called, the menu table in the databse will be loaded into menu map.
- * @throws SQLException the SQL exception
- */
+  /**
+   * Method updates menu in the class menu map. (does not return anything as menu map is a
+   * singleton. When this method is called, the menu table in the databse will be loaded into menu
+   * map.
+   * 
+   * @throws SQLException the SQL exception
+   */
   public void getMenu() throws SQLException {
-    
-    //customerData.loadFile();
+
+    // customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
 
@@ -41,17 +43,18 @@ public class CustomerAccess {
       String allergens = rs.getString("allergens");
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
-      
+
       tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
     }
 
 
   }
 
-  
+
   /**
-   * This method will be for placing orders. It will send data into the database
-   * to fill the order table.
+   * This method will be for placing orders. It will send data into the database to fill the order
+   * table.
+   * 
    * @param orders the orders
    */
   public void placeOrder(String orders) {
@@ -60,10 +63,28 @@ public class CustomerAccess {
 
   /**
    * This method will be to store feedback in the databse.
+   * 
    * @param feedback the feedback
    */
   public void giveFeedback(String feedback) {
     // customerData.insertIntoTable("insert feedback data");
   }
+
+  public String getReviews() {
+
+    ResultSet rs = customerData.select("SELECT * FROM Reviews");
+    String query = null;
+    try {
+      while (rs.next()) {
+        query =
+            rs.getString("name") + " " + rs.getString("star_rating") + " " + rs.getString("review");
+        //System.out.println(query);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return query;
+  }
+
 }
 
