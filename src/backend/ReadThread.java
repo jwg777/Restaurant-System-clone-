@@ -67,10 +67,19 @@ final public class ReadThread extends Thread {
             response = actionArray[0];
             break;
           case "UPDATEMENU":
+            /*
+             * Updates whole menu
+             */
             break;
           case "ADD":
+            /*
+             * Adds consumable to menu
+             */
             break;
           case "DELETE":
+            /*
+             * Deletes consumable from menu
+             */
             break;
         }
       } catch (IOException e) {

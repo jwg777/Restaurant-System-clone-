@@ -28,6 +28,7 @@ final public class ServerAccess extends Thread {
    * WriteThread to write to server.
    */
   private static WriteThread write = WriteThread.getInstance();
+
   /**
    * private constructor for singleton class.
    */
@@ -44,7 +45,7 @@ final public class ServerAccess extends Thread {
     }
     return instance;
   }
-  
+
   /**
    * Sets up the connection to the server. Creates a socket connection, input stream and output
    * stream.
@@ -67,9 +68,21 @@ final public class ServerAccess extends Thread {
   public void run() {
 
   }
-  
+
   public void write(String string) throws IOException {
     write.write(string);
+  }
+
+  public boolean login(String type,String username, String password) throws IOException {
+    write(username);
+    write(password);
+    String response = read.getResponse();
+    if(response.equals("ACCEPTED")) {
+      return true;
+    }else if(response.equals("DENIED")){
+      close();
+    }
+    return false;
   }
 
   /**
