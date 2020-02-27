@@ -1,7 +1,7 @@
 package views;
 
 import java.util.ArrayList;
-import consumable.Consumable;
+import backend.WaiterAccess;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,13 +13,20 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import order.Order;
+import order.OrderMap;
 
 /**
  * The Class KitchenViewController.
  */
 public class KitchenViewController {
-
+  /**
+   * Initialise the data of waterAccess.
+   */
+  WaiterAccess waiterData = new WaiterAccess();
   /** The menu tab pane. */
   @FXML
   private TabPane orderTabPane = new TabPane();
@@ -48,6 +55,40 @@ public class KitchenViewController {
   SceneController butController = SceneController.getInstance();
 
   /**
+   * Initialise the OrderMap to get the order data.
+   */
+  OrderMap order = OrderMap.getInstance();
+  /**
+   * Initialise the NewOrderTab in the TabPane.
+   */
+  TabPane OrderTabPane = new TabPane();
+
+
+  /**
+   * Initialise the reload button to be pushed.
+   * 
+   * @throws Exception
+   */
+  @FXML
+  private void initialize() throws Exception {
+
+    newOrderReload();
+  }
+
+  /**
+   * Reload button to be pushed for the newOrderTab.
+   * 
+   * @throws Exception
+   */
+  private void newOrderReload() throws Exception {
+    order.clear();
+    waiterData.getMenu();
+    OrderTabPane.getTabs().clear();
+    createOrders(order);
+  }
+
+
+  /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
    *
    * @throws Exception the exception
@@ -60,18 +101,18 @@ public class KitchenViewController {
   /**
    * the createNewOrderVBox method to create the VBox for the New order tab.
    * 
-   * @param consumables return consumable menu value.
+   * @param list return consumable menu value.
    * @return the corresponding VBox value.
    */
-  private VBox createNewOrderVBox(ArrayList<Consumable> consumables) {
+  private VBox createNewOrderVBox(ArrayList<Order> list) {
     VBox vbox = new VBox();
-    for (Consumable consumable : consumables) {
+    for (Order order : list) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
       tempHBox.setPrefHeight(50);
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("*" + order.getOrderID(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
+      String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       vbox.getChildren().add(tempHBox); // Add consumable to the list
@@ -105,13 +146,31 @@ public class KitchenViewController {
   }
 
   /**
+   * Initialise the button with it's name and font.
+   * 
+   * @param name return the string name
+   * @param font return the size of the string font.
+   * @return the button.
+   */
+  private StackPane initialiseButton(String name, int font) {
+    StackPane stPane = new StackPane(); // Stack pane to centre button
+    stPane.setPrefSize(80, 50);
+    Button button = new Button(name); // Button to remove and add food to order list
+    button.setPrefSize(70, 50);
+    button.setFont(new Font(font));
+    stPane.getChildren().add(button);
+
+    return stPane;
+  }
+
+  /**
    * Constructor to create the new order tab.
    * 
    * @param name the name of the tab.
    * @param list of the consumable.
    * @return the corresponding tab been created.
    */
-  private Tab createNewOrderTab(String name, ArrayList<Consumable> list) {
+  private Tab createNewOrderTab(String name, ArrayList<Order> list) {
     AnchorPane anchorpane = new AnchorPane();
     anchorpane.setPrefWidth(580);
     anchorpane.getChildren().add(createNewOrderVBox(list));
@@ -119,6 +178,17 @@ public class KitchenViewController {
     scrollpane.setPrefWidth(600);
     Tab tab = new Tab(name.toUpperCase(), scrollpane);
     return tab;
+  }
+
+  /**
+   * Create the list of order for createNewOrderTab.
+   * 
+   * @param orders from orderMap.
+   */
+  public void createOrders(OrderMap orders) {
+    for (String string : orders.keyArray()) {
+      orderTabPane.getTabs().add(createNewOrderTab(string, orders.get(string)));
+    }
   }
 
 
