@@ -2,7 +2,6 @@ package views;
 
 import java.util.ArrayList;
 import backend.WaiterAccess;
-import consumable.MenuMap;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -24,7 +23,10 @@ import order.OrderMap;
  * The Class KitchenViewController.
  */
 public class KitchenViewController {
-
+  /**
+   * Initialise the data of waterAccess.
+   */
+  WaiterAccess waiterData = new WaiterAccess();
   /** The menu tab pane. */
   @FXML
   private TabPane orderTabPane = new TabPane();
@@ -51,10 +53,7 @@ public class KitchenViewController {
 
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
-  /**
-   * Initalise the MenuMap to get the menu data.
-   */
-  MenuMap menu = MenuMap.getInstance();
+
   /**
    * Initialise the OrderMap to get the order data.
    */
@@ -62,12 +61,8 @@ public class KitchenViewController {
   /**
    * Initialise the NewOrderTab in the TabPane.
    */
-  TabPane newOrderTab = new TabPane();
+  TabPane OrderTabPane = new TabPane();
 
-  /**
-   * Initialise the data of waterAccess.
-   */
-  WaiterAccess waiterData = new WaiterAccess();
 
   /**
    * Initialise the reload button to be pushed.
@@ -76,7 +71,7 @@ public class KitchenViewController {
    */
   @FXML
   private void initialize() throws Exception {
-    menuReload();
+
     newOrderReload();
   }
 
@@ -88,16 +83,10 @@ public class KitchenViewController {
   private void newOrderReload() throws Exception {
     order.clear();
     waiterData.getMenu();
-    newOrderTab.getTabs().clear();
+    OrderTabPane.getTabs().clear();
     createOrders(order);
   }
 
-  /**
-   * 
-   */
-  private void menuReload() {
-    // TODO
-  }
 
   /**
    * When the 'Return to Main Menu button is pressed, return to the main menu.
