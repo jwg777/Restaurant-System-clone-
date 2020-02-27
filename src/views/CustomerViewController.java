@@ -1,16 +1,22 @@
 package views;
 
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Optional;
 import javax.xml.ws.Response;
 import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
+import database_cafe.Database;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,6 +41,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // TODO: Auto-generated Javadoc
@@ -63,6 +70,18 @@ public class CustomerViewController {
   @FXML
   TextArea textArea = new TextArea();
 
+  @FXML
+  private TextArea reviewBox;
+  
+  @FXML
+  private TextField nameBox;
+  
+  @FXML
+  private TextField ratingBox;
+  
+  @FXML
+  private AnchorPane revScroll;
+
   /** The menu tab pane. */
   @FXML
   TabPane menuTabPane = new TabPane();
@@ -84,7 +103,6 @@ public class CustomerViewController {
   private void initialize() throws Exception {
     reloadPush();
   }
-
 
   /**
    * When the 'Back to main menu' button is pressed, return to the main menu.
@@ -165,19 +183,34 @@ public class CustomerViewController {
    * Submit review.
    *
    * @param event the event
+   * @throws IOException 
    */
   @FXML
-  void submitReview(ActionEvent event) {
+  void submitReview(ActionEvent event) throws IOException {
     // System.out.println("Thanks");
     // method to submitReview
+    String rB = reviewBox.getText(), nB = nameBox.getText(), raB = ratingBox.getText();
+    System.out.println(nB +", "+ raB +", "+ rB);
+    reviewBox.clear();
+    nameBox.clear();
+    ratingBox.clear();
+    
+    File file = new File("Reviews");
+    FileWriter fr = new FileWriter(file, true);
+    fr.write("\n"+ nB +">"+ raB +">"+ rB);
+    fr.close();
+    
     try {
+      //Loading the "Thanks!" scene
       FXMLLoader fLoad = new FXMLLoader(getClass().getResource("ThanksReviewView.fxml"));
       Parent root = (Parent) fLoad.load();
       Stage stage = new Stage();
       stage.setTitle("Thanks!");
       stage.setScene(new Scene(root));
       stage.show();
+
     } catch (Exception e) {
+      System.out.println("An error occurred.");
       e.printStackTrace();
     }
   }
@@ -232,6 +265,7 @@ public class CustomerViewController {
       tempHBox.getChildren().add(infoStackPane); // Add info button
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
+    scrollReviews();
     return vbox;
   }
 
@@ -245,7 +279,7 @@ public class CustomerViewController {
     StackPane sPane = new StackPane(); // Stack pane to centre button
     sPane.setPrefSize(50, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(30, 30);
+    button.setPrefSize(40, 30);
     sPane.getChildren().add(button);
     return sPane;
   }
@@ -304,6 +338,10 @@ public class CustomerViewController {
     scrollPane.setPrefWidth(600);
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
+  }
+  
+  public void scrollReviews() {
+    this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));
   }
   
   /**
