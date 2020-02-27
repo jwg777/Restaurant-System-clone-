@@ -9,7 +9,7 @@ import java.io.IOException;
  * @author Chak
  */
 final public class ReadThread extends Thread {
-
+  
   /**
    * 
    */
@@ -18,7 +18,8 @@ final public class ReadThread extends Thread {
    * 
    */
   private DataInputStream input;
-
+  
+  private String response;
   /**
    * 
    */
@@ -40,6 +41,13 @@ final public class ReadThread extends Thread {
   public void setInput(DataInputStream input) {
     this.input = input;
   }
+  
+  public String getResponse() {
+    String temp = response;
+    //clears it every time, so it knows someone has read the response.
+    response = "";
+    return temp;
+  }
 
   /*
    * (non-Javadoc)
@@ -47,12 +55,17 @@ final public class ReadThread extends Thread {
    * @see java.lang.Thread#run()
    */
   public void run() {
-    String response;
+    String action;
     while (true) {
       try {
-        response = input.readUTF();
-        String[] responseArray = response.split(" ");
-        switch (responseArray[0]) {
+        action = input.readUTF();
+        String[] actionArray = action.split(" ");
+        switch (actionArray[0]) {
+          case "ACCEPTED":
+          case "DENIED":
+          case "OK":
+            response = actionArray[0];
+            break;
           case "UPDATEMENU":
             break;
           case "ADD":

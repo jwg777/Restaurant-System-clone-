@@ -44,7 +44,7 @@ final public class ServerAccess extends Thread {
     }
     return instance;
   }
-
+  
   /**
    * Sets up the connection to the server. Creates a socket connection, input stream and output
    * stream.
