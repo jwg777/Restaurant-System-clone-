@@ -331,9 +331,11 @@ public class CustomerViewController {
         timeLabel.setText(split[1]);
       }
     } catch (Exception e) {
-      e.printStackTrace();
       Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
       alert.showAndWait();
+      statusLabel.setText("");
+      timeLabel.setText("");
+      orderID.setText("");
     }
   }
 
