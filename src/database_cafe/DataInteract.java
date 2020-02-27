@@ -31,11 +31,9 @@ public final class DataInteract {
         "Orders(orderID int primary key, cust_id int, total_price float, orderTime Timestamp, dish varchar(100), status varchar(100), foreign key (cust_id) references Customers(cust_id) on delete cascade)");
     database.createTable(
         "Staff(staff_id int primary key, password varchar(100), role varchar(20))");
-    database.createTable(
-        "Issues(issue_id int primary key, issue_note varchar(200), cust_id int, foreign key (cust_id) references Customers(cust_id) on delete cascade)");
+    database.createTable("Messages(message varChar(500) primary key)");
     database.createTable(
         "Reviews(name varchar(100), star_rating int, review varchar(500))");
-   
     database.importFile("Menu", "Menu");
     database.importFile("Customers", "Customers");
     database.importFile("Authentication", "Staff");

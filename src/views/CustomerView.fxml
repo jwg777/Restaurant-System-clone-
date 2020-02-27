@@ -80,6 +80,9 @@
                               <Font size="16.0" />
                            </font>
                         </Text>
+                        <Text layoutX="310" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feel free to notify the waiter using the textbox below." />
+                        <TextArea fx:id="textArea" layoutX="320" layoutY="62" prefHeight="59.0" prefWidth="256.0" />
+                        <Button layoutX="404.0" layoutY="126.0" mnemonicParsing="false" onAction="#contactWaiter" text="Notify Waiter" />
                         <Text layoutX="531.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box" />
                         <Button layoutX="536.0" layoutY="146.0" mnemonicParsing="false" text="Contact Us" />
                         <TextField fx:id="nameBox" layoutX="69.0" layoutY="100.0" prefHeight="39.0" prefWidth="146.0" />

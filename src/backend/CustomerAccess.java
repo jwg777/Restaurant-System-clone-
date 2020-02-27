@@ -50,7 +50,6 @@ public class CustomerAccess {
 
   }
 
-
   /**
    * This method will be for placing orders. It will send data into the database to fill the order
    * table.
@@ -62,13 +61,15 @@ public class CustomerAccess {
   }
 
   /**
-   * This method will be to store feedback in the databse.
-   * 
+   * This method will be to store feedback in the database.
+
    * @param feedback the feedback
    */
-  public void giveFeedback(String feedback) {
-    // customerData.insertIntoTable("insert feedback data");
+  public void notifyWaiter(String message) {
+    customerData.insertIntoTable("Messages", "", message);
   }
+
+=======
 
   public String getReviews() {
 

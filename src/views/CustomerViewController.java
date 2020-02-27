@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Optional;
 import javax.xml.ws.Response;
 import backend.CustomerAccess;
 import consumable.Consumable;
@@ -59,11 +60,15 @@ public class CustomerViewController {
   /** The menu. */
   MenuMap menu = MenuMap.getInstance();
 
+  
   /**
    * A VBox containing the starters in the menu.
    */
   @FXML
   VBox vboxStarter = new VBox();
+  
+  @FXML
+  TextArea textArea = new TextArea();
 
   @FXML
   private TextArea reviewBox;
@@ -84,6 +89,7 @@ public class CustomerViewController {
   /** The ordered list. */
   @FXML
   ListView<String> orderedList = new ListView<>();
+  
 
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
@@ -337,6 +343,30 @@ public class CustomerViewController {
   public void scrollReviews() {
     this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));
   }
+  
+  /**
+   * Method sends whatver is contained in relevent textbox to the database. This will be accessed by the waiter.
+   * This method is to be called in the correct action button method when the button is pressed.
+   */
+  @FXML
+  public void contactWaiter() {
+    String message = textArea.getText();
+    message = "'" + message + "'";
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Notify Waiter");
+    alert.setHeaderText("You are confirming that you want to send- " + message + "- to the order to the Waiter.");
 
+    Optional<ButtonType> result = alert.showAndWait();
 
+    if (result.get() == ButtonType.OK) {
+      Alert sendMessage = new Alert(AlertType.INFORMATION);
+      sendMessage.setTitle("Notify Waiter");
+      sendMessage.setHeaderText(null);
+      sendMessage.setContentText("The message has been successfully sent.");
+      sendMessage.showAndWait();
+    }
+    //will need to someohow contain order ID in the future so that the waiter can know which table has sent the message.
+    customerData.notifyWaiter(message);
+    textArea.clear();
+  }
 }

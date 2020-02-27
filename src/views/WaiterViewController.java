@@ -1,5 +1,8 @@
 package views;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -126,6 +130,9 @@ public class WaiterViewController {
   @FXML
   Alert addAlert = new Alert(AlertType.NONE);
 
+  @FXML
+  ListView<String> alerts = new ListView<>();
+  
   @FXML
   ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
 
@@ -590,5 +597,31 @@ public class WaiterViewController {
       emptyTextField = true;
     }
   }
-
+  
+  /**
+   * method is called when reload button is pressed. Refills listpane with messages stored in database.
+   * @throws SQLException
+   */
+  @FXML
+  public void reloadAlert() throws SQLException {
+    System.out.println("test");
+    ResultSet rs = waiterData.getAlerts();
+    String alert = "";
+    alerts.getItems().clear();
+    while (rs.next()) {
+      alert = rs.getString("message");
+      alerts.getItems().add(alert);
+    } 
+  }
+  
+ 
+  @FXML
+  public void remove() {
+    int index = alerts.getSelectionModel().getSelectedIndex();
+    if (index >= 0) {
+      waiterData.removeAlert(alerts.getSelectionModel().getSelectedItem());
+      alerts.getItems().remove(index);
+    }
+    
+  }
 }
