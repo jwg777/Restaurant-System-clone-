@@ -1,5 +1,6 @@
 package views;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -117,7 +118,8 @@ public class CustomerViewController {
       @Override
       public void run() {
         try (Socket s = new Socket("192.168.1.13", 6666);
-            DataOutputStream dout = new DataOutputStream(s.getOutputStream())) {
+            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+            DataInputStream dIn = new DataInputStream(s.getInputStream())) {
           dout.writeUTF("CUSTOMER"); //tells server that you're a customer
           dout.flush();
           dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
@@ -125,7 +127,7 @@ public class CustomerViewController {
           /*
            * If order success message is received.
            */
-          if (true) {
+          if (dIn.readUTF().equals("OK")) {
             orderedList.getItems().clear();
             Alert alert = new Alert(AlertType.NONE, "Order has been placed.", ButtonType.OK);
             alert.show();

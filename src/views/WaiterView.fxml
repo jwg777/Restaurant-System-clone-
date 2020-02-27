@@ -17,16 +17,11 @@
    <children>
       <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="HOME">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
             <Tab text="MENU">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="820.0">
                      <children>
-                        <TabPane fx:id="menuTabPane" prefHeight="569.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="menuTabPane" prefHeight="569.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
                            <tabs>
                               <Tab text="SPECIALS">
                                  <content>
@@ -151,11 +146,11 @@
                         </TabPane>
                         <AnchorPane layoutX="600.0" prefHeight="567.0" prefWidth="200.0">
                            <children>
+                              <Button fx:id="AddDel" layoutX="70" layoutY="3.0" mnemonicParsing="false" onAction="#addDeletePush" prefHeight="27.0" prefWidth="98.0" text="Add/Delete" />
                               <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
-                                  <Button fx:id="AddDel" layoutX="52.0" layoutY="457.0" mnemonicParsing="false" onAction="#addDeletePush" prefHeight="68.0" prefWidth="97.0" style="-fx-border-color: red;" text="Add/Delete" />
                            </children>
                         </AnchorPane>
-                        <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#menuReload" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
+                        <Button fx:id="reload" layoutX="769.0" layoutY="3.0" mnemonicParsing="false" onAction="#menuReload" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>
                </content>
@@ -276,7 +271,7 @@
                               <ListView fx:id="orderedList1" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
                            </children>
                         </AnchorPane>
-                        <Button layoutX="550.0" mnemonicParsing="false" onAction="#orderReload" text="⟳" />
+                        <Button layoutX="570.0" mnemonicParsing="false" onAction="#orderReload" text="⟳" />
                      </children>
                   </AnchorPane>
                </content>

@@ -228,7 +228,7 @@ public class WaiterViewController {
    * @throws Exception if the error occurs.
    */
   @FXML
-  private void menuReload() throws Exception {
+  public void menuReload() throws Exception {
     menu.clear();
     waiterData.getMenu();
     menuTabPane.getTabs().clear();
@@ -296,7 +296,7 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
-        StackPane confirmStackPane = initialiseButton("Confirm", 12);
+        StackPane confirmStackPane = initialiseButton("Confirm", 12, 70);
         ((Button) confirmStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -313,7 +313,7 @@ public class WaiterViewController {
             });
         tempHBox.getChildren().add(confirmStackPane);
       } else if (order.getStatus().equals("processing")) {
-        StackPane cancelStackPane = initialiseButton("Cancel", 12);
+        StackPane cancelStackPane = initialiseButton("Cancel", 12, 70);
         ((Button) cancelStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -328,6 +328,22 @@ public class WaiterViewController {
               }
             });
         tempHBox.getChildren().add(cancelStackPane);
+      } else if (order.getStatus().contentEquals("ready")) {
+        StackPane confirmDeliveredStackPane = initialiseButton("Confirm", 12, 70);
+        ((Button) confirmDeliveredStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  confirmDelivered();
+                  vbox.getChildren().remove(tempHBox);
+                  waiterData.removeOrder(order);
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(confirmDeliveredStackPane);
       }
       vbox.getChildren().add(tempHBox);
 
@@ -356,6 +372,24 @@ public class WaiterViewController {
       cancelled.setHeaderText(null);
       cancelled.setContentText("The order has been successfully cancelled.");
       cancelled.showAndWait();
+    }
+  }
+  
+  @FXML
+  public void confirmDelivered() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Confirm Delivered");
+    alert.setHeaderText("You are confirming that you have delivered the order to the customer.");
+    alert.setContentText("Are you sure you want to confirm this order?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      Alert confirmed = new Alert(AlertType.INFORMATION);
+      confirmed.setTitle("Cancel Order");
+      confirmed.setHeaderText(null);
+      confirmed.setContentText("The order has been successfully confirmed as delivered.");
+      confirmed.showAndWait();
     }
   }
 
@@ -391,11 +425,11 @@ public class WaiterViewController {
    * @return stackPane initialise value.
    */
 
-  private StackPane initialiseButton(String name, int font) {
+  private StackPane initialiseButton(String name, int font, int buttonWidth) {
     StackPane stPane = new StackPane(); // Stack pane to centre button
     stPane.setPrefSize(80, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(70, 50);
+    button.setPrefSize(buttonWidth, 50);
     button.setFont(new Font(font));
     stPane.getChildren().add(button);
 
