@@ -69,7 +69,6 @@ public class CustomerAccess {
     customerData.insertIntoTable("Messages", "", message);
   }
 
-=======
 
   public String getReviews() {
 
