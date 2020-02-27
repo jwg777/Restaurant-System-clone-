@@ -14,7 +14,6 @@ import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
 
-
 /**
  * Class containing methods for accessing and interacting with the database for the Waiter view.
  * 

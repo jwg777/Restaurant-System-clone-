@@ -569,9 +569,11 @@ public class WaiterViewController {
     while (rs.next()) {
       alert = rs.getString("message");
       alerts.getItems().add(alert);
-    }
-   
-    
+    } 
   }
-
+  
+  @FXML
+  public void remove() {
+    System.out.println("test");
+  }
 }
