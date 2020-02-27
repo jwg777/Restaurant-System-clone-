@@ -51,22 +51,40 @@ public class KitchenViewController {
 
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
-
+  /**
+   * Initalise the MenuMap to get the menu data.
+   */
   MenuMap menu = MenuMap.getInstance();
-
+  /**
+   * Initialise the OrderMap to get the order data.
+   */
   OrderMap order = OrderMap.getInstance();
-
+  /**
+   * Initialise the NewOrderTab in the TabPane.
+   */
   TabPane newOrderTab = new TabPane();
 
-
+  /**
+   * Initialise the data of waterAccess.
+   */
   WaiterAccess waiterData = new WaiterAccess();
 
+  /**
+   * Initialise the reload button to be pushed.
+   * 
+   * @throws Exception
+   */
   @FXML
   private void initialize() throws Exception {
     menuReload();
     newOrderReload();
   }
 
+  /**
+   * Reload button to be pushed for the newOrderTab.
+   * 
+   * @throws Exception
+   */
   private void newOrderReload() throws Exception {
     order.clear();
     waiterData.getMenu();
@@ -74,6 +92,9 @@ public class KitchenViewController {
     createOrders(order);
   }
 
+  /**
+   * 
+   */
   private void menuReload() {
     // TODO
   }
