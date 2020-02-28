@@ -59,22 +59,15 @@ public class LoginViewController {
 
 
 
-    /*if (loginData.checkUser(username, password)) {
-      if (loginData.isKitchen(username)) {
-        System.out.println("Kitchen successfully authenticated");
-        butController.startKitchen();
-      } else {
-        System.out.println("Waiter successfully authenticated");
-        butController.startWaiter();
-      }
-    } else {
-      errorMessage.setVisible(true);
-      System.out.println("Authentication failed");
-    }
-    */
-    
-    butController.startWaiter();
+    /*
+     * if (loginData.checkUser(username, password)) { if (loginData.isKitchen(username)) {
+     * System.out.println("Kitchen successfully authenticated"); butController.startKitchen(); }
+     * else { System.out.println("Waiter successfully authenticated"); butController.startWaiter();
+     * } } else { errorMessage.setVisible(true); System.out.println("Authentication failed"); }
+     */
 
+    // butController.startWaiter();
+    butController.startKitchen();
 
   }
 }

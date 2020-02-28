@@ -5,6 +5,7 @@ import backend.WaiterAccess;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -13,7 +14,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import order.Order;
@@ -115,6 +115,7 @@ public class KitchenViewController {
       String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
+      tempHBox.getChildren().add(initialiseCheckButton("check menu", 8));
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
@@ -146,21 +147,17 @@ public class KitchenViewController {
   }
 
   /**
-   * Initialise the button with it's name and font.
+   * Initialise the CheckBox with it's name and font.
    * 
    * @param name return the string name
    * @param font return the size of the string font.
    * @return the button.
    */
-  private StackPane initialiseButton(String name, int font) {
-    StackPane stPane = new StackPane(); // Stack pane to centre button
-    stPane.setPrefSize(80, 50);
-    Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(70, 50);
-    button.setFont(new Font(font));
-    stPane.getChildren().add(button);
-
-    return stPane;
+  private CheckBox initialiseCheckButton(String name, int font) {
+    CheckBox check = new CheckBox(name); // Button to remove and add food to order list
+    check.setPrefSize(70, 50);
+    check.setFont(new Font(font));
+    return check;
   }
 
   /**
