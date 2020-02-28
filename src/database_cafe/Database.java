@@ -27,8 +27,8 @@ public class Database {
   public Database() {
 
     // for testing with set login credentials
-    String user = "zfac209";
-    String password = "78021";
+    String user = "oaxaca";
+    String password = "m£xic0";
 
     /*
      * String user = "", password = ""; System.out.println("Please enter your username"); Scanner
@@ -37,7 +37,7 @@ public class Database {
      */
 
     // tunneling
-    String database = "//localhost/CS2855/";
+    String database = "//localhost:5432/";
 
     // noMachine
     // String database = "//teachdb.cs.rhul.ac.uk/CS2855/";
