@@ -9,24 +9,29 @@ import java.io.IOException;
  * @author Chak
  */
 final public class ReadThread extends Thread {
-  
+
   /**
-   * 
+   * Singleton instance for ReadThread
    */
   private static ReadThread instance = null;
   /**
-   * 
+   * input stream to read from server
    */
   private DataInputStream input;
-  
-  private String response;
   /**
-   * 
+   * response given by the server.
+   */
+  private String response;
+
+  /**
+   * Private constructor for the singleton class.
    */
   private ReadThread() {}
 
   /**
-   * @return
+   * Returns the instance of ReadThread.
+   * 
+   * @return ReadThread
    */
   public static ReadThread getInstance() {
     if (instance == null) {
@@ -36,15 +41,22 @@ final public class ReadThread extends Thread {
   }
 
   /**
+   * sets the input stream.
+   * 
    * @param input
    */
   public void setInput(DataInputStream input) {
     this.input = input;
   }
-  
+
+  /**
+   * Returns the response given by the server, clears it every time it's returns.
+   * 
+   * @return response
+   */
   public String getResponse() {
     String temp = response;
-    //clears it every time, so it knows someone has read the response.
+    // clears it every time, so it knows someone has read the response.
     response = "";
     return temp;
   }
@@ -86,10 +98,12 @@ final public class ReadThread extends Thread {
       }
     }
   }
-  
-  
-  
+
+
+
   /**
+   * Closes the input stream.
+   * 
    * @throws IOException
    */
   public void close() throws IOException {
