@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Chak
  *
  */
-public final class Server implements Runnable {
+public final class Server {
 
   /**
    * an instance for the singleton class.
@@ -22,9 +22,17 @@ public final class Server implements Runnable {
    */
   private int port;
   /**
-   * Set of threads that are connected to the server.
+   * List of customers that are connected to the server.
    */
-  private ArrayList<UserThread> userThreads = new ArrayList<>();
+  private ArrayList<UserThread> customerThreads = new ArrayList<>();
+  /**
+   * List of waiter that are connected to the server.
+   */
+  private ArrayList<UserThread> waiterThreads = new ArrayList<>();
+  /**
+   * List of kitchen that are connected to the server.
+   */
+  private ArrayList<UserThread> kitchenThreads = new ArrayList<>();
   /**
    * boolean to show if the server is running
    */
@@ -61,20 +69,16 @@ public final class Server implements Runnable {
     this.port = port;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Runnable#run()
+  /**
+   * Starts the server.
    */
-  @Override
-  public void run() {
+  public void start() {
     try (ServerSocket serverSocket = new ServerSocket(port)) {
       System.out.println("Server started on port " + port);
       while (true) {
         Socket socket = serverSocket.accept();
         // Creates a new user thread
         UserThread newUser = new UserThread(socket);
-        userThreads.add(newUser);
         newUser.start();
       }
     } catch (IOException e) {
@@ -86,9 +90,40 @@ public final class Server implements Runnable {
    * Removes the thread of the user.
    * 
    * @param user
+   * @throws InvalidClientTypeException 
+   * @throws UserNotFoundException 
    */
-  public void removeThread(UserThread user) {
-    userThreads.remove(user);
+  public void removeThread(UserThread user) throws InvalidClientTypeException {
+    switch(user.getType()) {
+      case CUSTOMER:
+        customerThreads.remove(user);
+        break;
+      case WAITER:
+        waiterThreads.remove(user);
+        break;
+      case KITCHEN:
+        kitchenThreads.remove(user);
+        break;
+      default:
+        throw new InvalidClientTypeException();
+    }
+  }
+  
+  public void addThread(UserThread user) throws InvalidClientTypeException{
+    switch(user.getType()) {
+      case CUSTOMER:
+        customerThreads.add(user);
+        break;
+      case WAITER:
+        waiterThreads.add(user);
+        break;
+      case KITCHEN:
+        kitchenThreads.add(user);
+        break;
+      case INVALID:
+        throw new InvalidClientTypeException();
+        
+    }
   }
 
   /**
@@ -100,8 +135,16 @@ public final class Server implements Runnable {
     return String.format("%04d", ++i);
   }
 
-  public ArrayList<UserThread> getUserThreads() {
-    return userThreads;
+  public ArrayList<UserThread> getCustomerThreads() {
+    return customerThreads;
+  }
+
+  public ArrayList<UserThread> getWaiterThreads() {
+    return waiterThreads;
+  }
+
+  public ArrayList<UserThread> getKitchenThreads() {
+    return kitchenThreads;
   }
 
 }

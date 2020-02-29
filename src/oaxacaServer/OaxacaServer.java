@@ -8,7 +8,7 @@ package oaxacaServer;
 public class OaxacaServer{
 
   /** The server. */
-  Server server = Server.getInstance();
+  static Server server = Server.getInstance();
 
 
   /**
@@ -16,6 +16,7 @@ public class OaxacaServer{
    * @param args
    */
   public static void main(String[] args) {
-    
+    server.setPort(Integer.parseInt(args[0]));
+    server.start();
   }
 }

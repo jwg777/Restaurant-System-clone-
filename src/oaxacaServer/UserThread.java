@@ -12,7 +12,7 @@ import java.net.Socket;
 public class UserThread extends Thread {
 
   private ClientType type;
-  
+
   private String name;
 
   /** The socket. */
@@ -41,16 +41,20 @@ public class UserThread extends Thread {
    */
   public void run() {
     try (DataInputStream dIn = new DataInputStream(socket.getInputStream())) {
+      String request = "";
+      String content = "";
       type = ClientType.getType((String) dIn.readUTF());
-      switch(type) {
-        case CUSTOMER:
-          break;
-        case WAITER:
-        case KITCHEN:
-          break;
-      }
-    } catch (IOException e) {
+      server.addThread(this);
+      do {
+        String[] response = ((String) dIn.readUTF()).split(" ");
+        request = response[0];
+        request = response[1];
+      } while (!request.equals("STOP"));
 
+    } catch (InvalidClientTypeException e) {
+      System.out.println("Invalid User Type tried to Connect");
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
