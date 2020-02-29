@@ -12,10 +12,11 @@ import java.util.List;
  */
 public class Consumable implements Comparable<Consumable>, Serializable {
 
-  /**
-   * 
-   */
+  /** serial ID of consumable class */
   private static final long serialVersionUID = -2617381742540284866L;
+
+  /** Category of the consumable. */
+  private String type;
 
   /** The name of the dish. */
   private String name;
@@ -37,16 +38,20 @@ public class Consumable implements Comparable<Consumable>, Serializable {
 
   /** A list of ingredients required to make the dish. */
   private List<String> ingredients;
-  
+
   /**
    * Instantiates a new consumable dish by specifying its name, price and ingredients.
    *
-   * @param name the name of the dish
-   * @param price the price of the dish
-   * @param ingredients the ingredients needed to make the dish
+   * @param type
+   * @param name
+   * @param price
+   * @param calories
+   * @param allergens
+   * @param ingredients
    */
-  public Consumable(String name, float price, int calories, String allergens,
+  public Consumable(String type, String name, float price, int calories, String allergens,
       List<String> ingredients) {
+    this.type = type;
     this.name = name;
     this.price = price;
     this.calories = calories;
@@ -61,20 +66,24 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   /**
    * Instantiates a new consumable dish by specifying its name and price, but not its ingredients.
    *
-   * @param name the name
-   * @param price the price
+   * @param type
+   * @param name
+   * @param price
+   * @param calories
+   * @param allergens
    */
-  public Consumable(String name, float price, int calories, String allergens) {
-    this(name, price, calories, allergens, new ArrayList<String>());
+  public Consumable(String type, String name, float price, int calories, String allergens) {
+    this(type, name, price, calories, allergens, new ArrayList<String>());
   }
 
   /**
    * Instantiates a new consumable dish by specifying its name, but not its price or ingredients.
    *
-   * @param name the name
+   * @param type
+   * @param name
    */
-  public Consumable(String name) {
-    this(name, 0, 0, "", new ArrayList<String>());
+  public Consumable(String type, String name) {
+    this(type, name, 0, 0, "", new ArrayList<String>());
   }
 
   /**
@@ -155,6 +164,10 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    */
   public List<String> getIngredients() {
     return this.ingredients;
+  }
+
+  public String getType() {
+    return type;
   }
 
   /**

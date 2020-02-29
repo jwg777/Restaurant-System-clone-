@@ -69,7 +69,8 @@ public final class MenuMap{
    * @param category
    * @param consumable
    */
-  public void put(String tab, Consumable consumable) {
+  public void put(Consumable consumable) {
+    String tab = consumable.getType();
     ArrayList<Consumable> tempList = new ArrayList<>();
     if (menu.containsKey(tab)) {
       for (Consumable item : menu.get(tab)) {

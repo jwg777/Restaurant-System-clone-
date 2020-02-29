@@ -59,7 +59,7 @@ public class WaiterAccess {
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
 
-      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
+      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
 
 
