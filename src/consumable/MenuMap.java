@@ -1,5 +1,6 @@
 package consumable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
  * @author Chak
  *
  */
-public final class MenuMap {
+public final class MenuMap{
 
   /**
    * instance for singleton class

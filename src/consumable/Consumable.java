@@ -1,5 +1,6 @@
 package consumable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +10,12 @@ import java.util.List;
  * 
  * @author Chak
  */
-public class Consumable implements Comparable<Consumable> {
+public class Consumable implements Comparable<Consumable>, Serializable {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -2617381742540284866L;
 
   /** The name of the dish. */
   private String name;

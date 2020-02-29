@@ -42,7 +42,13 @@ public class UserThread extends Thread {
   public void run() {
     try (DataInputStream dIn = new DataInputStream(socket.getInputStream())) {
       type = ClientType.getType((String) dIn.readUTF());
-      
+      switch(type) {
+        case CUSTOMER:
+          break;
+        case WAITER:
+        case KITCHEN:
+          break;
+      }
     } catch (IOException e) {
 
     }
