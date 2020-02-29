@@ -1,7 +1,13 @@
 package consumable;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +19,7 @@ import java.util.List;
 public class Consumable implements Comparable<Consumable>, Serializable {
 
   /** serial ID of consumable class */
-  private static final long serialVersionUID = -2617381742540284866L;
+  private static final long serialVersionUID = 4356225391046116317L;
 
   /** Category of the consumable. */
   private String type;
@@ -84,6 +90,23 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    */
   public Consumable(String type, String name) {
     this(type, name, 0, 0, "", new ArrayList<String>());
+  }
+
+  public Consumable(String serializedString) {
+    byte[] data = Base64.getDecoder().decode(serializedString);
+    try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+      Object object = ois.readObject();
+      Consumable temp = (Consumable) object;
+      this.type = temp.type;
+      this.name = temp.name;
+      this.price = temp.price;
+      this.calories = temp.calories;
+      this.allergens = temp.allergens;
+      this.ingredients = temp.ingredients;
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+
   }
 
   /**
@@ -168,6 +191,19 @@ public class Consumable implements Comparable<Consumable>, Serializable {
 
   public String getType() {
     return type;
+  }
+
+  /**
+   * Serialises Object to String.
+   * 
+   * @return String
+   * @throws IOException
+   */
+  public String serializeToString() throws IOException {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ObjectOutputStream oos = new ObjectOutputStream(baos);
+    oos.writeObject(this);
+    return Base64.getEncoder().encodeToString(baos.toByteArray());
   }
 
   /**
