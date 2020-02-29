@@ -12,6 +12,8 @@ import java.net.Socket;
 public class UserThread extends Thread {
 
   private ClientType type;
+  
+  private String name;
 
   /** The socket. */
   private Socket socket;
@@ -40,36 +42,7 @@ public class UserThread extends Thread {
   public void run() {
     try (DataInputStream dIn = new DataInputStream(socket.getInputStream())) {
       type = ClientType.getType((String) dIn.readUTF());
-      if (type == ClientType.INVALID) {
-        writeToClient("INVALID");
-        server.write("[Server] : DENIED ACCESS " + socket.getInetAddress().getHostAddress());
-        socket.close();
-        return;
-      }
-      String name = type.name() + "_" + server.addNumebr();
-      server.addUserName(name);
-      server.write("New client connected: " + name);
-      writeToClient("ACCEPTED");
-      server.write("[Server => " + name + "] : ACCEPTED");
-      for (ClientListener listener : server.clientListeners) {
-        listener.onClientChange();
-      }
-      String response;
-      do {
-        response = (String) dIn.readUTF();
-        server.write("[" + name + "] : " + response);
-        if (type == ClientType.WAITER) {
-          if (response == "UPDATE") {
-            for (UserThread user : server.getUserThreads()) {
-              if (user.getType() == ClientType.WAITER) {
-                user.writeToClient("UPDATE");
-              }
-            }
-          }
-        }
-      } while (!response.equals("STOP"));
-      server.removeUser(name, this);
-      server.write(name + " has disconnected");
+      
     } catch (IOException e) {
 
     }
