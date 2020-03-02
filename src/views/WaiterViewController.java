@@ -1,12 +1,10 @@
 package views;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import backend.WaiterAccess;
@@ -49,7 +47,7 @@ import order.OrderMap;
  */
 
 public class WaiterViewController {
-  
+
   /*
    * temp fields
    */
@@ -134,7 +132,7 @@ public class WaiterViewController {
 
   @FXML
   ListView<String> alerts = new ListView<>();
-  
+
   @FXML
   ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
 
@@ -150,21 +148,21 @@ public class WaiterViewController {
     /*
      * temporary server access (need to change after).
      */
-    socket = new Socket(ip,port);
+    socket = new Socket(ip, port);
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        try(DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
-            DataInputStream dIn = new DataInputStream(socket.getInputStream())){
+        try (DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
+            DataInputStream dIn = new DataInputStream(socket.getInputStream())) {
           dOut.writeUTF("WAITER");
-          if(dIn.readUTF().equals("OK")) {
-            if(dIn.readUTF().equals("UPDATE")) {
+          if (dIn.readUTF().equals("OK")) {
+            if (dIn.readUTF().equals("UPDATE")) {
               menuReload();
               orderReload();
             }
           }
-        }catch(Exception e) {
-          
+        } catch (Exception e) {
+
         }
       }
     });
@@ -295,7 +293,7 @@ public class WaiterViewController {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        
+
       }
     });
     orders.clear();
@@ -346,7 +344,7 @@ public class WaiterViewController {
       String price = String.format("%.2f", order.getTotalPrice());
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      StackPane viewStackPane = initialiseButton("View", 12);
+      StackPane viewStackPane = initialiseButton("View", 12, 70);
       ((Button) viewStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -440,7 +438,7 @@ public class WaiterViewController {
       cancelled.showAndWait();
     }
   }
-  
+
   @FXML
   public void confirmDelivered() throws Exception {
     Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -615,9 +613,11 @@ public class WaiterViewController {
       emptyTextField = true;
     }
   }
-  
+
   /**
-   * method is called when reload button is pressed. Refills listpane with messages stored in database.
+   * method is called when reload button is pressed. Refills listpane with messages stored in
+   * database.
+   * 
    * @throws SQLException
    */
   @FXML
@@ -629,10 +629,10 @@ public class WaiterViewController {
     while (rs.next()) {
       alert = rs.getString("message");
       alerts.getItems().add(alert);
-    } 
+    }
   }
-  
- 
+
+
   @FXML
   public void remove() {
     int index = alerts.getSelectionModel().getSelectedIndex();
@@ -640,6 +640,6 @@ public class WaiterViewController {
       waiterData.removeAlert(alerts.getSelectionModel().getSelectedItem());
       alerts.getItems().remove(index);
     }
-    
+
   }
 }
