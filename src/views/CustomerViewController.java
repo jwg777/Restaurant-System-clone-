@@ -93,6 +93,18 @@ public class CustomerViewController {
 
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
+  
+  @FXML
+  private TextField orderID;
+  
+  @FXML
+  Label statusLabel = new Label();
+  
+  @FXML
+  Label timeLabel = new Label();
+  
+  @FXML
+  Button orderInfoButton = new Button();
 
   /**
    * Runs this method during scene start up.
@@ -230,7 +242,7 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel(consumable.getName(), 200, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", consumable.getPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("£ " + price, 70, 50));
+      tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
       String tAllergens = consumable.getAllergen();
@@ -338,6 +350,35 @@ public class CustomerViewController {
     scrollPane.setPrefWidth(600);
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
+  }
+  
+  /** When get information button is pressed, will fill in status and last update time.
+   * 
+   * @param event on being pressed action
+   * 
+   */
+  @FXML
+  private void getOrderInfo(ActionEvent event) {
+    String orderNumber = orderID.getText();
+    String statusAndTime = "";
+    try {
+      statusAndTime = customerData.getStatusAndTime(orderNumber);
+      String[] split = new String[2];
+      split = statusAndTime.split(">");
+      if (split[0] == "" || split[1] == "") {
+        Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+        alert.showAndWait();
+      } else {
+        statusLabel.setText(split[0]);
+        timeLabel.setText(split[1]);
+      }
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+      alert.showAndWait();
+      statusLabel.setText("");
+      timeLabel.setText("");
+      orderID.setText("");
+    }
   }
   
   public void scrollReviews() {

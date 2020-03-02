@@ -183,6 +183,8 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="price_range" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
+                                                                  <Label prefHeight="50.0" prefWidth="150.0" text="time_stamp" />
+                                                                  <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
                                                                         <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" text="confirm">
@@ -225,9 +227,11 @@
                                                             <HBox prefHeight="50.0" prefWidth="580.0">
                                                                <children>
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <Label prefHeight="50.0" prefWidth="150.0" text="order_name1" />
+                                                                  <Label prefHeight="50.0" prefWidth="105.0" text="order_name1" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                                  <Label prefHeight="50.0" prefWidth="150.0" text="price_range1" />
+                                                                  <Label prefHeight="50.0" prefWidth="105.0" text="price_range1" />
+                                                                  <Pane prefHeight="50.0" prefWidth="25.0" />
+                                                                  <Label prefHeight="50.0" prefWidth="98.0" text="time_stamp" />
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>

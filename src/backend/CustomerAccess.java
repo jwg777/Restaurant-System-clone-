@@ -32,6 +32,7 @@ public class CustomerAccess {
    * @throws SQLException the SQL exception
    */
   public void getMenu() throws SQLException {
+
     // customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
@@ -41,6 +42,7 @@ public class CustomerAccess {
       String allergens = rs.getString("allergens");
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
+
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
 
@@ -59,13 +61,28 @@ public class CustomerAccess {
 
   /**
    * This method will be to store feedback in the database.
-
    * @param feedback the feedback
    */
   public void notifyWaiter(String message) {
     customerData.insertIntoTable("Messages", "", message);
   }
 
+  /** This method will get the status and last update time for an order.
+   * 
+   * @param orderID Unqiue to each order to be used in select query
+   * @return returns the status and last update time
+   * @throws SQLException Thrown if error with SQL query occurs
+   * 
+   */
+  public String getStatusAndTime(String orderID) throws SQLException {
+    String statusAndTime = ">";
+    ResultSet rs = customerData.select("SELECT status, orderTime FROM Orders " 
+                                     + "WHERE OrderID = '" + orderID + "'");
+    while (rs.next()) {
+      statusAndTime = rs.getString("status") + ">" + rs.getString("orderTime");
+    }
+    return statusAndTime;
+  }
 
   public String getReviews() {
 
