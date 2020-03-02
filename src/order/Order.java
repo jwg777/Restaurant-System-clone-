@@ -49,11 +49,11 @@ public class Order implements Comparable<Order> {
     this.timeStamp = timeStamp;
     this.status = status;
     this.items = new ArrayList<Consumable>();
-    String[] ingredients = items.split(",");
-    for (String ingredient : ingredients) {
-      Consumable item = new Consumable(ingredient);
-      this.items.add(item);
-    }
+//    String[] ingredients = items.split(",");
+//    for (String ingredient : ingredients) {
+//      Consumable item = new Consumable(ingredient);
+//      this.items.add(item);
+//    }
   }
 
   /**

@@ -17,7 +17,6 @@ import database_cafe.DataInteract;
 import order.Order;
 import order.OrderMap;
 
-
 /**
  * Class containing methods for accessing and interacting with the database for the Waiter view.
  * 
@@ -63,7 +62,7 @@ public class WaiterAccess {
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
 
-      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
+      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
 
 
@@ -163,5 +162,18 @@ public class WaiterAccess {
       return false;
     }
     return false;
+  }
+  
+  /**
+   * This method returns the alerts currently stored in the database and puts them in a result set.
+   * @return resultset storing alerts.
+   */
+  public ResultSet getAlerts() {
+    ResultSet rs = waiterData.select("SELECT * FROM Messages");
+    return rs;
+  }
+  
+  public void removeAlert(String message) {
+    waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
   }
 }

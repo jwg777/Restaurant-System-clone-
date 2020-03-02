@@ -1,10 +1,16 @@
 package views;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import backend.WaiterAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -40,6 +47,13 @@ import order.OrderMap;
  */
 
 public class WaiterViewController {
+
+  /*
+   * temp fields
+   */
+  String ip;
+  int port;
+  Socket socket;
 
   /** The waiter data. */
   WaiterAccess waiterData = new WaiterAccess();
@@ -96,6 +110,8 @@ public class WaiterViewController {
   @FXML
   private Button addItem;
 
+  @FXML
+  private ListView<String> orderedList1;
 
   /**
    * Declare the menuTabPane in the Tab.
@@ -115,6 +131,9 @@ public class WaiterViewController {
   Alert addAlert = new Alert(AlertType.NONE);
 
   @FXML
+  ListView<String> alerts = new ListView<>();
+
+  @FXML
   ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
 
   @FXML
@@ -126,6 +145,27 @@ public class WaiterViewController {
   private void initialize() throws Exception {
     menuReload();
     orderReload();
+    /*
+     * temporary server access (need to change after).
+     */
+    socket = new Socket(ip, port);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try (DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
+            DataInputStream dIn = new DataInputStream(socket.getInputStream())) {
+          dOut.writeUTF("WAITER");
+          if (dIn.readUTF().equals("OK")) {
+            if (dIn.readUTF().equals("UPDATE")) {
+              menuReload();
+              orderReload();
+            }
+          }
+        } catch (Exception e) {
+
+        }
+      }
+    });
   }
 
   /**
@@ -228,7 +268,7 @@ public class WaiterViewController {
    * @throws Exception if the error occurs.
    */
   @FXML
-  private void menuReload() throws Exception {
+  public void menuReload() throws Exception {
     menu.clear();
     waiterData.getMenu();
     menuTabPane.getTabs().clear();
@@ -247,6 +287,15 @@ public class WaiterViewController {
    */
   @FXML
   private void orderReload() throws Exception {
+    /*
+     * tell other waiter clients to reload (temp).
+     */
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+
+      }
+    });
     orders.clear();
     waiterData.viewOrders();
 
@@ -297,8 +346,24 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
+      StackPane viewStackPane = initialiseButton("View", 12, 70);
+      ((Button) viewStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          try {
+            orderedList1.getItems().clear();
+            for (Consumable item : order.getItems()) {
+              orderedList1.getItems().add(item.getName());
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+      });
+      tempHBox.getChildren().add(viewStackPane);
+      tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
-        StackPane confirmStackPane = initialiseButton("Confirm", 12);
+        StackPane confirmStackPane = initialiseButton("Confirm", 12, 70);
         ((Button) confirmStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -308,14 +373,13 @@ public class WaiterViewController {
                   waiterData.confirmOrder(order);
                   orderReload();
                 } catch (Exception e) {
-                  // TODO Auto-generated catch blocks
                   e.printStackTrace();
                 }
               }
             });
         tempHBox.getChildren().add(confirmStackPane);
       } else if (order.getStatus().equals("processing")) {
-        StackPane cancelStackPane = initialiseButton("Cancel", 12);
+        StackPane cancelStackPane = initialiseButton("Cancel", 12, 70);
         ((Button) cancelStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -330,6 +394,22 @@ public class WaiterViewController {
               }
             });
         tempHBox.getChildren().add(cancelStackPane);
+      } else if (order.getStatus().contentEquals("ready")) {
+        StackPane confirmDeliveredStackPane = initialiseButton("Confirm", 12, 70);
+        ((Button) confirmDeliveredStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  confirmDelivered();
+                  vbox.getChildren().remove(tempHBox);
+                  waiterData.removeOrder(order);
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(confirmDeliveredStackPane);
       }
       vbox.getChildren().add(tempHBox);
 
@@ -358,6 +438,24 @@ public class WaiterViewController {
       cancelled.setHeaderText(null);
       cancelled.setContentText("The order has been successfully cancelled.");
       cancelled.showAndWait();
+    }
+  }
+
+  @FXML
+  public void confirmDelivered() throws Exception {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Confirm Delivered");
+    alert.setHeaderText("You are confirming that you have delivered the order to the customer.");
+    alert.setContentText("Are you sure you want to confirm this order?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      Alert confirmed = new Alert(AlertType.INFORMATION);
+      confirmed.setTitle("Cancel Order");
+      confirmed.setHeaderText(null);
+      confirmed.setContentText("The order has been successfully confirmed as delivered.");
+      confirmed.showAndWait();
     }
   }
 
@@ -394,11 +492,11 @@ public class WaiterViewController {
    * @return stackPane initialise value.
    */
 
-  private StackPane initialiseButton(String name, int font) {
+  private StackPane initialiseButton(String name, int font, int buttonWidth) {
     StackPane stPane = new StackPane(); // Stack pane to centre button
     stPane.setPrefSize(80, 50);
     Button button = new Button(name); // Button to remove and add food to order list
-    button.setPrefSize(70, 50);
+    button.setPrefSize(buttonWidth, 50);
     button.setFont(new Font(font));
     stPane.getChildren().add(button);
 
@@ -519,4 +617,32 @@ public class WaiterViewController {
     }
   }
 
+  /**
+   * method is called when reload button is pressed. Refills listpane with messages stored in
+   * database.
+   * 
+   * @throws SQLException
+   */
+  @FXML
+  public void reloadAlert() throws SQLException {
+    System.out.println("test");
+    ResultSet rs = waiterData.getAlerts();
+    String alert = "";
+    alerts.getItems().clear();
+    while (rs.next()) {
+      alert = rs.getString("message");
+      alerts.getItems().add(alert);
+    }
+  }
+
+
+  @FXML
+  public void remove() {
+    int index = alerts.getSelectionModel().getSelectedIndex();
+    if (index >= 0) {
+      waiterData.removeAlert(alerts.getSelectionModel().getSelectedItem());
+      alerts.getItems().remove(index);
+    }
+
+  }
 }

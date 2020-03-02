@@ -36,7 +36,6 @@ public class CustomerAccess {
     // customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
-
     while (rs.next()) {
       String itemName = rs.getString("dish");
       float itemPrice = rs.getFloat("price");
@@ -44,12 +43,11 @@ public class CustomerAccess {
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
 
-      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
+      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
 
 
   }
-
 
   /**
    * This method will be for placing orders. It will send data into the database to fill the order
@@ -62,12 +60,11 @@ public class CustomerAccess {
   }
 
   /**
-   * This method will be to store feedback in the databse.
-   * 
+   * This method will be to store feedback in the database.
    * @param feedback the feedback
    */
-  public void giveFeedback(String feedback) {
-    // customerData.insertIntoTable("insert feedback data");
+  public void notifyWaiter(String message) {
+    customerData.insertIntoTable("Messages", "", message);
   }
 
   /** This method will get the status and last update time for an order.
@@ -86,5 +83,22 @@ public class CustomerAccess {
     }
     return statusAndTime;
   }
+
+  public String getReviews() {
+
+    ResultSet rs = customerData.select("SELECT * FROM Reviews");
+    String query = null;
+    try {
+      while (rs.next()) {
+        query =
+            rs.getString("name") + " " + rs.getString("star_rating") + " " + rs.getString("review");
+        //System.out.println(query);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return query;
+  }
+
 }
 
