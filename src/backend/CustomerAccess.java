@@ -32,19 +32,16 @@ public class CustomerAccess {
    * @throws SQLException the SQL exception
    */
   public void getMenu() throws SQLException {
-
     // customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
-
     while (rs.next()) {
       String itemName = rs.getString("dish");
       float itemPrice = rs.getFloat("price");
       String allergens = rs.getString("allergens");
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
-
-      tempMap.put(type, new Consumable(itemName, itemPrice, calories, allergens));
+      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
 
 

@@ -19,7 +19,6 @@ public class Database {
 
 
   /** Field for storing the connection */
-
   @FXML
   private AnchorPane revScroll;
 

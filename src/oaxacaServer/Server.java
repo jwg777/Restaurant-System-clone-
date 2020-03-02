@@ -3,12 +3,8 @@ package oaxacaServer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
 
 /**
  * Server program to manage orders, confirmations, and notifications.
@@ -16,7 +12,7 @@ import java.util.Set;
  * @author Chak
  *
  */
-public final class Server implements Runnable {
+public final class Server {
 
   /**
    * an instance for the singleton class.
@@ -27,25 +23,17 @@ public final class Server implements Runnable {
    */
   private int port;
   /**
-   * Set of user names that are connected to the server.
+   * List of customers that are connected to the server.
    */
-  private Set<String> usernames = new HashSet<>();
+  private ArrayList<UserThread> customerThreads = new ArrayList<>();
   /**
-   * Set of threads that are connected to the server.
+   * List of waiter that are connected to the server.
    */
-  private Set<UserThread> userThreads = new HashSet<>();
+  private ArrayList<UserThread> waiterThreads = new ArrayList<>();
   /**
-   * List of list view listener.
+   * List of kitchen that are connected to the server.
    */
-  private final List<ListListener> listListeners = new ArrayList<>();
-  /**
-   * List of client listener.
-   */
-  public final List<ClientListener> clientListeners = new ArrayList<>();
-  /**
-   * Queue for logs to be displayed
-   */
-  private Queue<String> queue = new LinkedList<>();
+  private ArrayList<UserThread> kitchenThreads = new ArrayList<>();
   /**
    * boolean to show if the server is running
    */
@@ -54,21 +42,14 @@ public final class Server implements Runnable {
    * increments every time a client connects.
    */
   private int i = 0;
-
+  
+  Customer customer = Customer.getInstance();
+  
 
   /**
    * private constructor for singleton method.
    */
-  private Server() {}
-
-  /**
-   * 
-   * Returns the set of user names.
-   * 
-   * @return user names
-   */
-  public Set<String> getUsernames() {
-    return usernames;
+  private Server() {
   }
 
   /**
@@ -92,122 +73,62 @@ public final class Server implements Runnable {
     this.port = port;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Runnable#run()
+  /**
+   * Starts the server.
    */
-  @Override
-  public void run() {
-    if (running) {
-      listListeners.remove(listListeners.size() - 1);
-      write("Server already started");
-      return;
-    }
+  public void start() {
     try (ServerSocket serverSocket = new ServerSocket(port)) {
-      running = true;
-      write("Server started on port " + port);
-      while (running) {
+      System.out.println("Server started on port " + port);
+      while (true) {
         Socket socket = serverSocket.accept();
+        System.out.println("New Client Connected");
         // Creates a new user thread
         UserThread newUser = new UserThread(socket);
-        userThreads.add(newUser);
         newUser.start();
       }
-      serverSocket.close();
     } catch (IOException e) {
-      write("Port " + port + " is already used");
-      listListeners.remove(listListeners.size() - 1);
-    } finally {
-      running = false;
+      System.out.println("Port " + port + " is already used");
     }
-  }
-
-  /**
-   * Tells the listeners to write on the list view.
-   * 
-   * @param string
-   */
-  public void write(String string) {
-    String time = java.time.LocalTime.now().toString().split("\\.")[0];
-    queue.add("[" + time + "] " + string);
-    for (ListListener listener : listListeners) {
-      listener.onListChange();
-    }
-  }
-
-  /**
-   * Adds username to the set of usernames.
-   * 
-   * @param string
-   */
-  public void addUserName(String string) {
-    usernames.add(string);
   }
 
   /**
    * Removes the thread of the user.
    * 
    * @param user
+   * @throws InvalidClientTypeException 
+   * @throws UserNotFoundException 
    */
-  public void removeThread(UserThread user) {
-    userThreads.remove(user);
+  public void removeThread(UserThread user) throws InvalidClientTypeException {
+    switch(user.getType()) {
+      case CUSTOMER:
+        customerThreads.remove(user);
+        break;
+      case WAITER:
+        waiterThreads.remove(user);
+        break;
+      case KITCHEN:
+        kitchenThreads.remove(user);
+        break;
+      default:
+        throw new InvalidClientTypeException();
+    }
   }
-
-  /**
-   * remove the user completely from the server.
-   * 
-   * @param username
-   * @param user
-   */
-  public void removeUser(String string, UserThread user) {
-    usernames.remove(string);
-    removeThread(user);
-  }
-
-  /**
-   * adds listener for list view.
-   * 
-   * @param listener
-   */
-  public void addListListener(ListListener listener) {
-    listListeners.add(listener);
-  }
-
-  /**
-   * add listener for clients.
-   * 
-   * @param listener
-   */
-  public void addClientListener(ClientListener listener) {
-    clientListeners.add(listener);
-  }
-
-  /**
-   * gets the queue of logs.
-   * 
-   * @return the queue
-   */
-  public Queue<String> getQueue() {
-    return queue;
-  }
-
-  /**
-   * closes the server.
-   */
-  public void close() {
-    write("Server on port " + port + " closed.");
-    running = false;
-    listListeners.clear();
-  }
-
-  /**
-   * return the number of clients.
-   * 
-   * @return number of clients
-   */
-  public int numberOfClients() {
-    return usernames.size();
+  
+  public void addThread(UserThread user) throws InvalidClientTypeException{
+    switch(user.getType()) {
+      case CUSTOMER:
+        customerThreads.add(user);
+        break;
+      case WAITER:
+        waiterThreads.add(user);
+        break;
+      case KITCHEN:
+        kitchenThreads.add(user);
+        break;
+      case INVALID:
+        throw new InvalidClientTypeException();
+        
+    }
   }
 
   /**
@@ -219,8 +140,25 @@ public final class Server implements Runnable {
     return String.format("%04d", ++i);
   }
 
-  public Set<UserThread> getUserThreads() {
-    return userThreads;
+  public ArrayList<UserThread> getCustomerThreads() {
+    return customerThreads;
+  }
+
+  public ArrayList<UserThread> getWaiterThreads() {
+    return waiterThreads;
+  }
+
+  public ArrayList<UserThread> getKitchenThreads() {
+    return kitchenThreads;
+  }
+  
+  public ArrayList<Consumable> getMenuList(){
+    try {
+      return customer.getMenu();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
 }

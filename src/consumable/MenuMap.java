@@ -1,5 +1,6 @@
 package consumable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
  * @author Chak
  *
  */
-public final class MenuMap {
+public final class MenuMap{
 
   /**
    * instance for singleton class
@@ -68,7 +69,8 @@ public final class MenuMap {
    * @param category
    * @param consumable
    */
-  public void put(String tab, Consumable consumable) {
+  public void put(Consumable consumable) {
+    String tab = consumable.getType();
     ArrayList<Consumable> tempList = new ArrayList<>();
     if (menu.containsKey(tab)) {
       for (Consumable item : menu.get(tab)) {
