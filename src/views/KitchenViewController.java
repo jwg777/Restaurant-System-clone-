@@ -115,6 +115,8 @@ public class KitchenViewController {
       String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
       tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
+      tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
+      tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseCheckButton("check menu", 8));
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
