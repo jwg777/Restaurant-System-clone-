@@ -6,31 +6,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Database {
+public final class Database {
+  
+  private static Database instance = null;
   
   private static Connection connection = null;
   /**
-   * Constructor for class. Connects to the databse.
+   * Constructor for class. Connects to the database.
    */
-  public Database() {
+  private Database() {
     String user = "oaxaca";
-    String password = "mexico";
     String database = "//localhost:5432/";
-    connection = connectToDatabase(user, password, database);
+    connection = connectToDatabase(user, database);
+  }
+  
+  public static Database getInstance() {
+    if(instance == null) {
+      instance = new Database();
+    }
+    return instance;
   }
   
   /**
    * This method connects to the database using username, password, and the address of the database
    * 
    * @param user
-   * @param password
    * @param database
-   * @return the connection
+   * @return
    */
-  public static Connection connectToDatabase(String user, String password, String database) {
+  public static Connection connectToDatabase(String user,String database) {
     try {
       connection =
-          DriverManager.getConnection("jdbc:postgresql:" + database + user, user, password);
+          DriverManager.getConnection("jdbc:postgresql:" + database + user);
     } catch (SQLException e) {
       System.out.println("Failed to connect to Database");
       System.exit(0);
@@ -79,4 +86,5 @@ public class Database {
       e.printStackTrace();
     }
   }
+  
 }

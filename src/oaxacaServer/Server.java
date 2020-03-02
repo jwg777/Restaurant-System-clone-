@@ -3,6 +3,7 @@ package oaxacaServer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -41,12 +42,15 @@ public final class Server {
    * increments every time a client connects.
    */
   private int i = 0;
-
+  
+  Customer customer = Customer.getInstance();
+  
 
   /**
    * private constructor for singleton method.
    */
-  private Server() {}
+  private Server() {
+  }
 
   /**
    * returns the singleton instance of the class
@@ -146,6 +150,15 @@ public final class Server {
 
   public ArrayList<UserThread> getKitchenThreads() {
     return kitchenThreads;
+  }
+  
+  public ArrayList<Consumable> getMenuList(){
+    try {
+      return customer.getMenu();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
 }

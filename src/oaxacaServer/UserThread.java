@@ -31,7 +31,7 @@ public class UserThread extends Thread {
    * Input Stream.
    */
   DataInputStream dIn;
-  
+
   /**
    * Output Stream.
    */
@@ -51,6 +51,7 @@ public class UserThread extends Thread {
 
     }
   }
+
   /*
    * Gets the type of Client.
    * 
@@ -83,19 +84,18 @@ public class UserThread extends Thread {
       this.name = type.name() + "_" + server.addNumebr();
       write("ACCEPTED " + name);
       System.out.println("New Client joined [" + name + "]");
-      while (true) {
-        String[] response = read().split(" ");
-        System.out.println("[" + name + "] : " + Arrays.toString(response));
-        if (response[0].equals("STOP")) {
+      switch (type) {
+        case CUSTOMER:
+          customer();
           break;
-        }
-        if (response.length > 2) {
-          write("DISCONNECT");
+        case WAITER:
+          waiter();
           break;
-        }
-        operator = response[0];
-        operand = response[1];
-        
+        case KITCHEN:
+          kitchen();
+          break;
+        default:
+          break;
       }
     } catch (InvalidClientTypeException e) {
       System.out.println("Invalid User Type tried to Connect");
@@ -105,17 +105,51 @@ public class UserThread extends Thread {
       close();
     }
   }
-  
-  public boolean customer() {
-    return false;
+
+  public void customer() throws IOException {
+    String operator;
+    String operand;
+    /*
+     * Adds everything from menu first.
+     */
+    for (Consumable consumable : server.getMenuList()) {
+      write("ADD " + consumable.serializeToString());
+    }
+    /*
+     * Reads for response.
+     */
+    do {
+      String[] response = read().split(" ");
+      System.out.println("[" + name + "] : " + Arrays.toString(response));
+      if (response.length > 2 || response.length == 0) {
+        write("DISCONNECT");
+        break;
+      }
+      operator = response[0];
+      if (response.length == 2) {
+        operand = response[1];
+        switch (operator.toUpperCase()) {
+          case "ORDER":
+            /*
+             * Gets consumable, returns as order to Waiter.
+             */
+            break;
+          default:
+            operator = "STOP";
+            break;
+        }
+        continue;
+      }
+
+    } while (operator.equals("STOP"));
   }
-  
-  public boolean waiter() {
-    return false;
+
+  public void waiter() {
+
   }
-  
-  public boolean kitchen() {
-    return false;
+
+  public void kitchen() {
+
   }
 
   public void close() {
