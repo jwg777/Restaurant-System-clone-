@@ -112,6 +112,8 @@ public class WaiterViewController {
   @FXML
   private Button addItem;
 
+  @FXML
+  private ListView<String> orderedList1;
 
   /**
    * Declare the menuTabPane in the Tab.
@@ -343,6 +345,22 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", order.getTotalPrice());
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseGap());
+      StackPane viewStackPane = initialiseButton("View", 12);
+      ((Button) viewStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          try {
+            orderedList1.getItems().clear();
+            for (Consumable item : order.getItems()) {
+              orderedList1.getItems().add(item.getName());
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+      });
+      tempHBox.getChildren().add(viewStackPane);
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("waiting")) {
         StackPane confirmStackPane = initialiseButton("Confirm", 12, 70);
