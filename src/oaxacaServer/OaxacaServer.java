@@ -16,7 +16,8 @@ public class OaxacaServer{
    * @param args
    */
   public static void main(String[] args) {
-    server.setPort(Integer.parseInt(args[0]));
+    //server.setPort(Integer.parseInt(args[0]));
+    server.setPort(6666);
     server.start();
   }
 }

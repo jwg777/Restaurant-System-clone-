@@ -53,12 +53,7 @@ public class LoginViewController {
   private void loginSelected() throws Exception {
     String username = userField.getText();
     String password = passwordField.getText();
-
-    System.out.println("Username is " + username);
-    System.out.println("Password is " + password);
-
-
-
+    
     /*
      * if (loginData.checkUser(username, password)) { if (loginData.isKitchen(username)) {
      * System.out.println("Kitchen successfully authenticated"); butController.startKitchen(); }

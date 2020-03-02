@@ -20,7 +20,6 @@ public class Database {
 
 
   /** Field for storing the connection */
-  
   @FXML
   private AnchorPane revScroll;
 
@@ -33,7 +32,7 @@ public class Database {
 
     // for testing with set login credentials
     String user = "oaxaca";
-    String password = "m£xic0";
+    String password = "m@xic0";
 
     /*
      * String user = "", password = ""; System.out.println("Please enter your username"); Scanner

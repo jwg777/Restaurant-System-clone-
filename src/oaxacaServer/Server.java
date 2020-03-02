@@ -77,6 +77,7 @@ public final class Server {
       System.out.println("Server started on port " + port);
       while (true) {
         Socket socket = serverSocket.accept();
+        System.out.println("New Client Connected");
         // Creates a new user thread
         UserThread newUser = new UserThread(socket);
         newUser.start();
