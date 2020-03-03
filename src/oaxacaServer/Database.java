@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public final class Database {
-  
+
   private static Database instance = null;
-  
+
   private static Connection connection = null;
+
   /**
    * Constructor for class. Connects to the database.
    */
@@ -19,14 +20,14 @@ public final class Database {
     String database = "//localhost:5432/";
     connection = connectToDatabase(user, database);
   }
-  
+
   public static Database getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new Database();
     }
     return instance;
   }
-  
+
   /**
    * This method connects to the database using username, password, and the address of the database
    * 
@@ -34,10 +35,9 @@ public final class Database {
    * @param database
    * @return
    */
-  public static Connection connectToDatabase(String user,String database) {
+  public static Connection connectToDatabase(String user, String database) {
     try {
-      connection =
-          DriverManager.getConnection("jdbc:postgresql:" + database + user);
+      connection = DriverManager.getConnection("jdbc:postgresql:" + database + user, user, "");
     } catch (SQLException e) {
       System.out.println("Failed to connect to Database");
       System.exit(0);
@@ -48,7 +48,7 @@ public final class Database {
     }
     return connection;
   }
-  
+
   /**
    * This method is for quering the database and stores the result in a resultSet.
    * 
@@ -86,5 +86,5 @@ public final class Database {
       e.printStackTrace();
     }
   }
-  
+
 }

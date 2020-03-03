@@ -1,6 +1,7 @@
 package views;
 
 import java.io.IOException;
+import backend.ServerAccess;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +19,10 @@ public final class SceneController {
   /** The stage. */
   private Stage stage;
 
+  private MenuListener menuListener;
+
+  private static ServerAccess server = ServerAccess.getInstance();
+
   /**
    * Gets the single instance of ButtonController.
    *
@@ -34,7 +39,12 @@ public final class SceneController {
    * Instantiates a new button controller.
    */
   private SceneController() {
-
+    try {
+      server.setConnection("167.99.149.174", 6666);
+      System.out.println("Connected to Server");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -67,7 +77,9 @@ public final class SceneController {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   public void startCustomer() throws IOException {
-    sceneChange("CustomerView.fxml", "Oaxaca Customer View");
+    if (server.login("CUSTOMER")) {
+      sceneChange("CustomerView.fxml", "Oaxaca Customer View");
+    }
   }
 
   /**
@@ -104,6 +116,14 @@ public final class SceneController {
    */
   public void startKitchen() throws IOException {
     sceneChange("KitchenView.fxml", "Oaxaca Kitchen View");
+  }
+
+  public void setMenuListener(MenuListener menuListener) {
+    this.menuListener = menuListener;
+  }
+  
+  public MenuListener getMenuListener() {
+    return menuListener;
   }
 
 }

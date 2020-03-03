@@ -15,6 +15,8 @@ public class CustomerAccess {
 
   /** The customer data. */
   DataInteract customerData;
+  
+  static ServerAccess server = ServerAccess.getInstance();
 
   /**
    * Instantiates a new customer access.
@@ -32,7 +34,6 @@ public class CustomerAccess {
    * @throws SQLException the SQL exception
    */
   public void getMenu() throws SQLException {
-
     // customerData.loadFile();
     ResultSet rs = customerData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
@@ -42,11 +43,8 @@ public class CustomerAccess {
       String allergens = rs.getString("allergens");
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
-
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
-
-
   }
 
   /**

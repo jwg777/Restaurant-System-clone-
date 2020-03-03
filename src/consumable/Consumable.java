@@ -95,8 +95,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   public Consumable(String serializedString) {
     byte[] data = Base64.getDecoder().decode(serializedString);
     try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
-      Object object = ois.readObject();
-      Consumable temp = (Consumable) object;
+      Consumable temp = (Consumable) ois.readObject();
       this.type = temp.type;
       this.name = temp.name;
       this.price = temp.price;

@@ -40,7 +40,7 @@ final public class ServerAccess {
    * 
    * @return instance
    */
-  public ServerAccess getInstance() {
+  public static ServerAccess getInstance() {
     if (instance == null) {
       instance = new ServerAccess();
     }
@@ -73,8 +73,19 @@ final public class ServerAccess {
       }
     });
   }
+  
+  public boolean login(String type) throws IOException {
+    write(type);
+    String response = read.getResponse();
+    return true;
+//    if (response.equals("ACCEPTED")) {
+//      return true;
+//    }
+//    throw new IOException();
+  }
 
   public boolean login(String type, String username, String password) throws IOException {
+    write(type);
     write(username);
     write(password);
     String response = read.getResponse();
