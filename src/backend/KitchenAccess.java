@@ -1,6 +1,9 @@
 package backend;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import consumable.Consumable;
+import consumable.MenuMap;
 import database_cafe.DataInteract;
 
 
@@ -32,11 +35,32 @@ public class KitchenAccess {
 
   /**
    * This method will return the currenly stored orders from the database and update OrderMap.
-   * @return
+   * @return returns the result set given by the select query of the order table
+   * @throws SQLException Thrown if sql error occurs
    */
-  public ResultSet getOrders() {
-    // return kitchenData.select("some query for orders");
-    return null;
+  public ResultSet getOrders() throws SQLException {
+    ResultSet rs = kitchenData.select("SELECT * FROM Orders");
+    return rs;
+  }
+  
+  /**
+   * Retrieves the current menu from the database.
+   * 
+   * @throws SQLException Thrown if query fails.
+   */
+  public void getMenu() throws SQLException {
+    ResultSet rs = kitchenData.select("SELECT * FROM Menu");
+    MenuMap tempMap = MenuMap.getInstance();
+
+    while (rs.next()) {
+      String itemName = rs.getString("dish");
+      float itemPrice = rs.getFloat("price");
+      String allergens = rs.getString("allergens");
+      int calories = rs.getInt("calories");
+      String type = rs.getString("type");
+
+      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
+    }
   }
 
   /**

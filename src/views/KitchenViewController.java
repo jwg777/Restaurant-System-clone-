@@ -1,6 +1,7 @@
 package views;
 
 import java.util.ArrayList;
+import backend.KitchenAccess;
 import backend.WaiterAccess;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,9 +25,9 @@ import order.OrderMap;
  */
 public class KitchenViewController {
   /**
-   * Initialise the data of waterAccess.
+   * Initialise the data of KicthenAccess.
    */
-  WaiterAccess waiterData = new WaiterAccess();
+  KitchenAccess kitchenData = new KitchenAccess();
   /** The menu tab pane. */
   @FXML
   private TabPane orderTabPane = new TabPane();
@@ -82,7 +83,7 @@ public class KitchenViewController {
    */
   private void newOrderReload() throws Exception {
     order.clear();
-    waiterData.getMenu();
+    kitchenData.getMenu();
     OrderTabPane.getTabs().clear();
     createOrders(order);
   }
