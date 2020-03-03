@@ -46,7 +46,8 @@ public class Main extends Application {
 			grid.add(pwBox, 1, 2);
 			
 			//shows grid lines for debugging purposes
-			grid.setGridLinesVisible(true);
+			//grid.setGridLinesVisible(true);
+			
 			//
 			Scene scene = new Scene(grid, 300, 275);
 //			BorderPane root = new BorderPane();
