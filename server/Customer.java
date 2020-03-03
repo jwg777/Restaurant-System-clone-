@@ -1,6 +1,7 @@
-package oaxacaServer;
+
 
 import java.sql.ResultSet;
+import consumable.Consumable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

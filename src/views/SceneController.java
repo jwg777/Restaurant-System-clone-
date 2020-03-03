@@ -2,6 +2,7 @@ package views;
 
 import java.io.IOException;
 import backend.ServerAccess;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,14 +39,7 @@ public final class SceneController {
   /**
    * Instantiates a new button controller.
    */
-  private SceneController() {
-    try {
-      server.setConnection("167.99.149.174", 6666);
-      System.out.println("Connected to Server");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
+  private SceneController() {}
 
   /**
    * Changes the stage.
@@ -121,9 +115,15 @@ public final class SceneController {
   public void setMenuListener(MenuListener menuListener) {
     this.menuListener = menuListener;
   }
-  
+
   public MenuListener getMenuListener() {
     return menuListener;
+  }
+
+  public void sendOrder(ObservableList<String> orderList) {
+    for (String string : orderList) {
+      server.write("ORDER " + string);
+    }
   }
 
 }

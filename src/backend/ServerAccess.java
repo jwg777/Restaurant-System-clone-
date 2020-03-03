@@ -47,6 +47,13 @@ final public class ServerAccess {
     return instance;
   }
 
+  public void start() {
+    try {
+      setConnection("167.99.149.174", 6666);
+    } catch (IOException e) {
+    }
+  }
+
   /**
    * Sets up the connection to the server. Creates a socket connection, input stream and output
    * stream.
@@ -67,21 +74,22 @@ final public class ServerAccess {
       @Override
       public void run() {
         try {
+          System.out.println("Client -> Server: [" + string + "]");
           write.write(string);
         } catch (IOException e) {
         }
       }
     });
   }
-  
+
   public boolean login(String type) throws IOException {
     write(type);
     String response = read.getResponse();
     return true;
-//    if (response.equals("ACCEPTED")) {
-//      return true;
-//    }
-//    throw new IOException();
+    // if (response.equals("ACCEPTED")) {
+    // return true;
+    // }
+    // throw new IOException();
   }
 
   public boolean login(String type, String username, String password) throws IOException {

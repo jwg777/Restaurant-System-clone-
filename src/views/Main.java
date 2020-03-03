@@ -1,5 +1,6 @@
 package views;
 
+import backend.ServerAccess;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,7 +11,9 @@ public class Main extends Application {
 
   /** The button controller. */
   static SceneController controller = SceneController.getInstance();
-
+  
+  private static ServerAccess server = ServerAccess.getInstance();
+  
   /**
    * Prepares the main menu view for startup.
    *
@@ -19,6 +22,7 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage stage) throws Exception {
+    server.start();
     stage.setResizable(false);
     controller.setStage(stage);
     controller.startMain();

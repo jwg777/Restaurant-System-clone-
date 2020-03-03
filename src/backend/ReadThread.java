@@ -29,7 +29,7 @@ final public class ReadThread extends Thread {
 
   MenuMap menu = MenuMap.getInstance();
   
-  private static SceneController controller = SceneController.getInstance();
+  static SceneController controller = SceneController.getInstance();
 
   /**
    * Private constructor for the singleton class.

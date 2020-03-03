@@ -1,22 +1,16 @@
 package views;
 
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Optional;
-import javax.xml.ws.Response;
 import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
-import database_cafe.Database;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,7 +35,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // TODO: Auto-generated Javadoc
@@ -156,49 +149,13 @@ public class CustomerViewController {
    */
   @FXML
   private void sendOrder() throws Exception {
+    System.out.println("Order Button Pressed");
     /*
      * needs to check if order is valid.
      */
     ObservableList<String> orders = orderedList.getItems();
-    /*
-     * Needs a new class and methods to run the following. This is only temporary.
-     */
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        try (Socket s = new Socket("192.168.1.13", 6666);
-            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-            DataInputStream dIn = new DataInputStream(s.getInputStream())) {
-          dout.writeUTF("CUSTOMER"); // tells server that you're a customer
-          dout.flush();
-          dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
-          dout.flush();
-          /*
-           * If order success message is received.
-           */
-          if (dIn.readUTF().equals("OK")) {
-            orderedList.getItems().clear();
-            Alert alert = new Alert(AlertType.NONE, "Order has been placed.", ButtonType.OK);
-            alert.show();
-            if (alert.getResult() == ButtonType.OK) {
-              dout.writeUTF("STOP"); // tells server that you have finished.
-              dout.flush();
-            }
-          }
-        } catch (IOException e) {
-          Alert alert = new Alert(AlertType.ERROR,
-              "Failed to make order, would you like to notify a staff member?", ButtonType.NO,
-              ButtonType.YES);
-          alert.show();
-          if (alert.getResult() == ButtonType.YES) {
-            /*
-             * Notify staff.
-             */
-          }
-          alert.close();
-        }
-      }
-    });
+    controller.sendOrder(orders);
+
   }
 
   /**
@@ -340,6 +297,7 @@ public class CustomerViewController {
    */
 
   public void createMenu(MenuMap menu) {
+    menuTabPane.getTabs().clear();
     for (String string : menu.keyArray()) {
       menuTabPane.getTabs().add(createTab(string, menu.get(string)));
     }
