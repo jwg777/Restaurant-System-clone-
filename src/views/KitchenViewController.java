@@ -84,6 +84,7 @@ public class KitchenViewController {
   private void newOrderReload() throws Exception {
     order.clear();
     kitchenData.getMenu();
+    kitchenData.getOrders();
     OrderTabPane.getTabs().clear();
     createOrders(order);
   }
@@ -111,14 +112,20 @@ public class KitchenViewController {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
       tempHBox.setPrefHeight(50);
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel("*" + order.getOrderID(), 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 100, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 100, 50));
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseCheckButton("check menu", 8));
+      if (order.getStatus().equals("processing")) {
+        tempHBox.getChildren().add(initialiseCheckButton("started", 16));
+      } else if (order.getStatus().equals("started")) {
+        tempHBox.getChildren().add(initialiseCheckButton("completed", 16));
+      } else if (order.getStatus().equals("ready")) {
+        tempHBox.getChildren().add(initialiseCheckButton("paid", 16));
+      }
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
@@ -158,7 +165,7 @@ public class KitchenViewController {
    */
   private CheckBox initialiseCheckButton(String name, int font) {
     CheckBox check = new CheckBox(name); // Button to remove and add food to order list
-    check.setPrefSize(70, 50);
+    check.setPrefSize(150, 50);
     check.setFont(new Font(font));
     return check;
   }

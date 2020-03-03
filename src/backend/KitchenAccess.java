@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
+import order.Order;
+import order.OrderMap;
 
 
 /**
@@ -35,12 +37,21 @@ public class KitchenAccess {
 
   /**
    * This method will return the currenly stored orders from the database and update OrderMap.
-   * @return returns the result set given by the select query of the order table
    * @throws SQLException Thrown if sql error occurs
    */
-  public ResultSet getOrders() throws SQLException {
-    ResultSet rs = kitchenData.select("SELECT * FROM Orders");
-    return rs;
+  public void getOrders() throws SQLException {
+    ResultSet rs = kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
+    OrderMap map = OrderMap.getInstance();
+    
+    while (rs.next()) {
+      int orderID = rs.getInt("orderID");
+      int custID = rs.getInt("cust_ID");
+      float totalPrice = rs.getFloat("total_price");
+      String timeStamp = (rs.getTimestamp("orderTime")).toString();
+      String dish = rs.getString("dish");
+      String status = rs.getString("status");
+      map.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+    }
   }
   
   /**
