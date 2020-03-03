@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import consumable.Consumable;
+import order.Order;
 
 /**
  * Server program to manage orders, confirmations, and notifications.
@@ -43,15 +44,15 @@ public final class Server {
    * increments every time a client connects.
    */
   private int i = 0;
-  
+
   Customer customer = Customer.getInstance();
-  
+  Waiter waiter = Waiter.getInstance();
+
 
   /**
    * private constructor for singleton method.
    */
-  private Server() {
-  }
+  private Server() {}
 
   /**
    * returns the singleton instance of the class
@@ -96,11 +97,11 @@ public final class Server {
    * Removes the thread of the user.
    * 
    * @param user
-   * @throws InvalidClientTypeException 
-   * @throws UserNotFoundException 
+   * @throws InvalidClientTypeException
+   * @throws UserNotFoundException
    */
   public void removeThread(UserThread user) throws InvalidClientTypeException {
-    switch(user.getType()) {
+    switch (user.getType()) {
       case CUSTOMER:
         customerThreads.remove(user);
         break;
@@ -114,9 +115,9 @@ public final class Server {
         throw new InvalidClientTypeException();
     }
   }
-  
-  public void addThread(UserThread user) throws InvalidClientTypeException{
-    switch(user.getType()) {
+
+  public void addThread(UserThread user) throws InvalidClientTypeException {
+    switch (user.getType()) {
       case CUSTOMER:
         customerThreads.add(user);
         break;
@@ -128,7 +129,7 @@ public final class Server {
         break;
       case INVALID:
         throw new InvalidClientTypeException();
-        
+
     }
   }
 
@@ -152,14 +153,29 @@ public final class Server {
   public ArrayList<UserThread> getKitchenThreads() {
     return kitchenThreads;
   }
-  
-  public ArrayList<Consumable> getMenuList(){
+
+  public ArrayList<Consumable> getMenuList() {
     try {
+      // If user is customer
       return customer.getMenu();
+      // If user is waiter
+      // return waiter.getMenu();
+      // }
     } catch (SQLException e) {
       e.printStackTrace();
     }
     return null;
   }
 
+  public ArrayList<Order> getOrderList() {
+    try {
+      // If user is water
+      return waiter.getOrders();
+      // If user is kitchen
+      // return kitchen.getOrders();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
 }
