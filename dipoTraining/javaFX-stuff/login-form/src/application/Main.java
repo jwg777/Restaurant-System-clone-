@@ -44,6 +44,9 @@ public class Main extends Application {
 
 			PasswordField pwBox = new PasswordField();
 			grid.add(pwBox, 1, 2);
+			
+			//shows grid lines for debugging purposes
+			grid.setGridLinesVisible(true);
 			//
 			Scene scene = new Scene(grid, 300, 275);
 //			BorderPane root = new BorderPane();
