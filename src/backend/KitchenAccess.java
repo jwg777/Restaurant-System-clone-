@@ -73,6 +73,14 @@ public class KitchenAccess {
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
   }
+  
+  public boolean getIfPaid(String custID) throws SQLException{
+    ResultSet rs = kitchenData.select("SELECT * FROM Customers WHERE cust_id = '" + custID + "'");
+    while (rs.next()) {
+      return rs.getBoolean("paid");
+    }
+    return false;
+  }
 
   /**
 
