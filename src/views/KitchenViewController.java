@@ -3,6 +3,7 @@ package views;
 import java.util.ArrayList;
 import backend.KitchenAccess;
 import backend.WaiterAccess;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -62,7 +63,9 @@ public class KitchenViewController {
   /**
    * Initialise the NewOrderTab in the TabPane.
    */
+  @FXML
   TabPane OrderTabPane = new TabPane();
+  
 
 
   /**
@@ -83,9 +86,9 @@ public class KitchenViewController {
    */
   private void newOrderReload() throws Exception {
     order.clear();
-    kitchenData.getMenu();
     kitchenData.getOrders();
-    OrderTabPane.getTabs().clear();
+    kitchenData.getMenu();
+    orderTabPane.getTabs().clear();
     createOrders(order);
   }
 
