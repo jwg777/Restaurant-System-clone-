@@ -14,9 +14,12 @@ public class Waiter {
 
   private static ArrayList<Consumable> menuList = new ArrayList<>();
 
+  private static ArrayList<Order> orderList = new ArrayList<>();
+
   private Waiter() {
     try {
       menuList = getMenu();
+      orderList = getOrders();
     } catch (SQLException e) {
     }
   }
@@ -30,6 +33,10 @@ public class Waiter {
 
   public ArrayList<Consumable> getMenuList() {
     return menuList;
+  }
+
+  public ArrayList<Order> getOrderList() {
+    return orderList;
   }
 
   public ArrayList<Consumable> getMenu() throws SQLException {

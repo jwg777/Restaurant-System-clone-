@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
 import consumable.Consumable;
+import order.Order;
 
 /**
  * The Class UserThread.
@@ -144,8 +145,25 @@ public class UserThread extends Thread {
     } while (operator.equals("STOP"));
   }
 
-  public void waiter() {
-
+  public void waiter() throws IOException {
+    String operator;
+    String operand;
+    /*
+     * Adds everything from menu first.
+     */
+    System.out.println("Sending menu to " + name + "...");
+    for (Consumable consumable : server.getMenuList()) {
+      write("ADD " + consumable.serializeToString());
+    }
+    System.out.println("Menu completly sent to " + name);
+    /*
+     * Adds orders from database first.
+     */
+    System.out.println("Sending orders to " + name + "...");
+    for (Order order : server.getOrderList()) {
+      write("ADD " + order.serializeToString());
+    }
+    System.out.println("All orders sent to " + name);
   }
 
   public void kitchen() {
