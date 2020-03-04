@@ -74,7 +74,7 @@ public class KitchenAccess {
     }
   }
   
-  public boolean getIfPaid(String custID) throws SQLException{
+  public boolean getIfPaid(int custID) throws SQLException{
     ResultSet rs = kitchenData.select("SELECT * FROM Customers WHERE cust_id = '" + custID + "'");
     while (rs.next()) {
       return rs.getBoolean("paid");
