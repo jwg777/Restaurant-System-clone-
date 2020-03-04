@@ -198,7 +198,7 @@ public class CustomerViewController {
    * @throws IOException 
    */
   @FXML
-  void submitReview(ActionEvent event) throws IOException {
+  private void submitReview(ActionEvent event) throws IOException {
     // System.out.println("Thanks");
     // method to submitReview
     String rB = reviewBox.getText(), nB = nameBox.getText(), raB = ratingBox.getText();
@@ -225,6 +225,26 @@ public class CustomerViewController {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
+  }
+  
+  @FXML
+  private void payment(ActionEvent event) throws Exception {
+    System.out.println("Payment Test");
+    
+    try {
+      //Loading the "Thanks!" scene
+      FXMLLoader fLoad = new FXMLLoader(getClass().getResource("PaymentView.fxml"));
+      Parent root = (Parent) fLoad.load();
+      Stage stage = new Stage();
+      stage.setTitle("Payment");
+      stage.setScene(new Scene(root));
+      stage.show();
+
+    } catch (Exception e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+    
   }
 
   /**
