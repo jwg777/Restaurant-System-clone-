@@ -78,9 +78,23 @@ public final class Database {
     updateStaffs();
   }
 
+  public boolean dishExists(Consumable consumable) {
+    updateDishes();
+    for (Consumable temp : dishList) {
+      if (temp.equals(consumable)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void addDish(Consumable consumable) {
+    if (dishExists(consumable)) {
+      return;
+    }
     Statement st = null;
     try {
+      // Adds to database
       st = connection.createStatement();
       String temp = "";
       String ingredients = "";
@@ -97,14 +111,19 @@ public final class Database {
               + "', " + consumable.getIsAvailable() + ", '" + ingredients + "', "
               + consumable.getCalories() + ");");
       st.close();
+      // Adds to list locally
+      dishList.add(consumable);
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    updateDishes();
   }
 
   public void removeDish(Consumable consumable) {
     Statement st = null;
+    if (!dishExists(consumable)) {
+      return;
+    }
+    // Remove from database
     try {
       st = connection.createStatement();
       st.execute("DELETE FROM dishes WHERE name = '" + consumable.getName() + "';");
@@ -112,15 +131,20 @@ public final class Database {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    updateDishes();
+    // Removes locally
+    for (Consumable temp : dishList) {
+      if (temp.equals(consumable)) {
+        dishList.remove(temp);
+      }
+    }
   }
-  
+
   public void addOrder(Order order) {
-    
+
   }
-  
+
   public void removeOrder(Order order) {
-    
+
   }
 
   private void updateStaffs() {

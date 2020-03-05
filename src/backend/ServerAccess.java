@@ -49,7 +49,8 @@ final public class ServerAccess {
 
   public void start() {
     try {
-      setConnection("167.99.149.174", 6666);
+      setConnection("localhost",6666);
+      //setConnection("167.99.149.174", 6666);
     } catch (IOException e) {
     }
   }
