@@ -20,6 +20,8 @@ public class Consumable implements Comparable<Consumable>, Serializable {
 
   /** serial ID of consumable class */
   private static final long serialVersionUID = 4356225391046116317L;
+  
+  private int id;
 
   /** Category of the consumable. */
   private String type;
@@ -33,14 +35,8 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   /** Calories of the dish. */
   private int calories;
 
-  /** Allergens of the dish. */
-  private String allergens;
-
   /** Specifies whether or not the dish is currently available. */
   private boolean isAvailable = true;
-
-  /** Specifies whether or not the dish is a special. */
-  private boolean isSpecial = false;
 
   /** A list of ingredients required to make the dish. */
   private List<String> ingredients;
@@ -55,41 +51,17 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    * @param allergens
    * @param ingredients
    */
-  public Consumable(String type, String name, float price, int calories, String allergens,
+  public Consumable(String type, String name, float price, int calories,
       List<String> ingredients) {
     this.type = type;
     this.name = name;
     this.price = price;
     this.calories = calories;
-    this.allergens = allergens;
     this.ingredients = new ArrayList<String>();
     for (String ingredient : ingredients) {
       this.ingredients.add(ingredient);
     }
     Collections.sort(this.ingredients);
-  }
-
-  /**
-   * Instantiates a new consumable dish by specifying its name and price, but not its ingredients.
-   *
-   * @param type
-   * @param name
-   * @param price
-   * @param calories
-   * @param allergens
-   */
-  public Consumable(String type, String name, float price, int calories, String allergens) {
-    this(type, name, price, calories, allergens, new ArrayList<String>());
-  }
-
-  /**
-   * Instantiates a new consumable dish by specifying its name, but not its price or ingredients.
-   *
-   * @param type
-   * @param name
-   */
-  public Consumable(String type, String name) {
-    this(type, name, 0, 0, "", new ArrayList<String>());
   }
 
   public Consumable(String serializedString) {
@@ -100,7 +72,6 @@ public class Consumable implements Comparable<Consumable>, Serializable {
       this.name = temp.name;
       this.price = temp.price;
       this.calories = temp.calories;
-      this.allergens = temp.allergens;
       this.ingredients = temp.ingredients;
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
@@ -135,10 +106,6 @@ public class Consumable implements Comparable<Consumable>, Serializable {
     return this.price;
   }
 
-  public String getAllergen() {
-    return this.allergens;
-  }
-
   public int getCalories() {
     return this.calories;
   }
@@ -159,24 +126,6 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    */
   public boolean isAvailable() {
     return this.isAvailable;
-  }
-
-  /**
-   * Sets the special.
-   *
-   * @param isSpecial the new special
-   */
-  public void setSpecial(boolean isSpecial) {
-    this.isSpecial = isSpecial;
-  }
-
-  /**
-   * Checks if is special.
-   *
-   * @return true, if is special
-   */
-  public boolean isSpecial() {
-    return this.isSpecial;
   }
 
   /**

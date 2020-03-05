@@ -212,7 +212,7 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
-      String tAllergens = consumable.getAllergen();
+      String tAllergens = "";
       int tCalories = consumable.getCalories();
 
       ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {

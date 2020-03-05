@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -62,7 +63,7 @@ public class WaiterAccess {
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
 
-      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
+      tempMap.put(new Consumable(type, itemName, itemPrice, calories, new ArrayList<String>()));
     }
 
 
@@ -163,16 +164,17 @@ public class WaiterAccess {
     }
     return false;
   }
-  
+
   /**
    * This method returns the alerts currently stored in the database and puts them in a result set.
+   * 
    * @return resultset storing alerts.
    */
   public ResultSet getAlerts() {
     ResultSet rs = waiterData.select("SELECT * FROM Messages");
     return rs;
   }
-  
+
   public void removeAlert(String message) {
     waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
   }
