@@ -72,13 +72,10 @@ public class Main extends Application {
 			//grid.setGridLinesVisible(true);
 			
 			
-			Scene scene = new Scene(grid, 300, 275);
-			
-//			BorderPane root = new BorderPane();
-//			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
+			Scene scene = new Scene(grid, 300, 275);			
 			primaryStage.setScene(scene);
+			scene.getStylesheets().add(Main.class.getResource("Login.css").toExternalForm());
+			
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
