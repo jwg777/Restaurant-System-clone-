@@ -1,6 +1,4 @@
 
-
-import java.sql.ResultSet;
 import consumable.Consumable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +30,6 @@ public class Customer {
   }
 
   public ArrayList<Consumable> getMenu() throws SQLException {
-    return database.getDishes();
+    return database.getDishList();
   }
 }

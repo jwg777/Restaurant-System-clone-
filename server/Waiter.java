@@ -1,6 +1,5 @@
 
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import consumable.Consumable;
@@ -40,20 +39,10 @@ public class Waiter {
   }
 
   public ArrayList<Consumable> getMenu() throws SQLException {
-    return database.getDishes();
+    return database.getDishList();
   }
 
   public ArrayList<Order> getOrders() throws SQLException {
-    ResultSet rs = database.select("SELECT * FROM Orders");
-    ArrayList<Order> list = new ArrayList<>();
-    while (rs.next()) {
-      int orderID = rs.getInt("order_id");
-      int custID = rs.getInt("cust_id");
-      int dishID = rs.getInt("dish_id");
-      String timeStamp = (rs.getTimestamp("order_time")).toString();
-      String status = rs.getString("status");
-      list.add(new Order(orderID, custID, dishID, timeStamp, status));
-    }
-    return list;
+    return database.getOrderList();
   }
 }

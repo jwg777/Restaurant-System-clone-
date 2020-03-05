@@ -36,7 +36,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   private int calories;
 
   /** Specifies whether or not the dish is currently available. */
-  private boolean isAvailable = true;
+  private boolean isAvailable;
 
   /** A list of ingredients required to make the dish. */
   private List<String> ingredients;
@@ -74,7 +74,10 @@ public class Consumable implements Comparable<Consumable>, Serializable {
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
+  }
 
+  public boolean getIsAvailable() {
+    return isAvailable;
   }
 
   /**

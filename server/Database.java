@@ -20,7 +20,7 @@ public final class Database {
 
   private ArrayList<Order> orderList = new ArrayList<>();
 
-  private HashMap<String, String> staffList = new HashMap<>();
+  private ArrayList<Staff> staffList = new ArrayList<>();
 
   /**
    * Constructor for class. Connects to the database.
@@ -29,7 +29,7 @@ public final class Database {
     String user = "oaxaca";
     String database = "//localhost:5432/";
     connection = connectToDatabase(user, database);
-    getAll();
+    update();
   }
 
   public static Database getInstance() {
@@ -37,6 +37,18 @@ public final class Database {
       instance = new Database();
     }
     return instance;
+  }
+
+  public ArrayList<Consumable> getDishList() {
+    return dishList;
+  }
+
+  public ArrayList<Order> getOrderList() {
+    return orderList;
+  }
+
+  public ArrayList<Staff> getStaffList() {
+    return staffList;
   }
 
   /**
@@ -60,19 +72,92 @@ public final class Database {
     return connection;
   }
 
-  public void getAll() {
-    dishList = getDishes();
-    orderList = getOrders();
+  public void update() {
+    updateDishes();
+    updateOrders();
+    updateStaffs();
   }
 
-  private ArrayList<Order> getOrders() {
+  public void addDish(Consumable consumable) {
+    Statement st = null;
+    try {
+      st = connection.createStatement();
+      String temp = "";
+      String ingredients = "";
+      for (String ingredient : consumable.getIngredients()) {
+        temp += ingredient + "^";
+      }
+      // Removes last character of string.
+      if (temp.length() > 0) {
+        ingredients = temp.substring(0, temp.length() - 1);
+      }
+      st.execute(
+          "INSERT INTO dishes(name, price, category, available, ingredients, calories) VALUES ('"
+              + consumable.getName() + "', " + consumable.getPrice() + ", '" + consumable.getType()
+              + "', " + consumable.getIsAvailable() + ", '" + ingredients + "', "
+              + consumable.getCalories() + ");");
+      st.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    updateDishes();
+  }
+
+  public void removeDish(Consumable consumable) {
+    Statement st = null;
+    try {
+      st = connection.createStatement();
+      st.execute("DELETE FROM dishes WHERE name = '" + consumable.getName() + "';");
+      st.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    updateDishes();
+  }
+  
+  public void addOrder(Order order) {
     
-    return null;
+  }
+  
+  public void removeOrder(Order order) {
+    
   }
 
-  public ArrayList<Consumable> getDishes() {
+  private void updateStaffs() {
+    ResultSet rs = select("staffs");
+    staffList.clear();
+    try {
+      while (rs.next()) {
+        String username = rs.getString("username");
+        String password = rs.getString("password");
+        String role = rs.getString("role");
+        staffList.add(new Staff(ClientType.getType(role), username, password));
+      }
+    } catch (SQLException e) {
+      System.out.println("Failed to get staff list from database");
+    }
+  }
+
+  private void updateOrders() {
+    ResultSet rs = select("orders");
+    orderList.clear();
+    try {
+      while (rs.next()) {
+        int orderID = rs.getInt("order_id");
+        int custID = rs.getInt("cust_id");
+        int dishID = rs.getInt("dish_id");
+        String timeStamp = (rs.getTimestamp("order_time")).toString();
+        String status = rs.getString("status");
+        orderList.add(new Order(orderID, custID, dishID, timeStamp, status));
+      }
+    } catch (SQLException e) {
+      System.out.println("Failed to get order list from database");
+    }
+  }
+
+  public void updateDishes() {
     ResultSet rs = select("dishes");
-    ArrayList<Consumable> temp = new ArrayList<>();
+    dishList.clear();
     try {
       while (rs.next()) {
         int id = rs.getInt("dish_id");
@@ -85,12 +170,11 @@ public final class Database {
         for (String ingredient : rs.getString("ingredients").split("^")) {
           ingredients.add(ingredient);
         }
-        temp.add(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
+        dishList.add(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
       }
     } catch (SQLException e) {
       System.out.println("Failed to get dish list from database");
     }
-    return temp;
   }
 
   /**
