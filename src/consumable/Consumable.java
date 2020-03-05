@@ -20,7 +20,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
 
   /** serial ID of consumable class */
   private static final long serialVersionUID = 4356225391046116317L;
-  
+
   private int id;
 
   /** Category of the consumable. */
@@ -51,16 +51,14 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    * @param allergens
    * @param ingredients
    */
-  public Consumable(String type, String name, float price, int calories,
-      List<String> ingredients) {
+  public Consumable(int id, String type, String name, float price, int calories,
+      boolean isAvailable, List<String> ingredients) {
     this.type = type;
     this.name = name;
     this.price = price;
     this.calories = calories;
-    this.ingredients = new ArrayList<String>();
-    for (String ingredient : ingredients) {
-      this.ingredients.add(ingredient);
-    }
+    this.ingredients = ingredients;
+    this.isAvailable = isAvailable;
     Collections.sort(this.ingredients);
   }
 

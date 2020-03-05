@@ -40,10 +40,6 @@ public final class Server {
    * boolean to show if the server is running
    */
   boolean running = false;
-  /**
-   * increments every time a client connects.
-   */
-  private int i = 0;
 
   Customer customer = Customer.getInstance();
   Waiter waiter = Waiter.getInstance();
@@ -131,15 +127,6 @@ public final class Server {
         throw new InvalidClientTypeException();
 
     }
-  }
-
-  /**
-   * returns a unique number for each client.
-   * 
-   * @return number
-   */
-  public String addNumebr() {
-    return String.format("%04d", ++i);
   }
 
   public ArrayList<UserThread> getCustomerThreads() {

@@ -112,7 +112,8 @@ public class KitchenViewController {
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel("*" + order.getOrderID(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
+      //String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
+      String price = "00.00";
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseCheckButton("check menu", 8));

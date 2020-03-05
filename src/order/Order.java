@@ -25,10 +25,31 @@ public class Order implements Comparable<Order>, Serializable {
   /** The unique identifier of the customer who made the order. */
   private int custID;
 
-  /**
-   * The total price of the order, calculated by the total of the prices of each item in the order.
-   */
-  private float totalPrice;
+  private int dishID;
+
+  public int getDishID() {
+    return dishID;
+  }
+
+  public void setOrderID(int orderID) {
+    this.orderID = orderID;
+  }
+
+  public void setCustID(int custID) {
+    this.custID = custID;
+  }
+
+  public void setDishID(int dishID) {
+    this.dishID = dishID;
+  }
+
+  public void setTimeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
   private String timeStamp;
 
@@ -36,11 +57,6 @@ public class Order implements Comparable<Order>, Serializable {
    * The status of the order. Can be waiting, processing or ready.
    */
   private String status;
-
-  // TODO find a way to represent the order time
-
-  /** A list of the items ordered. */
-  private List<Consumable> items;
 
   /**
    * Instantiates a new order by specifying its id, customer id, order time and contents.
@@ -52,19 +68,12 @@ public class Order implements Comparable<Order>, Serializable {
    * @param status the status of the order
    * @param items The items ordered
    */
-  public Order(int orderID, int custID, float totalPrice, String timeStamp, String status,
-      String items) {
+  public Order(int orderID, int custID, int dishID, String timeStamp, String status) {
     this.orderID = orderID;
     this.custID = custID;
-    this.totalPrice = totalPrice;
+    this.dishID = dishID;
     this.timeStamp = timeStamp;
     this.status = status;
-    this.items = new ArrayList<Consumable>();
-    // String[] ingredients = items.split(",");
-    // for (String ingredient : ingredients) {
-    // Consumable item = new Consumable(ingredient);
-    // this.items.add(item);
-    // }
   }
 
   public Order(String serializedString) {
@@ -73,10 +82,9 @@ public class Order implements Comparable<Order>, Serializable {
       Order temp = (Order) ois.readObject();
       this.orderID = temp.orderID;
       this.custID = temp.custID;
-      this.totalPrice = temp.totalPrice;
+      this.dishID = temp.dishID;
       this.timeStamp = temp.timeStamp;
       this.status = temp.status;
-      this.items = temp.items;
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
@@ -101,15 +109,6 @@ public class Order implements Comparable<Order>, Serializable {
   }
 
   /**
-   * Returns the total price of the order.
-   * 
-   * @return the price of the order
-   */
-  public float getTotalPrice() {
-    return this.totalPrice;
-  }
-
-  /**
    * Returns the time at which the order was comfirmed
    * 
    * @return returns the timeStamp
@@ -125,33 +124,6 @@ public class Order implements Comparable<Order>, Serializable {
    */
   public String getStatus() {
     return this.status;
-  }
-
-  /**
-   * Returns the list of items in the order.
-   *
-   * @return the items
-   */
-  public List<Consumable> getItems() {
-    return this.items;
-  }
-
-  /**
-   * Adds item to order.
-   * 
-   * @param item the item
-   */
-  public void addItem(Consumable item) {
-    this.items.add(item);
-  }
-
-  /**
-   * Removes item from order.
-   * 
-   * @param item the item
-   */
-  public void removeItem(Consumable item) {
-    this.items.remove(item);
   }
 
   /**

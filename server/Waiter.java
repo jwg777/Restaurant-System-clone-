@@ -40,30 +40,19 @@ public class Waiter {
   }
 
   public ArrayList<Consumable> getMenu() throws SQLException {
-    ResultSet rs = database.select("SELECT * FROM Menu");
-    ArrayList<Consumable> list = new ArrayList<>();
-    while (rs.next()) {
-      String itemName = rs.getString("dish");
-      float itemPrice = rs.getFloat("price");
-      String allergens = rs.getString("allergens");
-      int calories = rs.getInt("calories");
-      String type = rs.getString("type");
-      list.add(new Consumable(type, itemName, itemPrice, calories, allergens));
-    }
-    return list;
+    return database.getDishes();
   }
 
   public ArrayList<Order> getOrders() throws SQLException {
     ResultSet rs = database.select("SELECT * FROM Orders");
     ArrayList<Order> list = new ArrayList<>();
     while (rs.next()) {
-      int orderID = rs.getInt("orderID");
-      int custID = rs.getInt("cust_ID");
-      float totalPrice = rs.getFloat("total_price");
-      String timeStamp = (rs.getTimestamp("orderTime")).toString();
-      String dish = rs.getString("dish");
+      int orderID = rs.getInt("order_id");
+      int custID = rs.getInt("cust_id");
+      int dishID = rs.getInt("dish_id");
+      String timeStamp = (rs.getTimestamp("order_time")).toString();
       String status = rs.getString("status");
-      list.add(new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+      list.add(new Order(orderID, custID, dishID, timeStamp, status));
     }
     return list;
   }

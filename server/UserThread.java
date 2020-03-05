@@ -83,9 +83,6 @@ public class UserThread extends Thread {
       String operand = "";
       type = ClientType.getType(read());
       server.addThread(this);
-      this.name = type.name() + "_" + server.addNumebr();
-      write("ACCEPTED " + name);
-      System.out.println("New Client joined [" + name + "]");
       switch (type) {
         case CUSTOMER:
           customer();
@@ -113,7 +110,10 @@ public class UserThread extends Thread {
     String operand;
     /*
      * Adds everything from menu first.
+     * Need to get ID from database then add to thread
      */
+    write("ACCEPTED " + name);
+    System.out.println("New Client joined [" + name + "]");
     System.out.println("Sending menu to " + name + "...");
     for (Consumable consumable : server.getMenuList()) {
       write("ADD " + consumable.serializeToString());
