@@ -62,6 +62,12 @@ public final class Database {
 
   public void getAll() {
     dishList = getDishes();
+    orderList = getOrders();
+  }
+
+  private ArrayList<Order> getOrders() {
+    
+    return null;
   }
 
   public ArrayList<Consumable> getDishes() {
