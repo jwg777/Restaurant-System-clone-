@@ -11,4 +11,7 @@ public class Customer {
     this.totalPrice = 0;
     this.paid = false;
   }
+  
+  
+  
 }

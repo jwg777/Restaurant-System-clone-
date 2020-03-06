@@ -144,15 +144,18 @@ public final class Database {
   
 
   public void addOrder(Order order) {
-
+    /*
+     * 1. Add to database
+     * 2. Add to local list
+     */
   }
   
   public void updateOrderStatus() {
-    
-  }
-
-  public void removeOrder(Order order) {
-
+    /*
+     * INCLUDES { CONFIM / CANCEL }
+     * 1. update on database
+     * 2. update on local list
+     */
   }
 
   private void updateStaffs() {
