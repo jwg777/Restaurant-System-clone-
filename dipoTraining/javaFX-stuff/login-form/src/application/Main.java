@@ -47,13 +47,15 @@ public class Main extends Application {
 				 
 			    @Override
 			    public void handle(ActionEvent e) {
-			        actiontarget.setFill(Color.FIREBRICK);
+//			        actiontarget.setFill(Color.FIREBRICK);
+			    	actiontarget.setId("actiontarget");
 			        actiontarget.setText("Sign in button pressed");
 			    }
 			});
 			
 			Text scenetitle = new Text("Welcome");
-			scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+			scenetitle.setId("welcome-text");
+//			scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 			grid.add(scenetitle, 0, 0, 2, 1);
 
 			Label userName = new Label("User Name:");
