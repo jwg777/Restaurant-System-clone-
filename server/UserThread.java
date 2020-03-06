@@ -81,25 +81,40 @@ public class UserThread extends Thread {
     try {
       String operator = "";
       String operand = "";
-      type = ClientType.getType(read());
+      String tempType = read();
       server.addThread(this);
-      switch (type) {
-        case CUSTOMER:
-          customer();
-          break;
-        case WAITER:
-          waiter();
-          break;
-        case KITCHEN:
-          kitchen();
-          break;
-        default:
-          break;
+      if (tempType.equals("CUSTOMER")) {
+        type = ClientType.CUSTOMER;
+        /*
+         * get id for name;
+         */
+        customer();
+      } else {
+        String[] authentication = read().split(" ");
+        switch (server.authenticate(authentication[0], authentication[1])) {
+          case WAITER:
+            /*
+             * get id/username for name
+             */
+            waiter();
+            break;
+          case KITCHEN:
+            /*
+             * get id for name
+             */
+            kitchen();
+            break;
+          default:
+            break;
+        }
+        /*
+         * Change to visitor pattern here after.
+         */
       }
     } catch (InvalidClientTypeException e) {
       System.out.println("Invalid User Type tried to Connect");
     } catch (IOException e) {
-      System.out.println(name + "has disconnected");
+      System.out.println(name + " has disconnected");
     } finally {
       close();
     }
@@ -109,8 +124,7 @@ public class UserThread extends Thread {
     String operator;
     String operand;
     /*
-     * Adds everything from menu first.
-     * Need to get ID from database then add to thread
+     * Adds everything from menu first. Need to get ID from database then add to thread
      */
     write("ACCEPTED " + name);
     System.out.println("New Client joined [" + name + "]");

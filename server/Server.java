@@ -41,9 +41,9 @@ public final class Server {
    */
   boolean running = false;
 
-  Customer customer = Customer.getInstance();
-  Waiter waiter = Waiter.getInstance();
+  Database database = Database.getInstance();
 
+  Waiter waiter = Waiter.getInstance();
 
   /**
    * private constructor for singleton method.
@@ -129,6 +129,15 @@ public final class Server {
     }
   }
 
+  public ClientType authenticate(String username, String password) {
+    for (Staff staff : database.getStaffList()) {
+      if (staff.getUsername().equals(username) && staff.getPassword().equals(password)) {
+        return staff.getRole();
+      }
+    }
+    return ClientType.INVALID;
+  }
+
   public ArrayList<UserThread> getCustomerThreads() {
     return customerThreads;
   }
@@ -142,16 +151,7 @@ public final class Server {
   }
 
   public ArrayList<Consumable> getMenuList() {
-    try {
-      // If user is customer
-      return customer.getMenu();
-      // If user is waiter
-      // return waiter.getMenu();
-      // }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null;
+    return database.getDishList();
   }
 
   public ArrayList<Order> getOrderList() {

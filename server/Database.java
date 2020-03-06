@@ -21,6 +21,8 @@ public final class Database {
   private ArrayList<Order> orderList = new ArrayList<>();
 
   private ArrayList<Staff> staffList = new ArrayList<>();
+  
+  private ArrayList<Customer> customerList = new ArrayList<>();
 
   /**
    * Constructor for class. Connects to the database.
@@ -138,9 +140,15 @@ public final class Database {
       }
     }
   }
+  
+  
 
   public void addOrder(Order order) {
 
+  }
+  
+  public void updateOrderStatus() {
+    
   }
 
   public void removeOrder(Order order) {

@@ -9,10 +9,6 @@ public class OaxacaServer{
 
   /** The server. */
   static Server server = Server.getInstance();
-  
-  /** CustomerData */
-  static Customer customer = Customer.getInstance();
-
 
   /**
    * Main method to run the server.
