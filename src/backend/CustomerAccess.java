@@ -2,6 +2,8 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -15,6 +17,7 @@ public class CustomerAccess {
 
   /** The customer data. */
   DataInteract customerData;
+  //ArrayList<String> revList;
 
   /**
    * Instantiates a new customer access.
@@ -84,20 +87,22 @@ public class CustomerAccess {
     return statusAndTime;
   }
 
-  public String getReviews() {
-
+  public ArrayList<String> getReviews() {
+    
+    ArrayList<String> revList = new ArrayList<String>();
     ResultSet rs = customerData.select("SELECT * FROM Reviews");
     String query = null;
     try {
       while (rs.next()) {
         query =
             rs.getString("name") + " " + rs.getString("star_rating") + " " + rs.getString("review");
-        //System.out.println(query);
+        System.out.println(query);
+        revList.add(query);
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return query;
+    return revList;
   }
 
 }

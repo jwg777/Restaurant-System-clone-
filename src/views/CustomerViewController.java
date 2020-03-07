@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.xml.ws.Response;
 import backend.CustomerAccess;
@@ -402,7 +403,12 @@ public class CustomerViewController {
   }
   
   public void scrollReviews() {
-    this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));
+    ArrayList<String> myRevs = customerData.getReviews();
+    int location = 50;
+    for(int i= 0; i < myRevs.size(); i++) {
+      this.revScroll.getChildren().add(initialiseLabel(myRevs.get(i), 400, location));
+      location += 80;
+    }
   }
   
   /**
