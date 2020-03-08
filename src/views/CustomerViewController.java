@@ -60,7 +60,8 @@ public class CustomerViewController {
 
   /** The menu. */
   MenuMap menu = MenuMap.getInstance();
-
+  
+  private double total = 0.00;
   
   /**
    * A VBox containing the starters in the menu.
@@ -94,7 +95,6 @@ public class CustomerViewController {
   @FXML
   ListView<String> paymentList = new ListView<>();
   
-
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
   
@@ -109,6 +109,12 @@ public class CustomerViewController {
   
   @FXML
   Button orderInfoButton = new Button();
+  
+  @FXML
+  private Pane totalPane;
+  
+  @FXML
+  private Pane ptotalPane;
 
   /**
    * Runs this method during scene start up.
@@ -256,6 +262,9 @@ public class CustomerViewController {
     
     orderedList.getItems().clear();
     paymentList.getItems().clear();
+    
+    this.total = 0.00;
+    totalLabel();
   }  
 
   /**
@@ -284,6 +293,8 @@ public class CustomerViewController {
         public void handle(ActionEvent event) {
           orderedList.getItems().remove(consumable.getName());
           paymentList.getItems().remove(consumable.getName());
+          total -= consumable.getPrice(); 
+          totalLabel();
         }
       });
       tempHBox.getChildren().add(minusStackPane); // Remove food Button
@@ -293,6 +304,8 @@ public class CustomerViewController {
         public void handle(ActionEvent event) {
           orderedList.getItems().add(consumable.getName());
           paymentList.getItems().add(consumable.getName());
+          total += consumable.getPrice();
+          totalLabel();
         }
       });
       tempHBox.getChildren().add(plusStackPane); // Add food Button
@@ -303,14 +316,13 @@ public class CustomerViewController {
           // method to bring up allergies and calories info
           addAlert.setContentText("Allergens: " + tAllergens + "    Calories: " + tCalories);
           addAlert.show();
-
-
         }
       });
       tempHBox.getChildren().add(infoStackPane); // Add info button
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     scrollReviews();
+    totalLabel();
     return vbox;
   }
 
@@ -414,13 +426,23 @@ public class CustomerViewController {
     }
   }
   
-  public void scrollReviews() {
+  private void scrollReviews() {
     ArrayList<String> myRevs = customerData.getReviews();
     int location = 50;
     for(int i= 0; i < myRevs.size(); i++) {
       this.revScroll.getChildren().add(initialiseLabel(myRevs.get(i), 400, location));
       location += 80;
     }
+  }
+  
+  private void totalLabel() {
+    String sTotal = String.valueOf(this.total); // + "0";
+    
+    this.totalPane.getChildren().clear();
+    this.totalPane.getChildren().add(initialiseLabel(sTotal, 100, 50));
+    
+    this.ptotalPane.getChildren().clear();
+    this.ptotalPane.getChildren().add(initialiseLabel(sTotal, 100, 100));
   }
   
   /**

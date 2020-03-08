@@ -28,7 +28,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   private String name;
 
   /** The price of the dish. */
-  private float price;
+  private double price;
 
   /** Calories of the dish. */
   private int calories;
@@ -132,7 +132,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    *
    * @return the price
    */
-  public float getPrice() {
+  public double getPrice() {
     return this.price;
   }
 
