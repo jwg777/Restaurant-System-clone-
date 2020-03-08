@@ -21,7 +21,7 @@ public final class Database {
   private ArrayList<Order> orderList = new ArrayList<>();
 
   private ArrayList<Staff> staffList = new ArrayList<>();
-  
+
   private ArrayList<Customer> customerList = new ArrayList<>();
 
   /**
@@ -94,10 +94,9 @@ public final class Database {
     if (dishExists(consumable)) {
       return;
     }
-    Statement st = null;
     try {
       // Adds to database
-      st = connection.createStatement();
+      Statement st = connection.createStatement();
       String temp = "";
       String ingredients = "";
       for (String ingredient : consumable.getIngredients()) {
@@ -140,21 +139,18 @@ public final class Database {
       }
     }
   }
-  
-  
+
+
 
   public void addOrder(Order order) {
     /*
-     * 1. Add to database
-     * 2. Add to local list
+     * 1. Add to database 2. Add to local list
      */
   }
-  
+
   public void updateOrderStatus() {
     /*
-     * INCLUDES { CONFIM / CANCEL }
-     * 1. update on database
-     * 2. update on local list
+     * INCLUDES { CONFIM / CANCEL } 1. update on database 2. update on local list
      */
   }
 
@@ -209,6 +205,35 @@ public final class Database {
       }
     } catch (SQLException e) {
       System.out.println("Failed to get dish list from database");
+    }
+  }
+
+  public boolean customerExist(Customer customer) {
+    for (Customer temp : customerList) {
+      if (temp.equals(customer)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public void addCustomer(Customer customer) {
+    try {
+      if (customerExist(customer)) {
+        throw new SQLException();
+      }
+      // Adds to database
+      Statement st = connection.createStatement();
+      st.execute("INSERT INTO customers(table_no, total_price, paid) VALUES ('"
+          + customer.getTable_number() + ", 0, f);");
+      ResultSet rs =
+          st.executeQuery("SELECT * FROM customers WHERE table_no = " + customer.getTable_number());
+      customer.setId(rs.getInt("cust_id"));
+      st.close();
+      // Adds to localList
+      customerList.add(customer);
+    } catch (SQLException e) {
+      System.out.println("Failed to add customer to database");
     }
   }
 

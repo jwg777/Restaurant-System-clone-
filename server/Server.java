@@ -165,4 +165,9 @@ public final class Server {
     }
     return null;
   }
+
+  public int addCustomer(int tableNum) {
+    database.addCustomer(new Customer(tableNum));
+    return 0;
+  }
 }

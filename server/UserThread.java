@@ -81,14 +81,10 @@ public class UserThread extends Thread {
     try {
       String operator = "";
       String operand = "";
-      String tempType = read();
+      String[] tempResponse = read().split(" ");
       server.addThread(this);
-      if (tempType.equals("CUSTOMER")) {
-        type = ClientType.CUSTOMER;
-        /*
-         * get id for name;
-         */
-        customer();
+      if (tempResponse[0].equals("CUSTOMER")) {
+        customer(tempResponse[1]);
       } else {
         String[] authentication = read().split(" ");
         switch (server.authenticate(authentication[0], authentication[1])) {
@@ -120,12 +116,10 @@ public class UserThread extends Thread {
     }
   }
 
-  public void customer() throws IOException {
+  public void customer(String tableNum) throws IOException {
     String operator;
     String operand;
-    /*
-     * Adds everything from menu first. Need to get ID from database then add to thread
-     */
+    int id = server.addCustomer(Integer.valueOf(tableNum));
     write("ACCEPTED " + name);
     System.out.println("New Client joined [" + name + "]");
     System.out.println("Sending menu to " + name + "...");
