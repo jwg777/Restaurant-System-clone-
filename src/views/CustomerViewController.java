@@ -250,6 +250,13 @@ public class CustomerViewController {
     }
   }
   
+  @FXML
+  private void clearOrder(ActionEvent event) throws Exception {
+    System.out.println("Clear Test");
+    
+    orderedList.getItems().clear();
+    paymentList.getItems().clear();
+  }  
 
   /**
    * Adds items to the VBox, as well as buttons to add/remove the item from an order.
