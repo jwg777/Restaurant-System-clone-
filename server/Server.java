@@ -167,7 +167,12 @@ public final class Server {
   }
 
   public int addCustomer(int tableNum) {
-    database.addCustomer(new Customer(tableNum));
-    return 0;
+    Customer temp = new Customer(tableNum);
+    database.addCustomer(temp);
+    return temp.getId();
+  }
+  
+  public void removeCustomer(int tableNum) {
+     database.removeCustomer(tableNum);
   }
 }

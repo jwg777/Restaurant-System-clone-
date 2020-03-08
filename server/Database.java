@@ -78,6 +78,7 @@ public final class Database {
     updateDishes();
     updateOrders();
     updateStaffs();
+    updateCustomers();
   }
 
   public boolean dishExists(Consumable consumable) {
@@ -208,6 +209,21 @@ public final class Database {
     }
   }
 
+  public void updateCustomers() {
+    ResultSet rs = select("customers", "paid = f");
+    try {
+      while (rs.next()) {
+        int id = rs.getInt("cust_id");
+        int tableNum = rs.getInt("table_no");
+        String note = rs.getString("note");
+        float totalPrice = rs.getFloat("total_price");
+        customerList.add(new Customer(id, tableNum, totalPrice, note));
+      }
+    } catch (SQLException e) {
+      System.out.println("Failed to get customer list from database");
+    }
+  }
+
   public boolean customerExist(Customer customer) {
     for (Customer temp : customerList) {
       if (temp.equals(customer)) {
@@ -226,14 +242,22 @@ public final class Database {
       Statement st = connection.createStatement();
       st.execute("INSERT INTO customers(table_no, total_price, paid) VALUES ('"
           + customer.getTable_number() + ", 0, f);");
-      ResultSet rs =
-          st.executeQuery("SELECT * FROM customers WHERE table_no = " + customer.getTable_number());
+      ResultSet rs = select("customers", "table_no =" + customer.getTable_number());
       customer.setId(rs.getInt("cust_id"));
       st.close();
-      // Adds to localList
+      // Adds to local list
       customerList.add(customer);
     } catch (SQLException e) {
       System.out.println("Failed to add customer to database");
+    }
+  }
+
+  public void removeCustomer(int tableNum) {
+    for (Customer temp : customerList) {
+      if (temp.getTable_number() == tableNum) {
+        customerList.remove(temp);
+        break;
+      }
     }
   }
 
@@ -244,10 +268,9 @@ public final class Database {
    * @return the result set
    */
   public ResultSet select(String table) {
-    Statement st = null;
     ResultSet rs = null;
     try {
-      st = connection.createStatement();
+      Statement st = connection.createStatement();
       rs = st.executeQuery("SELECT * FROM " + table);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -255,10 +278,20 @@ public final class Database {
     return rs;
   }
 
-  public void execute(String query) {
-    Statement st = null;
+  public ResultSet select(String table, String clause) {
+    ResultSet rs = null;
     try {
-      st = connection.createStatement();
+      Statement st = connection.createStatement();
+      rs = st.executeQuery("SELECT * FROM " + table + " WHERE " + clause);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return rs;
+  }
+
+  public void execute(String query) {
+    try {
+      Statement st = connection.createStatement();
       st.execute(query);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -266,13 +299,13 @@ public final class Database {
   }
 
   public void update(String update) {
-    Statement st = null;
     try {
-      st = connection.createStatement();
+      Statement st = connection.createStatement();
       st.executeUpdate(update);
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
+
 
 }

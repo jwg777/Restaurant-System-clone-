@@ -12,6 +12,14 @@ public class Customer {
     this.paid = false;
   }
 
+  public Customer(int id, int table_number, float totalPrice, String notes) {
+    this.id = id;
+    this.table_number = table_number;
+    this.totalPrice = totalPrice;
+    this.notes = notes;
+    this.paid = false;
+  }
+
   public int getId() {
     return id;
   }
@@ -57,7 +65,7 @@ public class Customer {
       return false;
     return true;
   }
-  
-  
-  
+
+
+
 }

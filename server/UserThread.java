@@ -119,7 +119,8 @@ public class UserThread extends Thread {
   public void customer(String tableNum) throws IOException {
     String operator;
     String operand;
-    int id = server.addCustomer(Integer.valueOf(tableNum));
+    // return id of the customer;
+    name = "CUSTOMER_" + server.addCustomer(Integer.valueOf(tableNum));
     write("ACCEPTED " + name);
     System.out.println("New Client joined [" + name + "]");
     System.out.println("Sending menu to " + name + "...");
@@ -127,9 +128,7 @@ public class UserThread extends Thread {
       write("ADD " + consumable.serializeToString());
     }
     System.out.println("Menu completly sent to " + name);
-    /*
-     * Reads for response.
-     */
+    //Reads for response
     do {
       String[] response = read().split(" ");
       System.out.println("[" + name + "] : " + Arrays.toString(response));
