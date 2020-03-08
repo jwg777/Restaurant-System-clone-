@@ -96,7 +96,6 @@ public class CustomerAccess {
       while (rs.next()) {
         query =
             rs.getString("name") + " " + rs.getString("star_rating") + " " + rs.getString("review");
-        System.out.println(query);
         revList.add(query);
       }
     } catch (SQLException e) {

@@ -91,6 +91,9 @@ public class CustomerViewController {
   @FXML
   ListView<String> orderedList = new ListView<>();
   
+  @FXML
+  ListView<String> paymentList = new ListView<>();
+  
 
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
@@ -245,8 +248,8 @@ public class CustomerViewController {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
-    
   }
+  
 
   /**
    * Adds items to the VBox, as well as buttons to add/remove the item from an order.
@@ -273,6 +276,7 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           orderedList.getItems().remove(consumable.getName());
+          paymentList.getItems().remove(consumable.getName());
         }
       });
       tempHBox.getChildren().add(minusStackPane); // Remove food Button
@@ -281,6 +285,7 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           orderedList.getItems().add(consumable.getName());
+          paymentList.getItems().add(consumable.getName());
         }
       });
       tempHBox.getChildren().add(plusStackPane); // Add food Button
