@@ -98,19 +98,10 @@ public final class Database {
     try {
       // Adds to database
       Statement st = connection.createStatement();
-      String temp = "";
-      String ingredients = "";
-      for (String ingredient : consumable.getIngredients()) {
-        temp += ingredient + "^";
-      }
-      // Removes last character of string.
-      if (temp.length() > 0) {
-        ingredients = temp.substring(0, temp.length() - 1);
-      }
       st.execute(
           "INSERT INTO dishes(name, price, category, available, ingredients, calories) VALUES ('"
               + consumable.getName() + "', " + consumable.getPrice() + ", '" + consumable.getType()
-              + "', " + consumable.getIsAvailable() + ", '" + ingredients + "', "
+              + "', " + consumable.getIsAvailable() + ", '" + consumable.getIngredients() + "', "
               + consumable.getCalories() + ");");
       st.close();
       // Adds to list locally
@@ -197,11 +188,8 @@ public final class Database {
         float price = rs.getFloat("price");
         String category = rs.getString("category");
         boolean isAvailable = rs.getBoolean("available");
-        ArrayList<String> ingredients = new ArrayList<>();
         int calories = rs.getInt("calories");
-        for (String ingredient : rs.getString("ingredients").split("^")) {
-          ingredients.add(ingredient);
-        }
+        String ingredients = rs.getString("ingredients");
         dishList.add(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
       }
     } catch (SQLException e) {

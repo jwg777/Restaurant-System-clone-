@@ -18,6 +18,8 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   /** serial ID of consumable class */
   private static final long serialVersionUID = 4356225391046116317L;
 
+  private int id;
+
   /** Category of the consumable. */
   private String type;
 
@@ -31,8 +33,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   private int calories;
 
   /** Specifies whether or not the dish is currently available. */
-  private boolean isAvailable = true;
-
+  private boolean isAvailable;
 
   /** A list of ingredients required to make the dish. */
   private String ingredients;
@@ -47,21 +48,31 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    * @param allergens
    * @param ingredients
    */
-  public Consumable(String type, String name, float price, int calories,
-      String ingredients) {
+  public Consumable(int id, String type, String name, float price, int calories,
+      boolean isAvailable, String ingredients) {
+    this.id = id;
     this.type = type;
     this.name = name;
     this.price = price;
     this.calories = calories;
     this.ingredients = ingredients;
+    this.isAvailable = isAvailable;
   }
   
+  public Consumable(String type, String name, float price, int calories,
+      boolean isAvailable, String ingredients) {
+    this.type = type;
+    this.name = name;
+    this.price = price;
+    this.calories = calories;
+    this.ingredients = ingredients;
+    this.isAvailable = isAvailable;
+  }
 
   public Consumable(String serializedString) {
     byte[] data = Base64.getDecoder().decode(serializedString);
     try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
-      Object object = ois.readObject();
-      Consumable temp = (Consumable) object;
+      Consumable temp = (Consumable) ois.readObject();
       this.type = temp.type;
       this.name = temp.name;
       this.price = temp.price;
@@ -70,7 +81,10 @@ public class Consumable implements Comparable<Consumable>, Serializable {
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
+  }
 
+  public boolean getIsAvailable() {
+    return isAvailable;
   }
 
   /**
@@ -146,6 +160,31 @@ public class Consumable implements Comparable<Consumable>, Serializable {
     ObjectOutputStream oos = new ObjectOutputStream(baos);
     oos.writeObject(this);
     return Base64.getEncoder().encodeToString(baos.toByteArray());
+  }
+  
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Consumable other = (Consumable) obj;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
+      return false;
+    if (type == null) {
+      if (other.type != null)
+        return false;
+    } else if (!type.equals(other.type))
+      return false;
+    return true;
   }
 
   /**
