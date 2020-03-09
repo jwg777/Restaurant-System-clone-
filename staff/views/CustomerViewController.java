@@ -327,7 +327,7 @@ public class CustomerViewController {
    */
   @FXML
   private void getOrderInfo(ActionEvent event) {
-    String orderNumber = orderID.getText();
+    /*String orderNumber = orderID.getText();
     String statusAndTime = "";
     try {
       statusAndTime = customerData.getStatusAndTime(orderNumber);
@@ -346,11 +346,11 @@ public class CustomerViewController {
       statusLabel.setText("");
       timeLabel.setText("");
       orderID.setText("");
-    }
+    }*/
   }
 
   public void scrollReviews() {
-    this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));
+    /*this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));*/
   }
 
   /**
