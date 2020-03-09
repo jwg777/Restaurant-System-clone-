@@ -341,8 +341,8 @@ public class WaiterViewController {
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 100, 50));
       tempHBox.getChildren().add(initialiseGap());
-      String price = String.format("%.2f", order.getTotalPrice());
-      tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 100, 50));
+      // tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 100,
+      // 50));
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
@@ -351,10 +351,7 @@ public class WaiterViewController {
         @Override
         public void handle(ActionEvent event) {
           try {
-            orderedList1.getItems().clear();
-            for (Consumable item : order.getItems()) {
-              orderedList1.getItems().add(item.getName());
-            }
+            orderedList1.getItems().add(String.valueOf(order.getDishID()));
           } catch (Exception e) {
             e.printStackTrace();
           }
@@ -474,7 +471,7 @@ public class WaiterViewController {
 
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      
+
       Alert confirmed = new Alert(AlertType.INFORMATION);
       confirmed.setTitle("Confirm Order");
       confirmed.setHeaderText(null);

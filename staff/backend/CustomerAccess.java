@@ -15,6 +15,8 @@ public class CustomerAccess {
 
   /** The customer data. */
   DataInteract customerData;
+  
+  static ServerAccess server = ServerAccess.getInstance();
 
   /**
    * Instantiates a new customer access.

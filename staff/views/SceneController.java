@@ -1,6 +1,8 @@
 package views;
 
 import java.io.IOException;
+import backend.ServerAccess;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +20,10 @@ public final class SceneController {
   /** The stage. */
   private Stage stage;
 
+  private MenuListener menuListener;
+
+  private static ServerAccess server = ServerAccess.getInstance();
+
   /**
    * Gets the single instance of ButtonController.
    *
@@ -33,9 +39,7 @@ public final class SceneController {
   /**
    * Instantiates a new button controller.
    */
-  private SceneController() {
-
-  }
+  private SceneController() {}
 
   /**
    * Changes the stage.
@@ -61,7 +65,6 @@ public final class SceneController {
     stage.show();
   }
 
-  /**
    * Opens the main menu view.
    *
    * @throws IOException Signals that an I/O exception has occurred.
@@ -86,6 +89,20 @@ public final class SceneController {
    */
   public void startKitchen() throws IOException {
     sceneChange("KitchenView.fxml", "Oaxaca Kitchen View");
+  }
+
+  public void setMenuListener(MenuListener menuListener) {
+    this.menuListener = menuListener;
+  }
+
+  public MenuListener getMenuListener() {
+    return menuListener;
+  }
+
+  public void sendOrder(ObservableList<String> orderList) {
+    for (String string : orderList) {
+      server.write("ORDER " + string);
+    }
   }
 
 }

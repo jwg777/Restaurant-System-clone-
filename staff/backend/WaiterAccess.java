@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -51,18 +52,20 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
-
     ResultSet rs = waiterData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
-
     while (rs.next()) {
-      String itemName = rs.getString("dish");
-      float itemPrice = rs.getFloat("price");
-      String allergens = rs.getString("allergens");
+      int id = rs.getInt("dish_id");
+      String name = rs.getString("name");
+      float price = rs.getFloat("price");
+      String category = rs.getString("category");
+      boolean isAvailable = rs.getBoolean("available");
+      ArrayList<String> ingredients = new ArrayList<>();
       int calories = rs.getInt("calories");
-      String type = rs.getString("type");
-
-      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
+      for (String ingredient : rs.getString("ingredients").split("^")) {
+        ingredients.add(ingredient);
+      }
+      tempMap.put(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
     }
 
 
@@ -76,15 +79,13 @@ public class WaiterAccess {
   public void viewOrders() throws SQLException {
     ResultSet rs = waiterData.select("SELECT * FROM ORDERS ORDER BY orderTime");
     OrderMap tempMap = OrderMap.getInstance();
-
     while (rs.next()) {
-      int orderID = rs.getInt("orderID");
-      int custID = rs.getInt("cust_ID");
-      float totalPrice = rs.getFloat("total_price");
-      String timeStamp = (rs.getTimestamp("orderTime")).toString();
-      String dish = rs.getString("dish");
+      int orderID = rs.getInt("order_id");
+      int custID = rs.getInt("cust_id");
+      int dishID = rs.getInt("dish_id");
+      String timeStamp = (rs.getTimestamp("order_time")).toString();
       String status = rs.getString("status");
-      tempMap.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+      tempMap.put(status, new Order(orderID, custID, dishID, timeStamp, status));
     }
   }
 
@@ -163,16 +164,17 @@ public class WaiterAccess {
     }
     return false;
   }
-  
+
   /**
    * This method returns the alerts currently stored in the database and puts them in a result set.
+   * 
    * @return resultset storing alerts.
    */
   public ResultSet getAlerts() {
     ResultSet rs = waiterData.select("SELECT * FROM Messages");
     return rs;
   }
-  
+
   public void removeAlert(String message) {
     waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
   }

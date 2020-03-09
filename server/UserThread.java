@@ -1,10 +1,12 @@
-package oaxacaServer;
+
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
+import consumable.Consumable;
+import order.Order;
 
 /**
  * The Class UserThread.
@@ -79,45 +81,54 @@ public class UserThread extends Thread {
     try {
       String operator = "";
       String operand = "";
-      type = ClientType.getType(read());
+      String[] tempResponse = read().split(" ");
       server.addThread(this);
-      this.name = type.name() + "_" + server.addNumebr();
-      write("ACCEPTED " + name);
-      System.out.println("New Client joined [" + name + "]");
-      switch (type) {
-        case CUSTOMER:
-          customer();
-          break;
-        case WAITER:
-          waiter();
-          break;
-        case KITCHEN:
-          kitchen();
-          break;
-        default:
-          break;
+      if (tempResponse[0].equals("CUSTOMER")) {
+        customer(tempResponse[1]);
+      } else {
+        String[] authentication = read().split(" ");
+        switch (server.authenticate(authentication[0], authentication[1])) {
+          case WAITER:
+            /*
+             * get id/username for name
+             */
+            waiter();
+            break;
+          case KITCHEN:
+            /*
+             * get id for name
+             */
+            kitchen();
+            break;
+          default:
+            break;
+        }
+        /*
+         * Change to visitor pattern here after.
+         */
       }
     } catch (InvalidClientTypeException e) {
       System.out.println("Invalid User Type tried to Connect");
     } catch (IOException e) {
-      System.out.println("IOException Catched");
+      System.out.println(name + " has disconnected");
     } finally {
       close();
     }
   }
 
-  public void customer() throws IOException {
+  public void customer(String tableNum) throws IOException {
     String operator;
     String operand;
-    /*
-     * Adds everything from menu first.
-     */
+    // return id of the customer;
+    name = "CUSTOMER_" + server.addCustomer(Integer.valueOf(tableNum));
+    write("ACCEPTED " + name);
+    System.out.println("New Client joined [" + name + "]");
+    System.out.println("Sending menu to " + name + "...");
     for (Consumable consumable : server.getMenuList()) {
       write("ADD " + consumable.serializeToString());
     }
-    /*
-     * Reads for response.
-     */
+    System.out.println("Menu completly sent to " + name);
+    //Reads for response
     do {
       String[] response = read().split(" ");
       System.out.println("[" + name + "] : " + Arrays.toString(response));
@@ -130,22 +141,36 @@ public class UserThread extends Thread {
         operand = response[1];
         switch (operator.toUpperCase()) {
           case "ORDER":
-            /*
-             * Gets consumable, returns as order to Waiter.
-             */
+            System.out.println("Sending " + name + " order " + operand + " to waiter");
             break;
           default:
             operator = "STOP";
             break;
         }
-        continue;
       }
 
     } while (operator.equals("STOP"));
   }
 
-  public void waiter() {
-
+  public void waiter() throws IOException {
+    String operator;
+    String operand;
+    /*
+     * Adds everything from menu first.
+     */
+    System.out.println("Sending menu to " + name + "...");
+    for (Consumable consumable : server.getMenuList()) {
+      write("ADD " + consumable.serializeToString());
+    }
+    System.out.println("Menu completly sent to " + name);
+    /*
+     * Adds orders from database first.
+     */
+    System.out.println("Sending orders to " + name + "...");
+    for (Order order : server.getOrderList()) {
+      write("ADD " + order.serializeToString());
+    }
+    System.out.println("All orders sent to " + name);
   }
 
   public void kitchen() {

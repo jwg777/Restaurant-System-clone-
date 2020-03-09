@@ -1,4 +1,4 @@
-package oaxacaServer;
+
 
 public class InvalidClientTypeException extends Exception {
 

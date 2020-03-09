@@ -2,6 +2,10 @@ package backend;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import consumable.Consumable;
+import consumable.MenuMap;
+import views.SceneController;
 
 /**
  * Read Thread Class to read from server at real time.
@@ -22,6 +26,10 @@ final public class ReadThread extends Thread {
    * response given by the server.
    */
   private String response;
+
+  MenuMap menu = MenuMap.getInstance();
+  
+  static SceneController controller = SceneController.getInstance();
 
   /**
    * Private constructor for the singleton class.
@@ -67,36 +75,31 @@ final public class ReadThread extends Thread {
    * @see java.lang.Thread#run()
    */
   public void run() {
-    String action;
-    while (true) {
+    String operator;
+    String operand;
+    do {
       try {
-        action = input.readUTF();
-        String[] actionArray = action.split(" ");
-        switch (actionArray[0]) {
-          case "ACCEPTED":
-          case "DENIED":
-          case "OK":
-            response = actionArray[0];
-            break;
-          case "UPDATEMENU":
-            /*
-             * Updates whole menu
-             */
-            break;
+        String[] responseArray = ((String) input.readUTF()).split(" ");
+        System.out.println(Arrays.toString(responseArray));
+        if (responseArray.length > 2 || responseArray.length == 0) {
+          continue;
+        }
+        operator = responseArray[0];
+        if (responseArray.length == 1) {
+          response = operator;
+          continue;
+        }
+        operand = responseArray[1];
+        switch (operator.toUpperCase()) {
           case "ADD":
-            /*
-             * Adds consumable to menu
-             */
-            break;
-          case "DELETE":
-            /*
-             * Deletes consumable from menu
-             */
+            menu.put(new Consumable(operand));
+            controller.getMenuListener().onMenuChange();
             break;
         }
+
       } catch (IOException e) {
       }
-    }
+    } while (true);
   }
 
 

@@ -1,22 +1,16 @@
 package views;
 
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Optional;
-import javax.xml.ws.Response;
 import backend.CustomerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
-import database_cafe.Database;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,7 +35,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // TODO: Auto-generated Javadoc
@@ -55,11 +48,10 @@ public class CustomerViewController {
   CustomerAccess customerData = new CustomerAccess();
 
   /** The button controller. */
-  SceneController butController = SceneController.getInstance();
+  SceneController controller = SceneController.getInstance();
 
   /** The menu. */
   MenuMap menu = MenuMap.getInstance();
-
 
   /**
    * A VBox containing the starters in the menu.
@@ -113,7 +105,16 @@ public class CustomerViewController {
    */
   @FXML
   private void initialize() throws Exception {
-    reloadPush();
+    controller.setMenuListener(new MenuListener() {
+      @Override
+      public void onMenuChange() {
+        try {
+          reload();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
   }
 
   /**
@@ -123,7 +124,7 @@ public class CustomerViewController {
    */
   @FXML
   private void returnPush() throws Exception {
-    butController.startMain();
+    controller.startMain();
   }
 
   /**
@@ -132,11 +133,13 @@ public class CustomerViewController {
    * @throws Exception the exception
    */
   @FXML
-  private void reloadPush() throws Exception {
-    menu.clear();
-    customerData.getMenu();
-    menuTabPane.getTabs().clear();
-    createMenu(menu);
+  private void reload() throws Exception {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        createMenu(menu);       
+      }    
+    });
   }
 
   /**
@@ -146,10 +149,15 @@ public class CustomerViewController {
    */
   @FXML
   private void sendOrder() throws Exception {
+    System.out.println("Order Button Pressed");
     /*
      * needs to check if order is valid.
      */
     ObservableList<String> orders = orderedList.getItems();
+<<<<<<< HEAD:src/views/CustomerViewController.java
+    controller.sendOrder(orders);
+
+=======
     /*
      * Needs a new class and methods to run the following. This is only temporary.
      */
@@ -189,6 +197,7 @@ public class CustomerViewController {
         }
       }
     });
+>>>>>>> master:staff/views/CustomerViewController.java
   }
 
   /**
@@ -245,7 +254,7 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
-      // String tAllergens = consumable.getAllergen();
+      String tAllergens = "";
       int tCalories = consumable.getCalories();
 
       ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
@@ -330,6 +339,7 @@ public class CustomerViewController {
    */
 
   public void createMenu(MenuMap menu) {
+    menuTabPane.getTabs().clear();
     for (String string : menu.keyArray()) {
       menuTabPane.getTabs().add(createTab(string, menu.get(string)));
     }

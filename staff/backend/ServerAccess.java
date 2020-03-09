@@ -40,11 +40,19 @@ final public class ServerAccess {
    * 
    * @return instance
    */
-  public ServerAccess getInstance() {
+  public static ServerAccess getInstance() {
     if (instance == null) {
       instance = new ServerAccess();
     }
     return instance;
+  }
+
+  public void start() {
+    try {
+      setConnection("localhost",6666);
+      //setConnection("167.99.149.174", 6666);
+    } catch (IOException e) {
+    }
   }
 
   /**
@@ -67,6 +75,7 @@ final public class ServerAccess {
       @Override
       public void run() {
         try {
+          System.out.println("Client -> Server: [" + string + "]");
           write.write(string);
         } catch (IOException e) {
         }
@@ -74,7 +83,18 @@ final public class ServerAccess {
     });
   }
 
+  public boolean login(String type) throws IOException {
+    write(type);
+    String response = read.getResponse();
+    return true;
+    // if (response.equals("ACCEPTED")) {
+    // return true;
+    // }
+    // throw new IOException();
+  }
+
   public boolean login(String type, String username, String password) throws IOException {
+    write(type);
     write(username);
     write(password);
     String response = read.getResponse();

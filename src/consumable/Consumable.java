@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.

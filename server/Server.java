@@ -1,10 +1,12 @@
-package oaxacaServer;
+
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import consumable.Consumable;
+import order.Order;
 
 /**
  * Server program to manage orders, confirmations, and notifications.
@@ -38,19 +40,15 @@ public final class Server {
    * boolean to show if the server is running
    */
   boolean running = false;
-  /**
-   * increments every time a client connects.
-   */
-  private int i = 0;
-  
-  Customer customer = Customer.getInstance();
-  
+
+  Database database = Database.getInstance();
+
+  Waiter waiter = Waiter.getInstance();
 
   /**
    * private constructor for singleton method.
    */
-  private Server() {
-  }
+  private Server() {}
 
   /**
    * returns the singleton instance of the class
@@ -95,11 +93,11 @@ public final class Server {
    * Removes the thread of the user.
    * 
    * @param user
-   * @throws InvalidClientTypeException 
-   * @throws UserNotFoundException 
+   * @throws InvalidClientTypeException
+   * @throws UserNotFoundException
    */
   public void removeThread(UserThread user) throws InvalidClientTypeException {
-    switch(user.getType()) {
+    switch (user.getType()) {
       case CUSTOMER:
         customerThreads.remove(user);
         break;
@@ -113,9 +111,9 @@ public final class Server {
         throw new InvalidClientTypeException();
     }
   }
-  
-  public void addThread(UserThread user) throws InvalidClientTypeException{
-    switch(user.getType()) {
+
+  public void addThread(UserThread user) throws InvalidClientTypeException {
+    switch (user.getType()) {
       case CUSTOMER:
         customerThreads.add(user);
         break;
@@ -127,17 +125,17 @@ public final class Server {
         break;
       case INVALID:
         throw new InvalidClientTypeException();
-        
+
     }
   }
 
-  /**
-   * returns a unique number for each client.
-   * 
-   * @return number
-   */
-  public String addNumebr() {
-    return String.format("%04d", ++i);
+  public ClientType authenticate(String username, String password) {
+    for (Staff staff : database.getStaffList()) {
+      if (staff.getUsername().equals(username) && staff.getPassword().equals(password)) {
+        return staff.getRole();
+      }
+    }
+    return ClientType.INVALID;
   }
 
   public ArrayList<UserThread> getCustomerThreads() {
@@ -151,14 +149,22 @@ public final class Server {
   public ArrayList<UserThread> getKitchenThreads() {
     return kitchenThreads;
   }
-  
-  public ArrayList<Consumable> getMenuList(){
-    try {
-      return customer.getMenu();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null;
+
+  public ArrayList<Consumable> getMenuList() {
+    return database.getDishList();
   }
 
+  public ArrayList<Order> getOrderList() {
+    return database.getOrderList();
+  }
+
+  public int addCustomer(int tableNum) {
+    Customer temp = new Customer(tableNum);
+    database.addCustomer(temp);
+    return temp.getId();
+  }
+  
+  public void removeCustomer(int tableNum) {
+     database.removeCustomer(tableNum);
+  }
 }
