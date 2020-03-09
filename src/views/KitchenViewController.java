@@ -1,7 +1,10 @@
 package views;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import backend.KitchenAccess;
+import backend.WaiterAccess;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -23,7 +26,7 @@ import order.OrderMap;
  */
 public class KitchenViewController {
   /**
-   * Initialise the data of waterAccess.
+   * Initialise the data of KicthenAccess.
    */
   KitchenAccess kitchenData = new KitchenAccess();
   /** The menu tab pane. */
@@ -57,7 +60,9 @@ public class KitchenViewController {
   /**
    * Initialise the NewOrderTab in the TabPane.
    */
+  @FXML
   TabPane OrderTabPane = new TabPane();
+  
 
 
   /**
@@ -78,6 +83,7 @@ public class KitchenViewController {
   private void newOrderReload() throws Exception {
     order.clear();
     kitchenData.getOrders();
+    kitchenData.getMenu();
     kitchenOrders.getTabs().clear();
     createOrders(order);
   }
@@ -98,6 +104,7 @@ public class KitchenViewController {
    * 
    * @param list return consumable menu value.
    * @return the corresponding VBox value.
+   * @throws SQLException thrown if SQL error occurs
    */
   private VBox createNewOrderVBox(ArrayList<Order> list) {
     VBox vbox = new VBox();
@@ -105,12 +112,20 @@ public class KitchenViewController {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
       tempHBox.setPrefHeight(50);
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel("*" + order.getOrderID(), 150, 50));
+      tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 100, 50));
       tempHBox.getChildren().add(initialiseGap());
       String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
-      tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
+      tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 100, 50));
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseCheckButton("check menu", 8));
+      tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
+      tempHBox.getChildren().add(initialiseGap());
+      if (order.getStatus().equals("processing")) {
+        tempHBox.getChildren().add(initialiseCheckButton("started", 16, -1));
+      } else if (order.getStatus().equals("started")) {
+        tempHBox.getChildren().add(initialiseCheckButton("completed", 16, -1));
+      } else if (order.getStatus().equals("ready")) {
+        tempHBox.getChildren().add(initialiseCheckButton("paid", 16, order.getCustID()));
+      }
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
     return vbox;
@@ -147,11 +162,19 @@ public class KitchenViewController {
    * @param name return the string name
    * @param font return the size of the string font.
    * @return the button.
+   * @throws SQLException thrown if SQL error occurs
    */
-  private CheckBox initialiseCheckButton(String name, int font) {
+  private CheckBox initialiseCheckButton(String name, int font, int custID) {
     CheckBox check = new CheckBox(name); // Button to remove and add food to order list
-    check.setPrefSize(70, 50);
+    check.setPrefSize(150, 50);
     check.setFont(new Font(font));
+    try {
+      if (custID != -1 && kitchenData.getIfPaid(custID)) {
+        check.fire();
+      }
+    } catch (SQLException e) {
+      e.printStackTrace(); 
+    }
     return check;
   }
 
