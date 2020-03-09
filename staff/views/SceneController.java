@@ -65,10 +65,6 @@ public final class SceneController {
     stage.show();
   }
 
-   * Opens the main menu view.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
   public void startMain() throws IOException {
     sceneChange("MainView.fxml", "Oaxaca Management System");
   }

@@ -65,7 +65,7 @@ public class WaiterAccess {
       for (String ingredient : rs.getString("ingredients").split("^")) {
         ingredients.add(ingredient);
       }
-      tempMap.put(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
+      //tempMap.put(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
     }
 
 
