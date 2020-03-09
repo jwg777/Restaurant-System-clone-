@@ -155,15 +155,7 @@ public final class Server {
   }
 
   public ArrayList<Order> getOrderList() {
-    try {
-      // If user is water
-      return waiter.getOrders();
-      // If user is kitchen
-      // return kitchen.getOrders();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null;
+    return database.getOrderList();
   }
 
   public int addCustomer(int tableNum) {
