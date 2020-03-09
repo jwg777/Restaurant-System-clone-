@@ -7,7 +7,6 @@ import backend.WaiterAccess;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -32,7 +31,7 @@ public class KitchenViewController {
   KitchenAccess kitchenData = new KitchenAccess();
   /** The menu tab pane. */
   @FXML
-  private TabPane orderTabPane = new TabPane();
+  private TabPane kitchenOrders = new TabPane();
 
   /** The vbox new. */
   @FXML
@@ -50,9 +49,6 @@ public class KitchenViewController {
   @FXML
   private ListView<?> orderedList;
 
-  /** The reload. */
-  @FXML
-  private Button reload;
 
   /** The button controller. */
   SceneController butController = SceneController.getInstance();
@@ -76,7 +72,6 @@ public class KitchenViewController {
    */
   @FXML
   private void initialize() throws Exception {
-
     newOrderReload();
   }
 
@@ -89,7 +84,7 @@ public class KitchenViewController {
     order.clear();
     kitchenData.getOrders();
     kitchenData.getMenu();
-    orderTabPane.getTabs().clear();
+    kitchenOrders.getTabs().clear();
     createOrders(order);
   }
 
@@ -207,7 +202,7 @@ public class KitchenViewController {
    */
   public void createOrders(OrderMap orders) {
     for (String string : orders.keyArray()) {
-      orderTabPane.getTabs().add(createNewOrderTab(string, orders.get(string)));
+      kitchenOrders.getTabs().add(createNewOrderTab(string, orders.get(string)));
     }
   }
 

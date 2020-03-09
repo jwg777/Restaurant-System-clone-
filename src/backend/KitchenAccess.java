@@ -12,12 +12,13 @@ import order.OrderMap;
 /**
  * 
  * Class containing methods for accessing and interacting with the database for the kitchen view.
+ * 
  * @author joshuagargan
  *
  */
 public class KitchenAccess {
 
-  
+
   /** Field kitchenData- a singleton of the DataInteract class */
   DataInteract kitchenData;
 
@@ -29,13 +30,6 @@ public class KitchenAccess {
   }
 
   /**
-   * This method will change the menu with new data.
-   */
-  public void changeMenu() {
-    // some query to alter menu
-  }
-
-  /**
    * This method will return the currenly stored orders from the database and update OrderMap.
    * @throws SQLException Thrown if sql error occurs
    */
@@ -43,6 +37,7 @@ public class KitchenAccess {
     ResultSet rs = kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
     OrderMap map = OrderMap.getInstance();
     
+
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
@@ -83,10 +78,21 @@ public class KitchenAccess {
   }
 
   /**
-
+   * 
    * This method will alter the state of an order. E.g change an order to complete.
    */
   public void setOrderStatus() {
     // kitchenData.insertIntoTable("some command for order status");
   }
+
+  /**
+   * method to remove the orders placed.
+   * 
+   * @param order
+   */
+  public void removeOrders(Order order) {
+    kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+  }
+
+
 }
