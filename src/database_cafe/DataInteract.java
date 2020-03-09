@@ -21,7 +21,7 @@ public final class DataInteract {
     System.out.println("Database connection flag...");
     database = new Database();
     database
-        .createTable("Customers(cust_id int primary key, password varchar(20), tableNumber int, paid boolean)");
+        .createTable("Customers(cust_id int primary key, password varchar(20), tableNumber int)");
     database.createTable(
         "Menu(dish varChar(100) primary key, price numeric(4, 2), allergens varchar(500), calories int, type varchar(100))");
     database.createTable(
