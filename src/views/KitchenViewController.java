@@ -80,11 +80,12 @@ public class KitchenViewController {
    * 
    * @throws Exception
    */
+  @FXML
   private void newOrderReload() throws Exception {
     order.clear();
     kitchenData.getOrders();
     kitchenData.getMenu();
-    kitchenOrders.getTabs().clear();
+    OrderTabPane.getTabs().clear();
     createOrders(order);
   }
 
@@ -202,7 +203,7 @@ public class KitchenViewController {
    */
   public void createOrders(OrderMap orders) {
     for (String string : orders.keyArray()) {
-      kitchenOrders.getTabs().add(createNewOrderTab(string, orders.get(string)));
+      OrderTabPane.getTabs().add(createNewOrderTab(string, orders.get(string)));
     }
   }
 
