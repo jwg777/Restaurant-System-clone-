@@ -74,7 +74,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
-    ResultSet rs = waiterData.select("SELECT * FROM ORDERS WHERE status != 'started' ORDER BY orderTime");
+    ResultSet rs = waiterData.select("SELECT * FROM ORDERS ORDER BY orderTime");
     OrderMap tempMap = OrderMap.getInstance();
 
     while (rs.next()) {
