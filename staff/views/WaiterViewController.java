@@ -635,7 +635,6 @@ public class WaiterViewController {
     }
   }
 
-
   @FXML
   public void remove() {
     int index = alerts.getSelectionModel().getSelectedIndex();

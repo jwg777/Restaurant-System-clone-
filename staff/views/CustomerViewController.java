@@ -60,25 +60,25 @@ public class CustomerViewController {
   /** The menu. */
   MenuMap menu = MenuMap.getInstance();
 
-  
+
   /**
    * A VBox containing the starters in the menu.
    */
   @FXML
   VBox vboxStarter = new VBox();
-  
+
   @FXML
   TextArea textArea = new TextArea();
 
   @FXML
   private TextArea reviewBox;
-  
+
   @FXML
   private TextField nameBox;
-  
+
   @FXML
   private TextField ratingBox;
-  
+
   @FXML
   private AnchorPane revScroll;
 
@@ -89,20 +89,20 @@ public class CustomerViewController {
   /** The ordered list. */
   @FXML
   ListView<String> orderedList = new ListView<>();
-  
+
 
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
-  
+
   @FXML
   private TextField orderID;
-  
+
   @FXML
   Label statusLabel = new Label();
-  
+
   @FXML
   Label timeLabel = new Label();
-  
+
   @FXML
   Button orderInfoButton = new Button();
 
@@ -159,7 +159,7 @@ public class CustomerViewController {
         try (Socket s = new Socket("192.168.1.13", 6666);
             DataOutputStream dout = new DataOutputStream(s.getOutputStream());
             DataInputStream dIn = new DataInputStream(s.getInputStream())) {
-          dout.writeUTF("CUSTOMER"); //tells server that you're a customer
+          dout.writeUTF("CUSTOMER"); // tells server that you're a customer
           dout.flush();
           dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
           dout.flush();
@@ -195,25 +195,25 @@ public class CustomerViewController {
    * Submit review.
    *
    * @param event the event
-   * @throws IOException 
+   * @throws IOException
    */
   @FXML
   void submitReview(ActionEvent event) throws IOException {
     // System.out.println("Thanks");
     // method to submitReview
     String rB = reviewBox.getText(), nB = nameBox.getText(), raB = ratingBox.getText();
-    System.out.println(nB +", "+ raB +", "+ rB);
+    System.out.println(nB + ", " + raB + ", " + rB);
     reviewBox.clear();
     nameBox.clear();
     ratingBox.clear();
-    
+
     File file = new File("Reviews");
     FileWriter fr = new FileWriter(file, true);
-    fr.write("\n"+ nB +">"+ raB +">"+ rB);
+    fr.write("\n" + nB + ">" + raB + ">" + rB);
     fr.close();
-    
+
     try {
-      //Loading the "Thanks!" scene
+      // Loading the "Thanks!" scene
       FXMLLoader fLoad = new FXMLLoader(getClass().getResource("ThanksReviewView.fxml"));
       Parent root = (Parent) fLoad.load();
       Stage stage = new Stage();
@@ -245,7 +245,7 @@ public class CustomerViewController {
       tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 70, 50));
       tempHBox.getChildren().add(initialiseGap());
       StackPane minusStackPane = initialiseButton("-");
-      String tAllergens = consumable.getAllergen();
+      // String tAllergens = consumable.getAllergen();
       int tCalories = consumable.getCalories();
 
       ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
@@ -268,8 +268,8 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           // method to bring up allergies and calories info
-          addAlert.setContentText("Allergens: " + tAllergens + "    Calories: " + tCalories);
-          addAlert.show();
+          // addAlert.setContentText("Allergens: " + tAllergens + " Calories: " + tCalories);
+          // addAlert.show();
 
 
         }
@@ -351,8 +351,9 @@ public class CustomerViewController {
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
   }
-  
-  /** When get information button is pressed, will fill in status and last update time.
+
+  /**
+   * When get information button is pressed, will fill in status and last update time.
    * 
    * @param event on being pressed action
    * 
@@ -366,28 +367,29 @@ public class CustomerViewController {
       String[] split = new String[2];
       split = statusAndTime.split(">");
       if (split[0] == "" || split[1] == "") {
-        Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+        Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
         alert.showAndWait();
       } else {
         statusLabel.setText(split[0]);
         timeLabel.setText(split[1]);
       }
     } catch (Exception e) {
-      Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+      Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
       alert.showAndWait();
       statusLabel.setText("");
       timeLabel.setText("");
       orderID.setText("");
     }
   }
-  
+
   public void scrollReviews() {
     this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));
   }
-  
+
   /**
-   * Method sends whatver is contained in relevent textbox to the database. This will be accessed by the waiter.
-   * This method is to be called in the correct action button method when the button is pressed.
+   * Method sends whatver is contained in relevent textbox to the database. This will be accessed by
+   * the waiter. This method is to be called in the correct action button method when the button is
+   * pressed.
    */
   @FXML
   public void contactWaiter() {
@@ -395,7 +397,8 @@ public class CustomerViewController {
     message = "'" + message + "'";
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("Notify Waiter");
-    alert.setHeaderText("You are confirming that you want to send- " + message + "- to the order to the Waiter.");
+    alert.setHeaderText(
+        "You are confirming that you want to send- " + message + "- to the order to the Waiter.");
 
     Optional<ButtonType> result = alert.showAndWait();
 
@@ -406,7 +409,8 @@ public class CustomerViewController {
       sendMessage.setContentText("The message has been successfully sent.");
       sendMessage.showAndWait();
     }
-    //will need to someohow contain order ID in the future so that the waiter can know which table has sent the message.
+    // will need to someohow contain order ID in the future so that the waiter can know which table
+    // has sent the message.
     customerData.notifyWaiter(message);
     textArea.clear();
   }

@@ -30,18 +30,21 @@ public class KitchenAccess {
    * This method will return the currenly stored orders from the database and update OrderMap.
    */
   public void getOrders() throws Exception {
-    ResultSet rs = kitchenData.select("SELECT * FROM ORDERS ORDER BY orderTime");
-    OrderMap tempMap = OrderMap.getInstance();
-
-    while (rs.next()) {
-      int orderID = rs.getInt("orderID");
-      int custID = rs.getInt("cust_ID");
-      float totalPrice = rs.getFloat("total_price");
-      String timeStamp = (rs.getTimestamp("orderTime")).toString();
-      String dish = rs.getString("dish");
-      String status = rs.getString("status");
-      tempMap.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
-    }
+    
+    
+    
+//    ResultSet rs = kitchenData.select("SELECT * FROM ORDERS ORDER BY orderTime");
+//    OrderMap tempMap = OrderMap.getInstance();
+//
+//    while (rs.next()) {
+//      int orderID = rs.getInt("orderID");
+//      int custID = rs.getInt("cust_ID");
+//      float totalPrice = rs.getFloat("total_price");
+//      String timeStamp = (rs.getTimestamp("orderTime")).toString();
+//      String dish = rs.getString("dish");
+//      String status = rs.getString("status");
+//      tempMap.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+//    }
   }
 
   /**
@@ -58,7 +61,7 @@ public class KitchenAccess {
    * @param order
    */
   public void removeOrders(Order order) {
-    kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+    //kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
 
 
