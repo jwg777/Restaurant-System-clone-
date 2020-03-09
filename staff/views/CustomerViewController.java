@@ -154,8 +154,50 @@ public class CustomerViewController {
      * needs to check if order is valid.
      */
     ObservableList<String> orders = orderedList.getItems();
+<<<<<<< HEAD:src/views/CustomerViewController.java
     controller.sendOrder(orders);
 
+=======
+    /*
+     * Needs a new class and methods to run the following. This is only temporary.
+     */
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try (Socket s = new Socket("192.168.1.13", 6666);
+            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+            DataInputStream dIn = new DataInputStream(s.getInputStream())) {
+          dout.writeUTF("CUSTOMER"); // tells server that you're a customer
+          dout.flush();
+          dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
+          dout.flush();
+          /*
+           * If order success message is received.
+           */
+          if (dIn.readUTF().equals("OK")) {
+            orderedList.getItems().clear();
+            Alert alert = new Alert(AlertType.NONE, "Order has been placed.", ButtonType.OK);
+            alert.show();
+            if (alert.getResult() == ButtonType.OK) {
+              dout.writeUTF("STOP"); // tells server that you have finished.
+              dout.flush();
+            }
+          }
+        } catch (IOException e) {
+          Alert alert = new Alert(AlertType.ERROR,
+              "Failed to make order, would you like to notify a staff member?", ButtonType.NO,
+              ButtonType.YES);
+          alert.show();
+          if (alert.getResult() == ButtonType.YES) {
+            /*
+             * Notify staff.
+             */
+          }
+          alert.close();
+        }
+      }
+    });
+>>>>>>> master:staff/views/CustomerViewController.java
   }
 
   /**
@@ -235,8 +277,8 @@ public class CustomerViewController {
         @Override
         public void handle(ActionEvent event) {
           // method to bring up allergies and calories info
-          addAlert.setContentText("Allergens: " + tAllergens + "    Calories: " + tCalories);
-          addAlert.show();
+          // addAlert.setContentText("Allergens: " + tAllergens + " Calories: " + tCalories);
+          // addAlert.show();
 
 
         }

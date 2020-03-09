@@ -65,33 +65,12 @@ public final class SceneController {
     stage.show();
   }
 
-  /**
-   * Opens the customer view.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  public void startCustomer() throws IOException {
-    if (server.login("CUSTOMER")) {
-      sceneChange("CustomerView.fxml", "Oaxaca Customer View");
-    }
-  }
-
-  /**
    * Opens the main menu view.
    *
    * @throws IOException Signals that an I/O exception has occurred.
    */
   public void startMain() throws IOException {
     sceneChange("MainView.fxml", "Oaxaca Management System");
-  }
-
-  /**
-   * Opens the staff login view.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  public void startLogin() throws IOException {
-    sceneChange("LoginView.fxml", "Oaxaca Staff Login");
   }
 
   /**
