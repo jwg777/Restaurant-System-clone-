@@ -73,15 +73,13 @@ final public class ServerAccess {
       }
     });
   }
+  
+  public boolean customerLogin(int tableNum) {
+    return true;
+  }
 
-  public boolean login(String type, String username, String password) throws IOException {
-    write(username);
-    write(password);
-    String response = read.getResponse();
-    if (response.equals("ACCEPTED")) {
-      return true;
-    }
-    throw new IOException();
+  public boolean staffLogin(String username, String password) throws IOException {
+    return true;
   }
 
   /**
