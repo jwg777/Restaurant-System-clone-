@@ -49,6 +49,7 @@ public class NotificationThread extends Thread {
             menuMap.remove(new Consumable(operand));
             break;
           case "UPDATEDISH":
+            System.out.println("Updated dish");
             break;
         }
       } catch (IOException e) {

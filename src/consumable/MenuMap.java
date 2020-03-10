@@ -1,7 +1,9 @@
 package consumable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 
 /**
@@ -17,7 +19,7 @@ public final class MenuMap {
   /**
    * Hash map to keep track what is going to be displayed on the menu
    */
-  private HashMap<String, ArrayList<Consumable>> menu = new HashMap<>();
+  private ObservableMap<String, ObservableList<Consumable>> menu = FXCollections.observableHashMap();
 
   /**
    * private constructor for singleton class
@@ -51,7 +53,7 @@ public final class MenuMap {
    * 
    * @return the menu in Hash Map.
    */
-  public HashMap<String, ArrayList<Consumable>> getMenu() {
+  public ObservableMap<String, ObservableList<Consumable>> getMenu() {
     return this.menu;
   }
 
@@ -69,15 +71,15 @@ public final class MenuMap {
    * @param consumable
    */
   public void put(Consumable consumable) {
-    String tab = consumable.getType();
-    ArrayList<Consumable> tempList = new ArrayList<>();
-    if (menu.containsKey(tab)) {
-      for (Consumable item : menu.get(tab)) {
-        tempList.add(item);
-      }
+    String type = consumable.getType();
+    ObservableList<Consumable> list;
+    if (!menu.containsKey(type)) {
+      list = FXCollections.observableArrayList();
+      menu.put(type, list);
+    } else {
+      list = menu.get(type);
     }
-    tempList.add(consumable);
-    menu.put(tab, tempList);
+    list.add(consumable);
   }
 
   /**
@@ -99,19 +101,18 @@ public final class MenuMap {
    * @param key
    * @return the consumables in that category
    */
-  public ArrayList<Consumable> get(String key) {
+  public ObservableList<Consumable> get(String key) {
     return menu.get(key);
   }
 
   public void remove(Consumable consumable) {
     String type = consumable.getType();
-    ArrayList<Consumable> tempList = menu.get(type);
-    for (Consumable tempConsumable : tempList) {
+    ObservableList<Consumable> list = menu.get(type);
+    for (Consumable tempConsumable : list) {
       if (tempConsumable.equals(consumable)) {
-        tempList.remove(tempConsumable);
+        list.remove(tempConsumable);
         break;
       }
     }
-    menu.put(type, tempList);
   }
 }
