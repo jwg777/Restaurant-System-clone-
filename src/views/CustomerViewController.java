@@ -60,27 +60,27 @@ public class CustomerViewController {
 
   /** The menu. */
   MenuMap menu = MenuMap.getInstance();
-  
+
   private double total = 0.00;
-  
+
   /**
    * A VBox containing the starters in the menu.
    */
   @FXML
   VBox vboxStarter = new VBox();
-  
+
   @FXML
   TextArea textArea = new TextArea();
 
   @FXML
   private TextArea reviewBox;
-  
+
   @FXML
   private TextField nameBox;
-  
+
   @FXML
   private TextField ratingBox;
-  
+
   @FXML
   private AnchorPane revScroll;
 
@@ -91,28 +91,28 @@ public class CustomerViewController {
   /** The ordered list. */
   @FXML
   ListView<String> orderedList = new ListView<>();
-  
+
   @FXML
   ListView<String> paymentList = new ListView<>();
-  
+
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
-  
+
   @FXML
   private TextField orderID;
-  
+
   @FXML
   Label statusLabel = new Label();
-  
+
   @FXML
   Label timeLabel = new Label();
-  
+
   @FXML
   Button orderInfoButton = new Button();
-  
+
   @FXML
   private Pane totalPane;
-  
+
   @FXML
   private Pane ptotalPane;
 
@@ -169,7 +169,7 @@ public class CustomerViewController {
         try (Socket s = new Socket("192.168.1.13", 6666);
             DataOutputStream dout = new DataOutputStream(s.getOutputStream());
             DataInputStream dIn = new DataInputStream(s.getInputStream())) {
-          dout.writeUTF("CUSTOMER"); //tells server that you're a customer
+          dout.writeUTF("CUSTOMER"); // tells server that you're a customer
           dout.flush();
           dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
           dout.flush();
@@ -205,25 +205,25 @@ public class CustomerViewController {
    * Submit review.
    *
    * @param event the event
-   * @throws IOException 
+   * @throws IOException
    */
   @FXML
   private void submitReview(ActionEvent event) throws IOException {
     // System.out.println("Thanks");
     // method to submitReview
     String rB = reviewBox.getText(), nB = nameBox.getText(), raB = ratingBox.getText();
-    System.out.println(nB +", "+ raB +", "+ rB);
+    System.out.println(nB + ", " + raB + ", " + rB);
     reviewBox.clear();
     nameBox.clear();
     ratingBox.clear();
-    
+
     File file = new File("Reviews");
     FileWriter fr = new FileWriter(file, true);
-    fr.write("\n"+ nB +">"+ raB +">"+ rB);
+    fr.write("\n" + nB + ">" + raB + ">" + rB);
     fr.close();
-    
+
     try {
-      //Loading the "Thanks!" scene
+      // Loading the "Thanks!" scene
       FXMLLoader fLoad = new FXMLLoader(getClass().getResource("ThanksReviewView.fxml"));
       Parent root = (Parent) fLoad.load();
       Stage stage = new Stage();
@@ -236,13 +236,13 @@ public class CustomerViewController {
       e.printStackTrace();
     }
   }
-  
+
   @FXML
   private void payment(ActionEvent event) throws Exception {
     System.out.println("Payment Test");
-    
+
     try {
-      //Loading the "Thanks!" scene
+      // Loading the "Thanks!" scene
       FXMLLoader fLoad = new FXMLLoader(getClass().getResource("PaymentView.fxml"));
       Parent root = (Parent) fLoad.load();
       Stage stage = new Stage();
@@ -255,17 +255,17 @@ public class CustomerViewController {
       e.printStackTrace();
     }
   }
-  
+
   @FXML
   private void clearOrder(ActionEvent event) throws Exception {
     System.out.println("Clear Test");
-    
+
     orderedList.getItems().clear();
     paymentList.getItems().clear();
-    
+
     this.total = 0.00;
     totalLabel();
-  }  
+  }
 
   /**
    * Adds items to the VBox, as well as buttons to add/remove the item from an order.
@@ -291,10 +291,16 @@ public class CustomerViewController {
       ((Button) minusStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-          orderedList.getItems().remove(consumable.getName());
-          paymentList.getItems().remove(consumable.getName());
-          total -= consumable.getPrice(); 
-          totalLabel();
+          if (orderedList.getItems().contains(consumable.getName())) {
+            orderedList.getItems().remove(consumable.getName());
+            paymentList.getItems().remove(consumable.getName());
+            total -= consumable.getPrice();
+            totalLabel();
+          } else {
+            Alert noItemAlert =
+                new Alert(AlertType.CONFIRMATION, "Item does not exist in current order");
+            noItemAlert.showAndWait();
+          }
         }
       });
       tempHBox.getChildren().add(minusStackPane); // Remove food Button
@@ -396,8 +402,9 @@ public class CustomerViewController {
     Tab tab = new Tab(name.toUpperCase(), scrollPane);
     return tab;
   }
-  
-  /** When get information button is pressed, will fill in status and last update time.
+
+  /**
+   * When get information button is pressed, will fill in status and last update time.
    * 
    * @param event on being pressed action
    * 
@@ -411,43 +418,44 @@ public class CustomerViewController {
       String[] split = new String[2];
       split = statusAndTime.split(">");
       if (split[0] == "" || split[1] == "") {
-        Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+        Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
         alert.showAndWait();
       } else {
         statusLabel.setText(split[0]);
         timeLabel.setText(split[1]);
       }
     } catch (Exception e) {
-      Alert alert = new Alert(AlertType.NONE,"Order does not exist", ButtonType.OK);
+      Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
       alert.showAndWait();
       statusLabel.setText("");
       timeLabel.setText("");
       orderID.setText("");
     }
   }
-  
+
   private void scrollReviews() {
     ArrayList<String> myRevs = customerData.getReviews();
     int location = 50;
-    for(int i= 0; i < myRevs.size(); i++) {
+    for (int i = 0; i < myRevs.size(); i++) {
       this.revScroll.getChildren().add(initialiseLabel(myRevs.get(i), 400, location));
       location += 80;
     }
   }
-  
+
   private void totalLabel() {
     String sTotal = String.valueOf(this.total); // + "0";
-    
+
     this.totalPane.getChildren().clear();
     this.totalPane.getChildren().add(initialiseLabel(sTotal, 100, 50));
-    
+
     this.ptotalPane.getChildren().clear();
     this.ptotalPane.getChildren().add(initialiseLabel(sTotal, 100, 100));
   }
-  
+
   /**
-   * Method sends whatver is contained in relevent textbox to the database. This will be accessed by the waiter.
-   * This method is to be called in the correct action button method when the button is pressed.
+   * Method sends whatver is contained in relevent textbox to the database. This will be accessed by
+   * the waiter. This method is to be called in the correct action button method when the button is
+   * pressed.
    */
   @FXML
   public void contactWaiter() {
@@ -455,7 +463,8 @@ public class CustomerViewController {
     message = "'" + message + "'";
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("Notify Waiter");
-    alert.setHeaderText("You are confirming that you want to send- " + message + "- to the order to the Waiter.");
+    alert.setHeaderText(
+        "You are confirming that you want to send- " + message + "- to the order to the Waiter.");
 
     Optional<ButtonType> result = alert.showAndWait();
 
@@ -466,7 +475,8 @@ public class CustomerViewController {
       sendMessage.setContentText("The message has been successfully sent.");
       sendMessage.showAndWait();
     }
-    //will need to someohow contain order ID in the future so that the waiter can know which table has sent the message.
+    // will need to someohow contain order ID in the future so that the waiter can know which table
+    // has sent the message.
     customerData.notifyWaiter(message);
     textArea.clear();
   }
