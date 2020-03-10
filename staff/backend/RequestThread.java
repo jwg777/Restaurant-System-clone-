@@ -20,7 +20,7 @@ public class RequestThread extends Thread {
     }
   }
   
-  public boolean staffLogin(String username, String password) {
+  public boolean staffLogin(String username, String password) throws IOException{
     try {
       output.writeUTF("STAFF");
       if (!input.readUTF().equals("OK")) {
