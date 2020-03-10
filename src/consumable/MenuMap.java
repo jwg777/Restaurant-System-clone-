@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Chak
  *
  */
-public final class MenuMap{
+public final class MenuMap {
 
   /**
    * instance for singleton class
@@ -101,5 +101,17 @@ public final class MenuMap{
    */
   public ArrayList<Consumable> get(String key) {
     return menu.get(key);
+  }
+
+  public void remove(Consumable consumable) {
+    String type = consumable.getType();
+    ArrayList<Consumable> tempList = menu.get(type);
+    for (Consumable tempConsumable : tempList) {
+      if (tempConsumable.equals(consumable)) {
+        tempList.remove(tempConsumable);
+        break;
+      }
+    }
+    menu.put(type, tempList);
   }
 }
