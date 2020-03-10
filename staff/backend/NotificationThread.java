@@ -28,4 +28,43 @@ public class NotificationThread extends Thread {
     }
   }
   
+  @Override
+  public void run() {
+    String response;
+    String operand;
+    String operator = null;
+    do {
+      try {
+        response = input.readUTF();
+        String[] responseArray = response.split(" ");
+        operator = responseArray[0];
+        operand = responseArray[1];
+        switch (operator) {
+          case "ADDDISH":
+            menuMap.put(new Consumable(operand));
+            break;
+          case "DELETEDISH":
+            menuMap.remove(new Consumable(operand));
+            break;
+          case "UPDATEDISH":
+            break;
+          case "ADDORDER":
+            orderMap.put(new Order(operand));
+            break;
+          case "DELETEORDER":
+            orderMap.remove(new Order(operand));
+            break;
+          case "UPDATEORDER":
+            break;
+        }
+      } catch (IOException e) {
+        System.out.println("Failed to update");
+      }
+    } while (operator.equals("DISCONNECT"));
+    try {
+      input.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
