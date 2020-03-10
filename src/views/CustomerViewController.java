@@ -43,6 +43,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 // TODO: Auto-generated Javadoc
@@ -294,7 +295,7 @@ public class CustomerViewController {
           if (orderedList.getItems().contains(consumable.getName())) {
             orderedList.getItems().remove(consumable.getName());
             paymentList.getItems().remove(consumable.getName());
-            total -= consumable.getPrice();
+            total -= Double.parseDouble(String.format("%.2f", consumable.getPrice()));
             totalLabel();
           } else {
             Alert noItemAlert =
@@ -310,7 +311,7 @@ public class CustomerViewController {
         public void handle(ActionEvent event) {
           orderedList.getItems().add(consumable.getName());
           paymentList.getItems().add(consumable.getName());
-          total += consumable.getPrice();
+          total += Double.parseDouble(String.format("%.2f", consumable.getPrice()));
           totalLabel();
         }
       });
@@ -443,7 +444,7 @@ public class CustomerViewController {
   }
 
   private void totalLabel() {
-    String sTotal = String.valueOf(this.total); // + "0";
+    String sTotal = String.format("%.2f", this.total); // + "0";
 
     this.totalPane.getChildren().clear();
     this.totalPane.getChildren().add(initialiseLabel(sTotal, 100, 50));
