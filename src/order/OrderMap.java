@@ -1,13 +1,7 @@
 package order;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -101,5 +95,17 @@ public final class OrderMap {
    */
   public ArrayList<Order> get(String key) {
     return orders.get(key);
+  }
+
+  public void remove(Order order) {
+    String status = order.getStatus();
+    ArrayList<Order> tempList = orders.get(status);
+    for (Order tempOrder : tempList) {
+      if (tempOrder.equals(order)) {
+        tempList.remove(tempOrder);
+        break;
+      }
+    }
+    orders.put(status, tempList);
   }
 }

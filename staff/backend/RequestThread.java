@@ -28,7 +28,10 @@ public class RequestThread extends Thread {
       }
       output.write(username + " " + password);
       output.flush();
-      if (input.readUTF().equals("ACCEPTED")) {
+      if (input.readUTF().equals("ACCEPTED WAITER")) {
+        return true;
+      }
+      if (input.readUTF().equals("ACCEPTED KITCHEN")) {
         return true;
       }
     } catch (IOException e) {
