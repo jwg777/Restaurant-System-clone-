@@ -9,13 +9,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+<<<<<<< HEAD
+import javafx.scene.control.Alert;
+=======
 import javafx.scene.control.Button;
+>>>>>>> branch 'Kitchen_Order_Timestamp' of https://github.com/RHUL-CS-Projects/TeamProject2020_22.git
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -40,7 +46,11 @@ public class KitchenViewController {
   /** The vbox new. */
   @FXML
   private VBox vboxNew = new VBox();
-
+ 
+  /** Text area for notifications to the waiter **/ 
+  @FXML
+  TextArea notifyWaiter = new TextArea();
+  
   /** The vbox in progress. */
   @FXML
   private VBox vboxInProgress = new VBox();
@@ -49,6 +59,10 @@ public class KitchenViewController {
   @FXML
   private VBox vboxCompleted = new VBox();
 
+  /** The listView to display waiter messages on the gui **/
+  @FXML
+  private ListView<String> messages = new ListView<>();
+  
   /** The ordered list. */
   @FXML
   private ListView<?> orderedList;
@@ -243,6 +257,59 @@ public class KitchenViewController {
   }
   
   /**
+<<<<<<< HEAD
+   * This method sends the message contained in the textbox to the waiter
+   * It deos this through sending the message into the databse using the KitchenAccess class
+   * Currently the databse aspect is commented out due to the dtabse being down.
+   */
+  @FXML  
+  public void sendMessage() {
+    String word = notifyWaiter.getText();
+    notifyWaiter.clear();
+    System.out.println(word);
+    
+    Alert send = new Alert(AlertType.INFORMATION);
+    send.setTitle("Notify the Waiter");
+    send.setHeaderText(null);
+    send.setContentText("Message has been sent.");
+    send.showAndWait();
+    //kitchenData.sendMessageWaiter(word);
+  }
+  
+  /**
+   * This method gets the messages when the get message button is pressed.
+   * It used KitchenAccess class to return messasges from the waiter in the databse.
+   */
+  @FXML  
+  public void getMessages() {
+    messages.getItems().clear();
+    messages.getItems().add("Order 23 has been changed");
+    messages.getItems().add("Table 21 wants extra suace");
+    messages.getItems().add("Order 2 wants to thank the kitchen for excellent food");
+    
+    //ResultSet rs  = kitehcnData.returnWaiterMessages():
+    /**
+     while (rs.next()) {
+       messages.getItems().add(rs.getString("message");
+     }
+    **/
+    
+  }
+  
+  /**
+   * This method is called when remove button is pressed. It will 
+   * remove the selected item from the listpane.
+   */
+  @FXML  
+  public void removeSelected() {
+    System.out.println("TEST");
+    int selectedID = messages.getSelectionModel().getSelectedIndex();
+    messages.getItems().remove(selectedID);
+    
+    //kitchenData.removeMessage(selectedID);
+    
+  }
+=======
    * This method will take all orders that are marked as complete and change its status.
    * @throws Exception throws exception if error occurs when reloading orders
    */
@@ -273,4 +340,5 @@ public class KitchenViewController {
   }
 
 
+>>>>>>> branch 'Kitchen_Order_Timestamp' of https://github.com/RHUL-CS-Projects/TeamProject2020_22.git
 }

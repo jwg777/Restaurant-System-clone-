@@ -37,11 +37,10 @@ public class KitchenAccess {
    * @throws SQLException Thrown if sql error occurs
    */
   public void getOrders() throws SQLException {
-    ResultSet rs =
-        kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
+    //ResultSet rs = kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
     OrderMap map = OrderMap.getInstance();
-
-
+    
+ /**
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
@@ -50,7 +49,9 @@ public class KitchenAccess {
       String dish = rs.getString("dish");
       String status = rs.getString("status");
       map.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+  
     }
+    **/
   }
 
   /**
@@ -59,6 +60,7 @@ public class KitchenAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
+    /**
     ResultSet rs = kitchenData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
 
@@ -71,14 +73,17 @@ public class KitchenAccess {
 
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
+    **/
   }
-
-  public boolean getIfPaid(int custID) throws SQLException {
+  
+  public boolean getIfPaid(int custID) throws SQLException{
+    /**
     ResultSet rs = kitchenData.select("SELECT * FROM Customers WHERE cust_id = '" + custID + "'");
     while (rs.next()) {
       return rs.getBoolean("paid");
-    }
+    }**/
     return false;
+    
   }
 
   /**
@@ -99,14 +104,44 @@ public class KitchenAccess {
    * @param order this is ithe order to be removed
    */
   public void removeOrders(Order order) {
-    kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+    //kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
   
-  /** This will change the time that the order was last updated.
+  /**
+   * Method will be called when kitchenview sends a message to the waiter.
+   * the String will be sent to the databse where it will be stored
+   * @param message
+   */
+  public void sendMessageWaiter(String message) {
+    //kitchenData.insertIntoTable("messages" + message);
+  }
+  
+  /**
+   * This method will return a resultset that will be drisplayed on the gui for the KitchenView
+   * IT will allow kitchen staff to see what messages the waiters have sent
+   * @return
+   */
+  public void returnWaiterMessages() {
+    //kitchenData.select("SELECT * messages FROM Message");
+  }
+  
+  /**
+   * This method removes messages from the waiter from the database.
+   * Should be called once the kitchen has removed the message.
+   * @param message
+   */
+  
+  public void removeMessage(String message) {
+    //kitchenData.update("DELETE FROM messages WHERE..."
+  
+  }
+    
+    
+    /** This will change the time that the order was last updated.
    * 
    * @param order This is the order thats order time needs updating
    * 
-   */
+   */ 
   public void setLastUpdate(Order order) {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
