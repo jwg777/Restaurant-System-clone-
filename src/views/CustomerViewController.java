@@ -267,7 +267,7 @@ public class CustomerViewController {
     this.total = 0.00;
     totalLabel();
   }
-
+  
   /**
    * Adds items to the VBox, as well as buttons to add/remove the item from an order.
    *
@@ -481,4 +481,24 @@ public class CustomerViewController {
     customerData.notifyWaiter(message);
     textArea.clear();
   }
+  
+  //Test
+  
+  @FXML
+  private Pane scene1;
+  
+  @FXML
+  private Pane scene2;
+  
+  @FXML
+  private void scene1B(ActionEvent event) throws Exception {
+    scene2.setVisible(true);
+  }
+  
+  @FXML
+  private void scene2B(ActionEvent event) throws Exception {
+    scene2.setVisible(false);
+  }
+  
+  
 }
