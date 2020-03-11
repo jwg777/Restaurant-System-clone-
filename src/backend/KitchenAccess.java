@@ -78,9 +78,9 @@ public class KitchenAccess {
     ResultSet rs = kitchenData.select("SELECT * FROM Customers WHERE cust_id = '" + custID + "'");
     while (rs.next()) {
       return rs.getBoolean("paid");
-    }
+    }**/
     return false;
-    **/
+    
   }
 
   /**

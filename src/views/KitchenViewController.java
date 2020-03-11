@@ -13,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -36,6 +37,10 @@ public class KitchenViewController {
   /** The vbox new. */
   @FXML
   private VBox vboxNew = new VBox();
+ 
+  /** Text area for notifications to the waiter **/ 
+  //@FXML
+  //TextArea notifyWaiter = new TextArea();
 
   /** The vbox in progress. */
   @FXML
