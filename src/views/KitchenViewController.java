@@ -218,6 +218,11 @@ public class KitchenViewController {
     }
   }
   
+  /**
+   * This method sends the message contained in the textbox to the waiter
+   * It deos this through sending the message into the databse using the KitchenAccess class
+   * Currently the databse aspect is commented out due to the dtabse being down.
+   */
   @FXML  
   public void sendMessage() {
     String word = notifyWaiter.getText();
@@ -232,7 +237,10 @@ public class KitchenViewController {
     //kitchenData.sendMessageWaiter(word);
   }
   
-  
+  /**
+   * This method gets the messages when the get message button is pressed.
+   * It used KitchenAccess class to return messasges from the waiter in the databse.
+   */
   @FXML  
   public void getMessages() {
     messages.getItems().clear();
@@ -249,6 +257,10 @@ public class KitchenViewController {
     
   }
   
+  /**
+   * This method is called when remove button is pressed. It will 
+   * remove the selected item from the listpane.
+   */
   @FXML  
   public void removeSelected() {
     System.out.println("TEST");
