@@ -1,13 +1,9 @@
 package order;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import javafx.util.converter.LocalDateTimeStringConverter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -19,7 +15,7 @@ public final class OrderMap {
   private static OrderMap instance = null;
 
   /** The orders. */
-  private HashMap<String, ArrayList<Order>> orders = new HashMap<>();
+  private ObservableMap<String, ObservableList<Order>> orders = FXCollections.observableHashMap();
 
   /**
    * Instantiates a new order map.
@@ -52,7 +48,7 @@ public final class OrderMap {
    *
    * @return the orders
    */
-  public HashMap<String, ArrayList<Order>> getOrders() {
+  public ObservableMap<String, ObservableList<Order>> getOrders() {
     return this.orders;
   }
 
@@ -69,15 +65,16 @@ public final class OrderMap {
    * @param tab the tab
    * @param request the request
    */
-  public void put(String tab, Order request) {
-    ArrayList<Order> tempList = new ArrayList<>();
-    if (orders.containsKey(tab)) {
-      for (Order order : orders.get(tab)) {
-        tempList.add(order);
-      }
+  public void put(Order request) {
+    String status = request.getStatus();
+    ObservableList<Order> list;
+    if (!orders.containsKey(status)) {
+      list = FXCollections.observableArrayList();
+      orders.put(status, list);
+    } else {
+      list = orders.get(status);
     }
-    tempList.add(request);
-    orders.put(tab, tempList);
+    list.add(request);
   }
 
   /**
@@ -99,7 +96,19 @@ public final class OrderMap {
    * @param key the key
    * @return the array list
    */
-  public ArrayList<Order> get(String key) {
+  public ObservableList<Order> get(String key) {
     return orders.get(key);
+  }
+
+  public void remove(Order order) {
+    String status = order.getStatus();
+    ObservableList<Order> tempList = orders.get(status);
+    for (Order tempOrder : tempList) {
+      if (tempOrder.equals(order)) {
+        tempList.remove(tempOrder);
+        break;
+      }
+    }
+    orders.put(status, tempList);
   }
 }

@@ -5,12 +5,12 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Optional;
 import backend.WaiterAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -310,7 +310,7 @@ public class WaiterViewController {
    * @return VBox of what has been set.
    */
 
-  private VBox createMenuVBox(ArrayList<Consumable> consumables) {
+  private VBox createMenuVBox(ObservableList<Consumable> consumables) {
     VBox vbox = new VBox();
     for (Consumable consumable : consumables) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
@@ -333,7 +333,7 @@ public class WaiterViewController {
    * @param orders the orders on the database
    * @return VBox of what has been set
    */
-  private VBox createOrderVBox(ArrayList<Order> orders) {
+  private VBox createOrderVBox(ObservableList<Order> orders) {
     VBox vbox = new VBox();
     for (Order order : orders) {
       HBox tempHBox = new HBox();
@@ -558,7 +558,7 @@ public class WaiterViewController {
    * @return the corresponding tab.
    */
 
-  private Tab createMenuTab(String name, ArrayList<Consumable> list) {
+  private Tab createMenuTab(String name, ObservableList<Consumable> list) {
     AnchorPane anchorPane = new AnchorPane();
     anchorPane.setPrefWidth(580);
     anchorPane.getChildren().add(createMenuVBox(list));
@@ -575,7 +575,7 @@ public class WaiterViewController {
    * @param list list of consumable.
    * @return the corresponding tab.
    */
-  private Tab createOrderTab(String name, ArrayList<Order> list) {
+  private Tab createOrderTab(String name, ObservableList<Order> list) {
     AnchorPane anchorPane = new AnchorPane();
     anchorPane.setPrefWidth(580);
     anchorPane.getChildren().add(createOrderVBox(list));

@@ -1,7 +1,7 @@
 package views;
 
-import java.util.ArrayList;
 import backend.KitchenAccess;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -99,7 +99,7 @@ public class KitchenViewController {
    * @param list return consumable menu value.
    * @return the corresponding VBox value.
    */
-  private VBox createNewOrderVBox(ArrayList<Order> list) {
+  private VBox createNewOrderVBox(ObservableList<Order> list) {
     VBox vbox = new VBox();
     for (Order order : list) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
@@ -107,7 +107,7 @@ public class KitchenViewController {
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel("*" + order.getOrderID(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
-      //String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
+      // String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
       String price = "00.00";
       tempHBox.getChildren().add(initialiseLabel("� " + price, 150, 50));
       tempHBox.getChildren().add(initialiseGap());
@@ -163,7 +163,7 @@ public class KitchenViewController {
    * @param list of the consumable.
    * @return the corresponding tab been created.
    */
-  private Tab createNewOrderTab(String name, ArrayList<Order> list) {
+  private Tab createNewOrderTab(String name, ObservableList<Order> list) {
     AnchorPane anchorpane = new AnchorPane();
     anchorpane.setPrefWidth(580);
     anchorpane.getChildren().add(createNewOrderVBox(list));

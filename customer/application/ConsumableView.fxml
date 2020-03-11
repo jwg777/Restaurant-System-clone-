@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="cell" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="250.0" minWidth="250.0" prefHeight="243.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="cell" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="250.0" minWidth="250.0" prefHeight="243.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="image" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true">
          <image>
