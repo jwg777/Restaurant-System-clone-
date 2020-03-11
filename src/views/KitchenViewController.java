@@ -67,9 +67,9 @@ public class KitchenViewController {
   @FXML
   TabPane OrderTabPane = new TabPane();
   
-  ArrayList<Integer> completeOrders = new ArrayList<Integer>();
+  ArrayList<Order> completeOrders = new ArrayList<Order>();
   
-  ArrayList<Integer> startedOrders = new ArrayList<Integer>();
+  ArrayList<Order> startedOrders = new ArrayList<Order>();
   
 
 
@@ -135,8 +135,7 @@ public class KitchenViewController {
               @Override
               public void handle(ActionEvent event) {
                 try {
-                  kitchenData.setOrderStatus(order, "started");
-                  newOrderReload();
+                  startedOrders.add(order);
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
@@ -150,8 +149,7 @@ public class KitchenViewController {
               @Override
               public void handle(ActionEvent event) {
                 try {
-                  kitchenData.setOrderStatus(order, "ready");
-                  newOrderReload();
+                  completeOrders.add(order);
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
@@ -241,6 +239,36 @@ public class KitchenViewController {
   public void createOrders(OrderMap orders) {
     for (String string : orders.keyArray()) {
       OrderTabPane.getTabs().add(createNewOrderTab(string, orders.get(string)));
+    }
+  }
+  
+  /**
+   * This method will take all orders that are marked as complete and change its status.
+   * @throws Exception throws exception if error occurs when reloading orders
+   */
+  @FXML
+  public void pushCompleteOrders() throws Exception {
+    if (!completeOrders.isEmpty()) {
+      for (Order o : completeOrders) {
+        kitchenData.setOrderStatus(o, "ready");
+        kitchenData.setLastUpdate(o);
+      }
+      newOrderReload();
+    }
+  }
+  
+  /**
+   * This method will take all orders that are marked as started and change its status.
+   * @throws Exception throws exception if error occurs when reloading orders
+   */
+  @FXML
+  public void pushStartedOrders() throws Exception {
+    if (!startedOrders.isEmpty()) {
+      for (Order o : startedOrders) {
+        kitchenData.setOrderStatus(o, "started");
+        kitchenData.setLastUpdate(o);
+      }
+      newOrderReload();
     }
   }
 

@@ -2,6 +2,8 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -82,6 +84,9 @@ public class KitchenAccess {
   /**
    * 
    * This method will alter the state of an order. E.g change an order to complete.
+   * @param order This is the order that needs to be updated
+   * @param status The new status of the order
+   * 
    */
   public void setOrderStatus(Order order, String status) {
     kitchenData.update(
@@ -91,9 +96,21 @@ public class KitchenAccess {
   /**
    * method to remove the orders placed.
    * 
-   * @param order
+   * @param order this is ithe order to be removed
    */
   public void removeOrders(Order order) {
     kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+  }
+  
+  /** This will change the time that the order was last updated.
+   * 
+   * @param order This is the order thats order time needs updating
+   * 
+   */
+  public void setLastUpdate(Order order) {
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+    kitchenData.update("UPDATE Orders SET orderTime = '" + dtf.format(now) + "' WHERE orderID = '"
+        + order.getOrderID() + "'");
   }
 }
