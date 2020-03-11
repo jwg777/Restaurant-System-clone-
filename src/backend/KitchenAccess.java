@@ -31,12 +31,14 @@ public class KitchenAccess {
 
   /**
    * This method will return the currenly stored orders from the database and update OrderMap.
+   * 
    * @throws SQLException Thrown if sql error occurs
    */
   public void getOrders() throws SQLException {
-    ResultSet rs = kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
+    ResultSet rs =
+        kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
     OrderMap map = OrderMap.getInstance();
-    
+
 
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
@@ -48,7 +50,7 @@ public class KitchenAccess {
       map.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
     }
   }
-  
+
   /**
    * Retrieves the current menu from the database.
    * 
@@ -68,8 +70,8 @@ public class KitchenAccess {
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
   }
-  
-  public boolean getIfPaid(int custID) throws SQLException{
+
+  public boolean getIfPaid(int custID) throws SQLException {
     ResultSet rs = kitchenData.select("SELECT * FROM Customers WHERE cust_id = '" + custID + "'");
     while (rs.next()) {
       return rs.getBoolean("paid");
@@ -81,8 +83,9 @@ public class KitchenAccess {
    * 
    * This method will alter the state of an order. E.g change an order to complete.
    */
-  public void setOrderStatus() {
-    // kitchenData.insertIntoTable("some command for order status");
+  public void setOrderStatus(Order order, String status) {
+    kitchenData.update(
+        "UPDATE Orders SET status = '" + status + "' WHERE orderID = '" + order.getOrderID() + "'");
   }
 
   /**
@@ -93,6 +96,4 @@ public class KitchenAccess {
   public void removeOrders(Order order) {
     kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
-
-
 }

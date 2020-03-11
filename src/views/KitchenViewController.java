@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import backend.KitchenAccess;
 import backend.WaiterAccess;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -16,6 +19,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import order.Order;
@@ -62,6 +66,10 @@ public class KitchenViewController {
    */
   @FXML
   TabPane OrderTabPane = new TabPane();
+  
+  ArrayList<Integer> completeOrders = new ArrayList<Integer>();
+  
+  ArrayList<Integer> startedOrders = new ArrayList<Integer>();
   
 
 
@@ -121,9 +129,35 @@ public class KitchenViewController {
       tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("processing")) {
-        tempHBox.getChildren().add(initialiseCheckButton("started", 16, -1));
+        StackPane confirmStackPane = initialiseCheckButton("started", 16, -1);
+        ((CheckBox) confirmStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  kitchenData.setOrderStatus(order, "started");
+                  newOrderReload();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(confirmStackPane);
       } else if (order.getStatus().equals("started")) {
-        tempHBox.getChildren().add(initialiseCheckButton("completed", 16, -1));
+        StackPane confirmStackPane = initialiseCheckButton("ready", 16, -1);
+        ((CheckBox) confirmStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  kitchenData.setOrderStatus(order, "ready");
+                  newOrderReload();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(confirmStackPane);
       } else if (order.getStatus().equals("ready")) {
         tempHBox.getChildren().add(initialiseCheckButton("paid", 16, order.getCustID()));
       }
@@ -165,7 +199,9 @@ public class KitchenViewController {
    * @return the button.
    * @throws SQLException thrown if SQL error occurs
    */
-  private CheckBox initialiseCheckButton(String name, int font, int custID) {
+  private StackPane initialiseCheckButton(String name, int font, int custID) {
+    StackPane stPane = new StackPane();
+    stPane.setPrefSize(150, 50);
     CheckBox check = new CheckBox(name); // Button to remove and add food to order list
     check.setPrefSize(150, 50);
     check.setFont(new Font(font));
@@ -176,7 +212,8 @@ public class KitchenViewController {
     } catch (SQLException e) {
       e.printStackTrace(); 
     }
-    return check;
+    stPane.getChildren().add(check);
+    return stPane;
   }
 
   /**
