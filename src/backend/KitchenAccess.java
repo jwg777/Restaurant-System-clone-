@@ -99,6 +99,25 @@ public class KitchenAccess {
   public void removeOrders(Order order) {
     //kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
+  
+  /**
+   * Method will be called when kitchenview sends a message to the waiter.
+   * the String will be sent to the databse where it will be stored
+   * @param message
+   */
+  public void sendMessageWaiter(String message) {
+    //kitchenData.insertIntoTable("messages" + message);
+  }
+  
+  /**
+   * This method will return a resultset that will be drisplayed on the gui for the KitchenView
+   * IT will allow kitchen staff to see what messages the waiters have sent
+   * @return
+   */
+  public void returnWaiterMessages() {
+    //kitchenData.select("SELECT * messages FROM Message");
+  ;
+  }
 
 
 }
