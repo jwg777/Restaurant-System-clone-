@@ -227,6 +227,9 @@ public class KitchenViewController {
     send.showAndWait();
     //kitchenData.sendMessageWaiter(word);
   }
-
-
+  
+  @FXML  
+  public void getMessages() {
+    System.out.println("TEST");
+  }
 }

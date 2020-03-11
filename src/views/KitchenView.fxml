@@ -61,6 +61,10 @@
                      <children>
                        <TextArea fx:id="notifyWaiter" layoutX="100" layoutY="60" prefHeight="300" prefWidth="300" />
                        <Button layoutX="250" layoutY="370" mnemonicParsing="false" onAction="#sendMessage" prefHeight="19.0" prefWidth="132.0" text="Send Message" />
+                       
+                       
+                       <ListView layoutX="420" layoutY="60" prefHeight="300" prefWidth="300.0" />
+                       <Button layoutX="450" layoutY="370" mnemonicParsing="false" onAction="#getMessages" prefHeight="19.0" prefWidth="132.0" text="Get Messages" />
                      </children>
                   </AnchorPane>
               </content>
