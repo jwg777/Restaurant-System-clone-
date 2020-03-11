@@ -8,11 +8,9 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
 import order.Order;
@@ -65,7 +63,7 @@ public class WaiterAccess {
       for (String ingredient : rs.getString("ingredients").split("^")) {
         ingredients.add(ingredient);
       }
-      //tempMap.put(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
+      // tempMap.put(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
     }
 
 
@@ -85,7 +83,7 @@ public class WaiterAccess {
       int dishID = rs.getInt("dish_id");
       String timeStamp = (rs.getTimestamp("order_time")).toString();
       String status = rs.getString("status");
-      tempMap.put(status, new Order(orderID, custID, dishID, timeStamp, status));
+      tempMap.put(new Order(orderID, custID, dishID, timeStamp, status));
     }
   }
 

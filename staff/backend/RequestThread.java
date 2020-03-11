@@ -4,13 +4,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import order.Order;
 
-public class RequestThread extends Thread { 
-  
+public class RequestThread extends Thread {
+
   private DataInputStream input;
   private DataOutputStream output;
-  
+
   public RequestThread(Socket socket) {
     try {
       input = new DataInputStream(socket.getInputStream());
@@ -19,14 +18,14 @@ public class RequestThread extends Thread {
       e.printStackTrace();
     }
   }
-  
-  public boolean staffLogin(String username, String password) throws IOException{
+
+  public boolean staffLogin(String username, String password) throws IOException {
     try {
       output.writeUTF("STAFF");
       if (!input.readUTF().equals("OK")) {
         throw new IOException();
       }
-      output.write(username + " " + password);
+      output.writeUTF(username + " " + password);
       output.flush();
       if (input.readUTF().equals("ACCEPTED WAITER")) {
         return true;
