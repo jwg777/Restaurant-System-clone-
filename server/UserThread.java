@@ -85,14 +85,15 @@ public class UserThread extends Thread {
       server.addThread(this);
       if (tempResponse[0].equals("CUSTOMER")) {
         customer(tempResponse[1]);
-      } else {
+      } else if (tempResponse[0].contentEquals("STAFF")) {
+        write("OK");
         String[] authentication = read().split(" ");
         switch (server.authenticate(authentication[0], authentication[1])) {
           case WAITER:
             /*
              * get id/username for name
              */
-            waiter();
+            waiter(authentication[0]);
             break;
           case KITCHEN:
             /*
@@ -121,14 +122,14 @@ public class UserThread extends Thread {
     String operand;
     // return id of the customer;
     name = "CUSTOMER_" + server.addCustomer(Integer.valueOf(tableNum));
-    write("ACCEPTED " + name);
+    write("ACCEPTED");
     System.out.println("New Client joined [" + name + "]");
     System.out.println("Sending menu to " + name + "...");
     for (Consumable consumable : server.getMenuList()) {
-      write("ADD " + consumable.serializeToString());
+      write("ADDDISH " + consumable.serializeToString());
     }
     System.out.println("Menu completly sent to " + name);
-    //Reads for response
+    // Reads for response
     do {
       String[] response = read().split(" ");
       System.out.println("[" + name + "] : " + Arrays.toString(response));
@@ -152,15 +153,19 @@ public class UserThread extends Thread {
     } while (operator.equals("STOP"));
   }
 
-  public void waiter() throws IOException {
+  public void waiter(String username) throws IOException {
     String operator;
     String operand;
+
+    name = "WAITER_" + username;
+    write("ACCEPTED WAITER");
+    System.out.println("New Client joined [" + name + "]");
     /*
      * Adds everything from menu first.
      */
     System.out.println("Sending menu to " + name + "...");
     for (Consumable consumable : server.getMenuList()) {
-      write("ADD " + consumable.serializeToString());
+      write("ADDDISH " + consumable.serializeToString());
     }
     System.out.println("Menu completly sent to " + name);
     /*
@@ -168,7 +173,7 @@ public class UserThread extends Thread {
      */
     System.out.println("Sending orders to " + name + "...");
     for (Order order : server.getOrderList()) {
-      write("ADD " + order.serializeToString());
+      write("ADDORDER " + order.serializeToString());
     }
     System.out.println("All orders sent to " + name);
   }
