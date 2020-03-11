@@ -1,12 +1,8 @@
 package views;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Optional;
 import backend.CustomerAccess;
 import consumable.Consumable;
@@ -20,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -29,7 +26,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -137,8 +133,8 @@ public class CustomerViewController {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        createMenu(menu);       
-      }    
+        createMenu(menu);
+      }
     });
   }
 
@@ -199,7 +195,7 @@ public class CustomerViewController {
    * @param consumables the consumables
    * @return the v box
    */
-  private VBox createVBox(ArrayList<Consumable> consumables) {
+  private VBox createVBox(ObservableList<Consumable> consumables) {
     VBox vbox = new VBox();
     for (Consumable consumable : consumables) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
@@ -309,7 +305,7 @@ public class CustomerViewController {
    * @param list the list
    * @return the tab
    */
-  private Tab createTab(String name, ArrayList<Consumable> list) {
+  private Tab createTab(String name, ObservableList<Consumable> list) {
     AnchorPane anchorPane = new AnchorPane();
     anchorPane.setPrefWidth(580);
     anchorPane.getChildren().add(createVBox(list));
@@ -327,30 +323,19 @@ public class CustomerViewController {
    */
   @FXML
   private void getOrderInfo(ActionEvent event) {
-    /*String orderNumber = orderID.getText();
-    String statusAndTime = "";
-    try {
-      statusAndTime = customerData.getStatusAndTime(orderNumber);
-      String[] split = new String[2];
-      split = statusAndTime.split(">");
-      if (split[0] == "" || split[1] == "") {
-        Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
-        alert.showAndWait();
-      } else {
-        statusLabel.setText(split[0]);
-        timeLabel.setText(split[1]);
-      }
-    } catch (Exception e) {
-      Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
-      alert.showAndWait();
-      statusLabel.setText("");
-      timeLabel.setText("");
-      orderID.setText("");
-    }*/
+    /*
+     * String orderNumber = orderID.getText(); String statusAndTime = ""; try { statusAndTime =
+     * customerData.getStatusAndTime(orderNumber); String[] split = new String[2]; split =
+     * statusAndTime.split(">"); if (split[0] == "" || split[1] == "") { Alert alert = new
+     * Alert(AlertType.NONE, "Order does not exist", ButtonType.OK); alert.showAndWait(); } else {
+     * statusLabel.setText(split[0]); timeLabel.setText(split[1]); } } catch (Exception e) { Alert
+     * alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
+     * alert.showAndWait(); statusLabel.setText(""); timeLabel.setText(""); orderID.setText(""); }
+     */
   }
 
   public void scrollReviews() {
-    /*this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50));*/
+    /* this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50)); */
   }
 
   /**
