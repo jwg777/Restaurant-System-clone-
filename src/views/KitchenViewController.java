@@ -232,9 +232,9 @@ public class KitchenViewController {
     //kitchenData.sendMessageWaiter(word);
   }
   
+  
   @FXML  
   public void getMessages() {
-    System.out.println("TEST");
     messages.getItems().clear();
     messages.getItems().add("Order 23 has been changed");
     messages.getItems().add("Table 21 wants extra suace");
@@ -246,6 +246,14 @@ public class KitchenViewController {
        messages.getItems().add(rs.getString("message");
      }
     **/
+    
+  }
+  
+  @FXML  
+  public void removeSelected() {
+    System.out.println("TEST");
+    int selectedID = messages.getSelectionModel().getSelectedIndex();
+    messages.getItems().remove(selectedID);
     
   }
 }
