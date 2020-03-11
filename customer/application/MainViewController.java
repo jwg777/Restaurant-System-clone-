@@ -147,11 +147,19 @@ public class MainViewController {
   private void tableNumConfirmed() {
     try {
       int tableNum = Integer.valueOf(tableField.getText());
+      /*
+       * Confirm table number with server.
+       * And get the customer ID.
+       */
       confirmationPane.toBack();
     } catch (Exception e) {
       tableField.setText("");
     }
   }
+  
+  /*
+   * Temp buttons for testing.
+   */
 
   int i1 = 0;
   int i2 = 0;
@@ -162,7 +170,6 @@ public class MainViewController {
     String type = "Category1";
     String name = "Consumable " + (i1++);
     menu.put(new Consumable(type, name, 10.10f, 100, true, "Ingredient1, " + i1));
-    System.out.println("button1 pressed " + menu.get(type).size());
   }
 
   @FXML
@@ -170,7 +177,6 @@ public class MainViewController {
     String type = "Category2";
     String name = "Consumable " + (i2++);
     menu.put(new Consumable(type, name, 10.10f, 100, true, "Ingredient1, " + i2));
-    System.out.println("button2 pressed");
   }
 
   @FXML
@@ -178,7 +184,6 @@ public class MainViewController {
     String type = "Category3";
     String name = "Consumable " + (i3++);
     menu.put(new Consumable(type, name, 10.10f, 100, true, "Ingredient1, " + i3));
-    System.out.println("button3 pressed");
   }
 
 }
