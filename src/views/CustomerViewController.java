@@ -500,5 +500,21 @@ public class CustomerViewController {
     scene2.setVisible(false);
   }
   
+  @FXML
+  private Pane paymentPane1;
+  
+  @FXML
+  private Pane paymentPane2;
+  
+  @FXML
+  private void cardButton(ActionEvent event) throws Exception {
+    paymentPane1.setVisible(false);
+  }
+  
+  @FXML
+  private void back2PO(ActionEvent event) throws Exception {
+    paymentPane1.setVisible(true);
+  }
+  
   
 }
