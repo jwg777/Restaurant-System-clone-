@@ -116,7 +116,6 @@ public class KitchenAccess {
    */
   public void returnWaiterMessages() {
     //kitchenData.select("SELECT * messages FROM Message");
-  ;
   }
 
 

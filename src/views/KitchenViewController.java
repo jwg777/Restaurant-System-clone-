@@ -211,6 +211,11 @@ public class KitchenViewController {
       OrderTabPane.getTabs().add(createNewOrderTab(string, orders.get(string)));
     }
   }
+  
+  @FXML  
+  public void sendMessage() {
+    System.out.println("TEST");
+  }
 
 
 }
