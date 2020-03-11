@@ -52,6 +52,10 @@ public class KitchenViewController {
   @FXML
   private VBox vboxCompleted = new VBox();
 
+  /** The listView to display waiter messages on the gui **/
+  @FXML
+  private ListView<String> messages = new ListView<>();
+  
   /** The ordered list. */
   @FXML
   private ListView<?> orderedList;
@@ -231,5 +235,17 @@ public class KitchenViewController {
   @FXML  
   public void getMessages() {
     System.out.println("TEST");
+    messages.getItems().clear();
+    messages.getItems().add("Order 23 has been changed");
+    messages.getItems().add("Table 21 wants extra suace");
+    messages.getItems().add("Order 2 wants to thank the kitchen for excellent food");
+    
+    //ResultSet rs  = kitehcnData.returnWaiterMessages():
+    /**
+     while (rs.next()) {
+       messages.getItems().add(rs.getString("message");
+     }
+    **/
+    
   }
 }
