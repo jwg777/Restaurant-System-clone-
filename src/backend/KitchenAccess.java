@@ -20,13 +20,13 @@ public class KitchenAccess {
 
 
   /** Field kitchenData- a singleton of the DataInteract class */
-  DataInteract kitchenData;
+  //DataInteract kitchenData;
 
   /**
    * Constructor which gets the instance of the singleton class DataInteract
    */
   public KitchenAccess() {
-    kitchenData = DataInteract.getInstance();
+    //kitchenData = DataInteract.getInstance();
   }
 
   /**
@@ -34,10 +34,10 @@ public class KitchenAccess {
    * @throws SQLException Thrown if sql error occurs
    */
   public void getOrders() throws SQLException {
-    ResultSet rs = kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
+    //ResultSet rs = kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
     OrderMap map = OrderMap.getInstance();
     
-
+ /**
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
@@ -46,7 +46,9 @@ public class KitchenAccess {
       String dish = rs.getString("dish");
       String status = rs.getString("status");
       map.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+  
     }
+    **/
   }
   
   /**
@@ -55,6 +57,7 @@ public class KitchenAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
+    /**
     ResultSet rs = kitchenData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
 
@@ -67,14 +70,17 @@ public class KitchenAccess {
 
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
+    **/
   }
   
   public boolean getIfPaid(int custID) throws SQLException{
+    /**
     ResultSet rs = kitchenData.select("SELECT * FROM Customers WHERE cust_id = '" + custID + "'");
     while (rs.next()) {
       return rs.getBoolean("paid");
     }
     return false;
+    **/
   }
 
   /**
@@ -91,7 +97,7 @@ public class KitchenAccess {
    * @param order
    */
   public void removeOrders(Order order) {
-    kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+    //kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
 
 
