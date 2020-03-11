@@ -7,6 +7,7 @@ import backend.WaiterAccess;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -14,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -39,9 +41,9 @@ public class KitchenViewController {
   private VBox vboxNew = new VBox();
  
   /** Text area for notifications to the waiter **/ 
-  //@FXML
-  //TextArea notifyWaiter = new TextArea();
-
+  @FXML
+  TextArea notifyWaiter = new TextArea();
+  
   /** The vbox in progress. */
   @FXML
   private VBox vboxInProgress = new VBox();
@@ -214,7 +216,16 @@ public class KitchenViewController {
   
   @FXML  
   public void sendMessage() {
-    System.out.println("TEST");
+    String word = notifyWaiter.getText();
+    notifyWaiter.clear();
+    System.out.println(word);
+    
+    Alert send = new Alert(AlertType.INFORMATION);
+    send.setTitle("Notify the Waiter");
+    send.setHeaderText(null);
+    send.setContentText("Message has been sent.");
+    send.showAndWait();
+    //kitchenData.sendMessageWaiter(word);
   }
 
 
