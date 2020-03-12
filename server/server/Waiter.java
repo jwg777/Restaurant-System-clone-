@@ -1,6 +1,5 @@
 package server;
 
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import consumable.Consumable;

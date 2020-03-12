@@ -170,9 +170,10 @@ public final class Database {
         int orderID = rs.getInt("order_id");
         int custID = rs.getInt("cust_id");
         int dishID = rs.getInt("dish_id");
+        String dishName = rs.getString("dishname");
         String timeStamp = (rs.getTimestamp("order_time")).toString();
         String status = rs.getString("status");
-        orderList.add(new Order(orderID, custID, dishID, timeStamp, status));
+        orderList.add(new Order(orderID, custID, dishID, dishName, timeStamp, status));
       }
     } catch (SQLException e) {
       System.out.println("Failed to get order list from database");

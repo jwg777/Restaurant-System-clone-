@@ -9,7 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Observable;
 import consumable.Consumable;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableValue;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
@@ -22,10 +25,49 @@ public class Order implements Comparable<Order>, Serializable {
   /** The unique identifier of the order. */
   private int orderID;
 
+  private String dishName;
+
   /** The unique identifier of the customer who made the order. */
   private int custID;
 
   private int dishID;
+
+  private float price;
+
+  private String timeStamp;
+
+  private int quantity;
+
+  private OrderListener listener;
+
+  /**
+   * The status of the order. Can be waiting, processing or ready.
+   */
+  private String status;
+
+  public void setListener(OrderListener listener) {
+    this.listener = listener;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void addQuantity() {
+    quantity++;
+    listener.onChange();
+  }
+
+  /**
+   * @return false if quantity is 0 after decrement.
+   */
+  public boolean minusQuantity() {
+    if (--quantity != 0) {
+      listener.onChange();
+      return true;
+    }
+    return false;
+  }
 
   public int getDishID() {
     return dishID;
@@ -51,13 +93,6 @@ public class Order implements Comparable<Order>, Serializable {
     this.status = status;
   }
 
-  private String timeStamp;
-
-  /**
-   * The status of the order. Can be waiting, processing or ready.
-   */
-  private String status;
-
   /**
    * Instantiates a new order by specifying its id, customer id, order time and contents.
    *
@@ -68,8 +103,21 @@ public class Order implements Comparable<Order>, Serializable {
    * @param status the status of the order
    * @param items The items ordered
    */
-  public Order(int orderID, int custID, int dishID, String timeStamp, String status) {
-    this.orderID = orderID;
+  public Order(int custID, int dishID, int quantity, String dishName, String timeStamp,
+      String status) {
+    this.quantity = 1;
+    this.dishName = dishName;
+    this.custID = custID;
+    this.dishID = dishID;
+    this.timeStamp = timeStamp;
+    this.status = status;
+  }
+
+  public Order(int id, int custID, int dishID, int quantity, String dishName, String timeStamp,
+      String status) {
+    this.orderID = id;
+    this.quantity = 1;
+    this.dishName = dishName;
     this.custID = custID;
     this.dishID = dishID;
     this.timeStamp = timeStamp;
@@ -88,6 +136,17 @@ public class Order implements Comparable<Order>, Serializable {
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
+  }
+
+  public Order(Consumable consumable) {
+    /*
+     * Get customer ID.
+     */
+    this.price = consumable.getPrice();
+    this.quantity = 1;
+    this.dishID = consumable.getID();
+    this.dishName = consumable.getName();
+    this.status = "Waiting";
   }
 
   /**
@@ -149,6 +208,14 @@ public class Order implements Comparable<Order>, Serializable {
   public int compareTo(Order o) {
     // TODO Auto-generated method stub
     return 0;
+  }
+
+  public float getPrice() {
+    return this.price;
+  }
+
+  public String getDishName() {
+    return this.dishName;
   }
 
 }

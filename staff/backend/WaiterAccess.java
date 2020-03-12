@@ -83,7 +83,7 @@ public class WaiterAccess {
       int dishID = rs.getInt("dish_id");
       String timeStamp = (rs.getTimestamp("order_time")).toString();
       String status = rs.getString("status");
-      tempMap.put(new Order(orderID, custID, dishID, timeStamp, status));
+      //tempMap.put(new Order(orderID, custID, dishID, timeStamp, status));
     }
   }
 

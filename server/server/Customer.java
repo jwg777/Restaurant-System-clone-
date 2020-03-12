@@ -1,4 +1,5 @@
 package server;
+
 public class Customer {
 
   private int id;
