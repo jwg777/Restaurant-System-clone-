@@ -1,3 +1,4 @@
+package server;
 
 
 import java.io.DataInputStream;
@@ -99,7 +100,7 @@ public class UserThread extends Thread {
             /*
              * get id for name
              */
-            kitchen();
+            kitchen(authentication[0]);
             break;
           default:
             break;
@@ -122,7 +123,7 @@ public class UserThread extends Thread {
     String operand;
     // return id of the customer;
     name = "CUSTOMER_" + server.addCustomer(Integer.valueOf(tableNum));
-    write("ACCEPTED");
+    write("ACCEPTED " + name);
     System.out.println("New Client joined [" + name + "]");
     System.out.println("Sending menu to " + name + "...");
     for (Consumable consumable : server.getMenuList()) {
@@ -143,6 +144,19 @@ public class UserThread extends Thread {
         switch (operator.toUpperCase()) {
           case "ORDER":
             System.out.println("Sending " + name + " order " + operand + " to waiter");
+            write("ACCEPTED");
+            break;
+          case "CANCEL":
+            System.out.println("Cancelling " + name + " order " + operand);
+            write("ACCEPTED");
+            break;
+          case "NOTIFYWAITER":
+            System.out.println("Sending " + name + " message " + response[2] + " to waiter");
+            write("ACCEPTED");
+            break;
+          case "PAYMENTCONFIRMED":
+            System.out.println(name + "payment for " + operand + " has been confirmed");
+            write("ACCEPTED");
             break;
           default:
             operator = "STOP";
@@ -176,10 +190,95 @@ public class UserThread extends Thread {
       write("ADDORDER " + order.serializeToString());
     }
     System.out.println("All orders sent to " + name);
+    do {
+      String[] response = read().split(" ");
+      System.out.println("[" + name + "] : " + Arrays.toString(response));
+      if (response.length > 2 || response.length == 0) {
+        write("DISCONNECT");
+        break;
+      }
+      operator = response[0];
+      if (response.length == 2) {
+        operand = response[1];
+        switch (operator.toUpperCase()) {
+          case "CONFIRM":
+            System.out.println("Sending order " + operand + " to waiter");
+            write("ACCEPTED");
+            break;
+          case "CANCEL":
+            System.out.println("Cancelling order " + operand);
+            write("ACCEPTED");
+            break;
+          case "DELIVERED":
+            System.out.println("Marking order " + operand + " as delivered");
+            write("ACCEPTED");
+            break;
+          case "DELETEMESSAGE":
+            System.out.println("Deleting customer " + operand + " message");
+            write("ACCEPTED");
+            break;
+          case "ADDDISH":
+            System.out.println("Adding dish " + operand + " to menu");
+            write("ACCEPTED");
+            break;
+          case "DELETEDISH":
+            System.out.println("Deleting dish " + operand + " from menu");
+            write("ACCEPTED");
+            break;
+          case "UPDATEDISH":
+            System.out.println("Updating dish " + operand);
+            write("ACCEPTED");
+            break;
+          default:
+            operator = "STOP";
+            break;
+        }
+      }
+
+    } while (operator.equals("STOP"));
   }
 
-  public void kitchen() {
+  public void kitchen(String username) throws IOException {
+    String operator;
+    String operand;
 
+    name = "KITCHEN_" + username;
+    write("ACCEPTED KITCHEN");
+    System.out.println("New Client joined [" + name + "]");
+    /*
+     * Adds orders from database first.
+     */
+    System.out.println("Sending orders to " + name + "...");
+    for (Order order : server.getOrderList()) {
+      write("ADDORDER " + order.serializeToString());
+    }
+    System.out.println("All orders sent to " + name);
+    do {
+      String[] response = read().split(" ");
+      System.out.println("[" + name + "] : " + Arrays.toString(response));
+      if (response.length > 2 || response.length == 0) {
+        write("DISCONNECT");
+        break;
+      }
+      operator = response[0];
+      if (response.length == 2) {
+        operand = response[1];
+        switch (operator.toUpperCase()) {
+          case "PROCESSING":
+            System.out.println("Marking order " + operand + " as processing");
+            write("ACCEPTED");
+            break;
+          case "READY":
+            System.out.println("Marking order " + operand + " as ready");
+            write("ACCEPTED");
+            break;
+          default:
+            operator = "STOP";
+            break;
+        }
+      }
+
+    } while (operator.equals("STOP"));
   }
 
   public void close() {
