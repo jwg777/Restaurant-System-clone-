@@ -121,21 +121,6 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ordersPane" layoutX="250.0" prefHeight="576.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane prefHeight="72.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;">
-               <children>
-                  <Label layoutX="30.0" layoutY="14.0" prefHeight="40.0" prefWidth="121.0" text="Orders" textFill="#5370c9e5" AnchorPane.leftAnchor="30.0">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <ScrollPane layoutX="10.0" layoutY="131.0" prefHeight="436.0" prefWidth="754.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
-            <ScrollPane layoutX="20.0" layoutY="80.0" prefHeight="436.0" prefWidth="754.0" style="-fx-background-color: transparent;" />
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="menuPane" layoutX="250.0" prefHeight="576.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane fx:id="menuAnchor" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="160.0" />
@@ -205,6 +190,98 @@
                <padding>
                   <Insets left="20.0" />
                </padding>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ordersPane" layoutX="250.0" prefHeight="576.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="72.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;">
+               <children>
+                  <Label layoutX="30.0" layoutY="14.0" prefHeight="40.0" prefWidth="121.0" text="Orders" textFill="#5370c9e5" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="120.0" style="-fx-background-color: #92E0E1;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="72.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <children>
+                  <Label text="Name" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Quantity" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Price" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Total" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane fitToWidth="true" layoutX="10.0" layoutY="131.0" prefHeight="436.0" prefWidth="754.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="130.0">
+               <content>
+                  <ListView fx:id="ordersList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparant;" />
+               </content></ScrollPane>
+            <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #92E0E1;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="200.0">
+               <children>
+                  <Label text="Total Price :" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="£" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalPrice" text="100.00" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="629.0" layoutY="640.0" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #92E0E1;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+               <children>
+                  <Button mnemonicParsing="false" stylesheets="@filterButton.css" text="Place Order" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Label textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </HBox>
          </children>
       </AnchorPane>
