@@ -38,6 +38,10 @@
 <Text fx:id="actiontarget"
        GridPane.columnIndex="1" GridPane.rowIndex="6"/>
        
-       
+	<stylesheets>
+  	  <URL value="@application.css" />
+	</stylesheets>
+	
+	
 </GridPane>
 
