@@ -36,7 +36,7 @@ public class KitchenViewController {
    * Initialise the data of KicthenAccess.
    */
   KitchenAccess kitchenData = new KitchenAccess();
-  
+
   /** The menu tab pane. */
   @FXML
   private TabPane kitchenOrders = new TabPane();
@@ -44,11 +44,11 @@ public class KitchenViewController {
   /** The vbox new. */
   @FXML
   private VBox vboxNew = new VBox();
- 
-  /** Text area for notifications to the waiter **/ 
+
+  /** Text area for notifications to the waiter **/
   @FXML
   TextArea notifyWaiter = new TextArea();
-  
+
   /** The vbox in progress. */
   @FXML
   private VBox vboxInProgress = new VBox();
@@ -60,7 +60,7 @@ public class KitchenViewController {
   /** The listView to display waiter messages on the gui **/
   @FXML
   private ListView<String> messages = new ListView<>();
-  
+
   /** The ordered list. */
   @FXML
   private ListView<?> orderedList;
@@ -78,11 +78,13 @@ public class KitchenViewController {
    */
   @FXML
   TabPane OrderTabPane = new TabPane();
-  
+
   ArrayList<Order> completeOrders = new ArrayList<Order>();
-  
+
   ArrayList<Order> startedOrders = new ArrayList<Order>();
   
+  ArrayList<CheckBox> viewChecks = new ArrayList<CheckBox>();
+
 
 
   /**
@@ -141,8 +143,8 @@ public class KitchenViewController {
       tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
       tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("processing")) {
-        StackPane confirmStackPane = initialiseCheckButton("started", 16, -1);
-        ((CheckBox) confirmStackPane.getChildren().get(0))
+        StackPane startedStackPane = initialiseCheckButton("started", 16, -1);
+        ((CheckBox) startedStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
               public void handle(ActionEvent event) {
@@ -153,10 +155,24 @@ public class KitchenViewController {
                 }
               }
             });
-        tempHBox.getChildren().add(confirmStackPane);
+        StackPane viewStackPane = initialiseCheckButton("View", 16, -1);
+        ((CheckBox) viewStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  System.out.println("Show order");
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(startedStackPane);
+        tempHBox.getChildren().add(viewStackPane);
+        viewChecks.add((CheckBox) viewStackPane.getChildren().get(0));
       } else if (order.getStatus().equals("started")) {
-        StackPane confirmStackPane = initialiseCheckButton("ready", 16, -1);
-        ((CheckBox) confirmStackPane.getChildren().get(0))
+        StackPane readyStackPane = initialiseCheckButton("ready", 16, -1);
+        ((CheckBox) readyStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
               public void handle(ActionEvent event) {
@@ -167,7 +183,21 @@ public class KitchenViewController {
                 }
               }
             });
-        tempHBox.getChildren().add(confirmStackPane);
+        StackPane viewStackPane = initialiseCheckButton("View", 16, -1);
+        ((CheckBox) viewStackPane.getChildren().get(0))
+            .setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                try {
+                  System.out.println("Show order");
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+        tempHBox.getChildren().add(viewStackPane);
+        tempHBox.getChildren().add(readyStackPane);
+        viewChecks.add((CheckBox) viewStackPane.getChildren().get(0));
       } else if (order.getStatus().equals("ready")) {
         tempHBox.getChildren().add(initialiseCheckButton("paid", 16, order.getCustID()));
       }
@@ -197,7 +227,7 @@ public class KitchenViewController {
    */
   private Node initialiseGap() {
     Pane gap = new Pane();
-    gap.setPrefSize(25, 50);
+    gap.setPrefSize(15, 50);
     return gap;
   }
 
@@ -211,16 +241,16 @@ public class KitchenViewController {
    */
   private StackPane initialiseCheckButton(String name, int font, int custID) {
     StackPane stPane = new StackPane();
-    stPane.setPrefSize(150, 50);
+    stPane.setPrefSize(85, 50);
     CheckBox check = new CheckBox(name); // Button to remove and add food to order list
-    check.setPrefSize(150, 50);
+    check.setPrefSize(85, 50);
     check.setFont(new Font(font));
     try {
       if (custID != -1 && kitchenData.getIfPaid(custID)) {
         check.fire();
       }
     } catch (SQLException e) {
-      e.printStackTrace(); 
+      e.printStackTrace();
     }
     stPane.getChildren().add(check);
     return stPane;
@@ -253,61 +283,60 @@ public class KitchenViewController {
       OrderTabPane.getTabs().add(createNewOrderTab(string, orders.get(string)));
     }
   }
-  
+
   /**
-   * This method sends the message contained in the textbox to the waiter
-   * It deos this through sending the message into the databse using the KitchenAccess class
-   * Currently the databse aspect is commented out due to the dtabse being down.
+   * This method sends the message contained in the textbox to the waiter It deos this through
+   * sending the message into the databse using the KitchenAccess class Currently the databse aspect
+   * is commented out due to the dtabse being down.
    */
-  @FXML  
+  @FXML
   public void sendMessage() {
     String word = notifyWaiter.getText();
     notifyWaiter.clear();
     System.out.println(word);
-    
+
     Alert send = new Alert(AlertType.INFORMATION);
     send.setTitle("Notify the Waiter");
     send.setHeaderText(null);
     send.setContentText("Message has been sent.");
     send.showAndWait();
-    //kitchenData.sendMessageWaiter(word);
+    // kitchenData.sendMessageWaiter(word);
   }
-  
+
   /**
-   * This method gets the messages when the get message button is pressed.
-   * It used KitchenAccess class to return messasges from the waiter in the databse.
+   * This method gets the messages when the get message button is pressed. It used KitchenAccess
+   * class to return messasges from the waiter in the databse.
    */
-  @FXML  
+  @FXML
   public void getMessages() {
     messages.getItems().clear();
     messages.getItems().add("Order 23 has been changed");
     messages.getItems().add("Table 21 wants extra suace");
     messages.getItems().add("Order 2 wants to thank the kitchen for excellent food");
-    
-    //ResultSet rs  = kitehcnData.returnWaiterMessages():
+
+    // ResultSet rs = kitehcnData.returnWaiterMessages():
     /**
-     while (rs.next()) {
-       messages.getItems().add(rs.getString("message");
-     }
-    **/
-    
+     * while (rs.next()) { messages.getItems().add(rs.getString("message"); }
+     **/
+
   }
-  
+
   /**
-   * This method is called when remove button is pressed. It will 
-   * remove the selected item from the listpane.
+   * This method is called when remove button is pressed. It will remove the selected item from the
+   * listpane.
    */
-  @FXML  
+  @FXML
   public void removeSelected() {
     int selectedID = messages.getSelectionModel().getSelectedIndex();
     messages.getItems().remove(selectedID);
-    
-    //kitchenData.removeMessage(selectedID);
-    
+
+    // kitchenData.removeMessage(selectedID);
+
   }
-    
+
   /**
    * This method will take all orders that are marked as complete and change its status.
+   * 
    * @throws Exception throws exception if error occurs when reloading orders
    */
   @FXML
@@ -320,9 +349,10 @@ public class KitchenViewController {
       newOrderReload();
     }
   }
-  
+
   /**
    * This method will take all orders that are marked as started and change its status.
+   * 
    * @throws Exception throws exception if error occurs when reloading orders
    */
   @FXML
