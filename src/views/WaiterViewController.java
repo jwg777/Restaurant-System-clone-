@@ -52,8 +52,8 @@ public class WaiterViewController {
    * temp fields
    */
   String ip;
-  int port;
-  Socket socket;
+  //int port;
+  //Socket socket;
 
   /** The waiter data. */
   WaiterAccess waiterData = new WaiterAccess();
@@ -141,13 +141,11 @@ public class WaiterViewController {
 
   boolean emptyTextField;
 
-  @FXML
-  private void initialize() throws Exception {
+  
+  //@FXML
+  /** private void initialize() throws Exception {
     menuReload();
     orderReload();
-    /*
-     * temporary server access (need to change after).
-     */
     socket = new Socket(ip, port);
     Platform.runLater(new Runnable() {
       @Override
@@ -167,7 +165,7 @@ public class WaiterViewController {
       }
     });
   }
-
+   **/
   /**
    * Method for when the delete button is pushed.
    * 
@@ -626,13 +624,14 @@ public class WaiterViewController {
   @FXML
   public void reloadAlert() throws SQLException {
     System.out.println("test");
-    ResultSet rs = waiterData.getAlerts();
+    /**ResultSet rs = waiterData.getAlerts();
     String alert = "";
     alerts.getItems().clear();
     while (rs.next()) {
       alert = rs.getString("message");
       alerts.getItems().add(alert);
     }
+    */
   }
 
 

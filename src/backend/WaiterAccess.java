@@ -26,13 +26,13 @@ import order.OrderMap;
 public class WaiterAccess {
 
   /** Field for accessing methods within dataInteract class */
-  DataInteract waiterData;
+  //DataInteract waiterData;
 
   /**
    * Constructor to get instance of DataInteract class.
    */
   public WaiterAccess() {
-    waiterData = DataInteract.getInstance();
+    //waiterData = DataInteract.getInstance();
   }
 
 
@@ -51,7 +51,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
-
+/**
     ResultSet rs = waiterData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
 
@@ -64,7 +64,7 @@ public class WaiterAccess {
 
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
-
+*/
 
   }
 
@@ -74,6 +74,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
+   /**
     ResultSet rs = waiterData.select("SELECT * FROM ORDERS WHERE status != 'started' ORDER BY orderTime");
     OrderMap tempMap = OrderMap.getInstance();
 
@@ -86,8 +87,9 @@ public class WaiterAccess {
       String status = rs.getString("status");
       tempMap.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
     }
+  
+**/
   }
-
   /**
    * Deletes an order from the database.
    * 
@@ -95,7 +97,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if update fails.
    */
   public void removeOrder(Order order) throws SQLException {
-    waiterData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+   // waiterData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
 
   /**
@@ -105,12 +107,12 @@ public class WaiterAccess {
    * @throws SQLException Thrown if update fails.
    */
   public void confirmOrder(Order order) throws SQLException {
-    waiterData.update(
+    /**waiterData.update(
         "UPDATE Orders SET status = 'processing' WHERE orderID = '" + order.getOrderID() + "'");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
     waiterData.update("UPDATE Orders SET orderTime = '" + dtf.format(now) + "' WHERE orderID = '"
-        + order.getOrderID() + "'");
+        + order.getOrderID() + "'"); */
   }
 
   /**
@@ -131,7 +133,7 @@ public class WaiterAccess {
    * 
    */
   public void deleteMenuItem(String dishName) {
-    waiterData.executeDelete("DELETE FROM Menu " + "WHERE dish = '" + dishName + "';");
+    //waiterData.executeDelete("DELETE FROM Menu " + "WHERE dish = '" + dishName + "';");
   }
 
   /**
@@ -142,7 +144,7 @@ public class WaiterAccess {
    * 
    */
   public void addMenuItem(String attributes, String values) {
-    waiterData.insertIntoTable("Menu", attributes, values);
+    //waiterData.insertIntoTable("Menu", attributes, values);
   }
 
   /**
@@ -153,27 +155,28 @@ public class WaiterAccess {
    * 
    */
   public boolean checkKeyExists(String dishName) {
-    try {
+    /**try {
       ResultSet rs = waiterData.select("SELECT * FROM MENU WHERE dish = '" + dishName + "';");
       if (rs.next()) {
         return true;
       }
     } catch (Exception e) {
       return false;
-    }
-    return false;
+    }*/
+    return false; 
   }
   
   /**
    * This method returns the alerts currently stored in the database and puts them in a result set.
    * @return resultset storing alerts.
    */
-  public ResultSet getAlerts() {
-    ResultSet rs = waiterData.select("SELECT * FROM Messages");
-    return rs;
+  
+  public void getAlerts() {
+    //ResultSet rs = waiterData.select("SELECT * FROM Messages");
+    //return rs;
   }
   
   public void removeAlert(String message) {
-    waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
+    //waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
   }
 }

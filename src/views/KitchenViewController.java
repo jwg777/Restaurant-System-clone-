@@ -39,6 +39,7 @@ public class KitchenViewController {
    * Initialise the data of KicthenAccess.
    */
   KitchenAccess kitchenData = new KitchenAccess();
+  
   /** The menu tab pane. */
   @FXML
   private TabPane kitchenOrders = new TabPane();
@@ -257,7 +258,6 @@ public class KitchenViewController {
   }
   
   /**
-<<<<<<< HEAD
    * This method sends the message contained in the textbox to the waiter
    * It deos this through sending the message into the databse using the KitchenAccess class
    * Currently the databse aspect is commented out due to the dtabse being down.
@@ -309,7 +309,8 @@ public class KitchenViewController {
     //kitchenData.removeMessage(selectedID);
     
   }
-=======
+    
+  /**
    * This method will take all orders that are marked as complete and change its status.
    * @throws Exception throws exception if error occurs when reloading orders
    */
@@ -339,6 +340,4 @@ public class KitchenViewController {
     }
   }
 
-
->>>>>>> branch 'Kitchen_Order_Timestamp' of https://github.com/RHUL-CS-Projects/TeamProject2020_22.git
 }
