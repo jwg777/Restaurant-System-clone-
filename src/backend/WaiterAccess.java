@@ -179,4 +179,13 @@ public class WaiterAccess {
   public void removeAlert(String message) {
     //waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
   }
+  
+  public void getPayements() {
+    //ResultSet rs = waiterData.select("SELECT * FROM PAYEMENTS");
+    //return rs;
+  }
+  
+  public void confirmPayement(String payement) {
+    //waiterData.executeDelete("DELETe FROM Payements " + ..");
+  }
 }
