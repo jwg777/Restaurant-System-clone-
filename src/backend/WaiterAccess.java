@@ -170,21 +170,33 @@ public class WaiterAccess {
    * This method returns the alerts currently stored in the database and puts them in a result set.
    * @return resultset storing alerts.
    */
-  
   public void getAlerts() {
     //ResultSet rs = waiterData.select("SELECT * FROM Messages");
     //return rs;
   }
   
+  /**
+   * This method removes alerts from the databse, deleting messages from the database.
+   * @param message
+   */
   public void removeAlert(String message) {
     //waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
   }
   
+  /**
+   * This method returns payements from the databse into a resultset.
+   * It is to be called when the getPayements button is pressed in the Waiter View,
+   */
   public void getPayements() {
     //ResultSet rs = waiterData.select("SELECT * FROM PAYEMENTS");
     //return rs;
   }
   
+  /**
+   * This method removes payements form the databse when they have been
+   * confirmed as paid on the waiter view.
+   * @param payement
+   */
   public void confirmPayement(String payement) {
     //waiterData.executeDelete("DELETe FROM Payements " + ..");
   }

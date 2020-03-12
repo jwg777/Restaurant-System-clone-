@@ -636,7 +636,9 @@ public class WaiterViewController {
     */
   }
 
-
+  /**
+   * This method removs items selected in the waiter view.
+   */
   @FXML
   public void remove() {
     int index = alerts.getSelectionModel().getSelectedIndex();
@@ -647,6 +649,10 @@ public class WaiterViewController {
 
   }
   
+  /**
+   * This method displays payement sform the databse onto the gui. It is called when the reloadPayement button 
+   * is pressed.
+   */
   @FXML
   public void reloadPayements() {
     payements.getItems().clear();
@@ -665,6 +671,9 @@ public class WaiterViewController {
     
   }
   
+  /**
+   * This method removes selected item from listview when button is pressed.
+   */
   @FXML
   public void confirm() {
     int ID = payements.getSelectionModel().getSelectedIndex();
