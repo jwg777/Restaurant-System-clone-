@@ -1,7 +1,5 @@
 package server;
 
-
-
 public class InvalidClientTypeException extends Exception {
 
   /**

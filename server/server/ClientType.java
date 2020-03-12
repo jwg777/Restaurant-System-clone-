@@ -1,8 +1,5 @@
 package server;
 
-
-
-
 /**
  * Enum type of clients joining the server.
  * 

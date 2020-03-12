@@ -1,8 +1,5 @@
 package server;
 
-
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class Main.
