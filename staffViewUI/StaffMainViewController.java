@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public class MainViewController {
+public class StaffMainViewController {
   @FXML
   private AnchorPane statusPane;
 
@@ -102,8 +102,6 @@ public class MainViewController {
       }
     });
   }
-
-
 
   private void addCellToCategory(Consumable consumable, CategoryCell categoryCell) {
     ConsumableCell cCell = new ConsumableCell(consumable);
