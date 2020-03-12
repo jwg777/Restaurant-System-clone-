@@ -119,6 +119,28 @@ public class RequestThread extends Thread {
     }
     return false;
   }
+  
+  public boolean processingOrder(Order order) {
+    try {
+      output.writeUTF("PROCESSING " + order.getOrderID());
+      output.flush();
+      checkAccepted();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+  
+  public boolean readyOrder(Order order) {
+    try {
+      output.writeUTF("READY " + order.getOrderID());
+      output.flush();
+      checkAccepted();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
 
   public boolean checkAccepted() {
     try {

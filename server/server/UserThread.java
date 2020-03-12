@@ -100,7 +100,7 @@ public class UserThread extends Thread {
             /*
              * get id for name
              */
-            kitchen();
+            kitchen(authentication[0]);
             break;
           default:
             break;
@@ -238,8 +238,47 @@ public class UserThread extends Thread {
     } while (operator.equals("STOP"));
   }
 
-  public void kitchen() {
+  public void kitchen(String username) throws IOException {
+    String operator;
+    String operand;
 
+    name = "KITCHEN_" + username;
+    write("ACCEPTED KITCHEN");
+    System.out.println("New Client joined [" + name + "]");
+    /*
+     * Adds orders from database first.
+     */
+    System.out.println("Sending orders to " + name + "...");
+    for (Order order : server.getOrderList()) {
+      write("ADDORDER " + order.serializeToString());
+    }
+    System.out.println("All orders sent to " + name);
+    do {
+      String[] response = read().split(" ");
+      System.out.println("[" + name + "] : " + Arrays.toString(response));
+      if (response.length > 2 || response.length == 0) {
+        write("DISCONNECT");
+        break;
+      }
+      operator = response[0];
+      if (response.length == 2) {
+        operand = response[1];
+        switch (operator.toUpperCase()) {
+          case "PROCESSING":
+            System.out.println("Marking order " + operand + " as processing");
+            write("ACCEPTED");
+            break;
+          case "READY":
+            System.out.println("Marking order " + operand + " as ready");
+            write("ACCEPTED");
+            break;
+          default:
+            operator = "STOP";
+            break;
+        }
+      }
+
+    } while (operator.equals("STOP"));
   }
 
   public void close() {
