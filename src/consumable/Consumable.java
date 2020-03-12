@@ -82,6 +82,10 @@ public class Consumable implements Comparable<Consumable>, Serializable {
       e.printStackTrace();
     }
   }
+  
+  public int getID() {
+    return this.id;
+  }
 
   public boolean getIsAvailable() {
     return isAvailable;

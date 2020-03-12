@@ -6,6 +6,7 @@ import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.MapChangeListener;
@@ -15,46 +16,61 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import javafx.util.Duration;
+import order.Order;
 
 public class MainViewController {
 
-  @FXML
-  private AnchorPane statusPane;
-
-  @FXML
-  private AnchorPane reviewPane;
-
-  @FXML
-  private AnchorPane ordersPane;
-
-  @FXML
-  private AnchorPane menuPane;
-
-  @FXML
-  private AnchorPane menuAnchor;
 
   @FXML
   private HBox categoryHBox;
 
   @FXML
-  private StackPane confirmationPane;
-
-  @FXML
   private TextField tableField;
 
   @FXML
+  private AnchorPane ordersPane;
+
+  @FXML
+  private AnchorPane menuAnchor;
+
+  @FXML
+  private StackPane confirmationPane;
+
+  @FXML
+  private Label totalPrice;
+
+  @FXML
+  private AnchorPane menuPane;
+
+  @FXML
+  private AnchorPane reviewPane;
+
+  @FXML
+  private AnchorPane statusPane;
+
+  @FXML
   private Button confirmButton;
+
+  @FXML
+  private VBox ordersList;
 
   private Node frontPane;
 
   MenuMap menu = MenuMap.getInstance();
 
   HashMap<String, Button> buttons = new HashMap<>();
+  
+  ObservableList<Order> orders = FXCollections.observableArrayList();
 
   @FXML
   private void initialize() throws IOException {
@@ -109,7 +125,6 @@ public class MainViewController {
     ConsumableCell cCell = new ConsumableCell(consumable);
     categoryCell.getTilePane().getChildren().add(cCell.getCell());
   }
-
   public void fade(Node node) {
     if (!frontPane.equals(node)) {
       FadeTransition ft = new FadeTransition();
@@ -148,15 +163,14 @@ public class MainViewController {
     try {
       int tableNum = Integer.valueOf(tableField.getText());
       /*
-       * Confirm table number with server.
-       * And get the customer ID.
+       * Confirm table number with server. And get the customer ID.
        */
       confirmationPane.toBack();
     } catch (Exception e) {
       tableField.setText("");
     }
   }
-  
+
   /*
    * Temp buttons for testing.
    */

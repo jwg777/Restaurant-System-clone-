@@ -204,12 +204,12 @@
                   </Label>
                </children>
             </AnchorPane>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="120.0" style="-fx-background-color: #92E0E1;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="72.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="120.0" style="-fx-background-color: #92E0E1;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="72.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <padding>
-                  <Insets left="20.0" />
+                  <Insets left="70.0" />
                </padding>
                <children>
                   <Label text="Name" textFill="WHITE">
@@ -236,7 +236,7 @@
             </HBox>
             <ScrollPane fitToWidth="true" layoutX="10.0" layoutY="131.0" prefHeight="436.0" prefWidth="754.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="130.0">
                <content>
-                  <ListView fx:id="ordersList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparant;" />
+                  <VBox fx:id="ordersList" prefHeight="200.0" prefWidth="100.0" />
                </content></ScrollPane>
             <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #92E0E1;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="200.0">
                <children>

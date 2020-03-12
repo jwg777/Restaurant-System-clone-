@@ -21,12 +21,21 @@ public class Order implements Comparable<Order>, Serializable {
 
   /** The unique identifier of the order. */
   private int orderID;
+  
+  private String dishName;
 
   /** The unique identifier of the customer who made the order. */
   private int custID;
 
   private int dishID;
 
+  private String timeStamp;
+
+  /**
+   * The status of the order. Can be waiting, processing or ready.
+   */
+  private String status;
+  
   public int getDishID() {
     return dishID;
   }
@@ -50,13 +59,6 @@ public class Order implements Comparable<Order>, Serializable {
   public void setStatus(String status) {
     this.status = status;
   }
-
-  private String timeStamp;
-
-  /**
-   * The status of the order. Can be waiting, processing or ready.
-   */
-  private String status;
 
   /**
    * Instantiates a new order by specifying its id, customer id, order time and contents.
@@ -88,6 +90,16 @@ public class Order implements Comparable<Order>, Serializable {
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
+  }
+  
+  public Order(Consumable consumable) {
+    /*
+     * Get customer ID.
+     */
+    this.dishID = consumable.getID();
+    this.dishName = consumable.getName();
+    this.timeStamp = java.time.LocalTime.now().toString();
+    this.status = "Waiting";
   }
 
   /**
