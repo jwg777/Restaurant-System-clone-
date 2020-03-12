@@ -79,10 +79,19 @@ public class KitchenViewController {
   @FXML
   TabPane OrderTabPane = new TabPane();
 
+  /** List for orders that are marked as complete.
+   * 
+   */
   ArrayList<Order> completeOrders = new ArrayList<Order>();
 
+  /** List of orders that are marked as started.
+   * 
+   */
   ArrayList<Order> startedOrders = new ArrayList<Order>();
   
+  /** List of all view check boxes.
+   * 
+   */
   ArrayList<CheckBox> viewChecks = new ArrayList<CheckBox>();
 
 
@@ -161,7 +170,9 @@ public class KitchenViewController {
               @Override
               public void handle(ActionEvent event) {
                 try {
-                  System.out.println("Show order");
+                  System.out.println("Show order : " + order.getOrderID());
+                  disarmAllView();
+                  ((CheckBox) viewStackPane.getChildren().get(0)).setSelected(true);
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
@@ -189,14 +200,16 @@ public class KitchenViewController {
               @Override
               public void handle(ActionEvent event) {
                 try {
-                  System.out.println("Show order");
+                  System.out.println("Show order : " + order.getOrderID());
+                  disarmAllView();
+                  ((CheckBox) viewStackPane.getChildren().get(0)).setSelected(true);
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
               }
             });
-        tempHBox.getChildren().add(viewStackPane);
         tempHBox.getChildren().add(readyStackPane);
+        tempHBox.getChildren().add(viewStackPane);
         viewChecks.add((CheckBox) viewStackPane.getChildren().get(0));
       } else if (order.getStatus().equals("ready")) {
         tempHBox.getChildren().add(initialiseCheckButton("paid", 16, order.getCustID()));
@@ -363,6 +376,15 @@ public class KitchenViewController {
         kitchenData.setLastUpdate(o);
       }
       newOrderReload();
+    }
+  }
+  
+  /** Method will disarm all check boxes.
+   * 
+   */
+  public void disarmAllView() {
+    for (CheckBox cb : viewChecks) {
+      cb.setSelected(false);
     }
   }
 
