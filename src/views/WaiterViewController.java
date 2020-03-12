@@ -644,4 +644,14 @@ public class WaiterViewController {
     }
 
   }
+  
+  @FXML
+  public void reloadPayements() {
+    System.out.println("test1");
+  }
+  
+  @FXML
+  public void confirm() {
+    System.out.println("test2");
+  }
 }
