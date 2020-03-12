@@ -13,7 +13,12 @@ final public class ServerAccess {
   private static ServerAccess instance = null;
 
    
-  private ServerAccess() {}
+  private ServerAccess() {
+    /*
+     * Need to start a request connection first
+     * then start a notification connection after it's been accepted.
+     */
+  }
 
   /**
    * Gets the instance of ServerAccess.
