@@ -122,7 +122,7 @@ public class UserThread extends Thread {
     String operand;
     // return id of the customer;
     name = "CUSTOMER_" + server.addCustomer(Integer.valueOf(tableNum));
-    write("ACCEPTED");
+    write("ACCEPTED " + name);
     System.out.println("New Client joined [" + name + "]");
     System.out.println("Sending menu to " + name + "...");
     for (Consumable consumable : server.getMenuList()) {
@@ -143,6 +143,19 @@ public class UserThread extends Thread {
         switch (operator.toUpperCase()) {
           case "ORDER":
             System.out.println("Sending " + name + " order " + operand + " to waiter");
+            write("ACCEPTED");
+            break;
+          case "CANCEL":
+            System.out.println("Cancelling " + name + " order " + operand);
+            write("ACCEPTED");
+            break;
+          case "NOTIFYWAITER":
+            System.out.println("Sending " + name + " message " + response[2] + " to waiter");
+            write("ACCEPTED");
+            break;
+          case "PAYMENTCONFIRMED":
+            System.out.println(name + "payment for " + operand + " has been confirmed");
+            write("ACCEPTED");
             break;
           default:
             operator = "STOP";
