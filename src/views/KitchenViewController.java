@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import backend.KitchenAccess;
 import backend.WaiterAccess;
+import consumable.Consumable;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -63,7 +64,7 @@ public class KitchenViewController {
 
   /** The ordered list. */
   @FXML
-  private ListView<?> orderedList;
+  private ListView<String> orderedList;
 
 
   /** The button controller. */
@@ -170,7 +171,10 @@ public class KitchenViewController {
               @Override
               public void handle(ActionEvent event) {
                 try {
-                  System.out.println("Show order : " + order.getOrderID());
+                  orderedList.getItems().clear();
+                  for (Consumable item : order.getItems()) {
+                    orderedList.getItems().add(item.getName());
+                  }
                   disarmAllView();
                   ((CheckBox) viewStackPane.getChildren().get(0)).setSelected(true);
                 } catch (Exception e) {
@@ -200,7 +204,11 @@ public class KitchenViewController {
               @Override
               public void handle(ActionEvent event) {
                 try {
-                  System.out.println("Show order : " + order.getOrderID());
+                  orderedList.getItems().clear();
+                  for (Consumable item : order.getItems()) {
+                    System.out.println(item.getName());
+                    orderedList.getItems().add(item.getName());
+                  }
                   disarmAllView();
                   ((CheckBox) viewStackPane.getChildren().get(0)).setSelected(true);
                 } catch (Exception e) {
