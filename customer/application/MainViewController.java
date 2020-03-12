@@ -1,12 +1,12 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.MapChangeListener;
@@ -17,16 +17,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 import javafx.util.Duration;
 import order.Order;
+import order.OrderList;
 
 public class MainViewController {
 
@@ -69,8 +67,10 @@ public class MainViewController {
   MenuMap menu = MenuMap.getInstance();
 
   HashMap<String, Button> buttons = new HashMap<>();
-  
-  ObservableList<Order> orders = FXCollections.observableArrayList();
+
+  ArrayList<Integer> ordersIndex = new ArrayList<>();
+
+  OrderList orders = OrderList.getInstance();
 
   @FXML
   private void initialize() throws IOException {
@@ -79,6 +79,21 @@ public class MainViewController {
     confirmationPane.toFront();
     menu.getMenu().addListener(
         (MapChangeListener<String, ObservableList<Consumable>>) change -> addCategory(change));
+    orders.getOrderList().addListener((ListChangeListener<Order>) c -> {
+      while (c.next()) {
+        if (c.wasAdded()) {
+          for (Order order : c.getAddedSubList()) {
+            OrderCell oCell = new OrderCell();
+            oCell.setData(order);
+            ordersList.getChildren().add(oCell.getCell());
+            ordersIndex.add(order.getDishID());
+          }
+        } else if (c.wasReplaced()) {
+
+        }
+      }
+    });
+
   }
 
   private void addCategory(
@@ -125,6 +140,7 @@ public class MainViewController {
     ConsumableCell cCell = new ConsumableCell(consumable);
     categoryCell.getTilePane().getChildren().add(cCell.getCell());
   }
+
   public void fade(Node node) {
     if (!frontPane.equals(node)) {
       FadeTransition ft = new FadeTransition();
@@ -183,21 +199,21 @@ public class MainViewController {
   private void button1() {
     String type = "Category1";
     String name = "Consumable " + (i1++);
-    menu.put(new Consumable(type, name, 10.10f, 100, true, "Ingredient1, " + i1));
+    menu.put(new Consumable(i1 + 100, type, name, 10.10f, 100, true, "Ingredient1, " + i1));
   }
 
   @FXML
   private void button2() {
     String type = "Category2";
     String name = "Consumable " + (i2++);
-    menu.put(new Consumable(type, name, 10.10f, 100, true, "Ingredient1, " + i2));
+    menu.put(new Consumable(i1 + 200, type, name, 10.10f, 100, true, "Ingredient1, " + i2));
   }
 
   @FXML
   private void button3() {
     String type = "Category3";
     String name = "Consumable " + (i3++);
-    menu.put(new Consumable(type, name, 10.10f, 100, true, "Ingredient1, " + i3));
+    menu.put(new Consumable(i1 + 300, type, name, 10.10f, 100, true, "Ingredient1, " + i3));
   }
 
 }
