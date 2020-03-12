@@ -78,6 +78,8 @@ public class WaiterViewController {
   }
 
   @FXML
+  ListView<String> payements = new ListView<>();
+  @FXML
   private TextField dishName;
 
   @FXML
@@ -647,7 +649,20 @@ public class WaiterViewController {
   
   @FXML
   public void reloadPayements() {
-    System.out.println("test1");
+    payements.getItems().clear();
+    payements.getItems().add("Table: 2, Order No.: 214, Bill: 24.92, Status: Not-Paid");
+    payements.getItems().add("Table: 7, Order No.: 43, Bill: 45.65, Status: Paid");
+    payements.getItems().add("Table: 2, Order No.: 563, Bill: 11.90, Status: Paid");
+    payements.getItems().add("Table: 11, Order No.: 2133, Bill: 32.12, Status: Not-Paid");
+    
+    /**
+     ResultSet rs = waiterData.getPayments();
+     while (rs.next()) {
+       payements.getItems().add(rs.getString("info")..);
+     }
+     
+     */
+    
   }
   
   @FXML
