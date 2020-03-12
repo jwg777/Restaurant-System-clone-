@@ -85,6 +85,7 @@ public class MainViewController {
     });
   }
 
+
   private void addConsumable(Change<? extends Consumable> c, CategoryCell categoryCell) {
     Platform.runLater(() -> {
       while (c.next()) {
@@ -101,6 +102,8 @@ public class MainViewController {
       }
     });
   }
+
+
 
   private void addCellToCategory(Consumable consumable, CategoryCell categoryCell) {
     ConsumableCell cCell = new ConsumableCell(consumable);
