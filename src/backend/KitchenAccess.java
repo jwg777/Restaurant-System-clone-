@@ -37,10 +37,11 @@ public class KitchenAccess {
    * @throws SQLException Thrown if sql error occurs
    */
   public void getOrders() throws SQLException {
-    //ResultSet rs = kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
+    ResultSet rs =
+        kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
     OrderMap map = OrderMap.getInstance();
-    
- /**
+
+
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
@@ -49,9 +50,9 @@ public class KitchenAccess {
       String dish = rs.getString("dish");
       String status = rs.getString("status");
       map.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
-  
+
     }
-    **/
+
   }
 
   /**
@@ -61,34 +62,38 @@ public class KitchenAccess {
    */
   public void getMenu() throws SQLException {
     /**
-    ResultSet rs = kitchenData.select("SELECT * FROM Menu");
-    MenuMap tempMap = MenuMap.getInstance();
-
-    while (rs.next()) {
-      String itemName = rs.getString("dish");
-      float itemPrice = rs.getFloat("price");
-      String allergens = rs.getString("allergens");
-      int calories = rs.getInt("calories");
-      String type = rs.getString("type");
-
-      tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
-    }
-    **/
+     * ResultSet rs = kitchenData.select("SELECT * FROM Menu"); MenuMap tempMap =
+     * MenuMap.getInstance();
+     * 
+     * while (rs.next()) { String itemName = rs.getString("dish"); float itemPrice =
+     * rs.getFloat("price"); String allergens = rs.getString("allergens"); int calories =
+     * rs.getInt("calories"); String type = rs.getString("type");
+     * 
+     * tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens)); }
+     **/
   }
-  
-  public boolean getIfPaid(int custID) throws SQLException{
-    /**
+
+  /**
+   * Method to check if an order is already paid.
+   * 
+   * @param custID To tell which customer has paid or not paid
+   * @return returns if true if paid, false if not
+   * @throws SQLException thrown if SQL exception occurs
+   */
+  public boolean getIfPaid(int custID) throws SQLException {
+
     ResultSet rs = kitchenData.select("SELECT * FROM Customers WHERE cust_id = '" + custID + "'");
     while (rs.next()) {
       return rs.getBoolean("paid");
-    }**/
+    }
     return false;
-    
+
   }
 
   /**
    * 
    * This method will alter the state of an order. E.g change an order to complete.
+   * 
    * @param order This is the order that needs to be updated
    * @param status The new status of the order
    * 
@@ -104,44 +109,48 @@ public class KitchenAccess {
    * @param order this is ithe order to be removed
    */
   public void removeOrders(Order order) {
-    //kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+    // kitchenData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
-  
+
   /**
-   * Method will be called when kitchenview sends a message to the waiter.
-   * the String will be sent to the databse where it will be stored
+   * Method will be called when kitchenview sends a message to the waiter. the String will be sent
+   * to the databse where it will be stored
+   * 
    * @param message
    */
   public void sendMessageWaiter(String message) {
-    //kitchenData.insertIntoTable("messages" + message);
+    // kitchenData.insertIntoTable("messages" + message);
   }
-  
+
   /**
-   * This method will return a resultset that will be drisplayed on the gui for the KitchenView
-   * IT will allow kitchen staff to see what messages the waiters have sent
+   * This method will return a resultset that will be drisplayed on the gui for the KitchenView IT
+   * will allow kitchen staff to see what messages the waiters have sent
+   * 
    * @return
    */
   public void returnWaiterMessages() {
-    //kitchenData.select("SELECT * messages FROM Message");
+    // kitchenData.select("SELECT * messages FROM Message");
   }
-  
+
   /**
-   * This method removes messages from the waiter from the database.
-   * Should be called once the kitchen has removed the message.
+   * This method removes messages from the waiter from the database. Should be called once the
+   * kitchen has removed the message.
+   * 
    * @param message
    */
-  
+
   public void removeMessage(String message) {
-    //kitchenData.update("DELETE FROM messages WHERE..."
-  
+    // kitchenData.update("DELETE FROM messages WHERE..."
+
   }
-    
-    
-    /** This will change the time that the order was last updated.
+
+
+  /**
+   * This will change the time that the order was last updated.
    * 
    * @param order This is the order thats order time needs updating
    * 
-   */ 
+   */
   public void setLastUpdate(Order order) {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();

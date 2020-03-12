@@ -9,11 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-<<<<<<< HEAD
 import javafx.scene.control.Alert;
-=======
 import javafx.scene.control.Button;
->>>>>>> branch 'Kitchen_Order_Timestamp' of https://github.com/RHUL-CS-Projects/TeamProject2020_22.git
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;

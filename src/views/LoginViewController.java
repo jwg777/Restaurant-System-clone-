@@ -61,7 +61,8 @@ public class LoginViewController {
      * } } else { errorMessage.setVisible(true); System.out.println("Authentication failed"); }
      */
 
-    butController.startWaiter();
+    //butController.startWaiter();
+    butController.startKitchen();
   }
 }
 
