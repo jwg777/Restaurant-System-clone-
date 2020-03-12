@@ -1,5 +1,6 @@
 package order;
 
+import java.util.ConcurrentModificationException;
 import consumable.Consumable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +10,7 @@ public class OrderList {
   private static OrderList instance = null;
 
   private ObservableList<Order> orderList = FXCollections.observableArrayList();
-  
+
   private OrderList() {}
 
   public static OrderList getInstance() {
@@ -30,12 +31,16 @@ public class OrderList {
   }
 
   public void minus(Consumable consumable) {
-    for (Order order : orderList) {
-      if (consumable.getID() == order.getDishID()) {
-        if (!order.minusQuantity()) {
-          orderList.remove(order);
+    try {
+      for (Order order : orderList) {
+        if (consumable.getID() == order.getDishID()) {
+          if (!order.minusQuantity()) {
+            orderList.remove(order);
+          }
         }
       }
+    } catch (ConcurrentModificationException e) {
+
     }
   }
 

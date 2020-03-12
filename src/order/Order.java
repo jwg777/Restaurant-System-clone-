@@ -54,15 +54,15 @@ public class Order implements Comparable<Order>, Serializable {
   }
 
   public void addQuantity() {
-    listener.onChange();
     quantity++;
+    listener.onChange();
   }
 
   /**
    * @return false if quantity is 0 after decrement.
    */
   public boolean minusQuantity() {
-    if (quantity-- != 0) {
+    if (--quantity != 0) {
       listener.onChange();
       return true;
     }

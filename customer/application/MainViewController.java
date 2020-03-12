@@ -88,8 +88,15 @@ public class MainViewController {
             ordersList.getChildren().add(oCell.getCell());
             ordersIndex.add(order.getDishID());
           }
-        } else if (c.wasReplaced()) {
-
+        } else if (c.wasRemoved()) {
+          for (Order order : c.getRemoved()) {
+            for (int i = 0; i < ordersIndex.size(); i++) {
+              if (order.getDishID() == ordersIndex.get(i)) {
+                ordersList.getChildren().remove(i);
+                ordersIndex.remove(i);
+              }
+            }
+          }
         }
       }
     });
