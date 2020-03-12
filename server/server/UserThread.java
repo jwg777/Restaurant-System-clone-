@@ -190,6 +190,52 @@ public class UserThread extends Thread {
       write("ADDORDER " + order.serializeToString());
     }
     System.out.println("All orders sent to " + name);
+    do {
+      String[] response = read().split(" ");
+      System.out.println("[" + name + "] : " + Arrays.toString(response));
+      if (response.length > 2 || response.length == 0) {
+        write("DISCONNECT");
+        break;
+      }
+      operator = response[0];
+      if (response.length == 2) {
+        operand = response[1];
+        switch (operator.toUpperCase()) {
+          case "CONFIRM":
+            System.out.println("Sending order " + operand + " to waiter");
+            write("ACCEPTED");
+            break;
+          case "CANCEL":
+            System.out.println("Cancelling order " + operand);
+            write("ACCEPTED");
+            break;
+          case "DELIVERED":
+            System.out.println("Marking order " + operand + " as delivered");
+            write("ACCEPTED");
+            break;
+          case "DELETEMESSAGE":
+            System.out.println("Deleting customer " + operand + " message");
+            write("ACCEPTED");
+            break;
+          case "ADDDISH":
+            System.out.println("Adding dish " + operand + " to menu");
+            write("ACCEPTED");
+            break;
+          case "DELETEDISH":
+            System.out.println("Deleting dish " + operand + " from menu");
+            write("ACCEPTED");
+            break;
+          case "UPDATEDISH":
+            System.out.println("Updating dish " + operand);
+            write("ACCEPTED");
+            break;
+          default:
+            operator = "STOP";
+            break;
+        }
+      }
+
+    } while (operator.equals("STOP"));
   }
 
   public void kitchen() {
