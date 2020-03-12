@@ -667,6 +667,9 @@ public class WaiterViewController {
   
   @FXML
   public void confirm() {
-    System.out.println("test2");
+    int ID = payements.getSelectionModel().getSelectedIndex();
+    payements.getItems().remove(ID);
+    
+    //waiterData.confirmPayements(ID);
   }
 }

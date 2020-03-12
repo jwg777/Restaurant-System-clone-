@@ -302,7 +302,6 @@ public class KitchenViewController {
    */
   @FXML  
   public void removeSelected() {
-    System.out.println("TEST");
     int selectedID = messages.getSelectionModel().getSelectedIndex();
     messages.getItems().remove(selectedID);
     
