@@ -1,5 +1,4 @@
-
-
+package server;
 
 // TODO: Auto-generated Javadoc
 /**
