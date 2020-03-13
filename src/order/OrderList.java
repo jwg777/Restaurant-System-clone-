@@ -11,6 +11,8 @@ public class OrderList {
 
   private ObservableList<Order> orderList = FXCollections.observableArrayList();
 
+  float totalPrice = 0;
+
   private OrderList() {}
 
   public static OrderList getInstance() {
@@ -20,7 +22,13 @@ public class OrderList {
     return instance;
   }
 
+  public void add(Order order) {
+    totalPrice += order.getPrice();
+    order.addQuantity();
+  }
+
   public void add(Consumable consumable) {
+    totalPrice += consumable.getPrice();
     for (Order order : orderList) {
       if (consumable.getID() == order.getDishID()) {
         order.addQuantity();
@@ -30,18 +38,34 @@ public class OrderList {
     orderList.add(new Order(consumable));
   }
 
-  public void minus(Consumable consumable){
+  public void minus(Order order) {
+    try {
+      if (!order.minusQuantity()) {
+        orderList.remove(order);
+        totalPrice -= order.getPrice();
+      }
+    } catch (ConcurrentModificationException e) {
+
+    }
+  }
+
+  public void minus(Consumable consumable) {
     try {
       for (Order order : orderList) {
         if (consumable.getID() == order.getDishID()) {
           if (!order.minusQuantity()) {
             orderList.remove(order);
+            totalPrice -= consumable.getPrice();
           }
         }
       }
     } catch (ConcurrentModificationException e) {
 
     }
+  }
+
+  public float getTotalPrice() {
+    return totalPrice;
   }
 
   public ObservableList<Order> getOrderList() {
