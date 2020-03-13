@@ -315,6 +315,17 @@
            </AnchorPane>
          </content>
         </Tab>
+        <Tab text="PAYEMENT">
+         <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ListView fx:id="payements" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="400" />
+                <Button layoutX="450" layoutY="100" mnemonicParsing="false" onAction="#reloadPayements" prefHeight="40.0" prefWidth="200" text="reload"/>
+              </children>
+              <Button layoutX="450" layoutY="60" mnemonicParsing="false" onAction="#confirm" prefHeight="40.0" prefWidth="200" text="Confirm selected"/>
+           </AnchorPane>
+         </content>
+        </Tab>
       </tabs>
     </TabPane>
     <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" text="Back To Main Menu" />

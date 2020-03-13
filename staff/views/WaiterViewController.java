@@ -52,8 +52,8 @@ public class WaiterViewController {
    * temp fields
    */
   String ip;
-  int port;
-  Socket socket;
+  //int port;
+  //Socket socket;
 
   /** The waiter data. */
   WaiterAccess waiterData = new WaiterAccess();
@@ -77,6 +77,8 @@ public class WaiterViewController {
     butController.startMain();
   }
 
+  @FXML
+  ListView<String> payements = new ListView<>();
   @FXML
   private TextField dishName;
 
@@ -141,13 +143,11 @@ public class WaiterViewController {
 
   boolean emptyTextField;
 
-  @FXML
-  private void initialize() throws Exception {
+  
+  //@FXML
+  /** private void initialize() throws Exception {
     menuReload();
     orderReload();
-    /*
-     * temporary server access (need to change after).
-     */
     socket = new Socket(ip, port);
     Platform.runLater(new Runnable() {
       @Override
@@ -167,7 +167,7 @@ public class WaiterViewController {
       }
     });
   }
-
+   **/
   /**
    * Method for when the delete button is pushed.
    * 
@@ -623,15 +623,20 @@ public class WaiterViewController {
   @FXML
   public void reloadAlert() throws SQLException {
     System.out.println("test");
-    ResultSet rs = waiterData.getAlerts();
+    /**ResultSet rs = waiterData.getAlerts();
     String alert = "";
     alerts.getItems().clear();
     while (rs.next()) {
       alert = rs.getString("message");
       alerts.getItems().add(alert);
     }
+    */
   }
 
+
+  /**
+   * This method removs items selected in the waiter view.
+   */
   @FXML
   public void remove() {
     int index = alerts.getSelectionModel().getSelectedIndex();
@@ -640,5 +645,38 @@ public class WaiterViewController {
       alerts.getItems().remove(index);
     }
 
+  }
+  
+  /**
+   * This method displays payement sform the databse onto the gui. It is called when the reloadPayement button 
+   * is pressed.
+   */
+  @FXML
+  public void reloadPayements() {
+    payements.getItems().clear();
+    payements.getItems().add("Table: 2, Order No.: 214, Bill: 24.92, Status: Not-Paid");
+    payements.getItems().add("Table: 7, Order No.: 43, Bill: 45.65, Status: Paid");
+    payements.getItems().add("Table: 2, Order No.: 563, Bill: 11.90, Status: Paid");
+    payements.getItems().add("Table: 11, Order No.: 2133, Bill: 32.12, Status: Not-Paid");
+    
+    /**
+     ResultSet rs = waiterData.getPayments();
+     while (rs.next()) {
+       payements.getItems().add(rs.getString("info")..);
+     }
+     
+     */
+    
+  }
+  
+  /**
+   * This method removes selected item from listview when button is pressed.
+   */
+  @FXML
+  public void confirm() {
+    int ID = payements.getSelectionModel().getSelectedIndex();
+    payements.getItems().remove(ID);
+    
+    //waiterData.confirmPayements(ID);
   }
 }
