@@ -13,6 +13,8 @@ public class OrderList {
 
   float totalPrice = 0;
 
+  private PriceListener priceListener;
+
   private OrderList() {}
 
   public static OrderList getInstance() {
@@ -22,28 +24,38 @@ public class OrderList {
     return instance;
   }
 
-  public void add(Order order) {
-    totalPrice += order.getPrice();
-    order.addQuantity();
+  public void addPriceListener(PriceListener priceListener) {
+    this.priceListener = priceListener;
   }
 
-  public void add(Consumable consumable) {
+  public void add(Order order) {
+    totalPrice += order.getPrice();
+    priceListener.onChange();
+    order.addQuantity();
+
+  }
+
+  public Order add(Consumable consumable) {
     totalPrice += consumable.getPrice();
+    priceListener.onChange();
     for (Order order : orderList) {
       if (consumable.getID() == order.getDishID()) {
         order.addQuantity();
-        return;
+        return null;
       }
     }
-    orderList.add(new Order(consumable));
+    Order order = new Order(consumable);
+    orderList.add(order);
+    return order;
   }
 
   public void minus(Order order) {
     try {
       if (!order.minusQuantity()) {
         orderList.remove(order);
-        totalPrice -= order.getPrice();
       }
+      totalPrice -= order.getPrice();
+      priceListener.onChange();
     } catch (ConcurrentModificationException e) {
 
     }
@@ -55,13 +67,23 @@ public class OrderList {
         if (consumable.getID() == order.getDishID()) {
           if (!order.minusQuantity()) {
             orderList.remove(order);
-            totalPrice -= consumable.getPrice();
           }
+          totalPrice -= order.getPrice();
+          priceListener.onChange();
         }
       }
     } catch (ConcurrentModificationException e) {
 
     }
+  }
+
+  public Order getOrder(Consumable consumable) {
+    for (Order order : orderList) {
+      if (consumable.getID() == order.getDishID()) {
+        return order;
+      }
+    }
+    return null;
   }
 
   public float getTotalPrice() {
@@ -70,5 +92,14 @@ public class OrderList {
 
   public ObservableList<Order> getOrderList() {
     return this.orderList;
+  }
+
+  @Override
+  public String toString() {
+    String string = "";
+    for (Order order : orderList) {
+      string += order.getDishName() + " x " + order.getQuantity() + " | ";
+    }
+    return string;
   }
 }

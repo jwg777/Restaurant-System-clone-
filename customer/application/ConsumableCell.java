@@ -18,6 +18,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
+import order.Order;
 import order.OrderList;
 
 public class ConsumableCell {
@@ -71,14 +72,22 @@ public class ConsumableCell {
     addButton.setOnAction((EventHandler<ActionEvent>) event -> {
       pressedAnimation(addImagePressed);
       orders.add(consumable);
-      quantityLabel.setText(String.valueOf(Integer.parseInt(quantityLabel.getText()) + 1));
+      /*
+       * Need fixing! doesn't go to 0 when quantity is change to 0 from another pane
+       */
+      if (consumable.getID() == orders.getOrderList().get(orders.getOrderList().size() - 1)
+          .getDishID() && orders.getOrder(consumable).getQuantity() == 1) {
+        quantityLabel.setText(orders.getOrder(consumable).getQuantity() + "");
+        orders.getOrder(consumable).addListener(() -> {
+          quantityLabel.setText(orders.getOrder(consumable).getQuantity() + "");
+        });
+      }
     });
     minusButton.setOnAction((EventHandler<ActionEvent>) event -> {
       pressedAnimation(minusImagePressed);
       orders.minus(consumable);
-      int i = Integer.parseInt(quantityLabel.getText());
-      if (i != 0) {
-        quantityLabel.setText(String.valueOf(--i));
+      if (orders.getOrder(consumable) == null) {
+        quantityLabel.setText("0");
       }
     });
     vBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("92E0E1"), null, null)));

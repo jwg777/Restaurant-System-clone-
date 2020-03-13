@@ -71,36 +71,47 @@ public class MainViewController {
   ArrayList<Integer> ordersIndex = new ArrayList<>();
 
   OrderList orders = OrderList.getInstance();
-  
-  
+
+
 
   @FXML
   private void initialize() throws IOException {
     menuPane.toFront();
     frontPane = menuPane;
     confirmationPane.toFront();
+    // Listener for price change
+    orders.addPriceListener(() -> {
+      Platform.runLater(() -> {
+        totalPrice.setText(String.format("%.2f", orders.getTotalPrice()));
+      });
+    });
+    // Listener for menu change
     menu.getMenu().addListener(
         (MapChangeListener<String, ObservableList<Consumable>>) change -> addCategory(change));
+    // Listener for order change
     orders.getOrderList().addListener((ListChangeListener<Order>) c -> {
-      while (c.next()) {
-        if (c.wasAdded()) {
-          for (Order order : c.getAddedSubList()) {
-            OrderCell oCell = new OrderCell();
-            oCell.setData(order);
-            ordersList.getChildren().add(oCell.getCell());
-            ordersIndex.add(order.getDishID());
-          }
-        } else if (c.wasRemoved()) {
-          for (Order order : c.getRemoved()) {
-            for (int i = 0; i < ordersIndex.size(); i++) {
-              if (order.getDishID() == ordersIndex.get(i)) {
-                ordersList.getChildren().remove(i);
-                ordersIndex.remove(i);
+      Platform.runLater(() -> {
+        System.out.println(orders.toString());
+        while (c.next()) {
+          if (c.wasAdded()) {
+            for (Order order : c.getAddedSubList()) {
+              OrderCell oCell = new OrderCell();
+              oCell.setData(order);
+              ordersList.getChildren().add(oCell.getCell());
+              ordersIndex.add(order.getDishID());
+            }
+          } else if (c.wasRemoved()) {
+            for (Order order : c.getRemoved()) {
+              for (int i = 0; i < ordersIndex.size(); i++) {
+                if (order.getDishID() == ordersIndex.get(i)) {
+                  ordersList.getChildren().remove(i);
+                  ordersIndex.remove(i);
+                }
               }
             }
           }
         }
-      }
+      });
     });
 
   }
