@@ -1,3 +1,4 @@
+
 package consumable;
 
 import java.io.ByteArrayInputStream;
@@ -10,7 +11,7 @@ import java.util.Base64;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
- * 
+ *
  * @author Chak
  */
 public class Consumable implements Comparable<Consumable>, Serializable {
@@ -58,7 +59,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
     this.ingredients = ingredients;
     this.isAvailable = isAvailable;
   }
-  
+
   public Consumable(String type, String name, float price, int calories,
       boolean isAvailable, String ingredients) {
     this.type = type;
@@ -82,7 +83,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
       e.printStackTrace();
     }
   }
-  
+
   public int getID() {
     return this.id;
   }
@@ -155,7 +156,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
 
   /**
    * Serialises Object to String.
-   * 
+   *
    * @return String
    * @throws IOException
    */
@@ -165,7 +166,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
     oos.writeObject(this);
     return Base64.getEncoder().encodeToString(baos.toByteArray());
   }
-  
+
 
   @Override
   public boolean equals(Object obj) {
