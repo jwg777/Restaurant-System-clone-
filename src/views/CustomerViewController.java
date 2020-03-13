@@ -95,6 +95,9 @@ public class CustomerViewController {
 
   @FXML
   ListView<String> paymentList = new ListView<>();
+  
+  @FXML
+  ListView<String> cOrderList = new ListView<>();
 
   @FXML
   Alert addAlert = new Alert(AlertType.INFORMATION);
@@ -116,6 +119,9 @@ public class CustomerViewController {
 
   @FXML
   private Pane ptotalPane;
+  
+  @FXML
+  private Pane cTotalPane;
 
   /**
    * Runs this method during scene start up.
@@ -295,6 +301,7 @@ public class CustomerViewController {
           if (orderedList.getItems().contains(consumable.getName())) {
             orderedList.getItems().remove(consumable.getName());
             paymentList.getItems().remove(consumable.getName());
+            cOrderList.getItems().remove(consumable.getName());
             total -= Double.parseDouble(String.format("%.2f", consumable.getPrice()));
             totalLabel();
           } else {
@@ -311,6 +318,7 @@ public class CustomerViewController {
         public void handle(ActionEvent event) {
           orderedList.getItems().add(consumable.getName());
           paymentList.getItems().add(consumable.getName());
+          cOrderList.getItems().add(consumable.getName());
           total += Double.parseDouble(String.format("%.2f", consumable.getPrice()));
           totalLabel();
         }
@@ -451,6 +459,9 @@ public class CustomerViewController {
 
     this.ptotalPane.getChildren().clear();
     this.ptotalPane.getChildren().add(initialiseLabel(sTotal, 100, 100));
+    
+    this.cTotalPane.getChildren().clear();
+    this.cTotalPane.getChildren().add(initialiseLabel(sTotal, 100, 50));
   }
 
   /**
@@ -458,6 +469,7 @@ public class CustomerViewController {
    * the waiter. This method is to be called in the correct action button method when the button is
    * pressed.
    */
+  
   @FXML
   public void contactWaiter() {
     String message = textArea.getText();
@@ -513,6 +525,25 @@ public class CustomerViewController {
   
   @FXML
   private void back2PO(ActionEvent event) throws Exception {
+    paymentPane1.setVisible(true);
+  }
+  
+  @FXML
+  private TextField cNumber, expMonth, expYear, CVV;
+ 
+  private String cardNumber, expDate, cvvCode;
+  
+  @FXML
+  private void confirmPurchase(ActionEvent event) throws Exception {
+    this.cardNumber = cNumber.getText();
+    this.expDate = expMonth.getText() + expYear.getText();
+    this.cvvCode = CVV.getText();
+    
+    cNumber.clear();
+    expMonth.clear();
+    expYear.clear();
+    CVV.clear();
+    
     paymentPane1.setVisible(true);
   }
   

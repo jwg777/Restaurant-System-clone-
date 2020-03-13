@@ -42,7 +42,18 @@
                      <children>
                         <Pane fx:id="paymentPane2" prefHeight="555.0" prefWidth="800.0" style="-fx-background-color: #f4b6f8;">
                            <children>
-                              <Button layoutX="288.0" layoutY="451.0" mnemonicParsing="false" onAction="#back2PO" text="Back to Payment Options" />
+                              <Button layoutX="159.0" layoutY="439.0" mnemonicParsing="false" onAction="#back2PO" text="Back to Payment Options" />
+                              <TextField fx:id="cNumber" layoutX="64.0" layoutY="92.0" prefHeight="39.0" prefWidth="305.0" />
+                              <Text layoutX="75.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Number" />
+                              <TextField fx:id="expMonth" layoutX="64.0" layoutY="177.0" prefHeight="39.0" prefWidth="47.0" />
+                              <TextField fx:id="expYear" layoutX="135.0" layoutY="177.0" prefHeight="39.0" prefWidth="47.0" />
+                              <Text layoutX="121.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                              <Text layoutX="76.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiry Date" />
+                              <TextField fx:id="CCV" layoutX="64.0" layoutY="265.0" prefHeight="39.0" prefWidth="66.0" />
+                              <Text layoutX="77.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CCV" />
+                              <ListView fx:id="cOrderList" layoutX="512.0" layoutY="92.0" prefHeight="275.0" prefWidth="200.0" />
+                              <Pane fx:id="cTotalPane" layoutX="555.0" layoutY="392.0" prefHeight="47.0" prefWidth="114.0" style="-fx-background-color: #eea29a;" />
+                              <Button fx:id="confPurchase" layoutX="159.0" layoutY="377.0" mnemonicParsing="false" onAction="#confirmPurchase" prefHeight="39.0" prefWidth="224.0" text="Confirm Purchase" />
                            </children>
                         </Pane>
                         <Pane fx:id="paymentPane1" prefHeight="556.0" prefWidth="800.0" style="-fx-background-color: #b6e2f8;">
