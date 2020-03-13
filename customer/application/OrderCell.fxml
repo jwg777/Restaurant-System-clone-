@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: E5FAF8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="790.0" style="-fx-background-color: E5FAF8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button mnemonicParsing="false" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
          <graphic>
@@ -20,35 +19,40 @@
             </ImageView>
          </graphic>
       </Button>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" spacing="120.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label fx:id="title" text="Title" textFill="#5370c9">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="quantity" text="x2" textFill="#5370c9">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="price" text="£ 100.00" textFill="#5370c9">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalPrice" text="£ 200.00" textFill="#5370c9">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets left="70.0" />
-         </padding>
-      </HBox>
+      <Label fx:id="totalPrice" alignment="CENTER" text="300.00" textFill="#5370c9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="579.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" text="x " textFill="#5370c9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="quantity" alignment="CENTER" layoutX="10.0" layoutY="10.0" text="3" textFill="#5370c9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="248.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="title" alignment="CENTER" layoutX="70.0" text="Title" textFill="#5370c9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="price" alignment="CENTER" text="100.00" textFill="#5370c9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="421.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalPrice1" alignment="CENTER" layoutX="10.0" layoutY="10.0" text="£ " textFill="#5370c9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="558.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalPrice11" alignment="CENTER" layoutX="20.0" layoutY="20.0" text="£ " textFill="#5370c9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

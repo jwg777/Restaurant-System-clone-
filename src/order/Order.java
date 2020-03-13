@@ -38,15 +38,19 @@ public class Order implements Comparable<Order>, Serializable {
 
   private int quantity;
 
-  private OrderListener listener;
+  private ArrayList<OrderListener> listeners = new ArrayList<>();
 
   /**
    * The status of the order. Can be waiting, processing or ready.
    */
   private String status;
 
-  public void setListener(OrderListener listener) {
-    this.listener = listener;
+  public void addListener(OrderListener listener) {
+    this.listeners.add(listener);
+  }
+  
+  public void removeListener(OrderListener listener) {
+    this.listeners.remove(listener);
   }
 
   public int getQuantity() {
@@ -55,7 +59,9 @@ public class Order implements Comparable<Order>, Serializable {
 
   public void addQuantity() {
     quantity++;
-    listener.onChange();
+    for (OrderListener listener : listeners) {
+      listener.onChange();
+    }
   }
 
   /**
@@ -63,7 +69,9 @@ public class Order implements Comparable<Order>, Serializable {
    */
   public boolean minusQuantity() {
     if (--quantity != 0) {
-      listener.onChange();
+      for (OrderListener listener : listeners) {
+        listener.onChange();
+      }
       return true;
     }
     return false;

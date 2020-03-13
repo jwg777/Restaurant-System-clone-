@@ -71,6 +71,8 @@ public class MainViewController {
   ArrayList<Integer> ordersIndex = new ArrayList<>();
 
   OrderList orders = OrderList.getInstance();
+  
+  
 
   @FXML
   private void initialize() throws IOException {

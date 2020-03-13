@@ -35,11 +35,11 @@ public class OrderCell {
   }
 
   public void setData(Order order) {
-    order.setListener(() -> {
-      quantity.setText("x " + order.getQuantity());
+    order.addListener(() -> {
+      quantity.setText("" + order.getQuantity());
       totalPrice.setText(String.format("%.2f", order.getQuantity() * order.getPrice()));
     });
-    quantity.setText("x " + order.getQuantity());
+    quantity.setText(order.getQuantity() + "");
     price.setText(String.format("%.2f", order.getPrice()));
     totalPrice.setText(Float.toString(order.getPrice()));
     title.setText(order.getDishName());

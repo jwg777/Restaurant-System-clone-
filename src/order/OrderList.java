@@ -30,7 +30,7 @@ public class OrderList {
     orderList.add(new Order(consumable));
   }
 
-  public void minus(Consumable consumable) {
+  public void minus(Consumable consumable){
     try {
       for (Order order : orderList) {
         if (consumable.getID() == order.getDishID()) {
