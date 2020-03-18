@@ -14,7 +14,7 @@ import order.Order;
  * @author Chak
  *
  */
-public final class Server {
+public final class Server extends Thread{
 
   /**
    * an instance for the singleton class.
@@ -23,7 +23,7 @@ public final class Server {
   /**
    * port of the server.
    */
-  private int port;
+  private int requestPort = 6666;
   /**
    * List of customers that are connected to the server.
    */
@@ -63,20 +63,11 @@ public final class Server {
   }
 
   /**
-   * set the port of the server.
-   * 
-   * @param port
-   */
-  public void setPort(int port) {
-    this.port = port;
-  }
-
-  /**
    * Starts the server.
    */
   public void start() {
-    try (ServerSocket serverSocket = new ServerSocket(port)) {
-      System.out.println("Server started on port " + port);
+    try (ServerSocket serverSocket = new ServerSocket(requestPort)) {
+      System.out.println("Server started on port " + requestPort);
       while (true) {
         Socket socket = serverSocket.accept();
         System.out.println("New Client Connected");
@@ -85,7 +76,7 @@ public final class Server {
         newUser.start();
       }
     } catch (IOException e) {
-      System.out.println("Port " + port + " is already used");
+      System.out.println("Port " + requestPort + " is already used");
     }
   }
 
@@ -163,8 +154,8 @@ public final class Server {
     database.addCustomer(temp);
     return temp.getId();
   }
-  
+
   public void removeCustomer(int tableNum) {
-     database.removeCustomer(tableNum);
+    database.removeCustomer(tableNum);
   }
 }

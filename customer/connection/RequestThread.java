@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import order.Order;
 
-public class RequestThread extends Thread {
+public class RequestThread {
 
   private DataInputStream input;
   private DataOutputStream output;
@@ -20,6 +20,10 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
 
     }
+  }
+
+  public String getID() {
+    return this.customerID;
   }
 
   // CUSTOMER FUNCTIONS
@@ -70,7 +74,7 @@ public class RequestThread extends Thread {
       return false;
     }
   }
-  
+
   public boolean paymentConfirmed() {
     try {
       output.writeUTF("PAYMENTCONFIRMED " + customerID);
@@ -80,20 +84,6 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       return false;
     }
-  }
-
-  // STAFF FUNCTIONS
-  public String staffLogin(String username, String password) {
-    return "WAITER";
-  }
-
-  public boolean confirmOrder(Order order) {
-    return true;
-  }
-
-  @Override
-  public void run() {
-
   }
 
 }

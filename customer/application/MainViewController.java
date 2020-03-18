@@ -91,7 +91,6 @@ public class MainViewController {
     // Listener for order change
     orders.getOrderList().addListener((ListChangeListener<Order>) c -> {
       Platform.runLater(() -> {
-        System.out.println(orders.toString());
         while (c.next()) {
           if (c.wasAdded()) {
             for (Order order : c.getAddedSubList()) {
