@@ -6,6 +6,7 @@ import backend.KitchenAccess;
 import backend.WaiterAccess;
 import consumable.Consumable;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -135,19 +136,19 @@ public class KitchenViewController {
   /**
    * the createNewOrderVBox method to create the VBox for the New order tab.
    * 
-   * @param list return consumable menu value.
+   * @param observableList return consumable menu value.
    * @return the corresponding VBox value.
    * @throws SQLException thrown if SQL error occurs
    */
-  private VBox createNewOrderVBox(ArrayList<Order> list) {
+  private VBox createNewOrderVBox(ObservableList<Order> observableList) {
     VBox vbox = new VBox();
-    for (Order order : list) {
+    for (Order order : observableList) {
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
       tempHBox.setPrefHeight(50);
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 100, 50));
       tempHBox.getChildren().add(initialiseGap());
-      String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
+      String price = String.format("%.2f", order.getPrice()); // Always show 2 decimal Place
       tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 100, 50));
       tempHBox.getChildren().add(initialiseGap());
       tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
@@ -172,9 +173,9 @@ public class KitchenViewController {
               public void handle(ActionEvent event) {
                 try {
                   orderedList.getItems().clear();
-                  for (Consumable item : order.getItems()) {
-                    orderedList.getItems().add(item.getName());
-                  }
+                //  for (Consumable item : order.getItems()) {
+                //    orderedList.getItems().add(item.getName());
+                //  }
                   disarmAllView();
                   ((CheckBox) viewStackPane.getChildren().get(0)).setSelected(true);
                 } catch (Exception e) {
@@ -205,10 +206,10 @@ public class KitchenViewController {
               public void handle(ActionEvent event) {
                 try {
                   orderedList.getItems().clear();
-                  for (Consumable item : order.getItems()) {
-                    System.out.println(item.getName());
-                    orderedList.getItems().add(item.getName());
-                  }
+                //  for (Consumable item : order.getItems()) {
+                //    System.out.println(item.getName());
+                //    orderedList.getItems().add(item.getName());
+                //  }
                   disarmAllView();
                   ((CheckBox) viewStackPane.getChildren().get(0)).setSelected(true);
                 } catch (Exception e) {
@@ -281,13 +282,13 @@ public class KitchenViewController {
    * Constructor to create the new order tab.
    * 
    * @param name the name of the tab.
-   * @param list of the consumable.
+   * @param observableList of the consumable.
    * @return the corresponding tab been created.
    */
-  private Tab createNewOrderTab(String name, ArrayList<Order> list) {
+  private Tab createNewOrderTab(String name, ObservableList<Order> observableList) {
     AnchorPane anchorpane = new AnchorPane();
     anchorpane.setPrefWidth(580);
-    anchorpane.getChildren().add(createNewOrderVBox(list));
+    anchorpane.getChildren().add(createNewOrderVBox(observableList));
     ScrollPane scrollpane = new ScrollPane(anchorpane);
     scrollpane.setPrefWidth(600);
     Tab tab = new Tab(name.toUpperCase(), scrollpane);
