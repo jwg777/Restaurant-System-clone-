@@ -2,6 +2,8 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
@@ -13,13 +15,15 @@ import database_cafe.DataInteract;
  */
 public class CustomerAccess {
 
-  
-  static ServerAccess server = ServerAccess.getInstance();
+  /** The customer data. */
+  DataInteract customerData;
+  // ArrayList<String> revList;
 
   /**
    * Instantiates a new customer access.
    */
   public CustomerAccess() {
+    customerData = DataInteract.getInstance();
   }
 
 
@@ -31,8 +35,26 @@ public class CustomerAccess {
    * @throws SQLException the SQL exception
    */
   public void getMenu() throws SQLException {
-	  
+
+    // customerData.loadFile();
+    ResultSet rs = customerData.select("SELECT * FROM Menu");
+    MenuMap tempMap = MenuMap.getInstance();
+    while (rs.next()) {
+      int id = rs.getInt("dishID");
+      String itemName = rs.getString("dish");
+      float itemPrice = rs.getFloat("price");
+      String ingredients = rs.getString("ingredients");
+      int calories = rs.getInt("calories");
+      String type = rs.getString("type");
+      boolean isAvailable = rs.getBoolean("isAvailable");
+
+      tempMap
+          .put(new Consumable(id, type, itemName, itemPrice, calories, isAvailable, ingredients));
+    }
+
+
   }
+
   /**
    * This method will be for placing orders. It will send data into the database to fill the order
    * table.
@@ -40,47 +62,52 @@ public class CustomerAccess {
    * @param orders the orders
    */
   public void placeOrder(String orders) {
-    //customerData.insertIntoTable("insert order data");
+    // customerData.insertIntoTable("insert order data");
   }
+
   /**
    * This method will be to store feedback in the database.
+   * 
    * @param feedback the feedback
    */
   public void notifyWaiter(String message) {
-    server.write("NOTIFYWAITER "+message);
+    customerData.insertIntoTable("Messages", "", message);
   }
-  /** This method will get the status and last update time for an order.
+
+  /**
+   * This method will get the status and last update time for an order.
    * 
    * @param orderID Unqiue to each order to be used in select query
    * @return returns the status and last update time
    * @throws SQLException Thrown if error with SQL query occurs
    * 
    */
-//  public String getStatusAndTime(String orderID) throws SQLException {
-//    String statusAndTime = ">";
-//    ResultSet rs = customerData.select("SELECT status, orderTime FROM Orders " 
-//                                     + "WHERE OrderID = '" + orderID + "'");
-//    while (rs.next()) {
-//      statusAndTime = rs.getString("status") + ">" + rs.getString("orderTime");
-//    }
-//    return statusAndTime;
-//  }
-//
-//  public String getReviews() {
-//
-//    ResultSet rs = customerData.select("SELECT * FROM Reviews");
-//    String query = null;
-//    try {
-//      while (rs.next()) {
-//        query =
-//            rs.getString("name") + " " + rs.getString("star_rating") + " " + rs.getString("review");
-//        //System.out.println(query);
-//      }
-//    } catch (SQLException e) {
-//      e.printStackTrace();
-//    }
-//    return query;
-//  }
+  public String getStatusAndTime(String orderID) throws SQLException {
+    String statusAndTime = ">";
+    ResultSet rs = customerData
+        .select("SELECT status, orderTime FROM Orders " + "WHERE OrderID = '" + orderID + "'");
+    while (rs.next()) {
+      statusAndTime = rs.getString("status") + ">" + rs.getString("orderTime");
+    }
+    return statusAndTime;
+  }
+
+  public ArrayList<String> getReviews() {
+
+    ArrayList<String> revList = new ArrayList<String>();
+    ResultSet rs = customerData.select("SELECT * FROM Reviews");
+    String query = null;
+    try {
+      while (rs.next()) {
+        query =
+            rs.getString("name") + " " + rs.getString("star_rating") + " " + rs.getString("review");
+        revList.add(query);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return revList;
+  }
 
 }
 

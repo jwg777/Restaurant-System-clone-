@@ -1,5 +1,7 @@
 package views;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -444,9 +446,10 @@ public class CustomerViewController {
      */
   }
 
-  public void scrollReviews() {
-    /* this.revScroll.getChildren().add(initialiseLabel(customerData.getReviews(), 400, 50)); */
-  }
+  /** This method is used to get the status and time for an order.
+   * 
+   */
+  public void getOrderInfo() {
 
     String orderNumber = orderID.getText();
     String statusAndTime = "";
