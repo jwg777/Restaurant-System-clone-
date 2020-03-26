@@ -52,7 +52,6 @@ public class CustomerAccess {
           .put(new Consumable(id, type, itemName, itemPrice, calories, isAvailable, ingredients));
     }
 
-
   }
 
   /**
