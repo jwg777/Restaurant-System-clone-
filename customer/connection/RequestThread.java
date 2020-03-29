@@ -29,7 +29,7 @@ public class RequestThread {
   // CUSTOMER FUNCTIONS
   public boolean customerLogin(int tableNum) {
     try {
-      output.writeUTF("CUSTOMER " + tableNum);
+      output.writeUTF("REQUEST CUSTOMER " + tableNum);
       output.flush();
       String[] response = ((String) input.readUTF()).split(" ");
       if (response[0].equals("ACCEPTED")) {

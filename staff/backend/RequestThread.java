@@ -24,12 +24,7 @@ public class RequestThread extends Thread {
 
   public boolean staffLogin(String username, String password) throws IOException {
     try {
-      output.writeUTF("STAFF");
-      output.flush();
-      if (!input.readUTF().equals("OK")) {
-        throw new IOException();
-      }
-      output.writeUTF(username + " " + password);
+      output.writeUTF("REQUEST STAFF " + username + " " + password);
       output.flush();
       if (input.readUTF().equals("ACCEPTED WAITER")) {
         return true;
@@ -119,7 +114,7 @@ public class RequestThread extends Thread {
     }
     return false;
   }
-  
+
   public boolean processingOrder(Order order) {
     try {
       output.writeUTF("PROCESSING " + order.getOrderID());
@@ -130,7 +125,7 @@ public class RequestThread extends Thread {
     }
     return false;
   }
-  
+
   public boolean readyOrder(Order order) {
     try {
       output.writeUTF("READY " + order.getOrderID());
