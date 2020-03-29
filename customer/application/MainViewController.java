@@ -183,6 +183,11 @@ public class MainViewController {
   private void ordersPressed() {
     fade(ordersPane);
   }
+  
+  @FXML
+  private void paymentPressed() {
+    
+  }
 
   @FXML
   private void statusPressed() {
