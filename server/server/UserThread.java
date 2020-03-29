@@ -100,15 +100,26 @@ public class UserThread extends Thread {
   }
 
   public void initNotification(String[] notificationType) {
-    switch (notificationType[1]) {
-      case "CUSTOMER":
-        break;
-      case "KITCHEN":
-        break;
-      case "WAITER":
-        break;
-      default:
-        break;
+    try {
+      switch (notificationType[1]) {
+        case "CUSTOMER":
+          customer(notificationType[2]);
+          break;
+        case "STAFF":
+          ClientType employee = server.authenticate(notificationType[2], notificationType[3]);
+          if (employee.equals(ClientType.WAITER)) {
+            write("ACCEPTED WAITER");
+            waiter(notificationType[2]);
+          } else if (employee.equals(ClientType.KITCHEN)) {
+            write("ACCEPTED KITCHEN");
+            kitchen(notificationType[2]);
+          }
+          break;
+        default:
+          break;
+      }
+    } catch (IOException e) {
+      System.out.println(name + " has disconnected");
     }
   }
 
