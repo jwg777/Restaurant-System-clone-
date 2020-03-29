@@ -1,0 +1,13 @@
+.button
+{
+	-fx-padding: 5 20 5 20;
+	-fx-background-color:#edf5f5;
+	-fx-font-size:15;
+	-fx-font-weight:bold;
+	-fx-text-fill:#5370c9;
+}
+
+.button:hover{
+	-fx-font-size:15;
+	-fx-underline:true;
+}
