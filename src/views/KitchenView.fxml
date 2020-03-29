@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.KitchenViewController">
+   <children>
+      <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="HOME">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="ORDERS">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0">
+                     <children>
+                        <TabPane fx:id="menuTabPane" prefHeight="569.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="NEW ORDERS">
+                                 <content>
+                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="600.0">
+                                       <content>
+                                          <AnchorPane>
+                                             <children>
+                                                <VBox fx:id="vboxNew" prefWidth="580.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content></ScrollPane>
+                                 </content>
+                            </Tab>
+                            <Tab text="ORDERS IN PROGRESS">
+                                 <content>
+                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                                       <content>
+                                          <AnchorPane>
+                                             <children>
+                                                <VBox fx:id="vboxInProgress" prefWidth="580.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content></ScrollPane>
+                                 </content>
+                            </Tab>
+                              <Tab text="COMPLETED ORDERS">
+                                 <content>
+                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                                             <children>
+                                                <VBox fx:id="vboxCompleted" prefWidth="580.0" />
+                                             </children></AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                        <AnchorPane layoutX="600.0" prefHeight="567.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="39.0" layoutY="444.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="122.0" text="Start Order" />
+                              <Button layoutX="39.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="122.0" text="Mark as Complete" />
+                              <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
+                           </children>
+                        </AnchorPane>
+                        <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="INFO">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane prefHeight="219.0" prefWidth="600.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <Text layoutX="271.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="57.087890625">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Line endX="28.087890625" endY="-0.486328125" layoutX="296.0" layoutY="250.0" startX="-29.0" startY="-0.486328125" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" text="Back To Main Menu" />
+   </children>
+</AnchorPane>
