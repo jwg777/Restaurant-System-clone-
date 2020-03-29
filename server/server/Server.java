@@ -1,9 +1,10 @@
 package server;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import consumable.Consumable;
 import order.Order;
@@ -14,7 +15,7 @@ import order.Order;
  * @author Chak
  *
  */
-public final class Server {
+public final class Server extends Thread {
 
   /**
    * an instance for the singleton class.
@@ -23,27 +24,25 @@ public final class Server {
   /**
    * port of the server.
    */
-  private int port;
+  private int requestPort = 6666;
   /**
    * List of customers that are connected to the server.
    */
-  private ArrayList<UserThread> customerThreads = new ArrayList<>();
+  private ArrayList<CustomerClient> customerThreads = new ArrayList<>();
   /**
    * List of waiter that are connected to the server.
    */
-  private ArrayList<UserThread> waiterThreads = new ArrayList<>();
+  private ArrayList<StaffClient> waiterThreads = new ArrayList<>();
   /**
    * List of kitchen that are connected to the server.
    */
-  private ArrayList<UserThread> kitchenThreads = new ArrayList<>();
+  private ArrayList<StaffClient> kitchenThreads = new ArrayList<>();
   /**
    * boolean to show if the server is running
    */
   boolean running = false;
 
   Database database = Database.getInstance();
-
-  Waiter waiter = Waiter.getInstance();
 
   /**
    * private constructor for singleton method.
@@ -63,69 +62,42 @@ public final class Server {
   }
 
   /**
-   * set the port of the server.
-   * 
-   * @param port
-   */
-  public void setPort(int port) {
-    this.port = port;
-  }
-
-  /**
    * Starts the server.
    */
   public void start() {
-    try (ServerSocket serverSocket = new ServerSocket(port)) {
-      System.out.println("Server started on port " + port);
+    try (ServerSocket serverSocket = new ServerSocket(requestPort)) {
+      System.out.println("Server started on port " + requestPort);
       while (true) {
         Socket socket = serverSocket.accept();
         System.out.println("New Client Connected");
+        DataInputStream dIn = new DataInputStream(socket.getInputStream());
+        DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
+        String[] line = dIn.readUTF().split(" ");
+        if (line[0].equals("REQUEST")) {
+          if (line[1].equals("CUSTOMER")) {
+            SocketThread newRequest = new SocketThread(dIn, dOut);
+            Customer newCustomer = new Customer(Integer.valueOf(line[2]));
+            database.addCustomer(newCustomer); // adds the new customer to database and sets an id
+            CustomerClient newCustomerClient = new CustomerClient(newCustomer);
+            newCustomerClient.setRequest(newRequest); // adds class to process requests from client
+            
+          } else if (line[1].equals("STAFF")) {
+            SocketThread newRequest = new SocketThread(dIn, dOut);
+            
+          }
+        } else if (line[0].equals("NOTIFICATION")) {
+          if (line[1].equals("CUSTOMER")) {
+
+          } else if (line[1].equals("STAFF")) {
+
+          }
+        }
         // Creates a new user thread
-        UserThread newUser = new UserThread(socket);
+        Client newUser = new Client(socket);
         newUser.start();
       }
     } catch (IOException e) {
-      System.out.println("Port " + port + " is already used");
-    }
-  }
-
-  /**
-   * Removes the thread of the user.
-   * 
-   * @param user
-   * @throws InvalidClientTypeException
-   * @throws UserNotFoundException
-   */
-  public void removeThread(UserThread user) throws InvalidClientTypeException {
-    switch (user.getType()) {
-      case CUSTOMER:
-        customerThreads.remove(user);
-        break;
-      case WAITER:
-        waiterThreads.remove(user);
-        break;
-      case KITCHEN:
-        kitchenThreads.remove(user);
-        break;
-      default:
-        throw new InvalidClientTypeException();
-    }
-  }
-
-  public void addThread(UserThread user) throws InvalidClientTypeException {
-    switch (user.getType()) {
-      case CUSTOMER:
-        customerThreads.add(user);
-        break;
-      case WAITER:
-        waiterThreads.add(user);
-        break;
-      case KITCHEN:
-        kitchenThreads.add(user);
-        break;
-      case INVALID:
-        throw new InvalidClientTypeException();
-
+      System.out.println("Port " + requestPort + " is already used");
     }
   }
 
@@ -138,15 +110,15 @@ public final class Server {
     return ClientType.INVALID;
   }
 
-  public ArrayList<UserThread> getCustomerThreads() {
+  public ArrayList<CustomerClient> getCustomerThreads() {
     return customerThreads;
   }
 
-  public ArrayList<UserThread> getWaiterThreads() {
+  public ArrayList<StaffClient> getWaiterThreads() {
     return waiterThreads;
   }
 
-  public ArrayList<UserThread> getKitchenThreads() {
+  public ArrayList<StaffClient> getKitchenThreads() {
     return kitchenThreads;
   }
 
@@ -163,8 +135,8 @@ public final class Server {
     database.addCustomer(temp);
     return temp.getId();
   }
-  
+
   public void removeCustomer(int tableNum) {
-     database.removeCustomer(tableNum);
+    database.removeCustomer(tableNum);
   }
 }
