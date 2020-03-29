@@ -10,11 +10,21 @@ import org.junit.Test;
 import consumable.Consumable;
 import order.Order;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestOrder.
+ */
 public class TestOrder {
   
+  /** The items. */
   private List<Consumable> items;
+  
+  /** The order. */
   Order order;
   
+  /**
+   * Sets the up.
+   */
   @Before
   public void setUp() {
     items = new ArrayList<>();
@@ -26,6 +36,9 @@ public class TestOrder {
     order = new Order(00001, 1337, items);
   }
 
+  /**
+   * Test constructor.
+   */
   @Test
   public void testConstructor() {
     float total = order.getTotalPrice();
@@ -35,6 +48,9 @@ public class TestOrder {
     assertEquals("Failed to get total price of order", total, 24.65f, 0.001);
   }
   
+  /**
+   * Test add and remove.
+   */
   @Test
   public void testAddAndRemove() {
     Consumable special = new Consumable("special");
@@ -44,6 +60,9 @@ public class TestOrder {
     assertFalse("Special item not removed from order", order.getItems().contains(special));
   }
   
+  /**
+   * Test status setters.
+   */
   @Test
   public void testStatusSetters() {
     order.setNew();

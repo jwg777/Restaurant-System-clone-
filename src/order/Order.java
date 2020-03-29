@@ -1,163 +1,229 @@
 package order;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Base64;
 import java.util.List;
+import java.util.Observable;
 import consumable.Consumable;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableValue;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
  */
-public class Order implements Comparable<Order> {
+public class Order implements Comparable<Order>, Serializable {
 
-	/** The unique identifier of the order. */
-	private int orderID;
-	
-	/** The unique identifier of the customer who made the order. */
-	private int custID;
-	
-	/** The total price of the order, calculated by the total of the prices of each item
-	 * in the order */
-	private float totalPrice;
-	
-	//TODO find a way to represent the order time
-	
-	/** A list of the items ordered. */
-	private List<Consumable> items;
-	
-	/** The order has not been started. */
-	private boolean isNew = true;
-	
-	/** The order is being prepared. */
-	private boolean isInProgress = false;
-	
-	/** The order is ready to be served. */
-	private boolean isCompleted = false;
+  /** serial ID of order class */
+  private static final long serialVersionUID = -2626289551987782153L;
 
-	/**
-	 * Instantiates a new order by specifying its id, customer id, order time and contents.
-	 *
-	 * @param orderID the unique ID of the order
-	 * @param cust_ID the unique ID of the customer who made the order
-	 * @param items The items ordered
-	 */
-	public Order(int orderID, int custID, List<Consumable> items) {
-		this.orderID = orderID;
-		this.custID = custID;
-		this.items = new ArrayList<Consumable>();
-		for (Consumable item : items) {
-		    this.totalPrice += item.getPrice();
-			this.items.add(item);
-		}
-	}
-	
-	/**
-	 * Returns the order ID.
-	 *
-	 * @return the order ID
-	 */
-	public int getOrderID() {
-		return this.orderID;
-	}
-	
-	/**
-	 * Returns the customer ID associated with the order
-	 * @return the customer ID
-	 */
-	public int getCustID() {
-	    return this.custID;
-	}
-	
-	public float getTotalPrice() {
-	    return this.totalPrice;
-	}
+  /** The unique identifier of the order. */
+  private int orderID;
 
-	/**
-	 * Returns the list of items in the order.
-	 *
-	 * @return the items
-	 */
-	public List<Consumable> getItems() {
-		return this.items;
-	}
-	
-	/**
-	 * Adds item to order
-	 * @param item the item
-	 */
-	public void addItem(Consumable item) {
-	    this.items.add(item);
-	}
-	
-	/**
-	 * Removes item from order
-	 * @param item the item
-	 */
-	public void removeItem(Consumable item) {
-	    this.items.remove(item);
-	}
-	
-	/**
-	 * Sets order to new
-	 */
-	public void setNew() {
-	    this.isNew = true;
-	    this.isInProgress = false;
-	    this.isCompleted = false;
-	}
-	
-	/**
-	 * Checks if order is new
-	 * @return true if new
-	 */
-	public boolean isNew() {
-	    return this.isNew;
-	}
-	
-	/**
-	 * Sets order to in progress
-	 */
-	public void setInProgress() {
-	    this.isInProgress = true;
-	    this.isNew = false;
-	    this.isCompleted = false;
-	}
-	
-	/**
-	 * Checks if order is in progress
-	 * @return true if in progress
-	 */
-	public boolean isInProgress() {
-	    return this.isInProgress;
-	}
-	
-	/**
-	 * Sets order to completed
-	 */
-	public void setCompleted() {
-	    this.isCompleted = true;
-	    this.isNew = false;
-	    this.isInProgress = false;
-	}
-	
-	/**
-	 * Checks if order is completed
-	 * @return true if completed
-	 */
-	public boolean isCompleted() {
-	    return this.isCompleted;
-	}
+  private String dishName;
 
-	/**
-	 * Comparable method for sorting.
-	 *
-	 * @param o the o.
-	 * @return the int.
-	 */
-	@Override
-	public int compareTo(Order o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+  /** The unique identifier of the customer who made the order. */
+  private int custID;
+
+  private int dishID;
+
+  private float price;
+
+  private String timeStamp;
+
+  private int quantity;
+
+  private ArrayList<OrderListener> listeners = new ArrayList<>();
+
+  /**
+   * The status of the order. Can be waiting, processing or ready.
+   */
+  private String status;
+
+  public void addListener(OrderListener listener) {
+    this.listeners.add(listener);
+  }
+  
+  public void removeListener(OrderListener listener) {
+    this.listeners.remove(listener);
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void addQuantity() {
+    quantity++;
+    for (OrderListener listener : listeners) {
+      listener.onChange();
+    }
+  }
+
+  /**
+   * @return false if quantity is 0 after decrement.
+   */
+  public boolean minusQuantity() {
+    if (--quantity != 0) {
+      for (OrderListener listener : listeners) {
+        listener.onChange();
+      }
+      return true;
+    }
+    return false;
+  }
+
+  public int getDishID() {
+    return dishID;
+  }
+
+  public void setOrderID(int orderID) {
+    this.orderID = orderID;
+  }
+
+  public void setCustID(int custID) {
+    this.custID = custID;
+  }
+
+  public void setDishID(int dishID) {
+    this.dishID = dishID;
+  }
+
+  public void setTimeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  /**
+   * Instantiates a new order by specifying its id, customer id, order time and contents.
+   *
+   * @param orderID the unique ID of the order
+   * @param custID the unique ID of the customer who made the order
+   * @param totalPrice the total price of the order
+   * @param timeStamp this is the time at which the order was last updated
+   * @param status the status of the order
+   * @param items The items ordered
+   */
+  public Order(int custID, int dishID, int quantity, String dishName, String timeStamp,
+      String status) {
+    this.quantity = 1;
+    this.dishName = dishName;
+    this.custID = custID;
+    this.dishID = dishID;
+    this.timeStamp = timeStamp;
+    this.status = status;
+  }
+
+  public Order(int id, int custID, int dishID, int quantity, String dishName, String timeStamp,
+      String status) {
+    this.orderID = id;
+    this.quantity = 1;
+    this.dishName = dishName;
+    this.custID = custID;
+    this.dishID = dishID;
+    this.timeStamp = timeStamp;
+    this.status = status;
+  }
+
+  public Order(String serializedString) {
+    byte[] data = Base64.getDecoder().decode(serializedString);
+    try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+      Order temp = (Order) ois.readObject();
+      this.orderID = temp.orderID;
+      this.custID = temp.custID;
+      this.dishID = temp.dishID;
+      this.timeStamp = temp.timeStamp;
+      this.status = temp.status;
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public Order(Consumable consumable) {
+    /*
+     * Get customer ID.
+     */
+    this.price = consumable.getPrice();
+    this.quantity = 1;
+    this.dishID = consumable.getID();
+    this.dishName = consumable.getName();
+    this.status = "Waiting";
+  }
+
+  /**
+   * Returns the order ID.
+   *
+   * @return the order ID
+   */
+  public int getOrderID() {
+    return this.orderID;
+  }
+
+  /**
+   * Returns the customer ID associated with the order.
+   * 
+   * @return the customer ID
+   */
+  public int getCustID() {
+    return this.custID;
+  }
+
+  /**
+   * Returns the time at which the order was comfirmed
+   * 
+   * @return returns the timeStamp
+   */
+  public String getTimeStamp() {
+    return this.timeStamp;
+  }
+
+  /**
+   * Returns the status of the order.
+   * 
+   * @return the status of the order
+   */
+  public String getStatus() {
+    return this.status;
+  }
+
+  /**
+   * Serialises Order to String.
+   * 
+   * @return String
+   * @throws IOException
+   */
+  public String serializeToString() throws IOException {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ObjectOutputStream oos = new ObjectOutputStream(baos);
+    oos.writeObject(this);
+    return Base64.getEncoder().encodeToString(baos.toByteArray());
+  }
+
+  /**
+   * Comparable method for sorting.
+   *
+   * @param o the o.
+   * @return the int.
+   */
+  @Override
+  public int compareTo(Order o) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  public float getPrice() {
+    return this.price;
+  }
+
+  public String getDishName() {
+    return this.dishName;
+  }
+
 }
