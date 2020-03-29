@@ -37,6 +37,9 @@ public class MainViewController {
 
   @FXML
   private AnchorPane ordersPane;
+  
+  @FXML
+  private AnchorPane paymentPane;
 
   @FXML
   private AnchorPane menuAnchor;
@@ -186,7 +189,7 @@ public class MainViewController {
   
   @FXML
   private void paymentPressed() {
-    
+    fade(paymentPane);
   }
 
   @FXML
