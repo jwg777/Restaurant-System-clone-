@@ -3,13 +3,20 @@ import java.util.HashMap;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import order.Order;
+import order.OrderMap;
 
 public class StaffMainViewController {
 
@@ -33,6 +40,8 @@ public class StaffMainViewController {
   MenuMap menu = MenuMap.getInstance();
 
   HashMap<String, Button> buttons = new HashMap<>();
+
+  OrderMap order = OrderMap.getInstance();
 
   @FXML
   private void initialize() throws IOException {
@@ -64,9 +73,51 @@ public class StaffMainViewController {
     fade(newOrderPane);
   }
 
+  /**
+   * To initialiseGap for the kitchenView.java.
+   * 
+   * @return the Gap of the kitchen view.
+   */
+  private Node initialiseGap() {
+    Pane gap = new Pane();
+    gap.setPrefSize(15, 50);
+    return gap;
+  }
+
+  /**
+   * to InitialiseLabel in the kitchenView.
+   * 
+   * @param name name for the label.
+   * @param width of the label.
+   * @param height of the label.
+   * @return the label that has been set.
+   */
+  private Node initialiseLabel(String name, int width, int height) {
+    Label label = new Label(name);
+    label.setPrefSize(width, height);
+    return label;
+  }
+
   @FXML
   private void processingPressed() {
     fade(processingPane);
+    for (String string : order.keyArray()) {
+      ObservableList<Order> observableList = order.get(string);
+      VBox vbox = new VBox();
+      for (Order order : observableList) {
+        HBox tempHBox = new HBox();
+        tempHBox.setPrefHeight(50);
+        tempHBox.getChildren().add(initialiseGap());
+        tempHBox.getChildren().add(initialiseLabel("#" + order.getOrderID(), 100, 50));
+        tempHBox.getChildren().add(initialiseGap());
+        String price = String.format("%.2f", order.getPrice()); // Always show 2 decimal Place
+        tempHBox.getChildren()
+            .add(initialiseLabel(Character.toString((char) 163) + price, 100, 50));
+        tempHBox.getChildren().add(initialiseGap());
+        tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
+        tempHBox.getChildren().add(initialiseGap());
+      }
+    }
   }
 
 

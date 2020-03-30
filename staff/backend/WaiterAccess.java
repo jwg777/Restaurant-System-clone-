@@ -25,13 +25,13 @@ import order.OrderMap;
 public class WaiterAccess {
 
   /** Field for accessing methods within dataInteract class */
-  DataInteract waiterData;
+  //DataInteract waiterData;
 
   /**
    * Constructor to get instance of DataInteract class.
    */
   public WaiterAccess() {
-    waiterData = DataInteract.getInstance();
+    //waiterData = DataInteract.getInstance();
   }
 
 
@@ -50,6 +50,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void getMenu() throws SQLException {
+/**
     ResultSet rs = waiterData.select("SELECT * FROM Menu");
     MenuMap tempMap = MenuMap.getInstance();
     while (rs.next()) {
@@ -65,7 +66,7 @@ public class WaiterAccess {
       }
       // tempMap.put(new Consumable(id, category, name, price, calories, isAvailable, ingredients));
     }
-
+*/
 
   }
 
@@ -75,7 +76,8 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
-    ResultSet rs = waiterData.select("SELECT * FROM ORDERS ORDER BY orderTime");
+   /**
+    ResultSet rs = waiterData.select("SELECT * FROM ORDERS WHERE status != 'started' ORDER BY orderTime");
     OrderMap tempMap = OrderMap.getInstance();
     while (rs.next()) {
       int orderID = rs.getInt("order_id");
@@ -85,8 +87,9 @@ public class WaiterAccess {
       String status = rs.getString("status");
       //tempMap.put(new Order(orderID, custID, dishID, timeStamp, status));
     }
+  
+**/
   }
-
   /**
    * Deletes an order from the database.
    * 
@@ -94,7 +97,7 @@ public class WaiterAccess {
    * @throws SQLException Thrown if update fails.
    */
   public void removeOrder(Order order) throws SQLException {
-    waiterData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
+   // waiterData.update("DELETE FROM Orders WHERE orderID = '" + order.getOrderID() + "'");
   }
 
   /**
@@ -104,12 +107,12 @@ public class WaiterAccess {
    * @throws SQLException Thrown if update fails.
    */
   public void confirmOrder(Order order) throws SQLException {
-    waiterData.update(
+    /**waiterData.update(
         "UPDATE Orders SET status = 'processing' WHERE orderID = '" + order.getOrderID() + "'");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
     waiterData.update("UPDATE Orders SET orderTime = '" + dtf.format(now) + "' WHERE orderID = '"
-        + order.getOrderID() + "'");
+        + order.getOrderID() + "'"); */
   }
 
   /**
@@ -130,7 +133,7 @@ public class WaiterAccess {
    * 
    */
   public void deleteMenuItem(String dishName) {
-    waiterData.executeDelete("DELETE FROM Menu " + "WHERE dish = '" + dishName + "';");
+    //waiterData.executeDelete("DELETE FROM Menu " + "WHERE dish = '" + dishName + "';");
   }
 
   /**
@@ -141,7 +144,7 @@ public class WaiterAccess {
    * 
    */
   public void addMenuItem(String attributes, String values) {
-    waiterData.insertIntoTable("Menu", attributes, values);
+    //waiterData.insertIntoTable("Menu", attributes, values);
   }
 
   /**
@@ -152,15 +155,15 @@ public class WaiterAccess {
    * 
    */
   public boolean checkKeyExists(String dishName) {
-    try {
+    /**try {
       ResultSet rs = waiterData.select("SELECT * FROM MENU WHERE dish = '" + dishName + "';");
       if (rs.next()) {
         return true;
       }
     } catch (Exception e) {
       return false;
-    }
-    return false;
+    }*/
+    return false; 
   }
 
   /**
@@ -168,12 +171,34 @@ public class WaiterAccess {
    * 
    * @return resultset storing alerts.
    */
-  public ResultSet getAlerts() {
-    ResultSet rs = waiterData.select("SELECT * FROM Messages");
-    return rs;
+  public void getAlerts() {
+    //ResultSet rs = waiterData.select("SELECT * FROM Messages");
+    //return rs;
   }
-
+  
+  /**
+   * This method removes alerts from the databse, deleting messages from the database.
+   * @param message
+   */
   public void removeAlert(String message) {
-    waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
+    //waiterData.executeDelete("DELETE FROM Messages " + "WHERE message = '" + message + "';");
+  }
+  
+  /**
+   * This method returns payements from the databse into a resultset.
+   * It is to be called when the getPayements button is pressed in the Waiter View,
+   */
+  public void getPayements() {
+    //ResultSet rs = waiterData.select("SELECT * FROM PAYEMENTS");
+    //return rs;
+  }
+  
+  /**
+   * This method removes payements form the databse when they have been
+   * confirmed as paid on the waiter view.
+   * @param payement
+   */
+  public void confirmPayement(String payement) {
+    //waiterData.executeDelete("DELETe FROM Payements " + ..");
   }
 }

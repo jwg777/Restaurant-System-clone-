@@ -162,6 +162,15 @@ public final class Database {
     }
   }
 
+  public ClientType authenticate(String username, String password) {
+    for (Staff staff : staffList) {
+      if (staff.getUsername().equals(username) && staff.getPassword().equals(password)) {
+        return staff.getRole();
+      }
+    }
+    return ClientType.INVALID;
+  }
+
   private void updateOrders() {
     ResultSet rs = select("orders");
     orderList.clear();

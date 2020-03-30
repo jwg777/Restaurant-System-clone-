@@ -12,7 +12,7 @@ import order.Order;
 /**
  * The Class UserThread.
  */
-public class UserThread extends Thread {
+public class Client extends Thread {
 
   /**
    * Client type.
@@ -45,7 +45,7 @@ public class UserThread extends Thread {
    * 
    * @param socket
    */
-  public UserThread(Socket socket) {
+  public Client(Socket socket) {
     this.socket = socket;
     try {
       this.dIn = new DataInputStream(socket.getInputStream());
