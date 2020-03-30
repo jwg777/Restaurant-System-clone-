@@ -295,7 +295,8 @@
                   </Label>
                </children>
             </AnchorPane>
-            <ScrollPane layoutX="10.0" layoutY="131.0" prefHeight="436.0" prefWidth="754.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+            <HBox fx:id="paymentTypeHBox" layoutY="63.0" prefHeight="50.0" prefWidth="774.0" />
+            <ScrollPane layoutX="10.0" layoutY="111.0" prefHeight="455.0" prefWidth="754.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="111.0" />
          </children>
       </AnchorPane>
    </children>

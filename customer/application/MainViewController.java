@@ -31,13 +31,16 @@ public class MainViewController {
 
   @FXML
   private HBox categoryHBox;
+  
+  @FXML
+  private HBox paymentTypeHBox;
 
   @FXML
   private TextField tableField;
 
   @FXML
   private AnchorPane ordersPane;
-  
+
   @FXML
   private AnchorPane paymentPane;
 
@@ -186,10 +189,11 @@ public class MainViewController {
   private void ordersPressed() {
     fade(ordersPane);
   }
-  
+
   @FXML
   private void paymentPressed() {
     fade(paymentPane);
+    paymentTab();
   }
 
   @FXML
@@ -213,6 +217,18 @@ public class MainViewController {
     } catch (Exception e) {
       tableField.setText("");
     }
+  }
+  
+  private void paymentTab() {
+    Button cardButton = new Button("Card/Contactless");
+    Button cashButton = new Button("Cash");
+    Button oxacaAccButton = new Button("Oxaca account");
+    cardButton.getStylesheets().add(getClass().getResource("menuButtons.css").toExternalForm());
+    cashButton.getStylesheets().add(getClass().getResource("menuButtons.css").toExternalForm());
+    oxacaAccButton.getStylesheets().add(getClass().getResource("menuButtons.css").toExternalForm());
+    paymentTypeHBox.getChildren().add(cardButton);
+    paymentTypeHBox.getChildren().add(cashButton);
+    paymentTypeHBox.getChildren().add(oxacaAccButton);
   }
 
   /*
