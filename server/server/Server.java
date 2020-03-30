@@ -80,21 +80,49 @@ public final class Server extends Thread {
             database.addCustomer(newCustomer); // adds the new customer to database and sets an id
             CustomerClient newCustomerClient = new CustomerClient(newCustomer);
             newCustomerClient.setRequest(newRequest); // adds class to process requests from client
-            
+            dOut.writeUTF("ACCEPTED " + newCustomer.getId());
+            dOut.flush();
+            customerThreads.add(newCustomerClient);
           } else if (line[1].equals("STAFF")) {
-            SocketThread newRequest = new SocketThread(dIn, dOut);
-            
+            ClientType type = database.authenticate(line[2], line[3]);
+            if (type == ClientType.WAITER || type == ClientType.KITCHEN) {
+              SocketThread newRequest = new SocketThread(dIn, dOut);
+              dOut.writeUTF("ACCEPTED " + type.name().toUpperCase());
+              dOut.flush();
+              Staff newStaff = new Staff(type, line[2], line[3]);
+              StaffClient newClient = new StaffClient(newStaff);
+              newClient.setRequest(newRequest);
+              ((ArrayList<StaffClient>) (type == ClientType.WAITER ? waiterThreads
+                  : kitchenThreads)).add(newClient);
+            } else {
+              dOut.writeUTF("DENIED");
+              dOut.flush();
+            }
           }
         } else if (line[0].equals("NOTIFICATION")) {
           if (line[1].equals("CUSTOMER")) {
-
+            int id = Integer.parseInt(line[2]);
+            for (CustomerClient customerClient : customerThreads) {
+              if (customerClient.getId() == id) {
+                SocketThread newNotification = new SocketThread(dIn, dOut);
+                customerClient.setNotification(newNotification);
+              }
+            }
           } else if (line[1].equals("STAFF")) {
-
+            for (StaffClient staffClient : waiterThreads) {
+              if (staffClient.getUsername().equals(line[2])) {
+                SocketThread newNotification = new SocketThread(dIn, dOut);
+                staffClient.setNotification(newNotification);
+              }
+            }
+            for (StaffClient staffClient : kitchenThreads) {
+              if (staffClient.getUsername().equals(line[2])) {
+                SocketThread newNotification = new SocketThread(dIn, dOut);
+                staffClient.setNotification(newNotification);
+              }
+            }
           }
         }
-        // Creates a new user thread
-        Client newUser = new Client(socket);
-        newUser.start();
       }
     } catch (IOException e) {
       System.out.println("Port " + requestPort + " is already used");
