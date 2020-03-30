@@ -80,42 +80,70 @@ public class Client extends Thread {
    */
   public void run() {
     try {
-      String operator = "";
-      String operand = "";
       String[] tempResponse = read().split(" ");
+      server.addThread(this);
       if (tempResponse[0].equals("NOTIFICATION")) {
-        String notificationType = tempResponse[1];
-        switch (tempResponse[1]) {
-          case "CUSTOMER":
-            break;
-          case "KITCHEN":
-            break;
-          case "WAITER":
-            break;
-        }
-      } else if (tempResponse[0].equals("CUSTOMER")) {
-        customer(tempResponse[1]);
-      } else if (tempResponse[0].contentEquals("STAFF")) {
-        switch (server.authenticate(tempResponse[1], tempResponse[2])) {
-          case WAITER:
-            write("ACCEPTED WAITER");
-            waiter(tempResponse[1]);
-            break;
-          case KITCHEN:
-            write("ACCEPTED KITCHEN");
-            kitchen(tempResponse[1]);
-            break;
-          default:
-            break;
-        }
-        /*
-         * Change to visitor pattern here after.
-         */
+        initNotification(tempResponse);
+      } else if (tempResponse[0].equals("REQUEST")) {
+        initRequest(tempResponse);
       }
+      /*
+       * Change to visitor pattern here after.
+       */
+    } catch (InvalidClientTypeException e) {
+      System.out.println("Invalid User Type tried to Connect");
     } catch (IOException e) {
       System.out.println(name + " has disconnected");
     } finally {
       close();
+    }
+  }
+
+  public void initNotification(String[] notificationType) {
+    try {
+      switch (notificationType[1]) {
+        case "CUSTOMER":
+          customer(notificationType[2]);
+          break;
+        case "STAFF":
+          ClientType employee = server.authenticate(notificationType[2], notificationType[3]);
+          if (employee.equals(ClientType.WAITER)) {
+            write("ACCEPTED WAITER");
+            waiter(notificationType[2]);
+          } else if (employee.equals(ClientType.KITCHEN)) {
+            write("ACCEPTED KITCHEN");
+            kitchen(notificationType[2]);
+          }
+          break;
+        default:
+          break;
+      }
+    } catch (IOException e) {
+      System.out.println(name + " has disconnected");
+    }
+  }
+
+  public void initRequest(String[] requestType) {
+    try {
+      switch (requestType[1]) {
+        case "CUSTOMER":
+          customer(requestType[2]);
+          break;
+        case "STAFF":
+          ClientType employee = server.authenticate(requestType[2], requestType[3]);
+          if (employee.equals(ClientType.WAITER)) {
+            write("ACCEPTED WAITER");
+            waiter(requestType[2]);
+          } else if (employee.equals(ClientType.KITCHEN)) {
+            write("ACCEPTED KITCHEN");
+            kitchen(requestType[2]);
+          }
+          break;
+        default:
+          break;
+      }
+    } catch (IOException e) {
+      System.out.println(name + " has disconnected");
     }
   }
 
@@ -129,16 +157,15 @@ public class Client extends Thread {
     System.out.println("New Request Client joined [" + name + "]");
     do {
       String[] response = read().split(" ");
-      switch (response[0].toUpperCase()) {
+      operator = response[0];
+      switch (operator.toUpperCase()) {
         case "ORDER":
           Order order = new Order(response[0]);
-
+          break;
         default:
           operator = "STOP";
           break;
       }
-
-
     } while (operator.equals("STOP"));
   }
 
