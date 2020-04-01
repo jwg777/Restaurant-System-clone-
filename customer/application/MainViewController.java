@@ -14,9 +14,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -31,7 +33,7 @@ public class MainViewController {
 
   @FXML
   private HBox categoryHBox;
-  
+
   @FXML
   private HBox paymentTypeHBox;
 
@@ -68,6 +70,18 @@ public class MainViewController {
   @FXML
   private VBox ordersList;
 
+  @FXML
+  private AnchorPane payingPane;
+
+  @FXML 
+  private Button cardButton = new Button("Card / Contactless");
+
+  @FXML
+  private Button cashButton = new Button("Cash");
+
+  @FXML
+  private Button oxacaAccButton = new Button("Oxaca account");
+
   private Node frontPane;
 
   MenuMap menu = MenuMap.getInstance();
@@ -82,6 +96,7 @@ public class MainViewController {
 
   @FXML
   private void initialize() throws IOException {
+    paymentTab();
     menuPane.toFront();
     frontPane = menuPane;
     confirmationPane.toFront();
@@ -193,7 +208,6 @@ public class MainViewController {
   @FXML
   private void paymentPressed() {
     fade(paymentPane);
-    paymentTab();
   }
 
   @FXML
@@ -218,18 +232,54 @@ public class MainViewController {
       tableField.setText("");
     }
   }
-  
+
+  /**
+   * This method is used to set up all information needed for the payment tab.
+   * 
+   */
   private void paymentTab() {
-    Button cardButton = new Button("Card/Contactless");
-    Button cashButton = new Button("Cash");
-    Button oxacaAccButton = new Button("Oxaca account");
-    cardButton.getStylesheets().add(getClass().getResource("menuButtons.css").toExternalForm());
-    cashButton.getStylesheets().add(getClass().getResource("menuButtons.css").toExternalForm());
-    oxacaAccButton.getStylesheets().add(getClass().getResource("menuButtons.css").toExternalForm());
+    cardButton.getStylesheets()
+        .add(getClass().getResource("paymentTypeButtons.css").toExternalForm());
+    cashButton.getStylesheets()
+        .add(getClass().getResource("paymentTypeButtons.css").toExternalForm());
+    oxacaAccButton.getStylesheets()
+        .add(getClass().getResource("paymentTypeButtons.css").toExternalForm());
+    cardButton.setOnAction(cardPush);
+    cashButton.setOnAction(cashPush);
+    oxacaAccButton.setOnAction(oxacaAccPush);
     paymentTypeHBox.getChildren().add(cardButton);
     paymentTypeHBox.getChildren().add(cashButton);
     paymentTypeHBox.getChildren().add(oxacaAccButton);
   }
+
+  EventHandler<ActionEvent> cardPush = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+
+    }
+  };
+
+  EventHandler<ActionEvent> cashPush = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      Label price;
+      if (orders.getTotalPrice() == 0.00 ) {
+        price = new Label("Please place an order before payment. Thank you");
+      } else {
+        price = new Label("Please pay £" + totalPrice.getText() + " to a member staff. Thank you");
+      }
+      price.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
+      price.setMaxWidth(Double.MAX_VALUE);
+      price.setAlignment(Pos.CENTER);
+      payingPane.getChildren().add(price);
+
+    }
+  };
+
+  EventHandler<ActionEvent> oxacaAccPush = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+
+    }
+  };
+
 
   /*
    * Temp buttons for testing.

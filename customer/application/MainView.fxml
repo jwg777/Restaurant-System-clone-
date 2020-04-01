@@ -284,7 +284,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="paymentPane" layoutX="260.0" layoutY="10.0" prefHeight="576.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;">
+      <AnchorPane fx:id="paymentPane" layoutX="260.0" layoutY="10.0" prefHeight="576.0" prefWidth="800.0" style="-fx-background-color: #edf5f5;">
          <children>
             <AnchorPane prefHeight="72.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;">
                <children>
@@ -295,8 +295,8 @@
                   </Label>
                </children>
             </AnchorPane>
-            <HBox fx:id="paymentTypeHBox" layoutY="63.0" prefHeight="50.0" prefWidth="774.0" />
-            <ScrollPane layoutX="10.0" layoutY="111.0" prefHeight="455.0" prefWidth="754.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="111.0" />
+            <HBox fx:id="paymentTypeHBox" layoutY="63.0" prefHeight="50.0" prefWidth="795.0" />
+            <AnchorPane fx:id="payingPane" layoutX="8.0" layoutY="117.0" prefHeight="459.0" prefWidth="795.0" />
          </children>
       </AnchorPane>
    </children>
