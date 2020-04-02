@@ -92,7 +92,7 @@ public class MainViewController {
   ArrayList<Integer> ordersIndex = new ArrayList<>();
 
   OrderList orders = OrderList.getInstance();
-  
+
   boolean isPaid = false;
 
 
@@ -266,10 +266,34 @@ public class MainViewController {
   EventHandler<ActionEvent> cardPush = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
       payingPane.getChildren().clear();
-      TextField cNumber;
-      TextField expMonth;
-      TextField expYear;
-      TextField CW;
+      TextField cardNumber = new TextField("");
+      TextField expMonth = new TextField("");
+      TextField expYear = new TextField("");
+      TextField threeDigits = new TextField("");
+      cardNumber.getStylesheets()
+          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+      expMonth.getStylesheets()
+          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+      expYear.getStylesheets()
+          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+      threeDigits.getStylesheets()
+          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+      cardNumber.setPrefWidth(320);
+      cardNumber.setLayoutY(50);
+      cardNumber.setLayoutX(200);
+      expMonth.setPrefWidth(40);
+      expMonth.setLayoutY(150);
+      expMonth.setLayoutX(200);
+      expYear.setPrefWidth(40);
+      expYear.setLayoutY(150);
+      expYear.setLayoutX(250);
+      threeDigits.setPrefWidth(60);
+      threeDigits.setLayoutY(250);
+      threeDigits.setLayoutX(200);
+      payingPane.getChildren().add(cardNumber);
+      payingPane.getChildren().add(expMonth);
+      payingPane.getChildren().add(expYear);
+      payingPane.getChildren().add(threeDigits);
     }
   };
 
