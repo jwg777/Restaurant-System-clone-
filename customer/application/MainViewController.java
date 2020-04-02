@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import order.Order;
 import order.OrderList;
@@ -73,7 +74,7 @@ public class MainViewController {
   @FXML
   private AnchorPane payingPane;
 
-  @FXML 
+  @FXML
   private Button cardButton = new Button("Card / Contactless");
 
   @FXML
@@ -91,12 +92,22 @@ public class MainViewController {
   ArrayList<Integer> ordersIndex = new ArrayList<>();
 
   OrderList orders = OrderList.getInstance();
+  
+  boolean isPaid = false;
 
 
 
   @FXML
   private void initialize() throws IOException {
-    paymentTab();
+    if (isPaid) {
+      Label paidMessage = new Label("Order has already been paid for");
+      paidMessage.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
+      paidMessage.setMaxWidth(Double.MAX_VALUE);
+      paidMessage.setAlignment(Pos.CENTER);
+      payingPane.getChildren().add(paidMessage);
+    } else {
+      paymentTab();
+    }
     menuPane.toFront();
     frontPane = menuPane;
     confirmationPane.toFront();
@@ -254,14 +265,19 @@ public class MainViewController {
 
   EventHandler<ActionEvent> cardPush = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
-
+      payingPane.getChildren().clear();
+      TextField cNumber;
+      TextField expMonth;
+      TextField expYear;
+      TextField CW;
     }
   };
 
   EventHandler<ActionEvent> cashPush = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
+      payingPane.getChildren().clear();
       Label price;
-      if (orders.getTotalPrice() == 0.00 ) {
+      if (orders.getTotalPrice() == 0.00) {
         price = new Label("Please place an order before payment. Thank you");
       } else {
         price = new Label("Please pay £" + totalPrice.getText() + " to a member staff. Thank you");
@@ -276,7 +292,7 @@ public class MainViewController {
 
   EventHandler<ActionEvent> oxacaAccPush = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
-
+      payingPane.getChildren().clear();
     }
   };
 
