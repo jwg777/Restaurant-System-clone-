@@ -270,6 +270,15 @@ public class MainViewController {
       TextField expMonth = new TextField("");
       TextField expYear = new TextField("");
       TextField threeDigits = new TextField("");
+      Button payButton = new Button("Validate and Pay");
+      Label cardNumberLabel = new Label("Long Card Number (16 Digits) : ");
+      Label expDateLabel = new Label("Expiry Date (MM/YY) :                                              /");
+      Label secCodeLabel = new Label("Three Digit Security Code (On The Back) : ");
+      payButton.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
+      cardNumberLabel.getStylesheets()
+          .add(getClass().getResource("cardLabel.css").toExternalForm());
+      expDateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+      secCodeLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
       cardNumber.getStylesheets()
           .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
       expMonth.getStylesheets()
@@ -278,22 +287,31 @@ public class MainViewController {
           .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
       threeDigits.getStylesheets()
           .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+      cardNumberLabel.setLayoutY(50);
+      expDateLabel.setLayoutY(150);
+      secCodeLabel.setLayoutY(250);
       cardNumber.setPrefWidth(320);
       cardNumber.setLayoutY(50);
-      cardNumber.setLayoutX(200);
+      cardNumber.setLayoutX(400);
       expMonth.setPrefWidth(40);
       expMonth.setLayoutY(150);
-      expMonth.setLayoutX(200);
+      expMonth.setLayoutX(400);
       expYear.setPrefWidth(40);
       expYear.setLayoutY(150);
-      expYear.setLayoutX(250);
+      expYear.setLayoutX(455);
       threeDigits.setPrefWidth(60);
       threeDigits.setLayoutY(250);
-      threeDigits.setLayoutX(200);
+      threeDigits.setLayoutX(400);
+      payButton.setLayoutX(250);
+      payButton.setLayoutY(350);
+      payingPane.getChildren().add(cardNumberLabel);
+      payingPane.getChildren().add(expDateLabel);
+      payingPane.getChildren().add(secCodeLabel);
       payingPane.getChildren().add(cardNumber);
       payingPane.getChildren().add(expMonth);
       payingPane.getChildren().add(expYear);
       payingPane.getChildren().add(threeDigits);
+      payingPane.getChildren().add(payButton);
     }
   };
 
