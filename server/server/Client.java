@@ -81,7 +81,6 @@ public class Client extends Thread {
   public void run() {
     try {
       String[] tempResponse = read().split(" ");
-      server.addThread(this);
       if (tempResponse[0].equals("NOTIFICATION")) {
         initNotification(tempResponse);
       } else if (tempResponse[0].equals("REQUEST")) {
@@ -90,9 +89,7 @@ public class Client extends Thread {
       /*
        * Change to visitor pattern here after.
        */
-    } catch (InvalidClientTypeException e) {
-      System.out.println("Invalid User Type tried to Connect");
-    } catch (IOException e) {
+    }catch (IOException e) {
       System.out.println(name + " has disconnected");
     } finally {
       close();

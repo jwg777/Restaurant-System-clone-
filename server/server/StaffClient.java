@@ -6,6 +6,7 @@ public class StaffClient {
   Staff staff;
   SocketThread request;
   SocketThread notification;
+  ClientType role;
 
   public StaffClient(Staff newStaff) {
     this.staff = newStaff;
