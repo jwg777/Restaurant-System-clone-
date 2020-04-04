@@ -284,7 +284,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="paymentPane" layoutX="260.0" layoutY="10.0" prefHeight="576.0" prefWidth="800.0" style="-fx-background-color: #edf5f5;">
+      <AnchorPane fx:id="paymentPane" layoutX="251.0" layoutY="1.0" prefHeight="700.0" prefWidth="820.0" style="-fx-background-color: #edf5f5;">
          <children>
             <AnchorPane prefHeight="72.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;">
                <children>

@@ -219,6 +219,7 @@ public class MainViewController {
   @FXML
   private void paymentPressed() {
     fade(paymentPane);
+    payingPane.getChildren().clear();
   }
 
   @FXML
@@ -266,52 +267,64 @@ public class MainViewController {
   EventHandler<ActionEvent> cardPush = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
       payingPane.getChildren().clear();
-      TextField cardNumber = new TextField("");
-      TextField expMonth = new TextField("");
-      TextField expYear = new TextField("");
-      TextField threeDigits = new TextField("");
-      Button payButton = new Button("Validate and Pay");
-      Label cardNumberLabel = new Label("Long Card Number (16 Digits) : ");
-      Label expDateLabel = new Label("Expiry Date (MM/YY) :                                              /");
-      Label secCodeLabel = new Label("Three Digit Security Code (On The Back) : ");
-      payButton.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
-      cardNumberLabel.getStylesheets()
-          .add(getClass().getResource("cardLabel.css").toExternalForm());
-      expDateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
-      secCodeLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
-      cardNumber.getStylesheets()
-          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
-      expMonth.getStylesheets()
-          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
-      expYear.getStylesheets()
-          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
-      threeDigits.getStylesheets()
-          .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
-      cardNumberLabel.setLayoutY(50);
-      expDateLabel.setLayoutY(150);
-      secCodeLabel.setLayoutY(250);
-      cardNumber.setPrefWidth(320);
-      cardNumber.setLayoutY(50);
-      cardNumber.setLayoutX(400);
-      expMonth.setPrefWidth(40);
-      expMonth.setLayoutY(150);
-      expMonth.setLayoutX(400);
-      expYear.setPrefWidth(40);
-      expYear.setLayoutY(150);
-      expYear.setLayoutX(455);
-      threeDigits.setPrefWidth(60);
-      threeDigits.setLayoutY(250);
-      threeDigits.setLayoutX(400);
-      payButton.setLayoutX(250);
-      payButton.setLayoutY(350);
-      payingPane.getChildren().add(cardNumberLabel);
-      payingPane.getChildren().add(expDateLabel);
-      payingPane.getChildren().add(secCodeLabel);
-      payingPane.getChildren().add(cardNumber);
-      payingPane.getChildren().add(expMonth);
-      payingPane.getChildren().add(expYear);
-      payingPane.getChildren().add(threeDigits);
-      payingPane.getChildren().add(payButton);
+      Label ifNotOrdered;
+      if (orders.getTotalPrice() == 0.00) { // Change to check the order exists rather than price.
+        ifNotOrdered = new Label("Please place an order before payment. Thank you");
+        ifNotOrdered.getStylesheets()
+            .add(getClass().getResource("priceLabel.css").toExternalForm());
+        ifNotOrdered.setMaxWidth(Double.MAX_VALUE);
+        ifNotOrdered.setAlignment(Pos.CENTER);
+        payingPane.getChildren().add(ifNotOrdered);
+      } else {
+        TextField cardNumber = new TextField("");
+        TextField expMonth = new TextField("");
+        TextField expYear = new TextField("");
+        TextField threeDigits = new TextField("");
+        Button payButton = new Button("Validate and Pay £" + totalPrice.getText());
+        Label cardNumberLabel = new Label("Long Card Number (16 Digits) : ");
+        Label expDateLabel =
+            new Label("Expiry Date (MM/YY) :                                              /");
+        Label secCodeLabel = new Label("Three Digit Security Code (On The Back) : ");
+        payButton.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
+        cardNumberLabel.getStylesheets()
+            .add(getClass().getResource("cardLabel.css").toExternalForm());
+        expDateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+        secCodeLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+        cardNumber.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        expMonth.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        expYear.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        threeDigits.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        cardNumberLabel.setLayoutY(50);
+        expDateLabel.setLayoutY(150);
+        secCodeLabel.setLayoutY(250);
+        cardNumber.setPrefWidth(320);
+        cardNumber.setLayoutY(50);
+        cardNumber.setLayoutX(400);
+        expMonth.setPrefWidth(40);
+        expMonth.setLayoutY(150);
+        expMonth.setLayoutX(400);
+        expYear.setPrefWidth(40);
+        expYear.setLayoutY(150);
+        expYear.setLayoutX(455);
+        threeDigits.setPrefWidth(60);
+        threeDigits.setLayoutY(250);
+        threeDigits.setLayoutX(400);
+        payButton.setLayoutX(250);
+        payButton.setLayoutY(350);
+        payButton.setOnAction(validate);
+        payingPane.getChildren().add(cardNumberLabel);
+        payingPane.getChildren().add(expDateLabel);
+        payingPane.getChildren().add(secCodeLabel);
+        payingPane.getChildren().add(cardNumber);
+        payingPane.getChildren().add(expMonth);
+        payingPane.getChildren().add(expYear);
+        payingPane.getChildren().add(threeDigits);
+        payingPane.getChildren().add(payButton);
+      }
     }
   };
 
@@ -335,6 +348,23 @@ public class MainViewController {
   EventHandler<ActionEvent> oxacaAccPush = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
       payingPane.getChildren().clear();
+      Label ifNotOrdered;
+      if (orders.getTotalPrice() == 0.00) { // Change to check the order exists rather than price.
+        ifNotOrdered = new Label("Please place an order before payment. Thank you");
+        ifNotOrdered.getStylesheets()
+            .add(getClass().getResource("priceLabel.css").toExternalForm());
+        ifNotOrdered.setMaxWidth(Double.MAX_VALUE);
+        ifNotOrdered.setAlignment(Pos.CENTER);
+        payingPane.getChildren().add(ifNotOrdered);
+      } else {
+        // input Oxaca account details.
+      }
+    }
+  };
+
+  EventHandler<ActionEvent> validate = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      // TO DO : Check if card details are correct.
     }
   };
 
