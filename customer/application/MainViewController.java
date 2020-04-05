@@ -2,7 +2,9 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import com.sun.prism.paint.Color;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
@@ -21,6 +23,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -83,6 +87,18 @@ public class MainViewController {
   @FXML
   private Button oxacaAccButton = new Button("Oxaca account");
 
+  @FXML
+  TextField cardNumber = new TextField("");
+
+  @FXML
+  TextField expMonth = new TextField("");
+
+  @FXML
+  TextField expYear = new TextField("");
+
+  @FXML
+  TextField threeDigits = new TextField("");
+
   private Node frontPane;
 
   MenuMap menu = MenuMap.getInstance();
@@ -95,19 +111,13 @@ public class MainViewController {
 
   boolean isPaid = false;
 
+  boolean validCard = false;
+
 
 
   @FXML
   private void initialize() throws IOException {
-    if (isPaid) {
-      Label paidMessage = new Label("Order has already been paid for");
-      paidMessage.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
-      paidMessage.setMaxWidth(Double.MAX_VALUE);
-      paidMessage.setAlignment(Pos.CENTER);
-      payingPane.getChildren().add(paidMessage);
-    } else {
-      paymentTab();
-    }
+    paymentTab();
     menuPane.toFront();
     frontPane = menuPane;
     confirmationPane.toFront();
@@ -220,6 +230,14 @@ public class MainViewController {
   private void paymentPressed() {
     fade(paymentPane);
     payingPane.getChildren().clear();
+    if (isPaid) {
+      Label paidMessage = new Label("Order has been paid for");
+      paidMessage.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
+      paidMessage.setMaxWidth(Double.MAX_VALUE);
+      paidMessage.setAlignment(Pos.CENTER);
+      payingPane.getChildren().add(paidMessage);
+      paymentTypeHBox.getChildren().clear();
+    }
   }
 
   @FXML
@@ -276,14 +294,10 @@ public class MainViewController {
         ifNotOrdered.setAlignment(Pos.CENTER);
         payingPane.getChildren().add(ifNotOrdered);
       } else {
-        TextField cardNumber = new TextField("");
-        TextField expMonth = new TextField("");
-        TextField expYear = new TextField("");
-        TextField threeDigits = new TextField("");
         Button payButton = new Button("Validate and Pay £" + totalPrice.getText());
         Label cardNumberLabel = new Label("Long Card Number (16 Digits) : ");
         Label expDateLabel =
-            new Label("Expiry Date (MM/YY) :                                              /");
+            new Label("Expiry Date (MM/YY) :                                                /");
         Label secCodeLabel = new Label("Three Digit Security Code (On The Back) : ");
         payButton.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
         cardNumberLabel.getStylesheets()
@@ -304,12 +318,12 @@ public class MainViewController {
         cardNumber.setPrefWidth(320);
         cardNumber.setLayoutY(50);
         cardNumber.setLayoutX(400);
-        expMonth.setPrefWidth(40);
+        expMonth.setPrefWidth(50);
         expMonth.setLayoutY(150);
         expMonth.setLayoutX(400);
-        expYear.setPrefWidth(40);
+        expYear.setPrefWidth(50);
         expYear.setLayoutY(150);
-        expYear.setLayoutX(455);
+        expYear.setLayoutX(470);
         threeDigits.setPrefWidth(60);
         threeDigits.setLayoutY(250);
         threeDigits.setLayoutX(400);
@@ -364,7 +378,36 @@ public class MainViewController {
 
   EventHandler<ActionEvent> validate = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
-      // TO DO : Check if card details are correct.
+      int validInput = 0; // Counts how many inputs are valid card details.
+      if (cardNumber.getLength() != 16) {
+        cardNumber.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalCardDetails("Card number is invalid");
+      } else {
+        cardNumber.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (expMonth.getLength() != 2 && expYear.getLength() != 2) {
+        expMonth.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        expYear.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalCardDetails("Expiry date is invalid");
+      } else {
+        expMonth.setStyle("-fx-border-width: 0 0 0 0;");
+        expYear.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (threeDigits.getLength() != 3) {
+        threeDigits.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalCardDetails("Security code is invalid");
+      } else {
+        threeDigits.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      
+      if (validInput == 3) {
+        isPaid = true;
+        //Set order to paid in the database.
+        paymentPressed();
+      }
     }
   };
 
