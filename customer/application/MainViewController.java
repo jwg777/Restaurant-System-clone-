@@ -22,6 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -86,6 +88,36 @@ public class MainViewController {
 
   @FXML
   private Button oxacaAccButton = new Button("Oxaca account");
+  
+  @FXML
+  private Button starb1;
+  
+  @FXML
+  private Button starb2;
+  
+  @FXML
+  private Button starb3;
+  
+  @FXML
+  private Button starb4;
+  
+  @FXML
+  private Button starb5;
+  
+  @FXML
+  private ImageView yellow1;
+  
+  @FXML
+  private ImageView yellow2;
+  
+  @FXML
+  private ImageView yellow3;
+
+  @FXML
+  private ImageView yellow4;
+
+  @FXML
+  private ImageView yellow5;
 
   @FXML
   TextField cardNumber = new TextField("");
@@ -117,6 +149,7 @@ public class MainViewController {
 
   @FXML
   private void initialize() throws IOException {
+    stars();
     paymentTab();
     menuPane.toFront();
     frontPane = menuPane;
@@ -440,5 +473,109 @@ public class MainViewController {
     String name = "Consumable " + (i3++);
     menu.put(new Consumable(i1 + 300, type, name, 10.10f, 100, true, "Ingredient1, " + i3));
   }
-
+  
+  
+  private void stars() {
+    
+    starb1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+      }
+    });
+    
+    starb1.setOnMouseExited(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+      }
+    });
+    
+    starb2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+      }
+    });
+    
+    starb2.setOnMouseExited(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+      }
+    });
+    
+    starb3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+      }
+    });
+    
+    starb3.setOnMouseExited(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+      }
+    });
+    
+    starb4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+        yellow4.setVisible(true);
+      }
+    });
+    
+    starb4.setOnMouseExited(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+        yellow4.setVisible(false);
+      }
+    });
+    
+    starb5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+        yellow4.setVisible(true);
+        yellow5.setVisible(true);
+      }
+    });
+    
+    starb5.setOnMouseExited(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+        yellow4.setVisible(false);
+        yellow5.setVisible(false);
+      }
+    });
+  }
 }
+
