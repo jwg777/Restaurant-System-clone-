@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.net.Socket;
 import consumable.Consumable;
 import order.Order;
+import server.ClientType;
 import server.Customer;
 
 public class RequestThread extends Thread {
 
   private DataInputStream input;
   private DataOutputStream output;
+
+  private ClientType role;
 
   public RequestThread(Socket socket) {
     try {
@@ -26,10 +29,9 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("REQUEST STAFF " + username + " " + password);
       output.flush();
-      if (input.readUTF().equals("ACCEPTED WAITER")) {
-        return true;
-      }
-      if (input.readUTF().equals("ACCEPTED KITCHEN")) {
+      String[] response = input.readUTF().split(" ");
+      if (response[0].equals("ACCEPTED")) {
+        role = ClientType.getType(response[1]);
         return true;
       }
     } catch (IOException e) {
@@ -39,6 +41,9 @@ public class RequestThread extends Thread {
   }
 
   public boolean confirmOrder(Order order) {
+    if (role != ClientType.WAITER) {
+      return false;
+    }
     try {
       output.writeUTF("CONFIRM " + order.getOrderID());
       output.flush();
@@ -46,10 +51,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean cancelOrder(Order order) {
+    if (role != ClientType.WAITER) {
+      return false;
+    }
     try {
       output.writeUTF("CANCEL " + order.getOrderID());
       output.flush();
@@ -57,10 +65,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean orderDelivered(Order order) {
+    if (role != ClientType.WAITER) {
+      return false;
+    }
     try {
       output.writeUTF("DELIVERED " + order.getOrderID());
       output.flush();
@@ -68,10 +79,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean deleteMessage(Customer customer) {
+    if (role != ClientType.WAITER) {
+      return false;
+    }
     try {
       output.writeUTF("DELETEMESSAGE " + customer.getId());
       output.flush();
@@ -79,10 +93,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean addDish(Consumable consumable) {
+    if (role != ClientType.WAITER) {
+      return false;
+    }
     try {
       output.writeUTF("ADDDISH " + consumable.serializeToString());
       output.flush();
@@ -90,10 +107,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean deleteDish(Consumable consumable) {
+    if (role != ClientType.WAITER) {
+      return false;
+    }
     try {
       output.writeUTF("DELETEDISH " + consumable.serializeToString());
       output.flush();
@@ -101,10 +121,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean updateDish(Consumable consumable) {
+    if (role != ClientType.WAITER) {
+      return false;
+    }
     try {
       output.writeUTF("UPDATEDISH " + consumable.serializeToString());
       output.flush();
@@ -112,10 +135,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean processingOrder(Order order) {
+    if (role != ClientType.KITCHEN) {
+      return false;
+    }
     try {
       output.writeUTF("PROCESSING " + order.getOrderID());
       output.flush();
@@ -123,10 +149,13 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean readyOrder(Order order) {
+    if (role != ClientType.KITCHEN) {
+      return false;
+    }
     try {
       output.writeUTF("READY " + order.getOrderID());
       output.flush();
@@ -134,7 +163,7 @@ public class RequestThread extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return false;
+    return true;
   }
 
   public boolean checkAccepted() {
