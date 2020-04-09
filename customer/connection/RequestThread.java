@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import consumable.Consumable;
+import consumable.MenuMap;
 import order.Order;
 
 public class RequestThread {
@@ -40,6 +42,25 @@ public class RequestThread {
       return false;
     }
     return false;
+  }
+
+  public boolean getMenu() {
+    MenuMap menu = MenuMap.getInstance();
+    try {
+      output.writeUTF("GETMENU");
+      output.flush();
+      String[] response;
+      while ((response = ((String) input.readUTF()).split(" ")) != null) {
+        if (response[0].equals("ENDMENU")) {
+          break;
+        } else {
+          menu.put(new Consumable(response[0]));
+        }
+      }
+    } catch (IOException e) {
+      return false;
+    }
+    return true;
   }
 
   public boolean order(Order order) {
