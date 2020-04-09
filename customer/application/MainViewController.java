@@ -72,6 +72,9 @@ public class MainViewController {
   private AnchorPane statusPane;
 
   @FXML
+  private AnchorPane trackPane;
+
+  @FXML
   private Button confirmButton;
 
   @FXML
@@ -88,28 +91,28 @@ public class MainViewController {
 
   @FXML
   private Button oxacaAccButton = new Button("Oxaca account");
-  
+
   @FXML
   private Button starb1;
-  
+
   @FXML
   private Button starb2;
-  
+
   @FXML
   private Button starb3;
-  
+
   @FXML
   private Button starb4;
-  
+
   @FXML
   private Button starb5;
-  
+
   @FXML
   private ImageView yellow1;
-  
+
   @FXML
   private ImageView yellow2;
-  
+
   @FXML
   private ImageView yellow3;
 
@@ -131,6 +134,9 @@ public class MainViewController {
   @FXML
   TextField threeDigits = new TextField("");
 
+  @FXML
+  Button refreshStatus = new Button("Refresh");
+
   private Node frontPane;
 
   MenuMap menu = MenuMap.getInstance();
@@ -151,6 +157,7 @@ public class MainViewController {
   private void initialize() throws IOException {
     stars();
     paymentTab();
+    statusTab();
     menuPane.toFront();
     frontPane = menuPane;
     confirmationPane.toFront();
@@ -436,10 +443,10 @@ public class MainViewController {
         threeDigits.setStyle("-fx-border-width: 0 0 0 0;");
         validInput++;
       }
-      
+
       if (validInput == 3) {
         isPaid = true;
-        //Set order to paid in the database.
+        // Set order to paid in the database.
         paymentPressed();
       }
     }
@@ -474,46 +481,46 @@ public class MainViewController {
     String name = "Consumable " + (i3++);
     menu.put(new Consumable(i1 + 300, type, name, 10.10f, 100, true, "Ingredient1, " + i3));
   }
-  
-  
+
+
   private void stars() {
-    
+
     starb1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(true);
       }
     });
-    
+
     starb1.setOnMouseExited(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(false);
       }
     });
-    
+
     starb2.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(true);
         yellow2.setVisible(true);
       }
     });
-    
+
     starb2.setOnMouseExited(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(false);
         yellow2.setVisible(false);
       }
     });
-    
+
     starb3.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(true);
@@ -521,9 +528,9 @@ public class MainViewController {
         yellow3.setVisible(true);
       }
     });
-    
+
     starb3.setOnMouseExited(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(false);
@@ -531,9 +538,9 @@ public class MainViewController {
         yellow3.setVisible(false);
       }
     });
-    
+
     starb4.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(true);
@@ -542,9 +549,9 @@ public class MainViewController {
         yellow4.setVisible(true);
       }
     });
-    
+
     starb4.setOnMouseExited(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(false);
@@ -553,9 +560,9 @@ public class MainViewController {
         yellow4.setVisible(false);
       }
     });
-    
+
     starb5.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(true);
@@ -565,9 +572,9 @@ public class MainViewController {
         yellow5.setVisible(true);
       }
     });
-    
+
     starb5.setOnMouseExited(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         yellow1.setVisible(false);
@@ -577,6 +584,24 @@ public class MainViewController {
         yellow5.setVisible(false);
       }
     });
+  }
+
+  /** On start up, sets up status Tab.
+   * 
+   */
+  public void statusTab() {
+    Label trackLabel = new Label("Tracking order...");
+    trackLabel.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
+    refreshStatus.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
+    // refreshStatus.setOnAction(refreshStat);
+    Label lastUpdatedLabel = new Label("Last Updated : ");
+    Label updateLabel = new Label("Current status : ");
+    lastUpdatedLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+    updateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+    trackPane.getChildren().add(trackLabel);
+    trackPane.getChildren().add(lastUpdatedLabel);
+    trackPane.getChildren().add(updateLabel);
+    trackPane.getChildren().add(refreshStatus);
   }
 }
 
