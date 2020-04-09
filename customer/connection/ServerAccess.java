@@ -27,7 +27,7 @@ final public class ServerAccess {
    * 
    * @return instance
    */
-  public ServerAccess getInstance() {
+  public static ServerAccess getInstance() {
     if (instance == null) {
       instance = new ServerAccess();
     }
@@ -49,16 +49,20 @@ final public class ServerAccess {
     return false;
   }
 
-  public boolean order(Order order) {
-    return request.order(order);
+  public void getMenu() {
+    request.getMenu();
   }
 
-  public boolean cancelOrder(Order order) {
-    return request.cancelOrder(order);
+  public void order(Order order) {
+    request.order(order);
   }
 
-  public boolean paymentConfirmed() {
-    return request.paymentConfirmed();
+  public void cancelOrder(Order order) {
+    request.cancelOrder(order);
+  }
+
+  public void paymentConfirmed() {
+    request.paymentConfirmed();
   }
 
 }

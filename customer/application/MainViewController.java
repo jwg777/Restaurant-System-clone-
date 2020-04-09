@@ -3,7 +3,7 @@ package application;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import backend.ServerAccess;
+import connection.ServerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
@@ -115,7 +115,8 @@ public class MainViewController {
         }
       });
     });
-    connection.setConnection("167.99.149.174", tableNumConfirmed());
+    connection.setConnection("167.99.149.174", Integer.toString(tableNumConfirmed()));
+    connection.getMenu();
   }
 
   private void addCategory(
