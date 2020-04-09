@@ -18,6 +18,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -136,6 +138,12 @@ public class MainViewController {
 
   @FXML
   Button refreshStatus = new Button("Refresh");
+  
+  @FXML
+  Label lastUpdatedLabel = new Label("Last Updated : ");
+  
+  @FXML
+  Label updateLabel = new Label("Current status : ");
 
   private Node frontPane;
 
@@ -586,22 +594,34 @@ public class MainViewController {
     });
   }
 
-  /** On start up, sets up status Tab.
+  /**
+   * On start up, sets up status Tab.
    * 
    */
   public void statusTab() {
-    Label trackLabel = new Label("Tracking order...");
+    Label trackLabel = new Label("Tracking order");
     trackLabel.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
     refreshStatus.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
     // refreshStatus.setOnAction(refreshStat);
-    Label lastUpdatedLabel = new Label("Last Updated : ");
-    Label updateLabel = new Label("Current status : ");
     lastUpdatedLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
     updateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+    refreshStatus.setLayoutX(600);
+    refreshStatus.setLayoutY(100);
+    lastUpdatedLabel.setLayoutY(200);
+    lastUpdatedLabel.setLayoutX(50);
+    updateLabel.setLayoutX(50);
+    updateLabel.setLayoutY(300);
     trackPane.getChildren().add(trackLabel);
     trackPane.getChildren().add(lastUpdatedLabel);
     trackPane.getChildren().add(updateLabel);
     trackPane.getChildren().add(refreshStatus);
   }
+  
+  EventHandler<ActionEvent> refreshStat = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      //Get last updated time, set label to time
+      //Get last status, set label to status
+    }
+  };
 }
 
