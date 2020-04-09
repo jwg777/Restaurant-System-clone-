@@ -257,6 +257,7 @@ public class MainViewController {
   @FXML
   private void ordersPressed() {
     fade(ordersPane);
+    ordersPane.setVisible(true);
   }
 
   @FXML
