@@ -25,7 +25,13 @@ public class StaffNotification extends SocketThread {
   public void orderDelivered(int orderID) {
     write("DELIVERED " + orderID);
   }
-  
-  
+
+  public void processingOrder(int orderID) {
+    write("PROCESSSING " + orderID);
+  }
+
+  public void readyOrder(int orderID) {
+    write("READY " + orderID);
+  }
 
 }

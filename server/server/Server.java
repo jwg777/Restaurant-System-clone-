@@ -75,18 +75,19 @@ public final class Server extends Thread {
         String[] line = dIn.readUTF().split(" ");
         if (line[0].equals("REQUEST")) {
           if (line[1].equals("CUSTOMER")) {
-            SocketThread newRequest = new SocketThread(dIn, dOut);
+            CustomerRequests newRequest = new CustomerRequests(dIn, dOut);
             Customer newCustomer = new Customer(Integer.valueOf(line[2]));
             database.addCustomer(newCustomer); // adds the new customer to database and sets an id
             CustomerClient newCustomerClient = new CustomerClient(newCustomer);
             newCustomerClient.setRequest(newRequest); // adds class to process requests from client
             dOut.writeUTF("ACCEPTED " + newCustomer.getId());
             dOut.flush();
+            
             customerThreads.add(newCustomerClient);
           } else if (line[1].equals("STAFF")) {
             ClientType type = database.authenticate(line[2], line[3]);
             if (type == ClientType.WAITER || type == ClientType.KITCHEN) {
-              SocketThread newRequest = new SocketThread(dIn, dOut);
+              StaffRequests newRequest = new StaffRequests(dIn, dOut);
               dOut.writeUTF("ACCEPTED " + type.name().toUpperCase());
               dOut.flush();
               Staff newStaff = new Staff(type, line[2], line[3]);
@@ -111,13 +112,13 @@ public final class Server extends Thread {
           } else if (line[1].equals("STAFF")) {
             for (StaffClient staffClient : waiterThreads) {
               if (staffClient.getUsername().equals(line[2])) {
-                SocketThread newNotification = new SocketThread(dIn, dOut);
+                StaffNotification newNotification = new StaffNotification(dIn, dOut);
                 staffClient.setNotification(newNotification);
               }
             }
             for (StaffClient staffClient : kitchenThreads) {
               if (staffClient.getUsername().equals(line[2])) {
-                SocketThread newNotification = new SocketThread(dIn, dOut);
+                StaffNotification newNotification = new StaffNotification(dIn, dOut);
                 staffClient.setNotification(newNotification);
               }
             }
@@ -153,9 +154,29 @@ public final class Server extends Thread {
   public ArrayList<Consumable> getMenuList() {
     return database.getDishList();
   }
-
-  public ArrayList<Order> getOrderList() {
-    return database.getOrderList();
+  
+  public void notfiyAll() {
+    
+  }
+  
+  public void notifyStaff() {
+    
+  }
+  
+  public void notifyWaiter() {
+    
+  }
+  
+  public void notifyKitchen() {
+    
+  }
+  
+  public void notfiyAllCustomer() {
+    
+  }
+  
+  public void notifyCustomer() {
+    
   }
 
   public int addCustomer(int tableNum) {

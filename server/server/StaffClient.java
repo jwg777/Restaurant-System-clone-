@@ -1,11 +1,13 @@
 package server;
 
+import order.Order;
+
 public class StaffClient {
 
   String username;
   Staff staff;
-  SocketThread request;
-  SocketThread notification;
+  StaffRequests request;
+  StaffNotification notification;
   ClientType role;
 
   public StaffClient(Staff newStaff) {
@@ -13,16 +15,42 @@ public class StaffClient {
     this.username = staff.getUsername();
   }
 
-  public void setRequest(SocketThread request) {
+  public void setRequest(StaffRequests request) {
     this.request = request;
+    Thread thread = new Thread(request);
+    thread.start();
   }
 
-  public void setNotification(SocketThread notification) {
+  public void setNotification(StaffNotification notification) {
     this.notification = notification;
   }
 
   public String getUsername() {
     return username;
+  }
+
+  public void receivedNewOrder(Order order) {
+    notification.receivedNewOrder(order);
+  }
+
+  public void confirmOrder(int orderID) {
+    notification.confirmOrder(orderID);
+  }
+
+  public void cancelOrder(int orderID) {
+    notification.cancelOrder(orderID);
+  }
+
+  public void orderDelivered(int orderID) {
+    notification.orderDelivered(orderID);
+  }
+
+  public void processingOrder(int orderID) {
+    notification.processingOrder(orderID);
+  }
+
+  public void readyOrder(int orderID) {
+    notification.readyOrder(orderID);
   }
 
 }

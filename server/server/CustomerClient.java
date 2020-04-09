@@ -3,7 +3,7 @@ package server;
 public class CustomerClient {
 
   Customer customer;
-  SocketThread request;
+  CustomerRequests request;
   SocketThread notification;
   int customerId;
 
@@ -12,8 +12,10 @@ public class CustomerClient {
     this.customerId = customer.getId();
   }
 
-  public void setRequest(SocketThread request) {
+  public void setRequest(CustomerRequests request) {
     this.request = request;
+    Thread thread = new Thread(request);
+    thread.start();
   }
 
   public void setNotification(SocketThread notification) {

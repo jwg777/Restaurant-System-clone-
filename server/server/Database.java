@@ -46,10 +46,6 @@ public final class Database {
     return dishList;
   }
 
-  public ArrayList<Order> getOrderList() {
-    return orderList;
-  }
-
   public ArrayList<Staff> getStaffList() {
     return staffList;
   }
@@ -141,7 +137,8 @@ public final class Database {
      */
   }
 
-  public void updateOrderStatus() {
+  public void updateOrderStatus(String orderId, String status) {
+    update("UPDATE Orders SET status =  " + status + "WHERE orderID = " + orderId);
     /*
      * INCLUDES { CONFIM / CANCEL } 1. update on database 2. update on local list
      */
