@@ -115,8 +115,8 @@ public class MainViewController {
         }
       });
     });
-    connection.setConnection("167.99.149.174", Integer.toString(tableNumConfirmed()));
-    connection.getMenu();
+    //connection.setConnection("167.99.149.174", Integer.toString(tableNumConfirmed()));
+    //connection.getMenu();
   }
 
   private void addCategory(
@@ -211,7 +211,15 @@ public class MainViewController {
     }
     return tableNum;
   }
-
+  
+  @FXML
+  private void orderPlaced() {
+    for (Order order : orders.getOrderList()) {
+      //connection.order(order);
+      order.setStatus("WAITING");
+    }
+  }
+  
   /*
    * Temp buttons for testing.
    */
