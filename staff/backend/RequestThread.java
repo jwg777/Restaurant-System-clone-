@@ -47,25 +47,30 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("CONFIRM " + order.getOrderID());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean cancelOrder(Order order) {
-    if (role != ClientType.WAITER) {
+    // If an order has been completed, it cannot be cancelled.
+    if (order.getStatus().equals("COMPLETED")) {
+      return false;
+    }
+    // A waiter can cancel an order at any time if not completed.
+    // A kitchen employee can only cancel an order if it is confirmed or processing
+    if (role == ClientType.KITCHEN
+        & (!order.getStatus().equals("CONFIRMED") | !order.getStatus().equals("PROCESSING"))) {
       return false;
     }
     try {
       output.writeUTF("CANCEL " + order.getOrderID());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean orderDelivered(Order order) {
@@ -75,11 +80,10 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("DELIVERED " + order.getOrderID());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean deleteMessage(Customer customer) {
@@ -89,11 +93,10 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("DELETEMESSAGE " + customer.getId());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean addDish(Consumable consumable) {
@@ -103,11 +106,10 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("ADDDISH " + consumable.serializeToString());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean deleteDish(Consumable consumable) {
@@ -117,11 +119,10 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("DELETEDISH " + consumable.serializeToString());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean updateDish(Consumable consumable) {
@@ -131,11 +132,10 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("UPDATEDISH " + consumable.serializeToString());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean processingOrder(Order order) {
@@ -145,11 +145,10 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("PROCESSING " + order.getOrderID());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean readyOrder(Order order) {
@@ -159,11 +158,10 @@ public class RequestThread extends Thread {
     try {
       output.writeUTF("READY " + order.getOrderID());
       output.flush();
-      checkAccepted();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return true;
+    return checkAccepted();
   }
 
   public boolean checkAccepted() {

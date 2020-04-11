@@ -46,65 +46,75 @@ public class RequestThread {
 
   public boolean getMenu() {
     MenuMap menu = MenuMap.getInstance();
+    boolean result = false;
     try {
       output.writeUTF("GETMENU");
       output.flush();
       String[] response;
       while ((response = ((String) input.readUTF()).split(" ")) != null) {
         if (response[0].equals("ENDMENU")) {
+          result = true;
           break;
         } else {
           menu.put(new Consumable(response[0]));
         }
       }
     } catch (IOException e) {
-      return false;
+      e.printStackTrace();
     }
-    return true;
+    return result;
   }
 
   public boolean order(Order order) {
     try {
       output.writeUTF("ORDER " + order.serializeToString());
       output.flush();
-      String[] response = ((String) input.readUTF()).split(" ");
-      return response[0].equals("ACCEPTED");
     } catch (IOException e) {
-      return false;
+      e.printStackTrace();
     }
+    return checkAccepted();
   }
 
   public boolean cancelOrder(Order order) {
+    if (!order.getStatus().equals("WAITING")) {
+      return false;
+    }
     try {
       output.writeUTF("CANCEL " + order.getOrderID());
       output.flush();
-      String[] response = ((String) input.readUTF()).split(" ");
-      return response[0].equals("ACCEPTED");
     } catch (IOException e) {
-      return false;
+      e.printStackTrace();
     }
+    return checkAccepted();
   }
 
   public boolean notify(String message) {
     try {
       output.writeUTF("NOTIFYWAITER " + customerID + " " + message);
       output.flush();
-      String[] response = ((String) input.readUTF()).split(" ");
-      return response[0].equals("ACCEPTED");
     } catch (IOException e) {
-      return false;
+      e.printStackTrace();
     }
+    return checkAccepted();
   }
 
   public boolean paymentConfirmed() {
     try {
       output.writeUTF("PAYMENTCONFIRMED " + customerID);
       output.flush();
-      String[] response = ((String) input.readUTF()).split(" ");
-      return response[0].equals("OK");
     } catch (IOException e) {
-      return false;
+      e.printStackTrace();
     }
+    return checkAccepted();
   }
 
+  public boolean checkAccepted() {
+    try {
+      String[] response = ((String) input.readUTF()).split(" ");
+      return response[0].equals("ACCEPTED");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
 }
