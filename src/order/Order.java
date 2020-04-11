@@ -8,11 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
-import java.util.Observable;
 import consumable.Consumable;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableValue;
 
 /**
  * Each dish that the restaurant offers will be represented by an object from this class.
@@ -154,7 +150,7 @@ public class Order implements Comparable<Order>, Serializable {
     this.quantity = 1;
     this.dishID = consumable.getID();
     this.dishName = consumable.getName();
-    this.status = "Waiting";
+    this.status = "WAITING";
   }
 
   /**
