@@ -2,7 +2,6 @@ package views;
 
 import java.io.IOException;
 import backend.ServerAccess;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -93,12 +92,6 @@ public final class SceneController {
 
   public MenuListener getMenuListener() {
     return menuListener;
-  }
-
-  public void sendOrder(ObservableList<String> orderList) {
-    for (String string : orderList) {
-      server.write("ORDER " + string);
-    }
   }
 
 }

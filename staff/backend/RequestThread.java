@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import consumable.Consumable;
+import consumable.MenuMap;
 import order.Order;
 import server.ClientType;
 import server.Customer;
@@ -15,6 +16,7 @@ public class RequestThread extends Thread {
   private DataOutputStream output;
 
   private ClientType role;
+  private String staffID;
 
   public RequestThread(Socket socket) {
     try {
@@ -25,6 +27,10 @@ public class RequestThread extends Thread {
     }
   }
 
+  public String getID() {
+    return this.staffID;
+  }
+
   public boolean staffLogin(String username, String password) throws IOException {
     try {
       output.writeUTF("REQUEST STAFF " + username + " " + password);
@@ -32,12 +38,34 @@ public class RequestThread extends Thread {
       String[] response = input.readUTF().split(" ");
       if (response[0].equals("ACCEPTED")) {
         role = ClientType.getType(response[1]);
+        staffID = username;
         return true;
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
     return false;
+  }
+
+  public boolean getMenu() {
+    MenuMap menu = MenuMap.getInstance();
+    boolean result = false;
+    try {
+      output.writeUTF("GETMENU");
+      output.flush();
+      String[] response;
+      while ((response = ((String) input.readUTF()).split(" ")) != null) {
+        if (response[0].equals("ENDMENU")) {
+          result = true;
+          break;
+        } else {
+          menu.put(new Consumable(response[0]));
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return result;
   }
 
   public boolean confirmOrder(Order order) {

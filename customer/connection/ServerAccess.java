@@ -38,13 +38,13 @@ final public class ServerAccess {
     try {
       request = new RequestThread(new Socket(ip, port));
       if (request.customerLogin(Integer.parseInt(tableNumber))) {
-        notification =
-            new NotificationThread("NOTIFICATION CUSTOMER", request.getID(), new Socket(ip, port));
+        notification = new NotificationThread(request.getID(), new Socket(ip, port));
         Thread t = new Thread(notification);
         t.start();
         return true;
       }
     } catch (IOException e) {
+      e.printStackTrace();
     }
     return false;
   }
