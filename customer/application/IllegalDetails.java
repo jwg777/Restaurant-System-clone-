@@ -3,7 +3,7 @@ package application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class IllegalCardDetails extends IllegalArgumentException {
+public class IllegalDetails extends IllegalArgumentException {
 
 
   /**
@@ -16,7 +16,7 @@ public class IllegalCardDetails extends IllegalArgumentException {
    * 
    * @param message The message given to show in the alert
    */
-  public IllegalCardDetails(String message) {
+  public IllegalDetails(String message) {
     Alert alert = new Alert(AlertType.CONFIRMATION, message);
     alert.setTitle("IllegalCardDetails");
     alert.showAndWait();

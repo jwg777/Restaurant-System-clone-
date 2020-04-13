@@ -132,10 +132,10 @@ public class MainViewController {
 
   @FXML
   Button refreshStatus = new Button("Refresh");
-  
+
   @FXML
   Label lastUpdatedLabel = new Label("Last Updated : ");
-  
+
   @FXML
   Label updateLabel = new Label("Current status : ");
 
@@ -154,7 +154,6 @@ public class MainViewController {
   boolean validCard = false;
 
   ServerAccess connection = ServerAccess.getInstance();
-
 
 
 
@@ -289,6 +288,7 @@ public class MainViewController {
   @FXML
   private void statusPressed() {
     fade(statusPane);
+    statusPane.setVisible(true);
   }
 
   @FXML
@@ -310,7 +310,7 @@ public class MainViewController {
     }
     return tableNum;
   }
-  
+
   @FXML
   private void orderPlaced() {
     for (Order order : orders.getOrderList()) {
@@ -363,7 +363,7 @@ public class MainViewController {
         ifNotOrdered.setAlignment(Pos.CENTER);
         payingPane.getChildren().add(ifNotOrdered);
       } else {
-        Button payButton = new Button("Validate and Pay �" + totalPrice.getText());
+        Button payButton = new Button("Validate and Pay " + (char)163 + totalPrice.getText());
         Label cardNumberLabel = new Label("Long Card Number (16 Digits) : ");
         Label expDateLabel =
             new Label("Expiry Date (MM/YY) :                                                /");
@@ -418,7 +418,8 @@ public class MainViewController {
       if (orders.getTotalPrice() == 0.00) {
         price = new Label("Please place an order before payment. Thank you");
       } else {
-        price = new Label("Please pay �" + totalPrice.getText() + " to a member staff. Thank you");
+        price = new Label(
+            "Please pay " + (char)163 + totalPrice.getText() + " to a member staff. Thank you");
       }
       price.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
       price.setMaxWidth(Double.MAX_VALUE);
@@ -450,7 +451,7 @@ public class MainViewController {
       int validInput = 0; // Counts how many inputs are valid card details.
       if (cardNumber.getLength() != 16) {
         cardNumber.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
-        throw new IllegalCardDetails("Card number is invalid");
+        throw new IllegalDetails("Card number is invalid");
       } else {
         cardNumber.setStyle("-fx-border-width: 0 0 0 0;");
         validInput++;
@@ -458,7 +459,7 @@ public class MainViewController {
       if (expMonth.getLength() != 2 && expYear.getLength() != 2) {
         expMonth.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
         expYear.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
-        throw new IllegalCardDetails("Expiry date is invalid");
+        throw new IllegalDetails("Expiry date is invalid");
       } else {
         expMonth.setStyle("-fx-border-width: 0 0 0 0;");
         expYear.setStyle("-fx-border-width: 0 0 0 0;");
@@ -466,7 +467,7 @@ public class MainViewController {
       }
       if (threeDigits.getLength() != 3) {
         threeDigits.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
-        throw new IllegalCardDetails("Security code is invalid");
+        throw new IllegalDetails("Security code is invalid");
       } else {
         threeDigits.setStyle("-fx-border-width: 0 0 0 0;");
         validInput++;
@@ -622,7 +623,7 @@ public class MainViewController {
     Label trackLabel = new Label("Tracking order");
     trackLabel.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
     refreshStatus.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
-    // refreshStatus.setOnAction(refreshStat);
+    refreshStatus.setOnAction(refreshStat);
     lastUpdatedLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
     updateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
     refreshStatus.setLayoutX(600);
@@ -636,11 +637,11 @@ public class MainViewController {
     trackPane.getChildren().add(updateLabel);
     trackPane.getChildren().add(refreshStatus);
   }
-  
+
   EventHandler<ActionEvent> refreshStat = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
-      //Get last updated time, set label to time
-      //Get last status, set label to status
+      // Get last updated time, set label to time
+      // Get last status, set label to status
     }
   };
 }
