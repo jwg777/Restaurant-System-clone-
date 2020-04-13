@@ -34,15 +34,24 @@ public class StaffMainViewController {
 
   @FXML
   private AnchorPane newOrderPane;
-  
+
   @FXML
   private AnchorPane editMenuPane;
-  
+
   @FXML
   private AnchorPane editInfoPane;
-  
+
   @FXML
   private HBox editOptionsHBox;
+
+  @FXML
+  private Button addItem = new Button("Add Item");
+
+  @FXML
+  private Button editItem = new Button("Edit Item");
+
+  @FXML
+  private Button deleteItem = new Button("Delete item");
 
   private Node frontPane;
 
@@ -54,11 +63,10 @@ public class StaffMainViewController {
 
   @FXML
   private void initialize() throws IOException {
+    editMenu();
     newOrderPane.toFront();
     frontPane = newOrderPane;
     confirmationPane.toFront();
-
-
   }
 
 
@@ -133,7 +141,7 @@ public class StaffMainViewController {
   private void editMenuPressed() {
     fade(editMenuPane);
   }
-  
+
   @FXML
   private void logoutPressed() {
     fade(confirmationPane);
@@ -150,6 +158,17 @@ public class StaffMainViewController {
     } catch (Exception e) {
       tableField.setText("");
     }
+  }
+
+  private void editMenu() {
+    addItem.getStylesheets().add(getClass().getResource("editMenuOptions.css").toExternalForm());
+    editItem.getStylesheets().add(getClass().getResource("editMenuOptions.css").toExternalForm());
+    // deleteItem.getStylesheets().add(getClass().getResource("editMenuOptions.css").toExternalForm());
+    editItem.setLayoutX(150);
+    // adItem.setOnAction(actionAddItem);
+    // editItem.setOnAction(actionEditItem);
+    editOptionsHBox.getChildren().add(addItem);
+    editOptionsHBox.getChildren().add(editItem);
   }
 
   /*
