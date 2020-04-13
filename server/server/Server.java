@@ -82,7 +82,7 @@ public final class Server extends Thread {
             newCustomerClient.setRequest(newRequest); // adds class to process requests from client
             dOut.writeUTF("ACCEPTED " + newCustomer.getId());
             dOut.flush();
-            
+
             customerThreads.add(newCustomerClient);
           } else if (line[1].equals("STAFF")) {
             ClientType type = database.authenticate(line[2], line[3]);
@@ -105,7 +105,7 @@ public final class Server extends Thread {
             int id = Integer.parseInt(line[2]);
             for (CustomerClient customerClient : customerThreads) {
               if (customerClient.getId() == id) {
-                SocketThread newNotification = new SocketThread(dIn, dOut);
+                CustomerNotification newNotification = new CustomerNotification(dIn, dOut);
                 customerClient.setNotification(newNotification);
               }
             }
@@ -154,30 +154,6 @@ public final class Server extends Thread {
   public ArrayList<Consumable> getMenuList() {
     return database.getDishList();
   }
-  
-  public void notfiyAll() {
-    
-  }
-  
-  public void notifyStaff() {
-    
-  }
-  
-  public void notifyWaiter() {
-    
-  }
-  
-  public void notifyKitchen() {
-    
-  }
-  
-  public void notfiyAllCustomer() {
-    
-  }
-  
-  public void notifyCustomer() {
-    
-  }
 
   public int addCustomer(int tableNum) {
     Customer temp = new Customer(tableNum);
@@ -188,4 +164,102 @@ public final class Server extends Thread {
   public void removeCustomer(int tableNum) {
     database.removeCustomer(tableNum);
   }
+
+  public void newOrderReceived(Order order) {
+    database.addOrder(order);
+    for (StaffClient staff : waiterThreads) {
+      staff.receivedNewOrder(order);
+    }
+  }
+
+  public void orderConfirmed(String orderID) {
+    database.updateOrderStatus(orderID, "CONFIRM");
+    for (StaffClient staff : waiterThreads) {
+      staff.confirmOrder(Integer.parseInt(orderID));
+    }
+    for (StaffClient staff : kitchenThreads) {
+      staff.confirmOrder(Integer.parseInt(orderID));
+    }
+    Order order = database.findOrder(orderID);
+    findCustomer(order.getCustID()).updateOrder(order);
+  }
+
+  public CustomerClient findCustomer(int custID) {
+    for (CustomerClient client : customerThreads) {
+      if (client.customerId == custID) {
+        return client;
+      }
+    }
+    return null;
+  }
+
+  public void cancelOrder(String orderID) {
+    database.updateOrderStatus(orderID, "CANCELLED");
+    Order order = database.findOrder(orderID);
+    for (StaffClient waiter : waiterThreads) {
+      waiter.cancelOrder(order.getOrderID());
+    }
+    for (StaffClient kitchen : kitchenThreads) {
+      kitchen.cancelOrder(order.getOrderID());
+    }
+    findCustomer(order.getCustID()).updateOrder(order);
+  }
+
+  public void readyOrder(String orderID) {
+    database.updateOrderStatus(orderID, "READY");
+    Order order = database.findOrder(orderID);
+    for (StaffClient waiter : waiterThreads) {
+      waiter.readyOrder(order.getOrderID());
+    }
+    for (StaffClient kitchen : kitchenThreads) {
+      kitchen.readyOrder(order.getOrderID());
+    }
+    findCustomer(order.getCustID()).updateOrder(order);
+  }
+
+  public void deliveredOrder(String orderID) {
+    database.updateOrderStatus(orderID, "DELIVERED");
+    Order order = database.findOrder(orderID);
+    for (StaffClient waiter : waiterThreads) {
+      waiter.orderDelivered(order.getOrderID());
+    }
+    for (StaffClient kitchen : kitchenThreads) {
+      kitchen.orderDelivered(order.getOrderID());
+    }
+    findCustomer(order.getCustID()).updateOrder(order);
+  }
+
+  public void addNewDish(String dish) {
+    Consumable newDish = new Consumable(dish);
+    database.addDish(newDish);
+    for (StaffClient waiter : waiterThreads) {
+      waiter.addDish(newDish);
+    }
+    for (CustomerClient customer : customerThreads) {
+      customer.addDish(newDish);
+    }
+  }
+
+  public void deleteDish(String dish) {
+    Consumable consumable = new Consumable(dish);
+    database.removeDish(consumable);
+    for (StaffClient waiter : waiterThreads) {
+      waiter.deleteDish(consumable);
+    }
+    for (CustomerClient customer : customerThreads) {
+      customer.deleteDish(consumable);
+    }
+  }
+
+  public void updateDish(String dish) {
+    Consumable updatedDish = new Consumable(dish);
+    database.updateDish(updatedDish);
+    for (StaffClient waiter : waiterThreads) {
+      waiter.updateDish(updatedDish);
+    }
+    for (CustomerClient customer : customerThreads) {
+      customer.updateDish(updatedDish);
+    }
+  }
+
 }

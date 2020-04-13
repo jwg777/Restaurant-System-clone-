@@ -1,5 +1,6 @@
 package server;
 
+import consumable.Consumable;
 import order.Order;
 
 public class StaffClient {
@@ -51,6 +52,18 @@ public class StaffClient {
 
   public void readyOrder(int orderID) {
     notification.readyOrder(orderID);
+  }
+
+  public void addDish(Consumable consumable) {
+    notification.addDish(consumable);
+  }
+
+  public void deleteDish(Consumable consumable) {
+    notification.deleteDish(consumable);
+  }
+
+  public void updateDish(Consumable consumable) {
+    notification.updateDish(consumable);
   }
 
 }

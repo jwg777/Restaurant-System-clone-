@@ -1,10 +1,13 @@
 package server;
 
+import consumable.Consumable;
+import order.Order;
+
 public class CustomerClient {
 
   Customer customer;
   CustomerRequests request;
-  SocketThread notification;
+  CustomerNotification notification;
   int customerId;
 
   public CustomerClient(Customer newCustomer) {
@@ -18,7 +21,7 @@ public class CustomerClient {
     thread.start();
   }
 
-  public void setNotification(SocketThread notification) {
+  public void setNotification(CustomerNotification notification) {
     this.notification = notification;
   }
 
@@ -26,5 +29,20 @@ public class CustomerClient {
     return customerId;
   }
 
+  public void addDish(Consumable consumable) {
+    notification.addDish(consumable);
+  }
+
+  public void deleteDish(Consumable consumable) {
+    notification.deleteDish(consumable);
+  }
+
+  public void updateDish(Consumable consumable) {
+    notification.updateDish(consumable);
+  }
+
+  public void updateOrder(Order order) {
+    notification.updateOrder(order);
+  }
 
 }
