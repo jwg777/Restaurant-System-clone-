@@ -176,7 +176,7 @@ public class CustomerViewController {
      * needs to check if order is valid.
      */
     ObservableList<String> orders = orderedList.getItems();
-    controller.sendOrder(orders);
+    //controller.sendOrder(orders);
     /*
      * Needs a new class and methods to run the following. This is only temporary.
      */
