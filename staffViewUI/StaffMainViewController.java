@@ -34,6 +34,15 @@ public class StaffMainViewController {
 
   @FXML
   private AnchorPane newOrderPane;
+  
+  @FXML
+  private AnchorPane editMenuPane;
+  
+  @FXML
+  private AnchorPane editInfoPane;
+  
+  @FXML
+  private HBox editOptionsHBox;
 
   private Node frontPane;
 
@@ -120,7 +129,11 @@ public class StaffMainViewController {
     }
   }
 
-
+  @FXML
+  private void editMenuPressed() {
+    fade(editMenuPane);
+  }
+  
   @FXML
   private void logoutPressed() {
     fade(confirmationPane);
