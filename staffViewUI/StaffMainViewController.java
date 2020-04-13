@@ -4,6 +4,8 @@ import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -140,6 +142,7 @@ public class StaffMainViewController {
   @FXML
   private void editMenuPressed() {
     fade(editMenuPane);
+    editInfoPane.getChildren().clear();
   }
 
   @FXML
@@ -163,13 +166,35 @@ public class StaffMainViewController {
   private void editMenu() {
     addItem.getStylesheets().add(getClass().getResource("editMenuOptions.css").toExternalForm());
     editItem.getStylesheets().add(getClass().getResource("editMenuOptions.css").toExternalForm());
-    // deleteItem.getStylesheets().add(getClass().getResource("editMenuOptions.css").toExternalForm());
     editItem.setLayoutX(150);
-    // adItem.setOnAction(actionAddItem);
-    // editItem.setOnAction(actionEditItem);
+    addItem.setOnAction(actionAddItem);
+    editItem.setOnAction(actionEditItem);
     editOptionsHBox.getChildren().add(addItem);
     editOptionsHBox.getChildren().add(editItem);
   }
+
+  EventHandler<ActionEvent> actionAddItem = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      editInfoPane.getChildren().clear();
+    }
+  };
+
+  EventHandler<ActionEvent> actionEditItem = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      editInfoPane.getChildren().clear();
+      deleteItem.getStylesheets()
+          .add(getClass().getResource("editMenuOptions.css").toExternalForm());
+      deleteItem.setLayoutX(400);
+      deleteItem.setOnAction(actionDeleteItem);
+      editInfoPane.getChildren().add(deleteItem);
+    }
+  };
+
+  EventHandler<ActionEvent> actionDeleteItem = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+
+    }
+  };
 
   /*
    * Temp buttons for testing.
