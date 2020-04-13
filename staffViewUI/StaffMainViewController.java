@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import application.IllegalDetails;
 import connection.ServerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
@@ -60,6 +61,42 @@ public class StaffMainViewController {
 
   @FXML
   private Button deleteItem = new Button("Delete item");
+  
+  @FXML
+  ComboBox<ObservableList<Consumable>> menuItems = new ComboBox<ObservableList<Consumable>>();
+
+  @FXML
+  private Button applyButton = new Button("Apply");
+
+  @FXML
+  Label dishNameLabel = new Label("Dish Name : ");
+
+  @FXML
+  TextField dishNameTF = new TextField("");
+
+  @FXML
+  Label dishPriceLabel = new Label("Price : " + (char)163);
+
+  @FXML
+  TextField dishPriceTF = new TextField("");
+  
+  @FXML
+  Label dishCategoryLabel = new Label("Category : ");
+
+  @FXML
+  TextField dishCategoryTF = new TextField("");
+  
+  @FXML
+  Label dishCaloriesLabel = new Label("Calories : ");
+
+  @FXML
+  TextField dishCaloriesTF = new TextField("");
+  
+  @FXML
+  Label dishIngredientsLabel = new Label("Ingredients : ");
+
+  @FXML
+  TextField dishIngredientsTF = new TextField("");
 
   private Node frontPane;
 
@@ -184,6 +221,7 @@ public class StaffMainViewController {
   EventHandler<ActionEvent> actionAddItem = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
       editInfoPane.getChildren().clear();
+      fillEditInfoPane();
     }
   };
 
@@ -195,7 +233,6 @@ public class StaffMainViewController {
       deleteItem.setLayoutX(400);
       deleteItem.setOnAction(actionDeleteItem);
       MenuMap menu = MenuMap.getInstance();
-      ComboBox<ObservableList<Consumable>> menuItems = new ComboBox<ObservableList<Consumable>>();
       for (String key : menu.keyArray()) {
         menuItems.getItems().addAll(menu.get(key));
       }
@@ -203,6 +240,14 @@ public class StaffMainViewController {
       menuItems.setLayoutX(80);
       menuItems.getStylesheets()
           .add(getClass().getResource("menuItemsComboBox.css").toExternalForm());
+      fillEditInfoPane();
+      if (!menuItems.getSelectionModel().isEmpty()) {
+        dishNameTF.setText(menuItems.getValue().get(1).toString());
+        dishPriceTF.setText(menuItems.getValue().get(1).toString());
+        dishCategoryTF.setText(menuItems.getValue().get(1).toString());
+        dishCaloriesTF.setText(menuItems.getValue().get(1).toString());
+        dishIngredientsTF.setText(menuItems.getValue().get(1).toString());
+      }
       editInfoPane.getChildren().add(menuItems);
       editInfoPane.getChildren().add(deleteItem);
     }
@@ -210,9 +255,69 @@ public class StaffMainViewController {
 
   EventHandler<ActionEvent> actionDeleteItem = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
-
+      //Delete chosen item in comboBox.
     }
   };
+
+  EventHandler<ActionEvent> applyItem = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+     
+    }
+  };
+  
+  private void fillEditInfoPane() {
+    applyButton.getStylesheets()
+      .add(getClass().getResource("editMenuOptions.css").toExternalForm());
+    applyButton.setLayoutX(200);
+    applyButton.setLayoutY(400);
+    applyButton.setOnAction(applyItem);
+    dishNameLabel.setLayoutY(75);
+    dishNameTF.setLayoutX(120);
+    dishNameTF.setLayoutY(75);
+    dishNameLabel.getStylesheets().add(getClass().getResource("dishLabels.css").toExternalForm());
+    dishNameTF.getStylesheets()
+        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    dishPriceLabel.setLayoutY(125);
+    dishPriceTF.setLayoutX(120);
+    dishPriceTF.setLayoutY(125);
+    dishPriceLabel.getStylesheets()
+        .add(getClass().getResource("dishLabels.css").toExternalForm());
+    dishPriceTF.getStylesheets()
+        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    dishCategoryLabel.setLayoutY(175);
+    dishCategoryTF.setLayoutX(120);
+    dishCategoryTF.setLayoutY(175);
+    dishCategoryLabel.getStylesheets()
+        .add(getClass().getResource("dishLabels.css").toExternalForm());
+    dishCategoryTF.getStylesheets()
+        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    dishCaloriesLabel.setLayoutY(225);
+    dishCaloriesTF.setLayoutX(120);
+    dishCaloriesTF.setLayoutY(225);
+    dishCaloriesLabel.getStylesheets()
+        .add(getClass().getResource("dishLabels.css").toExternalForm());
+    dishCaloriesTF.getStylesheets()
+        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    dishIngredientsLabel.setLayoutY(275);
+    dishIngredientsTF.setLayoutX(120);
+    dishIngredientsTF.setLayoutY(275);
+    dishIngredientsLabel.getStylesheets()
+        .add(getClass().getResource("dishLabels.css").toExternalForm());
+    dishIngredientsTF.getStylesheets()
+        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    dishIngredientsTF.setPrefWidth(600);
+    editInfoPane.getChildren().add(applyButton);
+    editInfoPane.getChildren().add(dishNameLabel);
+    editInfoPane.getChildren().add(dishNameTF);
+    editInfoPane.getChildren().add(dishPriceLabel);
+    editInfoPane.getChildren().add(dishPriceTF);
+    editInfoPane.getChildren().add(dishCategoryLabel);
+    editInfoPane.getChildren().add(dishCategoryTF);
+    editInfoPane.getChildren().add(dishCaloriesLabel);
+    editInfoPane.getChildren().add(dishCaloriesTF);
+    editInfoPane.getChildren().add(dishIngredientsLabel);
+    editInfoPane.getChildren().add(dishIngredientsTF);
+  }
 
   /*
    * Temp buttons for testing.
