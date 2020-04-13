@@ -10,24 +10,38 @@ import order.Order;
 import order.OrderMap;
 
 public class NotificationThread extends Thread {
-  
+
   MenuMap menuMap = MenuMap.getInstance();
   OrderMap orderMap = OrderMap.getInstance();
-  
-  DataInputStream input;
-  
+
+  private DataInputStream input;
+  private DataOutputStream output;
+
   public NotificationThread(String type, String id, Socket socket) throws IOException {
-    try (DataOutputStream output = new DataOutputStream(socket.getOutputStream())) {
+    try {
       input = new DataInputStream(socket.getInputStream());
-      output.writeUTF(type.toUpperCase() + " " + id);
-      if (!input.readUTF().equals("ACCEPTED")) {
-        throw new IOException();
-      }
+      output = new DataOutputStream(socket.getOutputStream());
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
-  
+
+  public boolean staffLogin(String username, String password) throws IOException {
+    try {
+      output.writeUTF("NOTIFICATION STAFF " + username + " " + password);
+      output.flush();
+      if (input.readUTF().equals("ACCEPTED WAITER")) {
+        return true;
+      }
+      if (input.readUTF().equals("ACCEPTED KITCHEN")) {
+        return true;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
   @Override
   public void run() {
     String response;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import com.sun.prism.paint.Color;
+import backend.ServerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
@@ -159,6 +160,9 @@ public class MainViewController {
 
   boolean validCard = false;
 
+  ServerAccess connection = ServerAccess.getInstance();
+
+
 
 
   @FXML
@@ -181,7 +185,6 @@ public class MainViewController {
     // Listener for order change
     orders.getOrderList().addListener((ListChangeListener<Order>) c -> {
       Platform.runLater(() -> {
-        System.out.println(orders.toString());
         while (c.next()) {
           if (c.wasAdded()) {
             for (Order order : c.getAddedSubList()) {
@@ -203,7 +206,7 @@ public class MainViewController {
         }
       });
     });
-
+    connection.setConnection("167.99.149.174", tableNumConfirmed());
   }
 
   private void addCategory(
@@ -300,9 +303,10 @@ public class MainViewController {
   }
 
   @FXML
-  private void tableNumConfirmed() {
+  private int tableNumConfirmed() {
+    int tableNum = 0;
     try {
-      int tableNum = Integer.valueOf(tableField.getText());
+      tableNum = Integer.valueOf(tableField.getText());
       /*
        * Confirm table number with server. And get the customer ID.
        */
@@ -310,6 +314,7 @@ public class MainViewController {
     } catch (Exception e) {
       tableField.setText("");
     }
+    return tableNum;
   }
 
   /**
@@ -343,7 +348,7 @@ public class MainViewController {
         ifNotOrdered.setAlignment(Pos.CENTER);
         payingPane.getChildren().add(ifNotOrdered);
       } else {
-        Button payButton = new Button("Validate and Pay £" + totalPrice.getText());
+        Button payButton = new Button("Validate and Pay ï¿½" + totalPrice.getText());
         Label cardNumberLabel = new Label("Long Card Number (16 Digits) : ");
         Label expDateLabel =
             new Label("Expiry Date (MM/YY) :                                                /");
@@ -398,7 +403,7 @@ public class MainViewController {
       if (orders.getTotalPrice() == 0.00) {
         price = new Label("Please place an order before payment. Thank you");
       } else {
-        price = new Label("Please pay £" + totalPrice.getText() + " to a member staff. Thank you");
+        price = new Label("Please pay ï¿½" + totalPrice.getText() + " to a member staff. Thank you");
       }
       price.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
       price.setMaxWidth(Double.MAX_VALUE);

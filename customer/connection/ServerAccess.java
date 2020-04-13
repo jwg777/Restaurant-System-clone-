@@ -1,5 +1,9 @@
 package connection;
 
+import java.io.IOException;
+import java.net.Socket;
+import order.Order;
+
 /**
  * Class to manage accessing server, include reading and writing.
  * 
@@ -12,13 +16,11 @@ final public class ServerAccess {
    */
   private static ServerAccess instance = null;
 
-   
-  private ServerAccess() {
-    /*
-     * Need to start a request connection first
-     * then start a notification connection after it's been accepted.
-     */
-  }
+  RequestThread request;
+  NotificationThread notification;
+  int port = 6666;
+
+  private ServerAccess() {}
 
   /**
    * Gets the instance of ServerAccess.
@@ -31,6 +33,32 @@ final public class ServerAccess {
     }
     return instance;
   }
-  
-  
+
+  public boolean setConnection(String ip, String tableNumber) {
+    try {
+      request = new RequestThread(new Socket(ip, port));
+      if (request.customerLogin(Integer.parseInt(tableNumber))) {
+        notification =
+            new NotificationThread("NOTIFICATION CUSTOMER", request.getID(), new Socket(ip, port));
+        Thread t = new Thread(notification);
+        t.start();
+        return true;
+      }
+    } catch (IOException e) {
+    }
+    return false;
+  }
+
+  public boolean order(Order order) {
+    return request.order(order);
+  }
+
+  public boolean cancelOrder(Order order) {
+    return request.cancelOrder(order);
+  }
+
+  public boolean paymentConfirmed() {
+    return request.paymentConfirmed();
+  }
+
 }

@@ -48,7 +48,7 @@ public class Order implements Comparable<Order>, Serializable {
   public void addListener(OrderListener listener) {
     this.listeners.add(listener);
   }
-  
+
   public void removeListener(OrderListener listener) {
     this.listeners.remove(listener);
   }
@@ -199,10 +199,14 @@ public class Order implements Comparable<Order>, Serializable {
    * @return String
    * @throws IOException
    */
-  public String serializeToString() throws IOException {
+  public String serializeToString() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ObjectOutputStream oos = new ObjectOutputStream(baos);
-    oos.writeObject(this);
+    ObjectOutputStream oos;
+    try {
+      oos = new ObjectOutputStream(baos);
+      oos.writeObject(this);
+    } catch (IOException e) {
+    }
     return Base64.getEncoder().encodeToString(baos.toByteArray());
   }
 

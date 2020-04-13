@@ -11,23 +11,41 @@ public class NotificationThread extends Thread {
 
   MenuMap menuMap = MenuMap.getInstance();
 
-  DataInputStream input;
+  private DataInputStream input;
+  private DataOutputStream output;
+
+  private String customerID;
 
   public NotificationThread(String type, String id, Socket socket) throws IOException {
-    try (DataOutputStream output = new DataOutputStream(socket.getOutputStream())) {
+    try {
       input = new DataInputStream(socket.getInputStream());
-      output.writeUTF(type.toUpperCase() + " " + id);
-      if (!input.readUTF().equals("ACCEPTED")) {
-        throw new IOException();
-      }
+      output = new DataOutputStream(socket.getOutputStream());
     } catch (IOException e) {
-      throw new IOException();
+      e.printStackTrace();
     }
-
     /*
      * 1. Creates new socket connection 2. Read and Write stream 3. establish client type 4. close
      * write stream
      */
+  }
+
+  public String getID() {
+    return this.customerID;
+  }
+
+  public boolean customerLogin(int tableNum) {
+    try {
+      output.writeUTF("NOTIFICATION CUSTOMER " + tableNum);
+      output.flush();
+      String[] response = ((String) input.readUTF()).split(" ");
+      if (response[0].equals("ACCEPTED")) {
+        customerID = response[1];
+        return true;
+      }
+    } catch (IOException e) {
+      return false;
+    }
+    return false;
   }
 
   @Override

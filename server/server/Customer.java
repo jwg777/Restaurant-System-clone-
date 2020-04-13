@@ -1,5 +1,8 @@
 package server;
 
+import java.util.ArrayList;
+import order.Order;
+
 public class Customer {
 
   private int id;
@@ -7,6 +10,7 @@ public class Customer {
   private float totalPrice;
   private String notes;
   private boolean paid;
+  private ArrayList<Order> orders = new ArrayList<>();;
 
   public Customer(int table_number) {
     this.table_number = table_number;
