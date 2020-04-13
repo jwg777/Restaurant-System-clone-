@@ -3,6 +3,7 @@ package server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -129,12 +130,38 @@ public final class Database {
     }
   }
 
-
+  public void updateDish(Consumable consumable) {
+    update("UPDATE dishes SET name = '" + consumable.getName() + "', price = "
+        + consumable.getPrice() + ", category = '" + consumable.getType() + "', available = "
+        + consumable.getIsAvailable() + ", ingredients = '" + consumable.getIngredients()
+        + "', calories = " + consumable.getCalories() + "WHERE dish_id = " + consumable.getID());
+  }
 
   public void addOrder(Order order) {
-    /*
-     * 1. Add to database 2. Add to local list
-     */
+    java.sql.Timestamp time = getCurrentTimeStamp();
+    order.setTimeStamp(time.toString());
+    String insertTableSQL =
+        "INSERT INTO orders(cust_id, dish_id, order_time, status) VALUES (?,?,?,?)";
+    PreparedStatement preparedStatement;
+    try {
+      preparedStatement = connection.prepareStatement(insertTableSQL);
+      preparedStatement.setInt(1, order.getCustID());
+      preparedStatement.setInt(2, order.getDishID());
+      preparedStatement.setTimestamp(3, time);
+      preparedStatement.setString(4, "WAITING");
+      ResultSet rs = select("orders", "cust_id = " + order.getCustID() + " AND dish_id = "
+          + order.getDishID() + " AND order_time = " + time.toString() + " AND status = WAITING");
+      while (rs.next()) {
+        order.setOrderID(rs.getInt("order_id"));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private java.sql.Timestamp getCurrentTimeStamp() {
+    java.util.Date today = new java.util.Date();
+    return new java.sql.Timestamp(today.getTime());
   }
 
   public void updateOrderStatus(String orderId, String status) {
@@ -169,7 +196,7 @@ public final class Database {
   }
 
   private void updateOrders() {
-    ResultSet rs = select("orders");
+    ResultSet rs = select("orders", "status != 'COMPLETED' OR status != 'CANCELLED'");
     orderList.clear();
     try {
       while (rs.next()) {
@@ -238,7 +265,8 @@ public final class Database {
       Statement st = connection.createStatement();
       st.execute("INSERT INTO customers(table_no, total_price, paid) VALUES ('"
           + customer.getTable_number() + ", 0, f);");
-      ResultSet rs = select("customers", "table_no =" + customer.getTable_number());
+      ResultSet rs =
+          select("customers", "table_no =" + customer.getTable_number() + " AND paid = false");
       customer.setId(rs.getInt("cust_id"));
       st.close();
       // Adds to local list
@@ -303,5 +331,13 @@ public final class Database {
     }
   }
 
-
+  public Order findOrder(String orderID) {
+    updateOrders();
+    for (Order order : orderList) {
+      if (String.valueOf(order.getOrderID()).equals(orderID)) {
+        return order;
+      }
+    }
+    return null;
+  }
 }

@@ -60,8 +60,8 @@ public class Consumable implements Comparable<Consumable>, Serializable {
     this.isAvailable = isAvailable;
   }
 
-  public Consumable(String type, String name, float price, int calories,
-      boolean isAvailable, String ingredients) {
+  public Consumable(String type, String name, float price, int calories, boolean isAvailable,
+      String ingredients) {
     this.type = type;
     this.name = name;
     this.price = price;
@@ -160,10 +160,14 @@ public class Consumable implements Comparable<Consumable>, Serializable {
    * @return String
    * @throws IOException
    */
-  public String serializeToString() throws IOException {
+  public String serializeToString() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ObjectOutputStream oos = new ObjectOutputStream(baos);
-    oos.writeObject(this);
+    try {
+      ObjectOutputStream oos = new ObjectOutputStream(baos);
+      oos.writeObject(this);
+    } catch (IOException e) {
+
+    }
     return Base64.getEncoder().encodeToString(baos.toByteArray());
   }
 

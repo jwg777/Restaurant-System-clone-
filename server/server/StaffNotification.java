@@ -2,6 +2,7 @@ package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import consumable.Consumable;
 import order.Order;
 
 public class StaffNotification extends SocketThread {
@@ -32,6 +33,18 @@ public class StaffNotification extends SocketThread {
 
   public void readyOrder(int orderID) {
     write("READY " + orderID);
+  }
+
+  public void addDish(Consumable consumable) {
+    write("ADDDISH " + consumable.serializeToString());
+  }
+
+  public void deleteDish(Consumable consumable) {
+    write("DELETEDISH " + consumable.serializeToString());
+  }
+
+  public void updateDish(Consumable consumable) {
+    write("UPDATEDISH " + consumable.serializeToString());
   }
 
 }

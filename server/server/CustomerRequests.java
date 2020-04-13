@@ -2,11 +2,12 @@ package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import consumable.Consumable;
 import order.Order;
 
 public class CustomerRequests extends SocketThread implements Runnable {
 
-  private Database database = Database.getInstance();
+  private Server server = Server.getInstance();
 
   public CustomerRequests(DataInputStream input, DataOutputStream output) {
     super(input, output);
@@ -18,10 +19,21 @@ public class CustomerRequests extends SocketThread implements Runnable {
       String[] line = read().split(" ");
       switch (line[0]) {
         case "ORDER":
-          Order order = new Order(line[1]);
-          database.addOrder(order);
-          
+          server.newOrderReceived(new Order(line[1]));
+          write("ACCEPTED");
           break;
+        case "CANCEL":
+          server.cancelOrder(line[1]);
+          write("ACCEPTED");
+          break;
+        case "GETMENU":
+          for (Consumable dish : server.getMenuList()) {
+            write(dish.serializeToString());
+          }
+          write("ENDMENU");
+          break;
+        default:
+          write("DENIED");
       }
     }
   }
