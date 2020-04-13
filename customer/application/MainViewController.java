@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import backend.ServerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
@@ -72,6 +73,8 @@ public class MainViewController {
 
   OrderList orders = OrderList.getInstance();
 
+  ServerAccess connection = ServerAccess.getInstance();
+
 
 
   @FXML
@@ -112,7 +115,7 @@ public class MainViewController {
         }
       });
     });
-
+    connection.setConnection("167.99.149.174", tableNumConfirmed());
   }
 
   private void addCategory(
@@ -194,9 +197,10 @@ public class MainViewController {
   }
 
   @FXML
-  private void tableNumConfirmed() {
+  private int tableNumConfirmed() {
+    int tableNum = 0;
     try {
-      int tableNum = Integer.valueOf(tableField.getText());
+      tableNum = Integer.valueOf(tableField.getText());
       /*
        * Confirm table number with server. And get the customer ID.
        */
@@ -204,6 +208,7 @@ public class MainViewController {
     } catch (Exception e) {
       tableField.setText("");
     }
+    return tableNum;
   }
 
   /*

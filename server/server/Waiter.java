@@ -18,7 +18,6 @@ public class Waiter {
   private Waiter() {
     try {
       menuList = getMenu();
-      orderList = getOrders();
     } catch (SQLException e) {
     }
   }
@@ -42,7 +41,4 @@ public class Waiter {
     return database.getDishList();
   }
 
-  public ArrayList<Order> getOrders() throws SQLException {
-    return database.getOrderList();
-  }
 }

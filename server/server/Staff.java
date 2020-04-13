@@ -2,8 +2,6 @@ package server;
 
 public class Staff {
   
-  
-
   private String username;
   private String password;
   private ClientType role;

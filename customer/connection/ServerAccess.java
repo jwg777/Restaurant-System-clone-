@@ -2,7 +2,7 @@ package connection;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import order.Order;
 
 /**
  * Class to manage accessing server, include reading and writing.
@@ -49,5 +49,16 @@ final public class ServerAccess {
     return false;
   }
 
+  public boolean order(Order order) {
+    return request.order(order);
+  }
+
+  public boolean cancelOrder(Order order) {
+    return request.cancelOrder(order);
+  }
+
+  public boolean paymentConfirmed() {
+    return request.paymentConfirmed();
+  }
 
 }
