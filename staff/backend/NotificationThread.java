@@ -17,7 +17,9 @@ public class NotificationThread extends Thread {
   private DataInputStream input;
   private DataOutputStream output;
 
-  public NotificationThread(String type, String id, Socket socket) throws IOException {
+  private String staffID;
+
+  public NotificationThread(String username, Socket socket) throws IOException {
     try {
       input = new DataInputStream(socket.getInputStream());
       output = new DataOutputStream(socket.getOutputStream());
@@ -26,14 +28,20 @@ public class NotificationThread extends Thread {
     }
   }
 
+  public String getID() {
+    return this.staffID;
+  }
+
   public boolean staffLogin(String username, String password) throws IOException {
     try {
       output.writeUTF("NOTIFICATION STAFF " + username + " " + password);
       output.flush();
       if (input.readUTF().equals("ACCEPTED WAITER")) {
+        staffID = username;
         return true;
       }
       if (input.readUTF().equals("ACCEPTED KITCHEN")) {
+        staffID = username;
         return true;
       }
     } catch (IOException e) {

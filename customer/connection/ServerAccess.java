@@ -27,7 +27,7 @@ final public class ServerAccess {
    * 
    * @return instance
    */
-  public ServerAccess getInstance() {
+  public static ServerAccess getInstance() {
     if (instance == null) {
       instance = new ServerAccess();
     }
@@ -38,27 +38,31 @@ final public class ServerAccess {
     try {
       request = new RequestThread(new Socket(ip, port));
       if (request.customerLogin(Integer.parseInt(tableNumber))) {
-        notification =
-            new NotificationThread("NOTIFICATION CUSTOMER", request.getID(), new Socket(ip, port));
+        notification = new NotificationThread(request.getID(), new Socket(ip, port));
         Thread t = new Thread(notification);
         t.start();
         return true;
       }
     } catch (IOException e) {
+      e.printStackTrace();
     }
     return false;
   }
 
-  public boolean order(Order order) {
-    return request.order(order);
+  public void getMenu() {
+    request.getMenu();
   }
 
-  public boolean cancelOrder(Order order) {
-    return request.cancelOrder(order);
+  public void order(Order order) {
+    request.order(order);
   }
 
-  public boolean paymentConfirmed() {
-    return request.paymentConfirmed();
+  public void cancelOrder(Order order) {
+    request.cancelOrder(order);
+  }
+
+  public void paymentConfirmed() {
+    request.paymentConfirmed();
   }
 
 }

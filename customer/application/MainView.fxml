@@ -362,5 +362,18 @@
             </AnchorPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="statusPane" layoutX="250.0" prefHeight="576.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="72.0" prefWidth="774.0" style="-fx-background-color: #edf5f5;">
+               <children>
+                  <Label layoutX="30.0" layoutY="14.0" prefHeight="40.0" prefWidth="121.0" text="Status" textFill="#5370c9e5" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

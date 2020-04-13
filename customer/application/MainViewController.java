@@ -206,7 +206,8 @@ public class MainViewController {
         }
       });
     });
-    connection.setConnection("167.99.149.174", tableNumConfirmed());
+    connection.setConnection("167.99.149.174", Integer.toString(tableNumConfirmed()));
+    connection.getMenu();
   }
 
   private void addCategory(
@@ -315,6 +316,27 @@ public class MainViewController {
       tableField.setText("");
     }
     return tableNum;
+  }
+  
+  @FXML
+  private void orderPlaced() {
+    for (Order order : orders.getOrderList()) {
+      // connection.order(order);
+      order.setStatus("WAITING");
+    }
+  }
+
+  @FXML
+  private void paymentConfirmed() {
+    // connection.paymentConfirmed();
+  }
+
+  @FXML
+  private void orderCancelled() {
+    for (Order order : orders.getOrderList()) {
+      // connection.cancelOrder(order);
+      order.setStatus("CANCELLED");
+    }
   }
 
   /**
@@ -629,4 +651,3 @@ public class MainViewController {
     }
   };
 }
-

@@ -16,7 +16,7 @@ public class NotificationThread extends Thread {
 
   private String customerID;
 
-  public NotificationThread(String type, String id, Socket socket) throws IOException {
+  public NotificationThread(String id, Socket socket) throws IOException {
     try {
       input = new DataInputStream(socket.getInputStream());
       output = new DataOutputStream(socket.getOutputStream());
