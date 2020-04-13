@@ -1,14 +1,19 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import connection.ServerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import order.Order;
 import order.OrderMap;
+import server.Server;
 
 public class StaffMainViewController {
 
@@ -62,6 +68,8 @@ public class StaffMainViewController {
   HashMap<String, Button> buttons = new HashMap<>();
 
   OrderMap order = OrderMap.getInstance();
+
+  // ServerAccess connection = ServerAccess.getInstance();
 
   @FXML
   private void initialize() throws IOException {
@@ -186,6 +194,16 @@ public class StaffMainViewController {
           .add(getClass().getResource("editMenuOptions.css").toExternalForm());
       deleteItem.setLayoutX(400);
       deleteItem.setOnAction(actionDeleteItem);
+      MenuMap menu = MenuMap.getInstance();
+      ComboBox<ObservableList<Consumable>> menuItems = new ComboBox<ObservableList<Consumable>>();
+      for (String key : menu.keyArray()) {
+        menuItems.getItems().addAll(menu.get(key));
+      }
+      menuItems.setLayoutY(5);
+      menuItems.setLayoutX(80);
+      menuItems.getStylesheets()
+          .add(getClass().getResource("menuItemsComboBox.css").toExternalForm());
+      editInfoPane.getChildren().add(menuItems);
       editInfoPane.getChildren().add(deleteItem);
     }
   };
