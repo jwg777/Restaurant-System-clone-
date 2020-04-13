@@ -43,13 +43,13 @@ public class KitchenAccess {
 
 
     while (rs.next()) {
-      int dishID = rs.getInt("dishID");
+      int orderID = rs.getInt("orderID");
       int custID = rs.getInt("cust_ID");
-      int quantity = rs.getInt("quantity");
+      float totalPrice = rs.getFloat("total_price");
       String timeStamp = (rs.getTimestamp("orderTime")).toString();
       String dish = rs.getString("dish");
       String status = rs.getString("status");
-      map.put(new Order(custID, dishID, quantity, dish, timeStamp, status));
+  //    map.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
 
     }
 

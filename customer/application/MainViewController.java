@@ -2,7 +2,9 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import com.sun.prism.paint.Color;
 import backend.ServerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
@@ -15,14 +17,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import order.Order;
 import order.OrderList;
@@ -34,10 +45,16 @@ public class MainViewController {
   private HBox categoryHBox;
 
   @FXML
+  private HBox paymentTypeHBox;
+
+  @FXML
   private TextField tableField;
 
   @FXML
   private AnchorPane ordersPane;
+
+  @FXML
+  private AnchorPane paymentPane;
 
   @FXML
   private AnchorPane menuAnchor;
@@ -58,10 +75,76 @@ public class MainViewController {
   private AnchorPane statusPane;
 
   @FXML
+  private AnchorPane trackPane;
+
+  @FXML
   private Button confirmButton;
 
   @FXML
   private VBox ordersList;
+
+  @FXML
+  private AnchorPane payingPane;
+
+  @FXML
+  private Button cardButton = new Button("Card / Contactless");
+
+  @FXML
+  private Button cashButton = new Button("Cash");
+
+  @FXML
+  private Button oxacaAccButton = new Button("Oxaca account");
+
+  @FXML
+  private Button starb1;
+
+  @FXML
+  private Button starb2;
+
+  @FXML
+  private Button starb3;
+
+  @FXML
+  private Button starb4;
+
+  @FXML
+  private Button starb5;
+
+  @FXML
+  private ImageView yellow1;
+
+  @FXML
+  private ImageView yellow2;
+
+  @FXML
+  private ImageView yellow3;
+
+  @FXML
+  private ImageView yellow4;
+
+  @FXML
+  private ImageView yellow5;
+
+  @FXML
+  TextField cardNumber = new TextField("");
+
+  @FXML
+  TextField expMonth = new TextField("");
+
+  @FXML
+  TextField expYear = new TextField("");
+
+  @FXML
+  TextField threeDigits = new TextField("");
+
+  @FXML
+  Button refreshStatus = new Button("Refresh");
+  
+  @FXML
+  Label lastUpdatedLabel = new Label("Last Updated : ");
+  
+  @FXML
+  Label updateLabel = new Label("Current status : ");
 
   private Node frontPane;
 
@@ -73,12 +156,20 @@ public class MainViewController {
 
   OrderList orders = OrderList.getInstance();
 
+  boolean isPaid = false;
+
+  boolean validCard = false;
+
   ServerAccess connection = ServerAccess.getInstance();
+
 
 
 
   @FXML
   private void initialize() throws IOException {
+    stars();
+    paymentTab();
+    statusTab();
     menuPane.toFront();
     frontPane = menuPane;
     confirmationPane.toFront();
@@ -184,6 +275,21 @@ public class MainViewController {
   @FXML
   private void ordersPressed() {
     fade(ordersPane);
+    ordersPane.setVisible(true);
+  }
+
+  @FXML
+  private void paymentPressed() {
+    fade(paymentPane);
+    payingPane.getChildren().clear();
+    if (isPaid) {
+      Label paidMessage = new Label("Order has been paid for");
+      paidMessage.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
+      paidMessage.setMaxWidth(Double.MAX_VALUE);
+      paidMessage.setAlignment(Pos.CENTER);
+      payingPane.getChildren().add(paidMessage);
+      paymentTypeHBox.getChildren().clear();
+    }
   }
 
   @FXML
@@ -210,6 +316,155 @@ public class MainViewController {
     }
     return tableNum;
   }
+
+  /**
+   * This method is used to set up all information needed for the payment tab.
+   * 
+   */
+  private void paymentTab() {
+    cardButton.getStylesheets()
+        .add(getClass().getResource("paymentTypeButtons.css").toExternalForm());
+    cashButton.getStylesheets()
+        .add(getClass().getResource("paymentTypeButtons.css").toExternalForm());
+    oxacaAccButton.getStylesheets()
+        .add(getClass().getResource("paymentTypeButtons.css").toExternalForm());
+    cardButton.setOnAction(cardPush);
+    cashButton.setOnAction(cashPush);
+    oxacaAccButton.setOnAction(oxacaAccPush);
+    paymentTypeHBox.getChildren().add(cardButton);
+    paymentTypeHBox.getChildren().add(cashButton);
+    paymentTypeHBox.getChildren().add(oxacaAccButton);
+  }
+
+  EventHandler<ActionEvent> cardPush = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      payingPane.getChildren().clear();
+      Label ifNotOrdered;
+      if (orders.getTotalPrice() == 0.00) { // Change to check the order exists rather than price.
+        ifNotOrdered = new Label("Please place an order before payment. Thank you");
+        ifNotOrdered.getStylesheets()
+            .add(getClass().getResource("priceLabel.css").toExternalForm());
+        ifNotOrdered.setMaxWidth(Double.MAX_VALUE);
+        ifNotOrdered.setAlignment(Pos.CENTER);
+        payingPane.getChildren().add(ifNotOrdered);
+      } else {
+        Button payButton = new Button("Validate and Pay �" + totalPrice.getText());
+        Label cardNumberLabel = new Label("Long Card Number (16 Digits) : ");
+        Label expDateLabel =
+            new Label("Expiry Date (MM/YY) :                                                /");
+        Label secCodeLabel = new Label("Three Digit Security Code (On The Back) : ");
+        payButton.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
+        cardNumberLabel.getStylesheets()
+            .add(getClass().getResource("cardLabel.css").toExternalForm());
+        expDateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+        secCodeLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+        cardNumber.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        expMonth.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        expYear.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        threeDigits.getStylesheets()
+            .add(getClass().getResource("cardDetailTextFields.css").toExternalForm());
+        cardNumberLabel.setLayoutY(50);
+        expDateLabel.setLayoutY(150);
+        secCodeLabel.setLayoutY(250);
+        cardNumber.setPrefWidth(320);
+        cardNumber.setLayoutY(50);
+        cardNumber.setLayoutX(400);
+        expMonth.setPrefWidth(50);
+        expMonth.setLayoutY(150);
+        expMonth.setLayoutX(400);
+        expYear.setPrefWidth(50);
+        expYear.setLayoutY(150);
+        expYear.setLayoutX(470);
+        threeDigits.setPrefWidth(60);
+        threeDigits.setLayoutY(250);
+        threeDigits.setLayoutX(400);
+        payButton.setLayoutX(250);
+        payButton.setLayoutY(350);
+        payButton.setOnAction(validate);
+        payingPane.getChildren().add(cardNumberLabel);
+        payingPane.getChildren().add(expDateLabel);
+        payingPane.getChildren().add(secCodeLabel);
+        payingPane.getChildren().add(cardNumber);
+        payingPane.getChildren().add(expMonth);
+        payingPane.getChildren().add(expYear);
+        payingPane.getChildren().add(threeDigits);
+        payingPane.getChildren().add(payButton);
+      }
+    }
+  };
+
+  EventHandler<ActionEvent> cashPush = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      payingPane.getChildren().clear();
+      Label price;
+      if (orders.getTotalPrice() == 0.00) {
+        price = new Label("Please place an order before payment. Thank you");
+      } else {
+        price = new Label("Please pay �" + totalPrice.getText() + " to a member staff. Thank you");
+      }
+      price.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
+      price.setMaxWidth(Double.MAX_VALUE);
+      price.setAlignment(Pos.CENTER);
+      payingPane.getChildren().add(price);
+
+    }
+  };
+
+  EventHandler<ActionEvent> oxacaAccPush = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      payingPane.getChildren().clear();
+      Label ifNotOrdered;
+      if (orders.getTotalPrice() == 0.00) { // Change to check the order exists rather than price.
+        ifNotOrdered = new Label("Please place an order before payment. Thank you");
+        ifNotOrdered.getStylesheets()
+            .add(getClass().getResource("priceLabel.css").toExternalForm());
+        ifNotOrdered.setMaxWidth(Double.MAX_VALUE);
+        ifNotOrdered.setAlignment(Pos.CENTER);
+        payingPane.getChildren().add(ifNotOrdered);
+      } else {
+        // input Oxaca account details.
+      }
+    }
+  };
+
+  EventHandler<ActionEvent> validate = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      int validInput = 0; // Counts how many inputs are valid card details.
+      if (cardNumber.getLength() != 16) {
+        cardNumber.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalCardDetails("Card number is invalid");
+      } else {
+        cardNumber.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (expMonth.getLength() != 2 && expYear.getLength() != 2) {
+        expMonth.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        expYear.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalCardDetails("Expiry date is invalid");
+      } else {
+        expMonth.setStyle("-fx-border-width: 0 0 0 0;");
+        expYear.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (threeDigits.getLength() != 3) {
+        threeDigits.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalCardDetails("Security code is invalid");
+      } else {
+        threeDigits.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+
+      if (validInput == 3) {
+        isPaid = true;
+        // Set order to paid in the database.
+        paymentPressed();
+      }
+    }
+  };
+
 
   /*
    * Temp buttons for testing.
@@ -240,4 +495,138 @@ public class MainViewController {
     menu.put(new Consumable(i1 + 300, type, name, 10.10f, 100, true, "Ingredient1, " + i3));
   }
 
+
+  private void stars() {
+
+    starb1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+      }
+    });
+
+    starb1.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+      }
+    });
+
+    starb2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+      }
+    });
+
+    starb2.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+      }
+    });
+
+    starb3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+      }
+    });
+
+    starb3.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+      }
+    });
+
+    starb4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+        yellow4.setVisible(true);
+      }
+    });
+
+    starb4.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+        yellow4.setVisible(false);
+      }
+    });
+
+    starb5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+        yellow4.setVisible(true);
+        yellow5.setVisible(true);
+      }
+    });
+
+    starb5.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+        yellow4.setVisible(false);
+        yellow5.setVisible(false);
+      }
+    });
+  }
+
+  /**
+   * On start up, sets up status Tab.
+   * 
+   */
+  public void statusTab() {
+    Label trackLabel = new Label("Tracking order");
+    trackLabel.getStylesheets().add(getClass().getResource("priceLabel.css").toExternalForm());
+    refreshStatus.getStylesheets().add(getClass().getResource("cardButton.css").toExternalForm());
+    // refreshStatus.setOnAction(refreshStat);
+    lastUpdatedLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+    updateLabel.getStylesheets().add(getClass().getResource("cardLabel.css").toExternalForm());
+    refreshStatus.setLayoutX(600);
+    refreshStatus.setLayoutY(100);
+    lastUpdatedLabel.setLayoutY(200);
+    lastUpdatedLabel.setLayoutX(50);
+    updateLabel.setLayoutX(50);
+    updateLabel.setLayoutY(300);
+    trackPane.getChildren().add(trackLabel);
+    trackPane.getChildren().add(lastUpdatedLabel);
+    trackPane.getChildren().add(updateLabel);
+    trackPane.getChildren().add(refreshStatus);
+  }
+  
+  EventHandler<ActionEvent> refreshStat = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      //Get last updated time, set label to time
+      //Get last status, set label to status
+    }
+  };
 }
+
