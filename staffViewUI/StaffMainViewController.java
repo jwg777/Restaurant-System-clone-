@@ -61,7 +61,7 @@ public class StaffMainViewController {
 
   @FXML
   private Button deleteItem = new Button("Delete item");
-  
+
   @FXML
   ComboBox<ObservableList<Consumable>> menuItems = new ComboBox<ObservableList<Consumable>>();
 
@@ -75,23 +75,23 @@ public class StaffMainViewController {
   TextField dishNameTF = new TextField("");
 
   @FXML
-  Label dishPriceLabel = new Label("Price : " + (char)163);
+  Label dishPriceLabel = new Label("Price : " + (char) 163);
 
   @FXML
   TextField dishPriceTF = new TextField("");
-  
+
   @FXML
   Label dishCategoryLabel = new Label("Category : ");
 
   @FXML
   TextField dishCategoryTF = new TextField("");
-  
+
   @FXML
   Label dishCaloriesLabel = new Label("Calories : ");
 
   @FXML
   TextField dishCaloriesTF = new TextField("");
-  
+
   @FXML
   Label dishIngredientsLabel = new Label("Ingredients : ");
 
@@ -243,10 +243,10 @@ public class StaffMainViewController {
       fillEditInfoPane();
       if (!menuItems.getSelectionModel().isEmpty()) {
         dishNameTF.setText(menuItems.getValue().get(1).toString());
-        dishPriceTF.setText(menuItems.getValue().get(1).toString());
-        dishCategoryTF.setText(menuItems.getValue().get(1).toString());
-        dishCaloriesTF.setText(menuItems.getValue().get(1).toString());
-        dishIngredientsTF.setText(menuItems.getValue().get(1).toString());
+        dishPriceTF.setText(menuItems.getValue().get(2).toString());
+        dishCategoryTF.setText(menuItems.getValue().get(3).toString());
+        dishCaloriesTF.setText(menuItems.getValue().get(4).toString());
+        dishIngredientsTF.setText(menuItems.getValue().get(5).toString());
       }
       editInfoPane.getChildren().add(menuItems);
       editInfoPane.getChildren().add(deleteItem);
@@ -255,19 +255,13 @@ public class StaffMainViewController {
 
   EventHandler<ActionEvent> actionDeleteItem = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
-      //Delete chosen item in comboBox.
+      // Delete chosen item in comboBox.
     }
   };
 
-  EventHandler<ActionEvent> applyItem = new EventHandler<ActionEvent>() {
-    public void handle(ActionEvent e) {
-     
-    }
-  };
-  
   private void fillEditInfoPane() {
     applyButton.getStylesheets()
-      .add(getClass().getResource("editMenuOptions.css").toExternalForm());
+        .add(getClass().getResource("editMenuOptions.css").toExternalForm());
     applyButton.setLayoutX(200);
     applyButton.setLayoutY(400);
     applyButton.setOnAction(applyItem);
@@ -275,15 +269,12 @@ public class StaffMainViewController {
     dishNameTF.setLayoutX(120);
     dishNameTF.setLayoutY(75);
     dishNameLabel.getStylesheets().add(getClass().getResource("dishLabels.css").toExternalForm());
-    dishNameTF.getStylesheets()
-        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    dishNameTF.getStylesheets().add(getClass().getResource("dishTextFields.css").toExternalForm());
     dishPriceLabel.setLayoutY(125);
     dishPriceTF.setLayoutX(120);
     dishPriceTF.setLayoutY(125);
-    dishPriceLabel.getStylesheets()
-        .add(getClass().getResource("dishLabels.css").toExternalForm());
-    dishPriceTF.getStylesheets()
-        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    dishPriceLabel.getStylesheets().add(getClass().getResource("dishLabels.css").toExternalForm());
+    dishPriceTF.getStylesheets().add(getClass().getResource("dishTextFields.css").toExternalForm());
     dishCategoryLabel.setLayoutY(175);
     dishCategoryTF.setLayoutX(120);
     dishCategoryTF.setLayoutY(175);
@@ -318,6 +309,50 @@ public class StaffMainViewController {
     editInfoPane.getChildren().add(dishIngredientsLabel);
     editInfoPane.getChildren().add(dishIngredientsTF);
   }
+  
+  EventHandler<ActionEvent> applyItem = new EventHandler<ActionEvent>() {
+    public void handle(ActionEvent e) {
+      int validInput = 0;
+      if (dishNameTF.getText().equals("")) {
+        dishNameTF.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalDetails("Dish name is invalid");
+      } else {
+        dishNameTF.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (dishPriceTF.getText().equals("")) {
+        dishPriceTF.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalDetails("Dish price is invalid");
+      } else {
+        dishPriceTF.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (dishCategoryTF.getText().equals("")) {
+        dishCategoryTF.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalDetails("Dish category is invalid");
+      } else {
+        dishCategoryTF.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (dishCaloriesTF.getText().equals("")) {
+        dishCaloriesTF.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalDetails("Dish calories are invalid");
+      } else {
+        dishCaloriesTF.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (dishIngredientsTF.getText().equals("")) {
+        dishIngredientsTF.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalDetails("Dish ingredients are invalid");
+      } else {
+        dishIngredientsTF.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (validInput == 5) {
+        // Add edited/added item to menu.
+      }
+    }
+  };
 
   /*
    * Temp buttons for testing.
