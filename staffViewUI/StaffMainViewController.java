@@ -231,9 +231,25 @@ public class StaffMainViewController {
   private void loginConfirmed() {
     int validInput = 0;
     try {
-      /*
-       * Confirm login details number with server. And get the staff ID.
-       */
+      if (usernameField.getText().equals("")) {
+        usernameField.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalDetails("Username is invalid");
+      } else {
+        dishNameTF.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (passwordField.getText().equals("")) {
+        passwordField.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+        throw new IllegalDetails("Password is invalid");
+      } else {
+        dishNameTF.setStyle("-fx-border-width: 0 0 0 0;");
+        validInput++;
+      }
+      if (validInput == 2) {
+        /*
+         * Confirm login details number with server. And get the staff ID.
+         */
+      }
       confirmationPane.toBack();
     } catch (Exception e) {
       usernameField.setText("");
