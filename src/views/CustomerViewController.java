@@ -553,6 +553,35 @@ public class CustomerViewController {
     this.cardNumber = cNumber.getText();
     this.expDate = expMonth.getText() + expYear.getText();
     this.cvvCode = CVV.getText();
+    int validInput = 0; // Counts how many inputs are valid card details.
+    if (cNumber.getLength() != 16) {
+      cNumber.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+      throw new IllegalDetails("Card number is invalid");
+    } else {
+      cNumber.setStyle("-fx-border-width: 0 0 0 0;");
+      validInput++;
+    }
+    if (expMonth.getLength() != 2 && expYear.getLength() != 2) {
+      expMonth.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+      expYear.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+      throw new IllegalDetails("Expiry date is invalid");
+    } else {
+      expMonth.setStyle("-fx-border-width: 0 0 0 0;");
+      expYear.setStyle("-fx-border-width: 0 0 0 0;");
+      validInput++;
+    }
+    if (CVV.getLength() != 3) {
+      CVV.setStyle("-fx-border-color: red; -fx-border-width: 1 1 1 1;");
+      throw new IllegalDetails("Security code is invalid");
+    } else {
+      CVV.setStyle("-fx-border-width: 0 0 0 0;");
+      validInput++;
+    }
+
+    if (validInput == 3) {
+      //isPaid = true;
+      // Set order to paid in the database.
+    }
 
     cNumber.clear();
     expMonth.clear();
