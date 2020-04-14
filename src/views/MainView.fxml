@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="384.0" prefWidth="362.0" style="-fx-background-color: #E5FAF8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MainViewController">
+   <children>
+      <Button fx:id="customerSelect" layoutX="133.0" layoutY="94.0" mnemonicParsing="false" onAction="#customerPush" prefHeight="63.0" prefWidth="95.0" stylesheets="@button.css" text="View Menu">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="staffSelect" layoutX="133.0" layoutY="166.0" mnemonicParsing="false" onAction="#loginPush" prefHeight="24.0" prefWidth="95.0" stylesheets="@button.css" text="Staff Login">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Text fill="#5370c9" layoutX="21.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Oaxaca!" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Text>
+      <Text fill="#5370c9" layoutX="88.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select an option." textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="81.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/OaxacaLogoV2.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

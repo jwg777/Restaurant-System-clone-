@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="130.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for your feedback! " wrappingWidth="238.5830078125" />
+      <Text layoutX="120.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Review has been submitted" />
+   </children>
+</AnchorPane>
