@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,25 +20,17 @@
 					<children>
 						<StackPane prefHeight="82.0" prefWidth="400.0">
 							<children>
-								<Label text="Table Number" textFill="#5370c9">
+								<Label text="Staff Login" textFill="#5370c9">
 									<font>
 										<Font name="Arial Bold" size="32.0" />
 									</font>
 								</Label>
 							</children>
 						</StackPane>
-						<StackPane prefHeight="163.0" prefWidth="400.0">
-							<children>
-								<TextField fx:id="unameField" alignment="CENTER" maxWidth="150.0" promptText="Table Number ">
-									<font>
-										<Font size="16.0" />
-									</font>
-								</TextField>
-							</children>
-						</StackPane>
+                  <AnchorPane fx:id="loginPane" prefHeight="190.0" prefWidth="400.0" />
 						<StackPane prefHeight="86.0" prefWidth="400.0">
 							<children>
-								<Button fx:id="confirmButton" mnemonicParsing="false" onAction="#tableNumConfirmed" stylesheets="@menuButtons.css" text="Confirm" />
+								<Button fx:id="confirmButton" mnemonicParsing="false" onAction="#loginConfirmed" stylesheets="@menuButtons.css" text="Confirm" />
 							</children>
 						</StackPane>
 					</children>

@@ -33,7 +33,19 @@ public class StaffMainViewController {
   private StackPane confirmationPane;
 
   @FXML
-  private TextField tableField;
+  private AnchorPane loginPane;
+
+  @FXML
+  private TextField usernameField = new TextField("");
+
+  @FXML
+  private TextField passwordField = new TextField("");
+
+  @FXML
+  private Label userLabel = new Label("Username : ");
+
+  @FXML
+  private Label passLabel = new Label("Password : ");
 
   @FXML
   private Button confirmButton;
@@ -113,6 +125,26 @@ public class StaffMainViewController {
     editMenu();
     newOrderPane.toFront();
     frontPane = newOrderPane;
+    userLabel.setLayoutY(20);
+    passLabel.setLayoutY(100);
+    userLabel.setLayoutX(20);
+    passLabel.setLayoutX(20);
+    usernameField.setLayoutY(20);
+    passwordField.setLayoutY(100);
+    usernameField.setLayoutX(175);
+    passwordField.setLayoutX(175);
+    userLabel.getStylesheets().add(getClass().getResource("dishLabels.css").toExternalForm());
+    passLabel.getStylesheets().add(getClass().getResource("dishLabels.css").toExternalForm());
+    usernameField.getStylesheets()
+        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    passwordField.getStylesheets()
+        .add(getClass().getResource("dishTextFields.css").toExternalForm());
+    userLabel.setStyle("-fx-background-color:  #92E0E1;");
+    passLabel.setStyle("-fx-background-color:  #92E0E1;");
+    loginPane.getChildren().add(userLabel);
+    loginPane.getChildren().add(passLabel);
+    loginPane.getChildren().add(usernameField);
+    loginPane.getChildren().add(passwordField);
     confirmationPane.toFront();
   }
 
@@ -196,15 +228,16 @@ public class StaffMainViewController {
   }
 
   @FXML
-  private void tableNumConfirmed() {
+  private void loginConfirmed() {
+    int validInput = 0;
     try {
-      int tableNum = Integer.valueOf(tableField.getText());
       /*
-       * Confirm table number with server. And get the customer ID.
+       * Confirm login details number with server. And get the staff ID.
        */
       confirmationPane.toBack();
     } catch (Exception e) {
-      tableField.setText("");
+      usernameField.setText("");
+      passwordField.setText("");
     }
   }
 
@@ -309,7 +342,7 @@ public class StaffMainViewController {
     editInfoPane.getChildren().add(dishIngredientsLabel);
     editInfoPane.getChildren().add(dishIngredientsTF);
   }
-  
+
   EventHandler<ActionEvent> applyItem = new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
       int validInput = 0;
