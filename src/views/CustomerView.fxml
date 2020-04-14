@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.CustomerViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.CustomerViewController">
    <children>
       <TabPane fx:id="mainTabPane" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -40,32 +40,32 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
-                        <Pane fx:id="paymentPane2" prefHeight="555.0" prefWidth="800.0" style="-fx-background-color: #f4b6f8;">
+                        <Pane fx:id="paymentPane2" prefHeight="555.0" prefWidth="800.0" style="-fx-background-color: #edf5f5;">
                            <children>
-                              <Button layoutX="159.0" layoutY="439.0" mnemonicParsing="false" onAction="#back2PO" text="Back to Payment Options" />
-                              <TextField fx:id="cNumber" layoutX="64.0" layoutY="92.0" prefHeight="39.0" prefWidth="305.0" />
-                              <Text layoutX="75.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Number" />
-                              <TextField fx:id="expMonth" layoutX="64.0" layoutY="177.0" prefHeight="39.0" prefWidth="47.0" />
-                              <TextField fx:id="expYear" layoutX="135.0" layoutY="177.0" prefHeight="39.0" prefWidth="47.0" />
+                              <Button layoutX="159.0" layoutY="439.0" mnemonicParsing="false" onAction="#back2PO" stylesheets="@Buttons.css" text="Back to Payment Options" />
+                              <TextField fx:id="cNumber" layoutX="64.0" layoutY="92.0" prefHeight="39.0" prefWidth="305.0" stylesheets="@textFields.css" />
+                              <Label layoutX="68.0" layoutY="55.0" prefHeight="31.0" prefWidth="180.0" stylesheets="@label.css" text="CARD NUMBER :" />
+                              <TextField fx:id="expMonth" layoutX="64.0" layoutY="177.0" prefHeight="39.0" prefWidth="47.0" stylesheets="@textFields.css" />
+                              <TextField fx:id="expYear" layoutX="135.0" layoutY="177.0" prefHeight="39.0" prefWidth="47.0" stylesheets="@textFields.css" />
                               <Text layoutX="121.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                              <Text layoutX="76.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiry Date" />
-                              <TextField fx:id="CCV" layoutX="64.0" layoutY="265.0" prefHeight="39.0" prefWidth="66.0" />
-                              <Text layoutX="77.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CCV" />
+                              <Label layoutX="68.0" layoutY="141.0" prefHeight="31.0" prefWidth="143.0" stylesheets="@label.css" text="Expiry Date : " />
+                              <TextField fx:id="CCV" layoutX="64.0" layoutY="265.0" prefHeight="39.0" prefWidth="66.0" stylesheets="@textFields.css" />
+                              <Label layoutX="68.0" layoutY="214.0" prefHeight="31.0" prefWidth="73.0" stylesheets="@label.css" text="CCV : " />
                               <ListView fx:id="cOrderList" layoutX="512.0" layoutY="92.0" prefHeight="275.0" prefWidth="200.0" />
-                              <Pane fx:id="cTotalPane" layoutX="555.0" layoutY="392.0" prefHeight="47.0" prefWidth="114.0" style="-fx-background-color: #eea29a;" />
-                              <Button fx:id="confPurchase" layoutX="159.0" layoutY="377.0" mnemonicParsing="false" onAction="#confirmPurchase" prefHeight="39.0" prefWidth="224.0" text="Confirm Purchase" />
+                              <Pane fx:id="cTotalPane" layoutX="555.0" layoutY="392.0" prefHeight="47.0" prefWidth="114.0" style="-fx-background-color: #92E0E1;" />
+                              <Button fx:id="confPurchase" layoutX="159.0" layoutY="377.0" mnemonicParsing="false" onAction="#confirmPurchase" prefHeight="39.0" prefWidth="224.0" stylesheets="@Buttons.css" text="Confirm Purchase" />
                            </children>
                         </Pane>
                         <Pane fx:id="paymentPane1" prefHeight="556.0" prefWidth="800.0" style="-fx-background-color: #edf5f5;">
                            <children>
-                              <Button fx:id="cardContactless" layoutX="94.0" layoutY="140.0" mnemonicParsing="false" onAction="#cardButton" stylesheets="@Buttons.css" text="CARD/CONTACTLESS" />
-                              <Button layoutX="387.0" layoutY="138.0" mnemonicParsing="false" stylesheets="@Buttons.css" text="CASH" />
-                              <Button layoutX="558.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@Buttons.css" text="OAXACA ACCOUNT" />
-                              <ListView fx:id="paymentList" layoutX="66.0" layoutY="300.0" prefHeight="200.0" prefWidth="352.0" />
-                              <Pane fx:id="ptotalPane" layoutX="541.0" layoutY="361.0" prefHeight="72.0" prefWidth="132.0" style="-fx-background-color: #eea29a;" />
-                              <Label layoutX="290.0" layoutY="68.0" stylesheets="@Label.css" text="CHOOSE PAYMENT METHOD" />
-                              <Label layoutX="145.0" layoutY="250.0" stylesheets="@Label.css" text="ORDER REVIEW" />
-                              <Label layoutX="581.0" layoutY="318.0" stylesheets="@Label.css" text="TOTAL" />
+                              <Button fx:id="cardContactless" layoutX="34.0" layoutY="107.0" mnemonicParsing="false" onAction="#cardButton" prefHeight="52.0" prefWidth="223.0" stylesheets="@Buttons.css" text="CARD/CONTACTLESS" />
+                              <Button layoutX="342.0" layoutY="107.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="102.0" stylesheets="@Buttons.css" text="CASH" />
+                              <Button layoutX="577.0" layoutY="107.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="192.0" stylesheets="@Buttons.css" text="OAXACA ACCOUNT" />
+                              <ListView fx:id="paymentList" layoutX="44.0" layoutY="245.0" prefHeight="236.0" prefWidth="365.0" />
+                              <Pane fx:id="ptotalPane" layoutX="529.0" layoutY="346.0" prefHeight="78.0" prefWidth="163.0" style="-fx-background-color: #92E0E1;" />
+                              <Label layoutX="287.0" layoutY="26.0" prefHeight="42.0" prefWidth="245.0" stylesheets="@label.css" text="CHOOSE PAYMENT METHOD" />
+                              <Label layoutX="163.0" layoutY="205.0" prefHeight="40.0" prefWidth="147.0" stylesheets="@Label.css" text="ORDER REVIEW" />
+                              <Label layoutX="589.0" layoutY="297.0" stylesheets="@Label.css" text="TOTAL" />
                            </children>
                         </Pane>
                      </children>
@@ -78,10 +78,10 @@
                      <children>
                         <TextField fx:id="orderID" layoutX="241.0" layoutY="49.0" prefHeight="31.0" prefWidth="215.0" stylesheets="@textFields.css" />
                         <Label layoutX="64.0" layoutY="54.0" prefHeight="21.0" prefWidth="165.0" stylesheets="@Label.css" text="Enter your order ID :" />
-                        <Label layoutX="63.0" layoutY="147.0" prefHeight="40.0" prefWidth="96.0" stylesheets="@Label.css" text="Order Status :" />
+                        <Label layoutX="63.0" layoutY="147.0" prefHeight="40.0" prefWidth="148.0" stylesheets="@Label.css" text="Order Status :" />
                         <Label layoutX="63.0" layoutY="261.0" prefHeight="40.0" prefWidth="174.0" stylesheets="@Label.css" text="Last updated :" />
-                        <Label fx:id="statusLabel" layoutX="176.0" layoutY="147.0" prefHeight="40.0" prefWidth="122.0" />
-                        <Label fx:id="timeLabel" layoutX="168.0" layoutY="261.0" prefHeight="40.0" prefWidth="180.0" />
+                        <Label fx:id="statusLabel" layoutX="176.0" layoutY="149.0" prefHeight="38.0" prefWidth="230.0" />
+                        <Label fx:id="timeLabel" layoutX="168.0" layoutY="263.0" prefHeight="38.0" prefWidth="240.0" />
                         <Button fx:id="orderInfoButton" layoutX="63.0" layoutY="378.0" mnemonicParsing="false" onAction="#getOrderInfo" prefHeight="46.0" prefWidth="237.0" stylesheets="@Buttons.css" text="Get Order Information" />
                      </children>
                   </AnchorPane>
@@ -89,9 +89,9 @@
             </Tab>
             <Tab text="FEEDBACK">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
-                        <Button layoutX="128.0" layoutY="258.0" mnemonicParsing="false" onAction="#submitReview" text="Submit review" />
+                        <Button layoutX="266.0" layoutY="254.0" mnemonicParsing="false" onAction="#submitReview" stylesheets="@button.css" text="Submit review" />
                         <Line endX="-100.0" endY="-152.0" layoutX="499.0" layoutY="152.0" startX="-99.5" startY="148.5" />
                         <Line endX="500.0" layoutX="300.0" layoutY="301.0" startX="-301.0" />
                         <ScrollPane layoutX="21.0" layoutY="347.0" prefHeight="191.0" prefWidth="753.0">
@@ -100,22 +100,75 @@
                           </content>
                         </ScrollPane>
                         <Accordion />
-                        <Text layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219" />
-                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="158.0" prefHeight="87.0" prefWidth="364.0" />
+                        <Text layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
+                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="151.0" prefHeight="87.0" prefWidth="364.0" />
                         <Text layoutX="282.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Read a few of our great reviews!" wrappingWidth="236.59371948242188">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="310" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feel free to notify the waiter using the textbox below." />
+                        <Text layoutX="405.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feel free to notify the waiter using the textbox below.">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
                         <TextArea fx:id="textArea" layoutX="477.0" layoutY="98.0" prefHeight="59.0" prefWidth="256.0" />
                         <Button layoutX="540.0" layoutY="182.0" mnemonicParsing="false" onAction="#contactWaiter" text="Notify Waiter" />
-                        <Text layoutX="531.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box" />
+                        <Text layoutX="531.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
                         <Button layoutX="550.0" layoutY="245.0" mnemonicParsing="false" text="Contact Us" />
-                        <TextField fx:id="nameBox" layoutX="69.0" layoutY="100.0" prefHeight="39.0" prefWidth="146.0" />
-                        <TextField fx:id="ratingBox" layoutX="296.0" layoutY="100.0" prefHeight="39.0" prefWidth="68.0" />
-                        <Text layoutX="14.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                        <Text layoutX="239.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" />
+                        <TextField fx:id="nameBox" layoutX="230.0" layoutY="92.0" prefHeight="39.0" prefWidth="146.0" />
+                        <Text layoutX="28.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name here:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
+                        <Text layoutX="472.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true"/>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="340.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true"/>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="385.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="430.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="475.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow1" fitHeight="45.0" fitWidth="45.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow2" fitHeight="45.0" fitWidth="45.0" layoutX="340.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow3" fitHeight="45.0" fitWidth="45.0" layoutX="385.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow4" fitHeight="45.0" fitWidth="45.0" layoutX="430.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow5" fitHeight="45.0" fitWidth="45.0" layoutX="475.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                        <Button fx:id="starb1" layoutX="21.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="1" />
+                 		<Button fx:id="starb2" layoutX="66.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="2" />
+                  		<Button fx:id="starb3" layoutX="111.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="3" />
+                  		<Button fx:id="starb4" layoutX="156.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="4" />
+                  		<Button fx:id="starb5" layoutX="201.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="5" />
                      </children>
                   </AnchorPane>
               </content>
@@ -140,6 +193,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" text="Back To Main Menu" />
+      <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" stylesheets="@Buttons.css" text="Back To Main Menu" />
    </children>
 </AnchorPane>
