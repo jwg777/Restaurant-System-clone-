@@ -88,6 +88,9 @@ public class CustomerViewController {
   /** The menu tab pane. */
   @FXML
   TabPane menuTabPane = new TabPane();
+  
+  @FXML
+  TabPane mainTabPane = new TabPane();
 
   /** The ordered list. */
   @FXML
@@ -130,6 +133,8 @@ public class CustomerViewController {
    */
   @FXML
   private void initialize() throws Exception {
+    mainTabPane.getStylesheets()
+      .add(getClass().getResource("Tabs.css").toExternalForm());
     reloadPush();
   }
 
