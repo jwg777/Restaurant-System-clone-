@@ -62,7 +62,7 @@ public class LoginViewController {
      */
 
     // butController.startWaiter();
-    butController.startKitchen();
+    butController.startWaiter();
   }
 }
 

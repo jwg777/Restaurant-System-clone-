@@ -48,12 +48,6 @@ import order.OrderMap;
 
 public class WaiterViewController {
 
-  /*
-   * temp fields
-   */
-  String ip;
-  int port;
-  Socket socket;
 
   /** The waiter data. */
   WaiterAccess waiterData = new WaiterAccess();
@@ -141,32 +135,6 @@ public class WaiterViewController {
 
   boolean emptyTextField;
 
-  @FXML
-  private void initialize() throws Exception {
-    menuReload();
-    orderReload();
-    /*
-     * temporary server access (need to change after).
-     */
-    socket = new Socket(ip, port);
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        try (DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
-            DataInputStream dIn = new DataInputStream(socket.getInputStream())) {
-          dOut.writeUTF("WAITER");
-          if (dIn.readUTF().equals("OK")) {
-            if (dIn.readUTF().equals("UPDATE")) {
-              menuReload();
-              orderReload();
-            }
-          }
-        } catch (Exception e) {
-
-        }
-      }
-    });
-  }
 
   /**
    * Method for when the delete button is pushed.
