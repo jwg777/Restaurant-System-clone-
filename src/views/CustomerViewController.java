@@ -29,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -88,7 +89,7 @@ public class CustomerViewController {
   /** The menu tab pane. */
   @FXML
   TabPane menuTabPane = new TabPane();
-  
+
   @FXML
   TabPane mainTabPane = new TabPane();
 
@@ -98,7 +99,7 @@ public class CustomerViewController {
 
   @FXML
   ListView<String> paymentList = new ListView<>();
-  
+
   @FXML
   ListView<String> cOrderList = new ListView<>();
 
@@ -122,7 +123,7 @@ public class CustomerViewController {
 
   @FXML
   private Pane ptotalPane;
-  
+
   @FXML
   private Pane cTotalPane;
 
@@ -133,8 +134,13 @@ public class CustomerViewController {
    */
   @FXML
   private void initialize() throws Exception {
-    mainTabPane.getStylesheets()
-      .add(getClass().getResource("Tabs.css").toExternalForm());
+    mainTabPane.getStylesheets().add(getClass().getResource("Tabs.css").toExternalForm());
+    nameBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
+    ratingBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
+    orderID.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
+    statusLabel.getStylesheets().add(getClass().getResource("Label.css").toExternalForm());
+    timeLabel.getStylesheets().add(getClass().getResource("Label.css").toExternalForm());
+    orderInfoButton.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
     reloadPush();
   }
 
@@ -278,7 +284,7 @@ public class CustomerViewController {
     this.total = 0.00;
     totalLabel();
   }
-  
+
   /**
    * Adds items to the VBox, as well as buttons to add/remove the item from an order.
    *
@@ -433,6 +439,8 @@ public class CustomerViewController {
       split = statusAndTime.split(">");
       if (split[0] == "" || split[1] == "") {
         Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
+        DialogPane dialog = alert.getDialogPane();
+        dialog.getStylesheets().add(getClass().getResource("Alerts.css").toExternalForm());
         alert.showAndWait();
       } else {
         statusLabel.setText(split[0]);
@@ -440,6 +448,8 @@ public class CustomerViewController {
       }
     } catch (Exception e) {
       Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
+      DialogPane dialog = alert.getDialogPane();
+      dialog.getStylesheets().add(getClass().getResource("Alerts.css").toExternalForm());
       alert.showAndWait();
       statusLabel.setText("");
       timeLabel.setText("");
@@ -464,7 +474,7 @@ public class CustomerViewController {
 
     this.ptotalPane.getChildren().clear();
     this.ptotalPane.getChildren().add(initialiseLabel(sTotal, 100, 100));
-    
+
     this.cTotalPane.getChildren().clear();
     this.cTotalPane.getChildren().add(initialiseLabel(sTotal, 100, 50));
   }
@@ -474,7 +484,7 @@ public class CustomerViewController {
    * the waiter. This method is to be called in the correct action button method when the button is
    * pressed.
    */
-  
+
   @FXML
   public void contactWaiter() {
     String message = textArea.getText();
@@ -498,59 +508,59 @@ public class CustomerViewController {
     customerData.notifyWaiter(message);
     textArea.clear();
   }
-  
-  //Test
-  
+
+  // Test
+
   @FXML
   private Pane scene1;
-  
+
   @FXML
   private Pane scene2;
-  
+
   @FXML
   private void scene1B(ActionEvent event) throws Exception {
     scene2.setVisible(true);
   }
-  
+
   @FXML
   private void scene2B(ActionEvent event) throws Exception {
     scene2.setVisible(false);
   }
-  
+
   @FXML
   private Pane paymentPane1;
-  
+
   @FXML
   private Pane paymentPane2;
-  
+
   @FXML
   private void cardButton(ActionEvent event) throws Exception {
     paymentPane1.setVisible(false);
   }
-  
+
   @FXML
   private void back2PO(ActionEvent event) throws Exception {
     paymentPane1.setVisible(true);
   }
-  
+
   @FXML
   private TextField cNumber, expMonth, expYear, CVV;
- 
+
   private String cardNumber, expDate, cvvCode;
-  
+
   @FXML
   private void confirmPurchase(ActionEvent event) throws Exception {
     this.cardNumber = cNumber.getText();
     this.expDate = expMonth.getText() + expYear.getText();
     this.cvvCode = CVV.getText();
-    
+
     cNumber.clear();
     expMonth.clear();
     expYear.clear();
     CVV.clear();
-    
+
     paymentPane1.setVisible(true);
   }
-  
-  
+
+
 }
