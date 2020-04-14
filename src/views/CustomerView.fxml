@@ -38,7 +38,7 @@
           </Tab>
             <Tab text="PAYMENT">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
                         <Pane fx:id="paymentPane2" prefHeight="555.0" prefWidth="800.0" style="-fx-background-color: #f4b6f8;">
                            <children>
@@ -56,16 +56,16 @@
                               <Button fx:id="confPurchase" layoutX="159.0" layoutY="377.0" mnemonicParsing="false" onAction="#confirmPurchase" prefHeight="39.0" prefWidth="224.0" text="Confirm Purchase" />
                            </children>
                         </Pane>
-                        <Pane fx:id="paymentPane1" prefHeight="556.0" prefWidth="800.0" style="-fx-background-color: #b6e2f8;">
+                        <Pane fx:id="paymentPane1" prefHeight="556.0" prefWidth="800.0" style="-fx-background-color: #edf5f5;">
                            <children>
-                              <Text layoutX="304.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE PAYMENT METHOD" />
-                              <Button fx:id="cardContactless" layoutX="94.0" layoutY="140.0" mnemonicParsing="false" onAction="#cardButton" text="CARD/CONTACTLESS" />
-                              <Button layoutX="387.0" layoutY="138.0" mnemonicParsing="false" text="CASH" />
-                              <Button layoutX="558.0" layoutY="140.0" mnemonicParsing="false" text="OAXACA ACCOUNT" />
-                              <Text layoutX="145.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDER REVIEW" />
+                              <Button fx:id="cardContactless" layoutX="94.0" layoutY="140.0" mnemonicParsing="false" onAction="#cardButton" stylesheets="@Buttons.css" text="CARD/CONTACTLESS" />
+                              <Button layoutX="387.0" layoutY="138.0" mnemonicParsing="false" stylesheets="@Buttons.css" text="CASH" />
+                              <Button layoutX="558.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@Buttons.css" text="OAXACA ACCOUNT" />
                               <ListView fx:id="paymentList" layoutX="66.0" layoutY="300.0" prefHeight="200.0" prefWidth="352.0" />
-                              <Text layoutX="581.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" />
                               <Pane fx:id="ptotalPane" layoutX="541.0" layoutY="361.0" prefHeight="72.0" prefWidth="132.0" style="-fx-background-color: #eea29a;" />
+                              <Label layoutX="290.0" layoutY="68.0" stylesheets="@Label.css" text="CHOOSE PAYMENT METHOD" />
+                              <Label layoutX="145.0" layoutY="250.0" stylesheets="@Label.css" text="ORDER REVIEW" />
+                              <Label layoutX="581.0" layoutY="318.0" stylesheets="@Label.css" text="TOTAL" />
                            </children>
                         </Pane>
                      </children>
@@ -74,15 +74,15 @@
             </Tab>
             <Tab text="ORDER STATUS">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
-                        <TextField fx:id="orderID" layoutX="224.0" layoutY="49.0" prefHeight="31.0" prefWidth="215.0" />
-                        <Label layoutX="64.0" layoutY="54.0" prefHeight="21.0" prefWidth="142.0" text="Enter your order ID :" />
-                        <Label layoutX="63.0" layoutY="147.0" prefHeight="40.0" prefWidth="96.0" text="Order Status :" />
-                        <Label layoutX="63.0" layoutY="261.0" prefHeight="40.0" prefWidth="174.0" text="Last updated :" />
+                        <TextField fx:id="orderID" layoutX="241.0" layoutY="49.0" prefHeight="31.0" prefWidth="215.0" stylesheets="@textFields.css" />
+                        <Label layoutX="64.0" layoutY="54.0" prefHeight="21.0" prefWidth="165.0" stylesheets="@Label.css" text="Enter your order ID :" />
+                        <Label layoutX="63.0" layoutY="147.0" prefHeight="40.0" prefWidth="96.0" stylesheets="@Label.css" text="Order Status :" />
+                        <Label layoutX="63.0" layoutY="261.0" prefHeight="40.0" prefWidth="174.0" stylesheets="@Label.css" text="Last updated :" />
                         <Label fx:id="statusLabel" layoutX="176.0" layoutY="147.0" prefHeight="40.0" prefWidth="122.0" />
                         <Label fx:id="timeLabel" layoutX="168.0" layoutY="261.0" prefHeight="40.0" prefWidth="180.0" />
-                        <Button fx:id="orderInfoButton" layoutX="63.0" layoutY="378.0" mnemonicParsing="false" onAction="#getOrderInfo" prefHeight="46.0" prefWidth="237.0" text="Get Order Information" />
+                        <Button fx:id="orderInfoButton" layoutX="63.0" layoutY="378.0" mnemonicParsing="false" onAction="#getOrderInfo" prefHeight="46.0" prefWidth="237.0" stylesheets="@Buttons.css" text="Get Order Information" />
                      </children>
                   </AnchorPane>
               </content>

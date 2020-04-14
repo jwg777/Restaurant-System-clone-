@@ -1,0 +1,6 @@
+ .dialog-pane{
+  -fx-border-color:#edf5f5;
+  -fx-border-width:2.0px;
+  -fx-border-color:#5370c9;
+  -fx-font-weight:bold;
+ }
