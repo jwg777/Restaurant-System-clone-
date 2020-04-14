@@ -166,24 +166,6 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="INFO">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Pane fx:id="scene1" prefHeight="556.0" prefWidth="800.0" style="-fx-background-color: #E0FFFF;">
-                           <children>
-                              <Button layoutX="361.0" layoutY="259.0" mnemonicParsing="false" onAction="#scene1B" text="Go To Scene 2" />
-                           </children>
-                        </Pane>
-                        <Pane fx:id="scene2" prefHeight="556.0" prefWidth="800.0" style="-fx-background-color: #D8BFD8;">
-                           <children>
-                              <Button layoutX="361.0" layoutY="182.0" mnemonicParsing="false" onAction="#scene2B" text="Go To Scene 1" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
       <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" stylesheets="@Buttons.css" text="Back To Main Menu" />
