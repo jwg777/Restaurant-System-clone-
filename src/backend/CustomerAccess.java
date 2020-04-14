@@ -66,20 +66,8 @@ public class CustomerAccess {
   public void placeOrder( ListView<String> orders, int table_num, float price) throws SQLException {
     
     String dishes = orders.getItems().stream().map(Object::toString).collect(Collectors.joining(", "));
-    
     customerData.insertIntoTable("Orders", "", "'" + table_num + "', '" + price + "', '" + dishes + "', 'ordered'");
-    
-  //"Orders(orderID int primary key, total_price float, dishes varchar(100), status varchar(100), foreign key (cust_id)
-    
-    ResultSet rs = customerData.select("SELECT * FROM Orders");
-    
-    while (rs.next()) {
-      System.out.println("*****");
-      System.out.println(rs.getString("orderID"));
-      System.out.println(rs.getString("total_price"));
-      System.out.println(rs.getString("dishes"));
-    }
-    
+
   }
 
   /**

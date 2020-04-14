@@ -214,10 +214,9 @@ public class CustomerViewController {
     int tablenum = Integer.parseInt(tableNumber.getText());
     tableNumber.clear();
     
-    //float price = Float.parseFloat(this.total);
-    float price = 23.32f;
+    float price = (float)this.total;
+    total = 0;
     customerData.placeOrder(orderedList, tablenum, price);
-
     orderedList.getItems().clear();
     
   }
