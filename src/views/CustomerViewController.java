@@ -434,19 +434,17 @@ public class CustomerViewController {
   @FXML
   private void getOrderInfo(ActionEvent event) {
     String orderNumber = orderID.getText();
-    String statusAndTime = "";
+    String status = "";
     try {
-      statusAndTime = customerData.getStatusAndTime(orderNumber);
-      String[] split = new String[2];
-      split = statusAndTime.split(">");
-      if (split[0] == "" || split[1] == "") {
+      status = customerData.getStatusAndTime(orderNumber);
+      
+      if (status.equals("")) {
         Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
         DialogPane dialog = alert.getDialogPane();
         dialog.getStylesheets().add(getClass().getResource("Alerts.css").toExternalForm());
         alert.showAndWait();
       } else {
-        statusLabel.setText(split[0]);
-        timeLabel.setText(split[1]);
+        statusLabel.setText(status);
       }
     } catch (Exception e) {
       Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);

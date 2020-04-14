@@ -74,17 +74,15 @@ public class WaiterAccess {
    * @throws SQLException Thrown if query fails.
    */
   public void viewOrders() throws SQLException {
-    ResultSet rs = waiterData.select("SELECT * FROM ORDERS ORDER BY orderTime");
+    ResultSet rs = waiterData.select("SELECT * FROM ORDERS");
     OrderMap tempMap = OrderMap.getInstance();
 
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
-      int custID = rs.getInt("cust_ID");
       float totalPrice = rs.getFloat("total_price");
-      String timeStamp = (rs.getTimestamp("orderTime")).toString();
       String dish = rs.getString("dish");
       String status = rs.getString("status");
-      tempMap.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+      tempMap.put(status, new Order(orderID, totalPrice, status, dish));
     }
   }
 

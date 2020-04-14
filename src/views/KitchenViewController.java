@@ -142,9 +142,6 @@ public class KitchenViewController {
   private VBox createNewOrderVBox(ArrayList<Order> list) {
     VBox vbox = new VBox();
     for (Order order : list) {
-      for(Consumable item : order.getItems()) {
-        System.out.println(item.getName());
-      }
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
       tempHBox.setPrefHeight(50);
       tempHBox.getChildren().add(initialiseGap());
@@ -153,10 +150,8 @@ public class KitchenViewController {
       String price = String.format("%.2f", order.getTotalPrice()); // Always show 2 decimal Place
       tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 100, 50));
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
       if (order.getStatus().equals("processing")) {
-        StackPane startedStackPane = initialiseCheckButton("started", 16, -1);
+        StackPane startedStackPane = initialiseCheckButton("started", 16);
         ((CheckBox) startedStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -168,7 +163,7 @@ public class KitchenViewController {
                 }
               }
             });
-        StackPane viewStackPane = initialiseCheckButton("View", 16, -1);
+        StackPane viewStackPane = initialiseCheckButton("View", 16);
         ((CheckBox) viewStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -189,7 +184,7 @@ public class KitchenViewController {
         tempHBox.getChildren().add(viewStackPane);
         viewChecks.add((CheckBox) viewStackPane.getChildren().get(0));
       } else if (order.getStatus().equals("started")) {
-        StackPane readyStackPane = initialiseCheckButton("ready", 16, -1);
+        StackPane readyStackPane = initialiseCheckButton("ready", 16);
         ((CheckBox) readyStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -201,7 +196,7 @@ public class KitchenViewController {
                 }
               }
             });
-        StackPane viewStackPane = initialiseCheckButton("View", 16, -1);
+        StackPane viewStackPane = initialiseCheckButton("View", 16);
         ((CheckBox) viewStackPane.getChildren().get(0))
             .setOnAction(new EventHandler<ActionEvent>() {
               @Override
@@ -223,7 +218,7 @@ public class KitchenViewController {
         tempHBox.getChildren().add(viewStackPane);
         viewChecks.add((CheckBox) viewStackPane.getChildren().get(0));
       } else if (order.getStatus().equals("ready")) {
-        tempHBox.getChildren().add(initialiseCheckButton("paid", 16, order.getCustID()));
+        tempHBox.getChildren().add(initialiseCheckButton("paid", 16));
       }
       vbox.getChildren().add(tempHBox); // Add consumable to the list
     }
@@ -263,19 +258,12 @@ public class KitchenViewController {
    * @return the button.
    * @throws SQLException thrown if SQL error occurs
    */
-  private StackPane initialiseCheckButton(String name, int font, int custID) {
+  private StackPane initialiseCheckButton(String name, int font) {
     StackPane stPane = new StackPane();
     stPane.setPrefSize(85, 50);
     CheckBox check = new CheckBox(name); // Button to remove and add food to order list
     check.setPrefSize(85, 50);
     check.setFont(new Font(font));
-    try {
-      if (custID != -1 && kitchenData.getIfPaid(custID)) {
-        check.fire();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
     stPane.getChildren().add(check);
     return stPane;
   }
@@ -368,7 +356,6 @@ public class KitchenViewController {
     if (!completeOrders.isEmpty()) {
       for (Order o : completeOrders) {
         kitchenData.setOrderStatus(o, "ready");
-        kitchenData.setLastUpdate(o);
       }
       newOrderReload();
     }
@@ -384,7 +371,6 @@ public class KitchenViewController {
     if (!startedOrders.isEmpty()) {
       for (Order o : startedOrders) {
         kitchenData.setOrderStatus(o, "started");
-        kitchenData.setLastUpdate(o);
       }
       newOrderReload();
     }

@@ -312,8 +312,6 @@ public class WaiterViewController {
       String price = String.format("%.2f", order.getTotalPrice());
       tempHBox.getChildren().add(initialiseLabel(Character.toString((char) 163) + price, 100, 50));
       tempHBox.getChildren().add(initialiseGap());
-      tempHBox.getChildren().add(initialiseLabel(order.getTimeStamp(), 150, 50));
-      tempHBox.getChildren().add(initialiseGap());
       StackPane viewStackPane = initialiseButton("View", 12, 70);
       ((Button) viewStackPane.getChildren().get(0)).setOnAction(new EventHandler<ActionEvent>() {
         @Override

@@ -38,18 +38,16 @@ public class KitchenAccess {
    */
   public void getOrders() throws SQLException {
     ResultSet rs =
-        kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting' ORDER BY orderTime");
+        kitchenData.select("SELECT * FROM Orders WHERE status != 'waiting'");
     OrderMap map = OrderMap.getInstance();
 
 
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
-      int custID = rs.getInt("cust_ID");
       float totalPrice = rs.getFloat("total_price");
-      String timeStamp = (rs.getTimestamp("orderTime")).toString();
-      String dish = rs.getString("dish");
+      String dish = rs.getString("dishes");
       String status = rs.getString("status");
-      map.put(status, new Order(orderID, custID, totalPrice, timeStamp, status, dish));
+      map.put(status, new Order(orderID, totalPrice, status, dish));
 
     }
 
@@ -142,19 +140,5 @@ public class KitchenAccess {
   public void removeMessage(String message) {
     // kitchenData.update("DELETE FROM messages WHERE..."
 
-  }
-
-
-  /**
-   * This will change the time that the order was last updated.
-   * 
-   * @param order This is the order thats order time needs updating
-   * 
-   */
-  public void setLastUpdate(Order order) {
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    LocalDateTime now = LocalDateTime.now();
-    kitchenData.update("UPDATE Orders SET orderTime = '" + dtf.format(now) + "' WHERE orderID = '"
-        + order.getOrderID() + "'");
   }
 }
