@@ -1,102 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.KitchenViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.KitchenViewController">
    <children>
       <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="ORDERS">
+          <Tab text="KITCHENORDERS">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0">
                      <children>
-                        <TabPane fx:id="orderTabPane" prefHeight="600.0" tabClosingPolicy="UNAVAILABLE">
-                          <tabs>
-                            <Tab text="NEW ORDERS">
-                                 <content>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="600.0">
-                                       <content>
-                                          <AnchorPane prefHeight="0.0" prefWidth="580.0">
-                                             <children>
-                                                <VBox fx:id="vboxNew" prefHeight="499.0" prefWidth="580.0">
-                                                   <children>
-                                                      <HBox prefHeight="50.0" prefWidth="150.0">
-                                                         <children>
-                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="150.0" text="Label" />
-                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="150.0" text="Label" />
-                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                            <CheckBox mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="CheckBox" />
-                                                         </children>
-                                                      </HBox>
-                                                   </children></VBox>
-                                             </children>
-                                          </AnchorPane>
-                                       </content></ScrollPane>
-                                 </content>
-                            </Tab>
-                            <Tab text="ORDERS IN PROGRESS">
-                                 <content>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                                       <content>
-                                          <AnchorPane>
-                                             <children>
-                                                <VBox fx:id="vboxInProgress" prefHeight="500.0" prefWidth="580.0">
-                                                   <children>
-                                                      <HBox prefHeight="50.0" prefWidth="150.0">
-                                                         <children>
-                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="150.0" text="Label" />
-                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                            <Label prefHeight="50.0" prefWidth="150.0" text="Label" />
-                                                            <Pane prefHeight="50.0" prefWidth="25.0" />
-                                                            <CheckBox mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="CheckBox" />
-                                                         </children></HBox>
-                                                   </children></VBox>
-                                             </children>
-                                          </AnchorPane>
-                                       </content></ScrollPane>
-                                 </content>
-                            </Tab>
-                              <Tab text="COMPLETED ORDERS">
-                                 <content>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0">
-                                             <children>
-                                                <VBox fx:id="vboxCompleted" prefHeight="500.0" prefWidth="580.0">
-                                                   <children>
-                                                      <HBox prefHeight="513.0" prefWidth="580.0" />
-                                                   </children></VBox>
-                                             </children></AnchorPane>
-                                      </content>
-                                    </ScrollPane>
-                                 </content>
-                              </Tab>
-                          </tabs>
-                        </TabPane>
                         <AnchorPane layoutX="600.0" prefHeight="567.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="39.0" layoutY="444.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="122.0" text="Start Order" />
-                              <Button layoutX="39.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="122.0" text="Mark as Complete" />
+                              <Button layoutX="39.0" layoutY="444.0" mnemonicParsing="false" onAction="#pushStartedOrders" prefHeight="40.0" prefWidth="122.0" text="Start Orders" />
+                              <Button layoutX="23.0" layoutY="500.0" mnemonicParsing="false" onAction="#pushCompleteOrders" prefHeight="40.0" prefWidth="155.0" text="Mark as Complete" />
                               <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
                            </children>
                         </AnchorPane>
-                        <Button fx:id="reload" layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
+                        <Button layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="27.0" prefWidth="27.0" text="⟳" textAlignment="CENTER" />
+                        <TabPane fx:id="OrderTabPane" prefHeight="563.0" prefWidth="565.0" tabClosingPolicy="UNAVAILABLE" />
                      </children>
                   </AnchorPane>
             </content>
@@ -105,16 +44,28 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane prefHeight="219.0" prefWidth="600.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <SplitPane dividerPositions="0.5" prefHeight="540.0" prefWidth="600.0">
+                           <items>
+                              <ListView prefHeight="540.0" prefWidth="300.0" />
+                              <TilePane prefHeight="200.0" prefWidth="200.0" />
+                              
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="NOTIFY">
+              <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                       <TextArea fx:id="notifyWaiter" layoutX="100" layoutY="60" prefHeight="300" prefWidth="300" />
+                       <Button layoutX="250" layoutY="370" mnemonicParsing="false" onAction="#sendMessage" prefHeight="19.0" prefWidth="132.0" text="Send Message" />
+                       
+                       
+                       <ListView fx:id="messages" layoutX="420" layoutY="60" prefHeight="300" prefWidth="300.0" />
+                       <Button layoutX="450" layoutY="370" mnemonicParsing="false" onAction="#getMessages" prefHeight="19.0" prefWidth="132.0" text="Get Messages" />
+                       <Button layoutX="450" layoutY="400" mnemonicParsing="false" onAction="#removeSelected" prefHeight="19.0" prefWidth="132.0" text="Remove Selected" />
                      </children>
                   </AnchorPane>
               </content>
