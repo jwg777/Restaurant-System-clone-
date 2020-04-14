@@ -28,10 +28,11 @@
                         <TabPane fx:id="menuTabPane" prefHeight="569.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" />
                         <AnchorPane layoutX="600.0" prefHeight="567.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="order" layoutX="34.0" layoutY="449.0" mnemonicParsing="false" onAction="#sendOrder" prefHeight="40.0" prefWidth="132.0" text="Place Order" />
-                              <Button fx:id="clear" layoutX="35.0" layoutY="501.0" mnemonicParsing="false" onAction="#clearOrder" prefHeight="40.0" prefWidth="132.0" text="Clear Order" />
+                              <Button fx:id="order" layoutX="56.0" layoutY="450.0" mnemonicParsing="false" onAction="#sendOrder" prefHeight="40.0" prefWidth="132.0" stylesheets="@button.css" text="Place Order" />
+                              <Button fx:id="clear" layoutX="35.0" layoutY="501.0" mnemonicParsing="false" onAction="#clearOrder" prefHeight="40.0" prefWidth="132.0" stylesheets="@button.css" text="Clear Order" />
                               <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="358.0" prefWidth="176.0" />
                               <Pane fx:id="totalPane" layoutX="43.0" layoutY="388.0" prefHeight="47.0" prefWidth="114.0" style="-fx-background-color: #eea29a;" />
+                              <TextField fx:id="tableNumber" layoutX="12.0" layoutY="451.0" prefHeight="31.0" prefWidth="41.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -94,41 +95,32 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
                         <Button layoutX="266.0" layoutY="254.0" mnemonicParsing="false" onAction="#submitReview" stylesheets="@button.css" text="Submit review" />
-                        <Line endX="-100.0" endY="-152.0" layoutX="499.0" layoutY="152.0" startX="-99.5" startY="148.5" />
-                        <Line endX="500.0" layoutX="300.0" layoutY="301.0" startX="-301.0" />
-                        <ScrollPane layoutX="21.0" layoutY="347.0" prefHeight="191.0" prefWidth="753.0">
+                        <Line endX="-100.0" endY="-152.0" layoutX="499.0" layoutY="152.0" startX="-99.5" startY="148.5" stroke="#92e0e1" strokeWidth="3.0" />
+                        <Line endX="500.0" layoutX="300.0" layoutY="301.0" startX="-301.0" stroke="#92e0e1" strokeWidth="3.0" />
+                        <ScrollPane layoutX="21.0" layoutY="347.0" prefHeight="191.0" prefWidth="757.0" stylesheets="@scrollpane.css">
                           <content>
-                            <AnchorPane fx:id="revScroll" minHeight="0.0" minWidth="0.0" prefHeight="256.0" prefWidth="731.0" />
+                            <AnchorPane fx:id="revScroll" minHeight="0.0" minWidth="0.0" prefHeight="291.0" prefWidth="733.0" style="-fx-background-color: #edf5f5;" />
                           </content>
                         </ScrollPane>
                         <Accordion />
-                        <Text layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219">
+                        <Text fill="#5370c9" layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font></Text>
-                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="151.0" prefHeight="87.0" prefWidth="364.0" />
-                        <Text layoutX="282.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Read a few of our great reviews!" wrappingWidth="236.59371948242188">
+                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="151.0" prefHeight="87.0" prefWidth="364.0" promptText="Let us know about your experience..." />
+                        <Text fill="#5370c9" layoutX="282.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Read a few of our great reviews!" wrappingWidth="236.59371948242188">
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Text>
-                        <Text layoutX="405.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feel free to notify the waiter using the textbox below.">
+                        <Text fill="#5370c9" layoutX="410.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feel free to notify the waiter using the textbox below.">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font></Text>
-                        <TextArea fx:id="textArea" layoutX="477.0" layoutY="98.0" prefHeight="59.0" prefWidth="256.0" />
-                        <Button layoutX="540.0" layoutY="182.0" mnemonicParsing="false" onAction="#contactWaiter" text="Notify Waiter" />
-                        <Text layoutX="531.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font></Text>
-                        <Button layoutX="550.0" layoutY="245.0" mnemonicParsing="false" text="Contact Us" />
-                        <TextField fx:id="nameBox" layoutX="230.0" layoutY="92.0" prefHeight="39.0" prefWidth="146.0" />
-                        <Text layoutX="28.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name here:">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font></Text>
-                        <Text layoutX="472.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating">
+                        <TextArea fx:id="textArea" layoutX="477.0" layoutY="98.0" prefHeight="59.0" prefWidth="256.0" promptText="Contact the waiter..." />
+                        <Button layoutX="547.0" layoutY="215.0" mnemonicParsing="false" onAction="#contactWaiter" stylesheets="@button.css" text="Notify Waiter" />
+                        <TextField fx:id="nameBox" layoutX="230.0" layoutY="92.0" prefHeight="39.0" prefWidth="146.0" promptText="Name..." />
+                        <Text fill="#5370c9" layoutX="28.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name here:">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font></Text>
