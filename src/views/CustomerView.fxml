@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.CustomerViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.CustomerViewController">
    <children>
       <TabPane fx:id="mainTabPane" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -89,9 +89,9 @@
             </Tab>
             <Tab text="FEEDBACK">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
-                        <Button layoutX="128.0" layoutY="258.0" mnemonicParsing="false" onAction="#submitReview" text="Submit review" />
+                        <Button layoutX="266.0" layoutY="254.0" mnemonicParsing="false" onAction="#submitReview" stylesheets="@button.css" text="Submit review" />
                         <Line endX="-100.0" endY="-152.0" layoutX="499.0" layoutY="152.0" startX="-99.5" startY="148.5" />
                         <Line endX="500.0" layoutX="300.0" layoutY="301.0" startX="-301.0" />
                         <ScrollPane layoutX="21.0" layoutY="347.0" prefHeight="191.0" prefWidth="753.0">
@@ -100,22 +100,75 @@
                           </content>
                         </ScrollPane>
                         <Accordion />
-                        <Text layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219" />
-                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="158.0" prefHeight="87.0" prefWidth="364.0" />
+                        <Text layoutX="31.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know how much you enjoyed your experience with Oaxaca!" wrappingWidth="329.1874694824219">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
+                        <TextArea fx:id="reviewBox" layoutX="14.0" layoutY="151.0" prefHeight="87.0" prefWidth="364.0" />
                         <Text layoutX="282.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Read a few of our great reviews!" wrappingWidth="236.59371948242188">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="310" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feel free to notify the waiter using the textbox below." />
+                        <Text layoutX="405.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feel free to notify the waiter using the textbox below.">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
                         <TextArea fx:id="textArea" layoutX="477.0" layoutY="98.0" prefHeight="59.0" prefWidth="256.0" />
                         <Button layoutX="540.0" layoutY="182.0" mnemonicParsing="false" onAction="#contactWaiter" text="Notify Waiter" />
-                        <Text layoutX="531.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box" />
+                        <Text layoutX="531.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us Box">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
                         <Button layoutX="550.0" layoutY="245.0" mnemonicParsing="false" text="Contact Us" />
-                        <TextField fx:id="nameBox" layoutX="69.0" layoutY="100.0" prefHeight="39.0" prefWidth="146.0" />
-                        <TextField fx:id="ratingBox" layoutX="296.0" layoutY="100.0" prefHeight="39.0" prefWidth="68.0" />
-                        <Text layoutX="14.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                        <Text layoutX="239.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" />
+                        <TextField fx:id="nameBox" layoutX="230.0" layoutY="92.0" prefHeight="39.0" prefWidth="146.0" />
+                        <Text layoutX="28.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name here:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
+                        <Text layoutX="472.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Text>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true"/>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="340.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true"/>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="385.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="430.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="475.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow1" fitHeight="45.0" fitWidth="45.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow2" fitHeight="45.0" fitWidth="45.0" layoutX="340.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow3" fitHeight="45.0" fitWidth="45.0" layoutX="385.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow4" fitHeight="45.0" fitWidth="45.0" layoutX="430.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow5" fitHeight="45.0" fitWidth="45.0" layoutX="475.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                     </image>
+                  </ImageView>
+                        <Button fx:id="starb1" layoutX="21.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="1" />
+                 		<Button fx:id="starb2" layoutX="66.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="2" />
+                  		<Button fx:id="starb3" layoutX="111.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="3" />
+                  		<Button fx:id="starb4" layoutX="156.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="4" />
+                  		<Button fx:id="starb5" layoutX="201.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="5" />
                      </children>
                   </AnchorPane>
               </content>
