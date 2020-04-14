@@ -142,6 +142,9 @@ public class KitchenViewController {
   private VBox createNewOrderVBox(ArrayList<Order> list) {
     VBox vbox = new VBox();
     for (Order order : list) {
+      for(Consumable item : order.getItems()) {
+        System.out.println(item.getName());
+      }
       HBox tempHBox = new HBox(); // Layout for one consumable of the list
       tempHBox.setPrefHeight(50);
       tempHBox.getChildren().add(initialiseGap());

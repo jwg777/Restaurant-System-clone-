@@ -91,8 +91,12 @@ public class Consumable implements Comparable<Consumable>, Serializable {
   public Consumable(String type, String name) {
     this(type, name, 0, 0, "", new ArrayList<String>());
   }
+  
+  public Consumable(String name) {
+    this("MAIN", name, 0, 0, "", new ArrayList<String>());
+  }
 
-  public Consumable(String serializedString) {
+  /*public Consumable(String serializedString) {
     byte[] data = Base64.getDecoder().decode(serializedString);
     try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
       Object object = ois.readObject();
@@ -107,7 +111,7 @@ public class Consumable implements Comparable<Consumable>, Serializable {
       e.printStackTrace();
     }
 
-  }
+  }*/
 
   /**
    * Returns the name of the dish.
