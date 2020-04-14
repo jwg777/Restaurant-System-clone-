@@ -38,6 +38,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -79,7 +81,11 @@ public class CustomerViewController {
 
   @FXML
   private TextField nameBox;
+  
+  @FXML
+  private TextField tableNumber;
 
+  
   @FXML
   private TextField ratingBox;
 
@@ -126,6 +132,36 @@ public class CustomerViewController {
 
   @FXML
   private Pane cTotalPane;
+  
+  @FXML
+  private Button starb1;
+
+  @FXML
+  private Button starb2;
+
+  @FXML
+  private Button starb3;
+
+  @FXML
+  private Button starb4;
+
+  @FXML
+  private Button starb5;
+
+  @FXML
+  private ImageView yellow1;
+
+  @FXML
+  private ImageView yellow2;
+
+  @FXML
+  private ImageView yellow3;
+
+  @FXML
+  private ImageView yellow4;
+
+  @FXML
+  private ImageView yellow5;
 
   /**
    * Runs this method during scene start up.
@@ -142,6 +178,7 @@ public class CustomerViewController {
     timeLabel.getStylesheets().add(getClass().getResource("label.css").toExternalForm());
     orderInfoButton.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
     reloadPush();
+    stars();
   }
 
   /**
@@ -170,53 +207,18 @@ public class CustomerViewController {
   /**
    * sends order to server when order is pressed.
    * 
-   * @throws Exception the exception
+   * @throws Exception
    */
   @FXML
   private void sendOrder() throws Exception {
-    /*
-     * needs to check if order is valid.
-     */
-    ObservableList<String> orders = orderedList.getItems();
-    /*
-     * Needs a new class and methods to run the following. This is only temporary.
-     */
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        try (Socket s = new Socket("192.168.1.13", 6666);
-            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-            DataInputStream dIn = new DataInputStream(s.getInputStream())) {
-          dout.writeUTF("CUSTOMER"); // tells server that you're a customer
-          dout.flush();
-          dout.writeUTF("ORDER " + orders.toString()); // tells server that you're giving a order.
-          dout.flush();
-          /*
-           * If order success message is received.
-           */
-          if (dIn.readUTF().equals("OK")) {
-            orderedList.getItems().clear();
-            Alert alert = new Alert(AlertType.NONE, "Order has been placed.", ButtonType.OK);
-            alert.show();
-            if (alert.getResult() == ButtonType.OK) {
-              dout.writeUTF("STOP"); // tells server that you have finished.
-              dout.flush();
-            }
-          }
-        } catch (IOException e) {
-          Alert alert = new Alert(AlertType.ERROR,
-              "Failed to make order, would you like to notify a staff member?", ButtonType.NO,
-              ButtonType.YES);
-          alert.show();
-          if (alert.getResult() == ButtonType.YES) {
-            /*
-             * Notify staff.
-             */
-          }
-          alert.close();
-        }
-      }
-    });
+    int tablenum = Integer.parseInt(tableNumber.getText());
+    tableNumber.clear();
+    
+    float price = (float)this.total;
+    total = 0;
+    customerData.placeOrder(orderedList, tablenum, price);
+    orderedList.getItems().clear();
+    
   }
 
   /**
@@ -590,6 +592,108 @@ public class CustomerViewController {
 
     paymentPane1.setVisible(true);
   }
+  
+  private void stars() {
 
+    starb1.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+      }
+    });
+
+    starb1.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+      }
+    });
+
+    starb2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+      }
+    });
+
+    starb2.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+      }
+    });
+
+    starb3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+      }
+    });
+
+    starb3.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+      }
+    });
+
+    starb4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+        yellow4.setVisible(true);
+      }
+    });
+
+    starb4.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+        yellow4.setVisible(false);
+      }
+    });
+
+    starb5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(true);
+        yellow2.setVisible(true);
+        yellow3.setVisible(true);
+        yellow4.setVisible(true);
+        yellow5.setVisible(true);
+      }
+    });
+
+    starb5.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        yellow1.setVisible(false);
+        yellow2.setVisible(false);
+        yellow3.setVisible(false);
+        yellow4.setVisible(false);
+        yellow5.setVisible(false);
+      }
+    });
+  }
+  
 }

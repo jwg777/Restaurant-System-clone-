@@ -4,9 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import consumable.Consumable;
 import consumable.MenuMap;
 import database_cafe.DataInteract;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 
 /**
@@ -45,21 +48,26 @@ public class CustomerAccess {
       String allergens = rs.getString("allergens");
       int calories = rs.getInt("calories");
       String type = rs.getString("type");
-
+      
       tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens));
     }
 
 
   }
 
+  
   /**
    * This method will be for placing orders. It will send data into the database to fill the order
    * table.
    * 
    * @param orders the orders
+   * @throws SQLException 
    */
-  public void placeOrder(String orders) {
-    // customerData.insertIntoTable("insert order data");
+  public void placeOrder( ListView<String> orders, int table_num, float price) throws SQLException {
+    
+    String dishes = orders.getItems().stream().map(Object::toString).collect(Collectors.joining(", "));
+    customerData.insertIntoTable("Orders", "", "'" + table_num + "', '" + price + "', '" + dishes + "', 'ordered'");
+
   }
 
   /**
@@ -79,10 +87,10 @@ public class CustomerAccess {
    */
   public String getStatusAndTime(String orderID) throws SQLException {
     String statusAndTime = ">";
-    ResultSet rs = customerData.select("SELECT status, orderTime FROM Orders " 
+    ResultSet rs = customerData.select("SELECT status FROM Orders " 
                                      + "WHERE OrderID = '" + orderID + "'");
     while (rs.next()) {
-      statusAndTime = rs.getString("status") + ">" + rs.getString("orderTime");
+      statusAndTime = rs.getString("status");
     }
     return statusAndTime;
   }
