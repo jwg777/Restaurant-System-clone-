@@ -92,6 +92,7 @@ public class CustomerAccess {
     while (rs.next()) {
       statusAndTime = rs.getString("status");
     }
+    System.out.println("Status" + statusAndTime);
     return statusAndTime;
   }
 
