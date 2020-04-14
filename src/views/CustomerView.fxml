@@ -130,42 +130,58 @@
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font></Text>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true"/>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="340.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true"/>
+                        <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                  	<image>
+                    	<Image url="@../img/star-white.png" />
+                    </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="340.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/star-white.png" />
+                     </image>
+                  </ImageView>
                   <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="385.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>
+                        <Image url="@../img/star-white.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="430.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>
+                        <Image url="@../img/star-white.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="475.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>
+                        <Image url="@../img/star-white.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="yellow1" fitHeight="45.0" fitWidth="45.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
+                        <Image url="@../img/star-yellow.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="yellow2" fitHeight="45.0" fitWidth="45.0" layoutX="340.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
+                        <Image url="@../img/star-yellow.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="yellow3" fitHeight="45.0" fitWidth="45.0" layoutX="385.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
+                        <Image url="@../img/star-yellow.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="yellow4" fitHeight="45.0" fitWidth="45.0" layoutX="430.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
+                        <Image url="@../img/star-yellow.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="yellow5" fitHeight="45.0" fitWidth="45.0" layoutX="475.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
+                        <Image url="@../img/star-yellow.png" />
                      </image>
                   </ImageView>
                         <Button fx:id="starb1" layoutX="21.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="1" />
-                 		<Button fx:id="starb2" layoutX="66.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="2" />
+                 		<Button fx:id="starb1" layoutX="66.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="2" />
                   		<Button fx:id="starb3" layoutX="111.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="3" />
                   		<Button fx:id="starb4" layoutX="156.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="4" />
                   		<Button fx:id="starb5" layoutX="201.0" layoutY="249.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="5" />

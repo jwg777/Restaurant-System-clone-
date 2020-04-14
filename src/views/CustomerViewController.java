@@ -136,7 +136,7 @@ public class CustomerViewController {
   private void initialize() throws Exception {
     mainTabPane.getStylesheets().add(getClass().getResource("Tabs.css").toExternalForm());
     nameBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
-    ratingBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
+    //ratingBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     orderID.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     statusLabel.getStylesheets().add(getClass().getResource("Label.css").toExternalForm());
     timeLabel.getStylesheets().add(getClass().getResource("Label.css").toExternalForm());
