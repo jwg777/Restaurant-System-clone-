@@ -31,12 +31,13 @@ public class Database {
 
     // for testing with set login credentials
     String user = "oaxaca";
+    String pass = "m3xic0"; 
 
     // tunneling
-    String database = "//localhost:5432/";
+    String database = "//localhost/";
 
 
-    connection = connectToDatabase(user, "", database);
+    connection = connectToDatabase(user, pass, database);
 
   }
 
