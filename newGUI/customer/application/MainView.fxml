@@ -261,11 +261,11 @@
                         <Image url="@../img/star-yellow.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="starb1" layoutX="296.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="1" />
-                  <Button fx:id="starb2" layoutX="341.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="2" />
-                  <Button fx:id="starb3" layoutX="386.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="3" />
-                  <Button fx:id="starb4" layoutX="431.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="4" />
-                  <Button fx:id="starb5" layoutX="476.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="5" />
+                  <Button fx:id="starc1" layoutX="296.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="1" />
+                  <Button fx:id="starc2" layoutX="341.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="2" />
+                  <Button fx:id="starc3" layoutX="386.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="3" />
+                  <Button fx:id="starc4" layoutX="431.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="4" />
+                  <Button fx:id="starc5" layoutX="476.0" layoutY="55.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" style="-fx-opacity: 0;" text="5" />
                </children>
             </AnchorPane>
          </children>
