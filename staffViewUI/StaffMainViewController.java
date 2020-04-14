@@ -1,8 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import application.IllegalDetails;
-import connection.ServerAccess;
+import backend.ServerAccess;
 import consumable.Consumable;
 import consumable.MenuMap;
 import javafx.animation.FadeTransition;
@@ -25,7 +24,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import order.Order;
 import order.OrderMap;
-import server.Server;
 
 public class StaffMainViewController {
 
@@ -118,7 +116,7 @@ public class StaffMainViewController {
 
   OrderMap order = OrderMap.getInstance();
 
-  // ServerAccess connection = ServerAccess.getInstance();
+  ServerAccess connection = ServerAccess.getInstance();
 
   @FXML
   private void initialize() throws IOException {
@@ -246,9 +244,7 @@ public class StaffMainViewController {
         validInput++;
       }
       if (validInput == 2) {
-        /*
-         * Confirm login details number with server. And get the staff ID.
-         */
+        connection.setConnection("167.99.149.174", usernameField.getText(), passwordField.getText());
       }
       confirmationPane.toBack();
     } catch (Exception e) {
