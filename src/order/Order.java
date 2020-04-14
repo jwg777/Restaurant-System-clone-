@@ -12,16 +12,11 @@ public class Order implements Comparable<Order> {
   /** The unique identifier of the order. */
   private int orderID;
 
-  /** The unique identifier of the customer who made the order. */
-  private int custID;
-
   /**
    * The total price of the order, calculated by the total of the prices of each item in the order.
    */
   private float totalPrice;
-  
-  private String timeStamp;
-  
+
   /**
    * The status of the order. Can be waiting, processing or ready.
    */
@@ -42,16 +37,13 @@ public class Order implements Comparable<Order> {
    * @param status the status of the order
    * @param items The items ordered
    */
-  public Order(int orderID, int custID, float totalPrice, String timeStamp, String status, String items) {
+  public Order(int orderID, float totalPrice, String status, String items) {
     this.orderID = orderID;
-    this.custID = custID;
     this.totalPrice = totalPrice;
-    this.timeStamp = timeStamp;
     this.status = status;
     this.items = new ArrayList<Consumable>();
     String[] ingredients = items.split(",");
     for (String ingredient : ingredients) {
-      System.out.println(ingredient);
       Consumable item = new Consumable(ingredient);
       this.items.add(item);
     }
@@ -67,28 +59,11 @@ public class Order implements Comparable<Order> {
   }
 
   /**
-   * Returns the customer ID associated with the order.
-   * 
-   * @return the customer ID
-   */
-  public int getCustID() {
-    return this.custID;
-  }
-
-  /**
    * Returns the total price of the order.
    * @return the price of the order
    */
   public float getTotalPrice() {
     return this.totalPrice;
-  }
-  
-  /**
-   * Returns the time at which the order was comfirmed
-   * @return returns the timeStamp
-   */
-  public String getTimeStamp() {
-    return this.timeStamp;
   }
   
   /**

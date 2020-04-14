@@ -29,11 +29,11 @@ public class Database {
   public Database() {
 
     // for testing with set login credentials
-    String user = "zfac209";
-    String pass = "78021"; 
+    String user = "oaxaca";
+    String pass = "m3xic0"; 
 
     // tunneling
-    String database = "//localhost/CS2855/";
+    String database = "//localhost/";
 
     connection = connectToDatabase(user, pass, database);
 
