@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #edf5f5#edf5f5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WaiterViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #F0FFFF#F0FFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WaiterViewController">
    <children>
-      <TabPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #edf5f5#edf#edf5f5#edf5f55f5;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFF0#FFFFF0 #FFFFF0#FFFFF0;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="MENU">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="820.0" style="-fx-background-color: #edf5f5#edf5f5;">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="820.0">
                      <children>
                         <TabPane fx:id="menuTabPane" prefHeight="569.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
                            <tabs>
@@ -30,7 +30,7 @@
                                           <AnchorPane>
                                              <children>
                                                 <VBox fx:id="vboxSpecial" prefWidth="580.0" />
-                                                <HBox prefHeight="50.0" prefWidth="580.0">
+                                                <HBox prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: #FFF5EE#FFF5EE #FFF5EE#FFF5EE;">
                                                    <children>
                                                       <Pane prefHeight="50.0" prefWidth="25.0" />
                                                       <Label prefHeight="50.0" prefWidth="200.0" text="Specials 1" />
@@ -63,7 +63,7 @@
                                              <children>
                                                 <VBox fx:id="vboxStarter" prefWidth="580.0">
                                                    <children>
-                                                      <HBox prefHeight="50.0" prefWidth="580.0">
+                                                      <HBox prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: #FFF5EE#FFF5EE #FFF5EE#FFF5EE;">
                                                          <children>
                                                             <Pane prefHeight="50.0" prefWidth="25.0" />
                                                             <Label prefHeight="50.0" prefWidth="200.0" text="Starter 1 asdasdasdasdadadasdas" />
@@ -146,7 +146,7 @@
                         </TabPane>
                         <AnchorPane layoutX="600.0" prefHeight="567.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="AddDel" layoutX="70" layoutY="3.0" mnemonicParsing="false" onAction="#addDeletePush" prefHeight="27.0" prefWidth="98.0" stylesheets="@button.css" text="Add/Delete" />
+                              <Button fx:id="AddDel" layoutX="51.0" layoutY="1.0" mnemonicParsing="false" onAction="#addDeletePush" prefHeight="29.0" prefWidth="98.0" stylesheets="@button.css" text="Add/Delete" />
 
                               <ListView fx:id="orderedList" layoutX="12.0" layoutY="82.0" prefHeight="404.0" prefWidth="176.0" />
 
@@ -165,9 +165,9 @@
                            <tabs>
                               <Tab text="WAITING ORDERS">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="580.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="580.0" style="-fx-background-color: #FFFFF0#FFFFF0;">
                                        <children>
-                                          <ScrollPane prefWidth="600.0">
+                                          <ScrollPane prefWidth="600.0" style="-fx-background-color: #F0F8FF#F0F8FF;">
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0">
                                                    <children>
@@ -176,7 +176,7 @@
 
 
                                                          <children>
-                                                            <HBox fx:id="orderConfirm" prefHeight="50.0" prefWidth="580.0">
+                                                            <HBox fx:id="orderConfirm" prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: #FFF5EE#FFF5EE;">
                                                                <children>
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="150.0" text="order_name" />
@@ -187,7 +187,7 @@
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
-                                                                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="50.0" stylesheets="@button.css" text="confirm">
+                                                                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="50.0" prefWidth="63.0" stylesheets="@button.css" text="confirm">
                                                                            <font>
                                                                               <Font size="8.0" />
                                                                            </font>
@@ -224,7 +224,7 @@
                                                    <children>
                                                       <VBox prefHeight="50.0" prefWidth="600.0">
                                                          <children>
-                                                            <HBox prefHeight="50.0" prefWidth="580.0">
+                                                            <HBox prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: #FFF5EE#FFF5EE;">
                                                                <children>
                                                                   <Pane prefHeight="50.0" prefWidth="25.0" />
                                                                   <Label prefHeight="50.0" prefWidth="105.0" text="order_name1" />
@@ -245,7 +245,7 @@
                                                                   </StackPane>
                                                                   <StackPane prefHeight="50.0" prefWidth="80.0">
                                                                      <children>
-                                                                        <Button mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="50.0" stylesheets="@button.css" text="Cancel">
+                                                                        <Button mnemonicParsing="false" onAction="#cancelOrder" prefHeight="50.0" prefWidth="55.0" stylesheets="@button.css" text="Cancel">
                                                                            <font>
                                                                               <Font size="8.0" />
                                                                            </font>
@@ -317,6 +317,6 @@
         </Tab>
       </tabs>
     </TabPane>
-    <Button layoutX="649.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="29.0" prefWidth="153.0" stylesheets="@button.css" text="Back To Main Menu" />
+    <Button layoutX="649.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="29.0" prefWidth="153.0" style="-fx-background-color: #FFFFF0#FFFFF0;" text="Back To Main Menu" />
   </children>
 </AnchorPane>
