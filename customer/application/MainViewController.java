@@ -314,8 +314,7 @@ public class MainViewController {
   @FXML
   private void orderPlaced() {
     for (Order order : orders.getOrderList()) {
-      // connection.order(order);
-      order.setStatus("WAITING");
+      connection.order(order);
     }
   }
 

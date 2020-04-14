@@ -152,7 +152,8 @@ public final class Database {
       ResultSet rs = select("orders", "cust_id = " + order.getCustID() + " AND dish_id = "
           + order.getDishID() + " AND order_time = " + time.toString() + " AND status = WAITING");
       while (rs.next()) {
-        order.setOrderID(rs.getInt("order_id"));
+        System.out.println(rs.getInt("order_id"));
+        //order.setOrderID(rs.getInt("order_id"));
       }
     } catch (SQLException e) {
       e.printStackTrace();
