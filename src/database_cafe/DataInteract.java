@@ -20,7 +20,6 @@ public final class DataInteract {
   private DataInteract() {
     System.out.println("Database connection flag...");
     database = new Database();
-
     database.createTable(
         "Menu(dish varChar(100) primary key, price numeric(4, 2), allergens varchar(500), calories int, type varchar(100))");
     database.createTable(

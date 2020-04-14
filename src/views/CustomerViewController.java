@@ -174,8 +174,8 @@ public class CustomerViewController {
     nameBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     //ratingBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     orderID.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
-    statusLabel.getStylesheets().add(getClass().getResource("Label.css").toExternalForm());
-    timeLabel.getStylesheets().add(getClass().getResource("Label.css").toExternalForm());
+    statusLabel.getStylesheets().add(getClass().getResource("label.css").toExternalForm());
+    timeLabel.getStylesheets().add(getClass().getResource("label.css").toExternalForm());
     orderInfoButton.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
     reloadPush();
     stars();

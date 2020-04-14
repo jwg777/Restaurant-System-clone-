@@ -1,5 +1,6 @@
 package views;
 
+import backend.LoginAccess;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -14,7 +15,7 @@ public class LoginViewController {
 
 
   /** Object containing methods for the login view to interact with the database **/
-  // private LoginAccess loginData = new LoginAccess();
+  private LoginAccess loginData = new LoginAccess();
 
   /** The field where the user enters a username. */
   @FXML
@@ -54,15 +55,19 @@ public class LoginViewController {
     String username = userField.getText();
     String password = passwordField.getText();
     
-    /*
-     * if (loginData.checkUser(username, password)) { if (loginData.isKitchen(username)) {
-     * System.out.println("Kitchen successfully authenticated"); butController.startKitchen(); }
-     * else { System.out.println("Waiter successfully authenticated"); butController.startWaiter();
-     * } } else { errorMessage.setVisible(true); System.out.println("Authentication failed"); }
-     */
-
-    butController.startWaiter();
-    //butController.startKitchen();
+    if (loginData.checkUser(username, password)) {
+      String role = loginData.checkRole(username);
+      if (role.equals("KITCHEN")) {
+        System.out.println("Kitchen successfully authenticated"); 
+        butController.startKitchen(); 
+      } else if (role.equals("WAITER")) { 
+        System.out.println("Waiter successfully authenticated"); 
+        butController.startWaiter();
+      }
+    } else { 
+      errorMessage.setVisible(true); 
+      System.out.println("Authentication failed");
+    }
   }
 }
 
