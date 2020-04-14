@@ -198,8 +198,7 @@ public class MainViewController {
         }
       });
     });
-    connection.setConnection("167.99.149.174", Integer.toString(tableNumConfirmed()));
-    connection.getMenu();
+    //connection.getMenu();
   }
 
   private void addCategory(
@@ -305,6 +304,7 @@ public class MainViewController {
        * Confirm table number with server. And get the customer ID.
        */
       confirmationPane.toBack();
+      connection.setConnection("167.99.149.174", Integer.toString(tableNum));
     } catch (Exception e) {
       tableField.setText("");
     }

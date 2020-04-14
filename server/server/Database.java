@@ -31,7 +31,7 @@ public final class Database {
    */
   private Database() {
     String user = "oaxaca";
-    String database = "//localhost:5432/";
+    String database = "//127.0.0.1:5432/";
     connection = connectToDatabase(user, database);
     update();
   }
@@ -233,7 +233,7 @@ public final class Database {
   }
 
   public void updateCustomers() {
-    ResultSet rs = select("customers", "paid = f");
+    ResultSet rs = select("customers");
     try {
       while (rs.next()) {
         int id = rs.getInt("cust_id");
@@ -263,15 +263,18 @@ public final class Database {
       }
       // Adds to database
       Statement st = connection.createStatement();
-      st.execute("INSERT INTO customers(table_no, total_price, paid) VALUES ('"
-          + customer.getTable_number() + ", 0, f);");
+      st.execute("INSERT INTO customers(table_no, total_price, paid) VALUES ("
+          + customer.getTable_number() + ", 0, false);");
       ResultSet rs =
           select("customers", "table_no =" + customer.getTable_number() + " AND paid = false");
-      customer.setId(rs.getInt("cust_id"));
+      while(rs.next()) {
+        customer.setId(rs.getInt("cust_id"));
+      }
       st.close();
       // Adds to local list
       customerList.add(customer);
     } catch (SQLException e) {
+      e.printStackTrace();
       System.out.println("Failed to add customer to database");
     }
   }
@@ -306,7 +309,7 @@ public final class Database {
     ResultSet rs = null;
     try {
       Statement st = connection.createStatement();
-      rs = st.executeQuery("SELECT * FROM " + table + " WHERE " + clause);
+      rs = st.executeQuery("SELECT * FROM " + table + " WHERE " + clause + ";");
     } catch (SQLException e) {
       e.printStackTrace();
     }
