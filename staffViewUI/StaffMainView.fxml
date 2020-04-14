@@ -17,7 +17,7 @@
 	<children>
 		<StackPane fx:id="confirmationPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: E5FAF8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
-				<VBox maxHeight="250.0" maxWidth="400.0" prefHeight="269.0" prefWidth="400.0" style="-fx-background-color: #92E0E1; -fx-background-radius: 10;">
+				<VBox maxHeight="294.0" maxWidth="400.0" prefHeight="294.0" prefWidth="400.0" style="-fx-background-color: #92E0E1; -fx-background-radius: 10;">
 					<children>
 						<StackPane prefHeight="82.0" prefWidth="400.0">
 							<children>
@@ -28,16 +28,16 @@
 								</Label>
 							</children>
 						</StackPane>
-						<StackPane prefHeight="82.0" prefWidth="400.0">
+						<StackPane prefHeight="163.0" prefWidth="400.0">
 							<children>
-								<TextField fx:id="tableField" alignment="CENTER" maxWidth="150.0" promptText="Table Number ">
+								<TextField fx:id="unameField" alignment="CENTER" maxWidth="150.0" promptText="Table Number ">
 									<font>
 										<Font size="16.0" />
 									</font>
 								</TextField>
 							</children>
 						</StackPane>
-						<StackPane prefHeight="82.0" prefWidth="400.0">
+						<StackPane prefHeight="86.0" prefWidth="400.0">
 							<children>
 								<Button fx:id="confirmButton" mnemonicParsing="false" onAction="#tableNumConfirmed" stylesheets="@menuButtons.css" text="Confirm" />
 							</children>
