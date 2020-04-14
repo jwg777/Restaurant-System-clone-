@@ -7,15 +7,14 @@ import java.net.Socket;
 import consumable.Consumable;
 import consumable.MenuMap;
 import order.Order;
-import server.ClientType;
-import server.Customer;
+//import server.Customer;
 
 public class RequestThread extends Thread {
 
   private DataInputStream input;
   private DataOutputStream output;
 
-  private ClientType role;
+  private String role;
   private String staffID;
 
   public RequestThread(Socket socket) {
@@ -37,7 +36,7 @@ public class RequestThread extends Thread {
       output.flush();
       String[] response = input.readUTF().split(" ");
       if (response[0].equals("ACCEPTED")) {
-        role = ClientType.getType(response[1]);
+        role = response[1];
         staffID = username;
         return true;
       }
@@ -69,7 +68,7 @@ public class RequestThread extends Thread {
   }
 
   public boolean confirmOrder(Order order) {
-    if (role != ClientType.WAITER) {
+    if (!role.equals("WAITER")) {
       return false;
     }
     try {
@@ -88,7 +87,7 @@ public class RequestThread extends Thread {
     }
     // A waiter can cancel an order at any time if not completed.
     // A kitchen employee can only cancel an order if it is confirmed or processing
-    if (role == ClientType.KITCHEN
+    if (role.equals("KITCHEN")
         & (!order.getStatus().equals("CONFIRMED") | !order.getStatus().equals("PROCESSING"))) {
       return false;
     }
@@ -102,7 +101,7 @@ public class RequestThread extends Thread {
   }
 
   public boolean orderDelivered(Order order) {
-    if (role != ClientType.WAITER) {
+    if (!role.equals("WAITER")) {
       return false;
     }
     try {
@@ -114,8 +113,8 @@ public class RequestThread extends Thread {
     return checkAccepted();
   }
 
-  public boolean deleteMessage(Customer customer) {
-    if (role != ClientType.WAITER) {
+  /*public boolean deleteMessage(Customer customer) {
+    if (!role.equals("WAITER")) {
       return false;
     }
     try {
@@ -125,10 +124,10 @@ public class RequestThread extends Thread {
       e.printStackTrace();
     }
     return checkAccepted();
-  }
+  } */
 
   public boolean addDish(Consumable consumable) {
-    if (role != ClientType.WAITER) {
+    if (!role.equals("WAITER")) {
       return false;
     }
     try {
@@ -141,7 +140,7 @@ public class RequestThread extends Thread {
   }
 
   public boolean deleteDish(Consumable consumable) {
-    if (role != ClientType.WAITER) {
+    if (!role.equals("WAITER")) {
       return false;
     }
     try {
@@ -154,7 +153,7 @@ public class RequestThread extends Thread {
   }
 
   public boolean updateDish(Consumable consumable) {
-    if (role != ClientType.WAITER) {
+    if (!role.equals("WAITER")) {
       return false;
     }
     try {
@@ -167,7 +166,7 @@ public class RequestThread extends Thread {
   }
 
   public boolean processingOrder(Order order) {
-    if (role != ClientType.KITCHEN) {
+    if (!role.equals("KITCHEN")) {
       return false;
     }
     try {
@@ -180,7 +179,7 @@ public class RequestThread extends Thread {
   }
 
   public boolean readyOrder(Order order) {
-    if (role != ClientType.KITCHEN) {
+    if (!role.equals("KITCHEN")) {
       return false;
     }
     try {

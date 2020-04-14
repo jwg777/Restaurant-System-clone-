@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import consumable.Consumable;
 import order.Order;
-import server.Customer;
 
 /**
  * Class to manage accessing server, include reading and writing.
@@ -79,9 +78,9 @@ final public class ServerAccess {
     return request.orderDelivered(order);
   }
 
-  public boolean deleteMessage(Customer customer) {
+  /*public boolean deleteMessage(Customer customer) {
     return request.deleteMessage(customer);
-  }
+  } */
 
   public boolean addDish(Consumable consumable) {
     return request.addDish(consumable);
@@ -103,3 +102,4 @@ final public class ServerAccess {
     return request.readyOrder(order);
   }
 }
+
