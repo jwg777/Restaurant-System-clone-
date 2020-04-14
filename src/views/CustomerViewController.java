@@ -81,7 +81,11 @@ public class CustomerViewController {
 
   @FXML
   private TextField nameBox;
+  
+  @FXML
+  private TextField tableNumber;
 
+  
   @FXML
   private TextField ratingBox;
 
@@ -207,9 +211,11 @@ public class CustomerViewController {
    */
   @FXML
   private void sendOrder() throws Exception {
-    int tablenum = 12;
+    int tablenum = Integer.parseInt(tableNumber.getText());
+    tableNumber.clear();
     
-    float price = 12.02f;
+    //float price = Float.parseFloat(this.total);
+    float price = 23.32f;
     customerData.placeOrder(orderedList, tablenum, price);
 
     orderedList.getItems().clear();
