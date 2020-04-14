@@ -186,6 +186,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" stylesheets="@Buttons.css" text="Back To Main Menu" />
+      <Button layoutX="625.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="31.0" prefWidth="172.0" stylesheets="@Buttons.css" text="Back To Main Menu" />
    </children>
 </AnchorPane>

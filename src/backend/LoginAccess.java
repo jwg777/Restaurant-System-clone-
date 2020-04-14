@@ -34,7 +34,8 @@ public class LoginAccess {
   public boolean checkUser(String username, String password) throws SQLException {
     ResultSet rs = loginData.select("SELECT * FROM Staff");
     while (rs.next()) {
-      if (rs.getString("staff_id").equals(username) && rs.getString("password").equals(password)) {
+      if (rs.getString("staff_username").equals(username) 
+          && rs.getString("password").equals(password)) {
         return true;
       }
     }
@@ -50,16 +51,18 @@ public class LoginAccess {
    * @return boolean
    * @throws SQLException
    */
-  public boolean isKitchen(String username) throws SQLException {
-    ResultSet rs = loginData.select("SELECT * FROM Staff");
+  public String checkRole(String username) throws SQLException {
+    ResultSet rs = loginData.select("SELECT * FROM Staff WHERE staff_username = '"
+        + username + "'");
     while (rs.next()) {
-      if (rs.getString("staff_id").equals(username) && rs.getString("role").equals("kitchen")) {
-        return true;
+      if (rs.getString("role").equals("kitchen")) {
+        return "KITCHEN";
+      }
+      if (rs.getString("role").equals("waiter")) {
+        return "WAITER";
       }
     }
-    return false;
+    return null;
   }
   
-  
-
 }
