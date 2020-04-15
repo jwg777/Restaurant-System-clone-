@@ -65,7 +65,7 @@
                         <Pane fx:id="paymentPane1" prefHeight="556.0" prefWidth="800.0" style="-fx-background-color: #edf5f5;">
                            <children>
                               <Button fx:id="cardContactless" layoutX="34.0" layoutY="107.0" mnemonicParsing="false" onAction="#cardButton" prefHeight="52.0" prefWidth="223.0" stylesheets="@button.css" text="CARD/CONTACTLESS" />
-                              <Button layoutX="342.0" layoutY="107.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="102.0" stylesheets="@button.css" text="CASH" />
+                              <Button fx:id="cashB" layoutX="342.0" layoutY="107.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="102.0" stylesheets="@button.css" text="CASH" />
                               <Button layoutX="577.0" layoutY="107.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="192.0" stylesheets="@button.css" text="OAXACA ACCOUNT" />
                               <ListView fx:id="paymentList" layoutX="44.0" layoutY="245.0" prefHeight="236.0" prefWidth="365.0" />
                               <Pane fx:id="ptotalPane" layoutX="529.0" layoutY="346.0" prefHeight="78.0" prefWidth="163.0" style="-fx-background-color: #92E0E1;" />
