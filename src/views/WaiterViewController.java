@@ -136,6 +136,11 @@ public class WaiterViewController {
   boolean emptyTextField;
 
 
+  @FXML
+  public void initialize() throws Exception {
+    menuReload();
+  }
+
   /**
    * Method for when the delete button is pushed.
    * 
@@ -440,7 +445,7 @@ public class WaiterViewController {
 
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      
+
       Alert confirmed = new Alert(AlertType.INFORMATION);
       confirmed.setTitle("Confirm Order");
       confirmed.setHeaderText(null);
