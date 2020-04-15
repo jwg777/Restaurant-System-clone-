@@ -1,8 +1,8 @@
 .tab-pane {
   -fx-tab-min-width:80px;
   -fx-tab-max-width:100px;
-  -fx-tab-min-height:40px;
-  -fx-tab-max-height:60px;
+  -fx-tab-min-height:60px;
+  -fx-tab-max-height:80px;
   -fx-font-weight:bold;
 }
 
@@ -22,7 +22,7 @@
 
 .tab:hover{
 	-fx-pref-width: 100;
-	-fx-pref-height: 60;
+	-fx-pref-height: 80;
 }
 
 /*
