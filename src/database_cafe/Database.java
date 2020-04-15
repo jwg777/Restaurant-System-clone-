@@ -16,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
  * interacting with this database.
  */
 public class Database {
-
   /** Field for storing the connection */
   @FXML
   private AnchorPane revScroll;
@@ -29,11 +28,11 @@ public class Database {
   public Database() {
 
     // for testing with set login credentials
-    String user = "oaxaca";
-    String pass = "m3xic0"; 
+    String user = "zfac209";
+    String pass = "78021"; 
 
     // tunneling
-    String database = "//localhost/";
+    String database = "//localhost/CS2855/";
 
     connection = connectToDatabase(user, pass, database);
 

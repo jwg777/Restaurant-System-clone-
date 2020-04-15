@@ -66,7 +66,7 @@ public class CustomerAccess {
   public void placeOrder( ListView<String> orders, int table_num, float price) throws SQLException {
     
     String dishes = orders.getItems().stream().map(Object::toString).collect(Collectors.joining(", "));
-    customerData.insertIntoTable("Orders", "", "'" + table_num + "', '" + price + "', '" + dishes + "', 'ordered'");
+    customerData.insertIntoTable("Orders", "", "'" + table_num + "', '" + price + "', '" + dishes + "', 'waiting'");
 
   }
 
@@ -76,6 +76,7 @@ public class CustomerAccess {
    */
   public void notifyWaiter(String message) {
     customerData.insertIntoTable("Messages", "", message);
+    System.out.println(message);
   }
 
   /** This method will get the status and last update time for an order.
@@ -92,7 +93,6 @@ public class CustomerAccess {
     while (rs.next()) {
       statusAndTime = rs.getString("status");
     }
-    System.out.println("Status" + statusAndTime);
     return statusAndTime;
   }
 

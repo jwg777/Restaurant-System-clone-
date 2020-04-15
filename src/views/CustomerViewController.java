@@ -431,14 +431,12 @@ public class CustomerViewController {
    * @param event on being pressed action
    * 
    */
-  @FXML
   private void getOrderInfo(ActionEvent event) {
     String orderNumber = orderID.getText();
     String status = "";
     try {
       status = customerData.getStatusAndTime(orderNumber);
-      
-      if (status.equals("")) {
+      if (status.equals(">")) {
         Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
         DialogPane dialog = alert.getDialogPane();
         dialog.getStylesheets().add(getClass().getResource("Alerts.css").toExternalForm());
@@ -455,6 +453,7 @@ public class CustomerViewController {
       timeLabel.setText("");
       orderID.setText("");
     }
+  }
   }
 
   private void scrollReviews() {
@@ -503,8 +502,6 @@ public class CustomerViewController {
       sendMessage.setContentText("The message has been successfully sent.");
       sendMessage.showAndWait();
     }
-    // will need to someohow contain order ID in the future so that the waiter can know which table
-    // has sent the message.
     customerData.notifyWaiter(message);
     textArea.clear();
   }
@@ -693,67 +690,6 @@ public class CustomerViewController {
       }
     });
   }
-  
-  /*private String rating;
-  
-  private String getRating() {
-    starb1.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        rating = "1";
-        yellow1.setVisible(true);
-      }
-    });
-    
-    starb2.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        rating = "2";
-        yellow1.setVisible(true);
-        yellow2.setVisible(true);
-      }
-    });
-    
-    starb3.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        rating = "3";
-        yellow1.setVisible(true);
-        yellow2.setVisible(true);
-        yellow3.setVisible(true);
-      }
-    });
-    
-    starb4.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        rating = "4";
-        yellow1.setVisible(true);
-        yellow2.setVisible(true);
-        yellow3.setVisible(true);
-        yellow4.setVisible(true);
-      }
-    });
-    
-    starb5.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        rating = "5";
-        yellow1.setVisible(true);
-        yellow2.setVisible(true);
-        yellow3.setVisible(true);
-        yellow4.setVisible(true);
-        yellow5.setVisible(true);
-      }
-    });
-    
-    return rating; 
-  }
-  
-  public String call() {
-    return "hello";
-  }
-  */
   
   @FXML
   private void cashB(ActionEvent event) throws IOException {

@@ -140,7 +140,7 @@ public class WaiterViewController {
   public void initialize() throws Exception {
     menuReload();
   }
-
+  
   /**
    * Method for when the delete button is pushed.
    * 
@@ -260,15 +260,7 @@ public class WaiterViewController {
    */
   @FXML
   private void orderReload() throws Exception {
-    /*
-     * tell other waiter clients to reload (temp).
-     */
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-
-      }
-    });
+    
     orders.clear();
     waiterData.viewOrders();
 
@@ -438,6 +430,7 @@ public class WaiterViewController {
    */
   @FXML
   public void confirmOrder() throws Exception {
+    System.out.println("!!!!!");
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("Confirm Order");
     alert.setHeaderText("Confirming this order will send order to the kitchen");
@@ -445,7 +438,7 @@ public class WaiterViewController {
 
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-
+      
       Alert confirmed = new Alert(AlertType.INFORMATION);
       confirmed.setTitle("Confirm Order");
       confirmed.setHeaderText(null);
