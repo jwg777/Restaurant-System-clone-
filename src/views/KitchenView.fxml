@@ -25,6 +25,7 @@
                            </children>
                         </AnchorPane>
                         <Button layoutX="573.0" layoutY="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="36.0" prefWidth="35.0" stylesheets="@button.css" text="⟳" textAlignment="CENTER" />
+
                         <TabPane fx:id="OrderTabPane" prefHeight="563.0" prefWidth="565.0" style="-fx-background-color: #edf5f5;" tabClosingPolicy="UNAVAILABLE" />
                      </children>
                   </AnchorPane>
@@ -49,6 +50,7 @@
               <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
+
                        <TextArea fx:id="notifyWaiter" layoutX="100" layoutY="60" prefHeight="300" prefWidth="300" stylesheets="@textarea.css" />
                        <Button layoutX="184.0" layoutY="370.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Send Message" />
                        
@@ -56,6 +58,7 @@
                        <ListView fx:id="messages" layoutX="420" layoutY="60" prefHeight="300" prefWidth="300.0" />
                        <Button layoutX="420.0" layoutY="370.0" mnemonicParsing="false" onAction="#getMessages" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Get Messages" />
                        <Button layoutX="575.0" layoutY="370.0" mnemonicParsing="false" onAction="#removeSelected" prefHeight="31.0" prefWidth="145.0" stylesheets="@button.css" text="Remove Selected" />
+
                      </children>
                   </AnchorPane>
               </content>
@@ -63,5 +66,6 @@
         </tabs>
       </TabPane>
       <Button layoutX="629.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="36.0" prefWidth="168.0" stylesheets="@button.css" text="Back To Main Menu" />
+
    </children>
 </AnchorPane>
