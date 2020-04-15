@@ -54,24 +54,6 @@ public class KitchenAccess {
   }
 
   /**
-   * Retrieves the current menu from the database.
-   * 
-   * @throws SQLException Thrown if query fails.
-   */
-  public void getMenu() throws SQLException {
-    /**
-     * ResultSet rs = kitchenData.select("SELECT * FROM Menu"); MenuMap tempMap =
-     * MenuMap.getInstance();
-     * 
-     * while (rs.next()) { String itemName = rs.getString("dish"); float itemPrice =
-     * rs.getFloat("price"); String allergens = rs.getString("allergens"); int calories =
-     * rs.getInt("calories"); String type = rs.getString("type");
-     * 
-     * tempMap.put(new Consumable(type, itemName, itemPrice, calories, allergens)); }
-     **/
-  }
-
-  /**
    * Method to check if an order is already paid.
    * 
    * @param custID To tell which customer has paid or not paid
@@ -117,7 +99,8 @@ public class KitchenAccess {
    * @param message
    */
   public void sendMessageWaiter(String message) {
-    // kitchenData.insertIntoTable("messages" + message);
+    message = "'" + "Kitchen Alert: " + message + "'";
+    kitchenData.insertIntoTable("Messages", "", message);
   }
 
   /**

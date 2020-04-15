@@ -15,16 +15,17 @@
         <tabs>
           <Tab text="KITCHENORDERS">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="620.0" style="-fx-background-color: #edf5f5;">
                      <children>
                         <AnchorPane layoutX="600.0" prefHeight="567.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="39.0" layoutY="444.0" mnemonicParsing="false" onAction="#pushStartedOrders" prefHeight="40.0" prefWidth="122.0" stylesheets="@button.css" text="Start Orders" />
-                              <Button layoutX="23.0" layoutY="500.0" mnemonicParsing="false" onAction="#pushCompleteOrders" prefHeight="40.0" prefWidth="155.0" stylesheets="@button.css" text="Mark as Complete" />
+                              <Button layoutX="40.0" layoutY="428.0" mnemonicParsing="false" onAction="#pushStartedOrders" prefHeight="40.0" prefWidth="122.0" stylesheets="@button.css" text="Start Orders" />
+                              <Button layoutX="24.0" layoutY="478.0" mnemonicParsing="false" onAction="#pushCompleteOrders" prefHeight="40.0" prefWidth="155.0" stylesheets="@button.css" text="Mark as Complete" />
                               <ListView fx:id="orderedList" layoutX="12.0" layoutY="14.0" prefHeight="404.0" prefWidth="176.0" />
                            </children>
                         </AnchorPane>
-                        <Button layoutX="569.0" layoutY="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="27.0" prefWidth="27.0" stylesheets="@button.css" text="⟳" textAlignment="CENTER" />
+                        <Button layoutX="573.0" layoutY="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="36.0" prefWidth="35.0" stylesheets="@button.css" text="⟳" textAlignment="CENTER" />
+
                         <TabPane fx:id="OrderTabPane" prefHeight="563.0" prefWidth="565.0" style="-fx-background-color: #edf5f5;" tabClosingPolicy="UNAVAILABLE" />
                      </children>
                   </AnchorPane>
@@ -49,19 +50,22 @@
               <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #edf5f5;">
                      <children>
-                       <TextArea fx:id="notifyWaiter" layoutX="100" layoutY="60" prefHeight="300" prefWidth="300" />
-                       <Button layoutX="250" layoutY="370" mnemonicParsing="false" onAction="#sendMessage" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Send Message" />
+
+                       <TextArea fx:id="notifyWaiter" layoutX="100" layoutY="60" prefHeight="300" prefWidth="300" stylesheets="@textarea.css" />
+                       <Button layoutX="184.0" layoutY="370.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Send Message" />
                        
                        
                        <ListView fx:id="messages" layoutX="420" layoutY="60" prefHeight="300" prefWidth="300.0" />
-                       <Button layoutX="450" layoutY="370" mnemonicParsing="false" onAction="#getMessages" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Get Messages" />
-                       <Button layoutX="450" layoutY="400" mnemonicParsing="false" onAction="#removeSelected" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Remove Selected" />
+                       <Button layoutX="420.0" layoutY="370.0" mnemonicParsing="false" onAction="#getMessages" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Get Messages" />
+                       <Button layoutX="575.0" layoutY="370.0" mnemonicParsing="false" onAction="#removeSelected" prefHeight="31.0" prefWidth="145.0" stylesheets="@button.css" text="Remove Selected" />
+
                      </children>
                   </AnchorPane>
               </content>
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="665.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="19.0" prefWidth="132.0" stylesheets="@button.css" text="Back To Main Menu" />
+      <Button layoutX="629.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnPush" prefHeight="36.0" prefWidth="168.0" stylesheets="@button.css" text="Back To Main Menu" />
+
    </children>
 </AnchorPane>

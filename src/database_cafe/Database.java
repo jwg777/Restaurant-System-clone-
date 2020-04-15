@@ -16,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
  * interacting with this database.
  */
 public class Database {
-
   /** Field for storing the connection */
   @FXML
   private AnchorPane revScroll;

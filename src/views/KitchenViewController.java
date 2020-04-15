@@ -116,7 +116,6 @@ public class KitchenViewController {
   private void newOrderReload() throws Exception {
     order.clear();
     kitchenData.getOrders();
-    kitchenData.getMenu();
     OrderTabPane.getTabs().clear();
     createOrders(order);
   }
@@ -312,7 +311,7 @@ public class KitchenViewController {
     send.setHeaderText(null);
     send.setContentText("Message has been sent.");
     send.showAndWait();
-    // kitchenData.sendMessageWaiter(word);
+    kitchenData.sendMessageWaiter(word);
   }
 
   /**

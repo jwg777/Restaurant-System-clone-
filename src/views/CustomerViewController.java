@@ -170,8 +170,7 @@ public class CustomerViewController {
    */
   @FXML
   private void initialize() throws Exception {
-    mainTabPane.getStylesheets().add(getClass().getResource("Tabs.css").toExternalForm());
-    nameBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
+    //mainTabPane.getStylesheets().add(getClass().getResource("Tabs.css").toExternalForm());
     //ratingBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     orderID.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     statusLabel.getStylesheets().add(getClass().getResource("label.css").toExternalForm());
@@ -229,13 +228,12 @@ public class CustomerViewController {
    */
   @FXML
   private void submitReview(ActionEvent event) throws IOException {
-    // System.out.println("Thanks");
+    // System.out.println("Thanks");  
     // method to submitReview
-    String rB = reviewBox.getText(), nB = nameBox.getText(), raB = ratingBox.getText();
+    String rB = reviewBox.getText(), nB = nameBox.getText(), raB = "5";
     System.out.println(nB + ", " + raB + ", " + rB);
     reviewBox.clear();
     nameBox.clear();
-    ratingBox.clear();
 
     File file = new File("Reviews");
     FileWriter fr = new FileWriter(file, true);
@@ -365,6 +363,7 @@ public class CustomerViewController {
     sPane.setPrefSize(50, 50);
     Button button = new Button(name); // Button to remove and add food to order list
     button.setPrefSize(40, 30);
+    button.getStylesheets().add(getClass().getResource("button.css").toExternalForm());
     sPane.getChildren().add(button);
     return sPane;
   }
@@ -393,6 +392,7 @@ public class CustomerViewController {
   private Label initialiseLabel(String name, double width, double height) {
     Label label = new Label(name);
     label.setPrefSize(width, height);
+    label.getStylesheets().add(getClass().getResource("label.css").toExternalForm());
     return label;
   }
 
@@ -437,8 +437,7 @@ public class CustomerViewController {
     String status = "";
     try {
       status = customerData.getStatusAndTime(orderNumber);
-      
-      if (status.equals("")) {
+      if (status.equals(">")) {
         Alert alert = new Alert(AlertType.NONE, "Order does not exist", ButtonType.OK);
         DialogPane dialog = alert.getDialogPane();
         dialog.getStylesheets().add(getClass().getResource("Alerts.css").toExternalForm());
@@ -503,8 +502,6 @@ public class CustomerViewController {
       sendMessage.setContentText("The message has been successfully sent.");
       sendMessage.showAndWait();
     }
-    // will need to someohow contain order ID in the future so that the waiter can know which table
-    // has sent the message.
     customerData.notifyWaiter(message);
     textArea.clear();
   }
@@ -694,4 +691,11 @@ public class CustomerViewController {
     });
   }
   
+  @FXML
+  private void cashB(ActionEvent event) throws IOException {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Cash Payment");
+    alert.setHeaderText("Someone is coming to take your cash");
+    alert.showAndWait();
+  }
 }

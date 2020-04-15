@@ -80,7 +80,7 @@ public class WaiterAccess {
     while (rs.next()) {
       int orderID = rs.getInt("orderID");
       float totalPrice = rs.getFloat("total_price");
-      String dish = rs.getString("dish");
+      String dish = rs.getString("dishes");
       String status = rs.getString("status");
       tempMap.put(status, new Order(orderID, totalPrice, status, dish));
     }
