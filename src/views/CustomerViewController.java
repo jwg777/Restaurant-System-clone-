@@ -170,7 +170,7 @@ public class CustomerViewController {
    */
   @FXML
   private void initialize() throws Exception {
-    mainTabPane.getStylesheets().add(getClass().getResource("Tabs.css").toExternalForm());
+    //mainTabPane.getStylesheets().add(getClass().getResource("Tabs.css").toExternalForm());
     //ratingBox.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     orderID.getStylesheets().add(getClass().getResource("textFields.css").toExternalForm());
     statusLabel.getStylesheets().add(getClass().getResource("label.css").toExternalForm());
