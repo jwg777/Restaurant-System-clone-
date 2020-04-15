@@ -431,6 +431,7 @@ public class CustomerViewController {
    * @param event on being pressed action
    * 
    */
+  @FXML
   private void getOrderInfo(ActionEvent event) {
     String orderNumber = orderID.getText();
     String status = "";
@@ -453,7 +454,6 @@ public class CustomerViewController {
       timeLabel.setText("");
       orderID.setText("");
     }
-  }
   }
 
   private void scrollReviews() {
