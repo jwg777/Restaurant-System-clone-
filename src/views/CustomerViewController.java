@@ -697,7 +697,7 @@ public class CustomerViewController {
   private void cashB(ActionEvent event) throws IOException {
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("Cash Payment");
-    alert.setHeaderText(
-        "Someone is coming to take your cash");
+    alert.setHeaderText("Someone is coming to take your cash");
+    alert.showAndWait();
   }
 }
