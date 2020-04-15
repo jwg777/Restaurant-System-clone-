@@ -28,7 +28,7 @@ public class Database {
   public Database() {
 
     // for testing with set login credentials
-    String user = "oxaca";
+    String user = "oaxaca";
     String pass = "m3xic0"; 
 
     // tunneling
