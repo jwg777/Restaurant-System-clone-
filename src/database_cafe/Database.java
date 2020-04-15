@@ -33,7 +33,7 @@ public class Database {
     String pass = "m3xic0"; 
 
     // tunneling
-    String database = "//localhost/";
+    String database = "//localhost/CS2855/";
 
     connection = connectToDatabase(user, pass, database);
 
