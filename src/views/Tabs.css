@@ -15,20 +15,20 @@
 }
 
 .tab {
-  -fx-background-color: #E5FAF8;
-  -fx-border-radius: 10 10 0 0;
-  -fx-background-radius: 10 10 0 0;
+	-fx-background-color: #E5FAF8;
+	-fx-border-radius: 10 10 0 0;
+	-fx-background-radius: 10 10 0 0;
 }
 
 .tab .tab-label { 
     -fx-alignment: CENTER;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-text-fill: #5370c9;
+  	-fx-text-fill: #5370c9;
 }
 
 .tab:hover{
-  -fx-background-color: #edf5f5;
+	-fx-background-color: #edf5f5;
 }
 
 /*
